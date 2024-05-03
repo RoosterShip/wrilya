@@ -1,0 +1,14 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "cSpell.words": [
+    "foundryup",
+    "latticexyz",
+    "mprocs",
+    "phaserjs",
+    "procs",
+    "viem",
+    "Wrilya"
+  ],
+  "elixirLS.mixEnv": "dev",
+  "elixirLS.projectDir": "packages/server"
+}

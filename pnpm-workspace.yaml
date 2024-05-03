@@ -1,0 +1,4 @@
+packages:
+  - packages/client
+  - packages/mud_client
+  - packages/contracts

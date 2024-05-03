@@ -1,0 +1,148 @@
+# ---------------------------------------------------------------------------
+# Docker setup for local development and testing.
+#
+# This compose file should have pretty much everything needed to run a local
+# copy of the service.  The goal here is to make an easy to debug environment
+# that doesn't require any other external hosting.
+services:
+  # ---------------------------------------------------------------------------
+  # Setup the local redis server.
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:alpine
+    container_name: redis
+    hostname: redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    networks:
+      open:
+        aliases:
+          - redis
+
+  # ---------------------------------------------------------------------------
+  # Setup the local Postgres server.
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:alpine
+    container_name: postgres
+    hostname: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      open:
+        aliases:
+          - postgres
+
+  # ---------------------------------------------------------------------------
+  # Setup the local PGAdmin
+  # ---------------------------------------------------------------------------
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@postgres.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    ports:
+      - "8888:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      open:
+        aliases:
+          - pgadmin
+
+  # ---------------------------------------------------------------------------
+  # Setup the local blockchain
+  # ---------------------------------------------------------------------------
+  anvil:
+    image: ghcr.io/foundry-rs/foundry:latest
+    container_name: anvil
+    hostname: anvil
+    ports:
+      - "8545:8545"
+    working_dir: /anvil
+    entrypoint:
+      - anvil
+      - --host
+      - "0.0.0.0"
+      - --base-fee
+      - "0"
+      - --block-time
+      - "2"
+      - --chain-id
+      - "31337"
+    networks:
+      open:
+        aliases:
+          - anvil
+
+  # ---------------------------------------------------------------------------
+  # Setup the indexer
+  # ---------------------------------------------------------------------------
+  indexer:
+    image: ghcr.io/latticexyz/store-indexer:main
+    container_name: indexer
+    hostname: indexer
+    ports:
+      - "3001:3001"
+    environment:
+      RPC_HTTP_URL: http://host.docker.internal:8545
+      DATABASE_URL: postgres://postgres:postgres@host.docker.internal:5432/postgres
+    working_dir: /app/packages/store-indexer
+    entrypoint:
+      - pnpm
+      - start:postgres-decoded
+    networks:
+      open:
+        aliases:
+          - indexer
+
+  # ---------------------------------------------------------------------------
+  # Setup the Faucet
+  # ---------------------------------------------------------------------------
+  faucet:
+    image: ghcr.io/latticexyz/faucet:main
+    container_name: faucet
+    hostname: faucet
+    ports:
+      - "3002:3002"
+    environment:
+      RPC_HTTP_URL: http://host.docker.internal:8545
+      FAUCET_PRIVATE_KEY: 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+      DRIP_AMOUNT: 1
+    working_dir: /app/packages/faucet
+    entrypoint:
+      - pnpm
+      - start
+    networks:
+      open:
+        aliases:
+          - faucet
+
+  # ---------------------------------------------------------------------------
+  # Setup the local rabbitmq.
+  # ---------------------------------------------------------------------------
+  rabbitmq:
+    image: rabbitmq:alpine
+    container_name: rabbitmq
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+    networks:
+      open:
+        aliases:
+          - rabbitmq
+
+networks:
+  open:
+    driver: bridge
+
+volumes:
+  pgadmin-data:
