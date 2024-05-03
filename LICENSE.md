@@ -1,4 +1,7 @@
-Wrilya, a Community Oriented Game
+# GNU General Public License
+
+## Wrilya: A Community Oriented Game
+
 Copyright (C) 2024 Decentralized Consulting
 
 This program is free software: you can redistribute it and/or modify
