@@ -5,6 +5,8 @@ import Preload from "./scenes/Preload";
 import { setup } from "./mud/setup";
 import mudConfig from "contracts/mud.config";
 
+import ButtonPlugin from 'phaser3-rex-plugins/plugins/button-plugin.js';
+
 // Setup the MUD framework
 const {
   components,
@@ -21,6 +23,8 @@ class Boot extends Phaser.Scene {
     preload() {
 
         this.load.pack("pack", preloadAssetPackUrl);
+        this.load.pack("background", preloadAssetPackUrl);
+        this.load.pack("ui", preloadAssetPackUrl);
     }
 
     create() {
@@ -30,8 +34,7 @@ class Boot extends Phaser.Scene {
 }
 
 window.addEventListener('load', function () {
-	
-	const game = new Phaser.Game({
+	const config: Phaser.Types.Core.GameConfig = {
 		width: 1280,
 		height: 720,
 		backgroundColor: "#2f2f2f",
@@ -39,8 +42,18 @@ window.addEventListener('load', function () {
 			mode: Phaser.Scale.ScaleModes.FIT,
 			autoCenter: Phaser.Scale.Center.CENTER_BOTH
 		},
-		scene: [Boot, Preload, Level]
-	});
+		scene: [Boot, Preload, Level],
+        plugins: {
+            global: [
+                {
+                    key: 'rexButton',
+                    plugin: ButtonPlugin,
+                    start: true
+                }
+            ]
+        }
+    };
+	const game = new Phaser.Game(config);
 
 	game.scene.start("Boot");
 });

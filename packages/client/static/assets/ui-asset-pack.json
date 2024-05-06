@@ -1,0 +1,273 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/ui/Accept.png",
+                "type": "image",
+                "key": "Accept"
+            },
+            {
+                "url": "assets/ui/Backward_BTN.png",
+                "type": "image",
+                "key": "Backward_BTN"
+            },
+            {
+                "url": "assets/ui/Backward_BTNA.png",
+                "type": "image",
+                "key": "Backward_BTNA"
+            },
+            {
+                "url": "assets/ui/Close_BTN.png",
+                "type": "image",
+                "key": "Close_BTN"
+            },
+            {
+                "url": "assets/ui/Close_BTNA.png",
+                "type": "image",
+                "key": "Close_BTNA"
+            },
+            {
+                "url": "assets/ui/Facebook_BTN.png",
+                "type": "image",
+                "key": "Facebook_BTN"
+            },
+            {
+                "url": "assets/ui/Facebook_BTNA.png",
+                "type": "image",
+                "key": "Facebook_BTNA"
+            },
+            {
+                "url": "assets/ui/FAQ_BTN.png",
+                "type": "image",
+                "key": "FAQ_BTN"
+            },
+            {
+                "url": "assets/ui/FAQ_BTNA.png",
+                "type": "image",
+                "key": "FAQ_BTNA"
+            },
+            {
+                "url": "assets/ui/Forward_BTN.png",
+                "type": "image",
+                "key": "Forward_BTN"
+            },
+            {
+                "url": "assets/ui/Forward_BTNA.png",
+                "type": "image",
+                "key": "Forward_BTNA"
+            },
+            {
+                "url": "assets/ui/Google_BTN.png",
+                "type": "image",
+                "key": "Google_BTN"
+            },
+            {
+                "url": "assets/ui/Google_BTNA.png",
+                "type": "image",
+                "key": "Google_BTNA"
+            },
+            {
+                "url": "assets/ui/Hangar_BTN.png",
+                "type": "image",
+                "key": "Hangar_BTN"
+            },
+            {
+                "url": "assets/ui/Hangar_BTNA.png",
+                "type": "image",
+                "key": "Hangar_BTNA"
+            },
+            {
+                "url": "assets/ui/Info_BTN.png",
+                "type": "image",
+                "key": "Info_BTN"
+            },
+            {
+                "url": "assets/ui/Info_BTNA.png",
+                "type": "image",
+                "key": "Info_BTNA"
+            },
+            {
+                "url": "assets/ui/Information.png",
+                "type": "image",
+                "key": "Information"
+            },
+            {
+                "url": "assets/ui/Menu_BTN.png",
+                "type": "image",
+                "key": "Menu_BTN"
+            },
+            {
+                "url": "assets/ui/Menu_BTNA.png",
+                "type": "image",
+                "key": "Menu_BTNA"
+            },
+            {
+                "url": "assets/ui/More_Games_BTN.png",
+                "type": "image",
+                "key": "More_Games_BTN"
+            },
+            {
+                "url": "assets/ui/More_Games_BTNA.png",
+                "type": "image",
+                "key": "More_Games_BTNA"
+            },
+            {
+                "url": "assets/ui/Music_BTN.png",
+                "type": "image",
+                "key": "Music_BTN"
+            },
+            {
+                "url": "assets/ui/Music_BTNA.png",
+                "type": "image",
+                "key": "Music_BTNA"
+            },
+            {
+                "url": "assets/ui/Notifications_BTN.png",
+                "type": "image",
+                "key": "Notifications_BTN"
+            },
+            {
+                "url": "assets/ui/Notifications_BTNA.png",
+                "type": "image",
+                "key": "Notifications_BTNA"
+            },
+            {
+                "url": "assets/ui/Ok_BTN.png",
+                "type": "image",
+                "key": "Ok_BTN"
+            },
+            {
+                "url": "assets/ui/Ok_BTNA.png",
+                "type": "image",
+                "key": "Ok_BTNA"
+            },
+            {
+                "url": "assets/ui/Pause_BTN.png",
+                "type": "image",
+                "key": "Pause_BTN"
+            },
+            {
+                "url": "assets/ui/Pause_BTNA.png",
+                "type": "image",
+                "key": "Pause_BTNA"
+            },
+            {
+                "url": "assets/ui/Play_BTN.png",
+                "type": "image",
+                "key": "Play_BTN"
+            },
+            {
+                "url": "assets/ui/Play_BTNA.png",
+                "type": "image",
+                "key": "Play_BTNA"
+            },
+            {
+                "url": "assets/ui/Purchase.png",
+                "type": "image",
+                "key": "Purchase"
+            },
+            {
+                "url": "assets/ui/Rating_BTN.png",
+                "type": "image",
+                "key": "Rating_BTN"
+            },
+            {
+                "url": "assets/ui/Rating_BTNA.png",
+                "type": "image",
+                "key": "Rating_BTNA"
+            },
+            {
+                "url": "assets/ui/Replay_BTN.png",
+                "type": "image",
+                "key": "Replay_BTN"
+            },
+            {
+                "url": "assets/ui/Replay_BTNA.png",
+                "type": "image",
+                "key": "Replay_BTNA"
+            },
+            {
+                "url": "assets/ui/Settings_BTN.png",
+                "type": "image",
+                "key": "Settings_BTN"
+            },
+            {
+                "url": "assets/ui/Settings_BTNA.png",
+                "type": "image",
+                "key": "Settings_BTNA"
+            },
+            {
+                "url": "assets/ui/Shop_BTN.png",
+                "type": "image",
+                "key": "Shop_BTN"
+            },
+            {
+                "url": "assets/ui/Shop_BTNA.png",
+                "type": "image",
+                "key": "Shop_BTNA"
+            },
+            {
+                "url": "assets/ui/Sound_BTN.png",
+                "type": "image",
+                "key": "Sound_BTN"
+            },
+            {
+                "url": "assets/ui/Sound_BTNA.png",
+                "type": "image",
+                "key": "Sound_BTNA"
+            },
+            {
+                "url": "assets/ui/Twitter_BTN.png",
+                "type": "image",
+                "key": "Twitter_BTN"
+            },
+            {
+                "url": "assets/ui/Twitter_BTNA.png",
+                "type": "image",
+                "key": "Twitter_BTNA"
+            },
+            {
+                "url": "assets/ui/Upgrade_BTN.png",
+                "type": "image",
+                "key": "Upgrade_BTN"
+            },
+            {
+                "url": "assets/ui/Upgrade_BTNA.png",
+                "type": "image",
+                "key": "Upgrade_BTNA"
+            },
+            {
+                "url": "assets/ui/Vibration_BTN.png",
+                "type": "image",
+                "key": "Vibration_BTN"
+            },
+            {
+                "url": "assets/ui/Vibration_BTNA.png",
+                "type": "image",
+                "key": "Vibration_BTNA"
+            },
+            {
+                "url": "assets/ui/VK_BTN.png",
+                "type": "image",
+                "key": "VK_BTN"
+            },
+            {
+                "url": "assets/ui/VK_BTNA.png",
+                "type": "image",
+                "key": "VK_BTNA"
+            },
+            {
+                "url": "assets/ui/Window.png",
+                "type": "image",
+                "key": "Window"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}

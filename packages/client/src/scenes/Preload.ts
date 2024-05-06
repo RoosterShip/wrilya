@@ -7,6 +7,8 @@ import Phaser from "phaser";
 import PreloadBarUpdaterScript from "../script-nodes/PreloadBarUpdaterScript";
 /* START-USER-IMPORTS */
 import assetPackUrl from "../../static/assets/asset-pack.json";
+import backgroundAssetPackUrl from "../../static/assets/background-asset-pack.json";
+import uiAssetPackUrl from "../../static/assets/ui-asset-pack.json";
 /* END-USER-IMPORTS */
 
 export default class Preload extends Phaser.Scene {
@@ -58,6 +60,8 @@ export default class Preload extends Phaser.Scene {
 		this.editorCreate();
 
 		this.load.pack("asset-pack", assetPackUrl);
+		this.load.pack("ui-asset-pack", uiAssetPackUrl);
+		this.load.pack("background-asset-pack", backgroundAssetPackUrl);
 	}
 
 	create() {
@@ -76,6 +80,10 @@ export default class Preload extends Phaser.Scene {
 		}
 
 		this.scene.start("Level");
+	}
+
+	init(message: object){
+		console.log("** MESSAGE, %s", JSON.stringify(message, null, 2))
 	}
 
 	/* END-USER-CODE */
