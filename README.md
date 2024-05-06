@@ -2,6 +2,12 @@
 
 Community Oriented Game (COG)
 
+## Project Documentation
+
+- Github Wiki: For technical and engineering level documentation
+- Github Projects: For task tracking and release management
+- Gitbook: For product documentation and community information [here](https://docs.roostership.com/wrilya)
+
 ## Running the Project
 
 Assuming you have all the needed software installed
