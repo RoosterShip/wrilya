@@ -187,6 +187,9 @@ importers:
       '@latticexyz/world':
         specifier: 2.0.7
         version: 2.0.7(typescript@5.4.2)
+      client:
+        specifier: workspace:*
+        version: link:../client
       contracts:
         specifier: workspace:*
         version: link:../contracts

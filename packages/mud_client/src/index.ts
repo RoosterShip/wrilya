@@ -1,4 +1,4 @@
-import { setup } from "./mud/setup";
+import { setup } from "client/src/mud/setup";
 import mudConfig from "contracts/mud.config";
 
 const {
