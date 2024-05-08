@@ -2,8 +2,9 @@
 solc = "0.8.24"
 ffi = false
 fuzz_runs = 256
-optimizer = true
-optimizer_runs = 3000
+#optimizer = true
+#optimizer_runs = 3000
+via_ir = true
 verbosity = 2
 src = "src"
 test = "test"
