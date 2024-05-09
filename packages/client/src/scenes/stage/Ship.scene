@@ -1,0 +1,43 @@
+{
+    "id": "c60b67f7-f933-44f0-ba7d-7cd3cce71b80",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Ship",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "prefabId": "080a0bd3-0ffe-479b-8b31-1d6781e51df7",
+            "id": "6cd38dad-a913-469e-94e0-ee78c6cad557",
+            "unlock": [
+                "x",
+                "y",
+                "nextScene"
+            ],
+            "label": "btnSceneLoadBack",
+            "nextScene": "Ships",
+            "x": 0,
+            "y": 615
+        },
+        {
+            "type": "Text",
+            "id": "73731bdc-f49f-4dbd-8920-c897f522c294",
+            "label": "text_1",
+            "text": "Ship Scene",
+            "fontSize": "64px"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

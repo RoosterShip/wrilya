@@ -4,14 +4,14 @@
 /* START OF COMPILED CODE */
 
 import Phaser from "phaser";
-import PrefabLogin from "./PrefabLogin";
+import BtnSceneLoadBack from "../prefab/ui/BtnSceneLoadBack";
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
-export default class Level extends Phaser.Scene {
+export default class Crew extends Phaser.Scene {
 
 	constructor() {
-		super("Level");
+		super("Crew");
 
 		/* START-USER-CTR-CODE */
 		// Write your code here.
@@ -20,12 +20,14 @@ export default class Level extends Phaser.Scene {
 
 	editorCreate(): void {
 
-		// prefabLogin
-		const prefabLogin = new PrefabLogin(this, 615, 381);
-		this.add.existing(prefabLogin);
+		// btnSceneLoadBack
+		const btnSceneLoadBack = new BtnSceneLoadBack(this, 0, 615);
+		this.add.existing(btnSceneLoadBack);
 
-		// prefabLogin (prefab fields)
-		prefabLogin.nextScene = "Game Scene";
+		// text_1
+		const text_1 = this.add.text(0, 0, "", {});
+		text_1.text = "Crew Scene";
+		text_1.setStyle({ "fontSize": "64px" });
 
 		this.events.emit("scene-awake");
 	}

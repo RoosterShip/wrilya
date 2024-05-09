@@ -3,14 +3,25 @@ import { defineWorld } from "@latticexyz/world";
 export default defineWorld({
   enums: {
     Race: [
-      "Unknown",
-      "Human",
-      "Icoir",
-      "Vrel",
-      "Milvea",
-      "Sarea",
-      "Graik",
-      "Chiven"
+      "UNKNOWN",
+      "HUMAN",
+      "ICOIR",
+      "VREL",
+      "MILVEA",
+      "SAREA",
+      "GRAIK",
+      "CHIVEN"
+    ],
+    Skill: [
+      "ARMOR",
+      "ENGINES",
+      "LEADERSHIP",
+      "NAVIGATION",
+      "NEGOTIATION",
+      "REPAIRS",
+      "SENSORS",
+      "SHIELDS",
+      "WEAPONS"
     ]
   },
   tables: {
@@ -18,6 +29,17 @@ export default defineWorld({
     Crew: "bool",
     Ship: "bool",
     OwnedBy: "bytes32",
+    Training: {
+      schema: {
+        entity: "bytes32",
+        time: "uint256",
+        skill: "Skill"
+      },
+      key: ["entity"],
+      codegen: {
+        dataStruct: false
+      }
+    },
     Persona: {
       schema: {
         // Key
@@ -28,15 +50,7 @@ export default defineWorld({
         // imageHash: "bytes32"
         // descriptionHash: "bytes32"
         // Skills
-        armor: "uint8",
-        engines: "uint8",
-        leadership: "uint8",
-        navigation: "uint8",
-        negotiation: "uint8",
-        repairs: "uint8",
-        sensors: "uint8",
-        shields: "uint8",
-        weapons: "uint8",
+        skills: "bytes32",
         // Crew Member Name
         name: "string",
       },

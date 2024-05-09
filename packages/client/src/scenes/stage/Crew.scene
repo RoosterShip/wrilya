@@ -1,0 +1,41 @@
+{
+    "id": "5814dc94-cb1f-4a90-8494-e7d2625c72ee",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Crew",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "prefabId": "080a0bd3-0ffe-479b-8b31-1d6781e51df7",
+            "id": "04ab937a-bcbf-4cac-a6a3-9f8613cd4db2",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "btnSceneLoadBack",
+            "x": 0,
+            "y": 615
+        },
+        {
+            "type": "Text",
+            "id": "074e1e28-a005-4068-b40d-21c3d275f4eb",
+            "label": "text_1",
+            "text": "Crew Scene",
+            "fontSize": "64px"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

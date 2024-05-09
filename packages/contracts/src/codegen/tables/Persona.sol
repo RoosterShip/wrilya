@@ -21,15 +21,7 @@ import { Race } from "./../common.sol";
 
 struct PersonaData {
   Race race;
-  uint8 armor;
-  uint8 engines;
-  uint8 leadership;
-  uint8 navigation;
-  uint8 negotiation;
-  uint8 repairs;
-  uint8 sensors;
-  uint8 shields;
-  uint8 weapons;
+  bytes32 skills;
   string name;
 }
 
@@ -38,12 +30,12 @@ library Persona {
   ResourceId constant _tableId = ResourceId.wrap(0x74620000000000000000000000000000506572736f6e61000000000000000000);
 
   FieldLayout constant _fieldLayout =
-    FieldLayout.wrap(0x000a0a0101010101010101010101000000000000000000000000000000000000);
+    FieldLayout.wrap(0x0021020101200000000000000000000000000000000000000000000000000000);
 
   // Hex-encoded key schema of (bytes32)
   Schema constant _keySchema = Schema.wrap(0x002001005f000000000000000000000000000000000000000000000000000000);
-  // Hex-encoded value schema of (uint8, uint8, uint8, uint8, uint8, uint8, uint8, uint8, uint8, uint8, string)
-  Schema constant _valueSchema = Schema.wrap(0x000a0a0100000000000000000000c50000000000000000000000000000000000);
+  // Hex-encoded value schema of (uint8, bytes32, string)
+  Schema constant _valueSchema = Schema.wrap(0x00210201005fc500000000000000000000000000000000000000000000000000);
 
   /**
    * @notice Get the table's key field names.
@@ -59,18 +51,10 @@ library Persona {
    * @return fieldNames An array of strings with the names of value fields.
    */
   function getFieldNames() internal pure returns (string[] memory fieldNames) {
-    fieldNames = new string[](11);
+    fieldNames = new string[](3);
     fieldNames[0] = "race";
-    fieldNames[1] = "armor";
-    fieldNames[2] = "engines";
-    fieldNames[3] = "leadership";
-    fieldNames[4] = "navigation";
-    fieldNames[5] = "negotiation";
-    fieldNames[6] = "repairs";
-    fieldNames[7] = "sensors";
-    fieldNames[8] = "shields";
-    fieldNames[9] = "weapons";
-    fieldNames[10] = "name";
+    fieldNames[1] = "skills";
+    fieldNames[2] = "name";
   }
 
   /**
@@ -130,381 +114,45 @@ library Persona {
   }
 
   /**
-   * @notice Get armor.
+   * @notice Get skills.
    */
-  function getArmor(bytes32 entity) internal view returns (uint8 armor) {
+  function getSkills(bytes32 entity) internal view returns (bytes32 skills) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 1, _fieldLayout);
-    return (uint8(bytes1(_blob)));
+    return (bytes32(_blob));
   }
 
   /**
-   * @notice Get armor.
+   * @notice Get skills.
    */
-  function _getArmor(bytes32 entity) internal view returns (uint8 armor) {
+  function _getSkills(bytes32 entity) internal view returns (bytes32 skills) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 1, _fieldLayout);
-    return (uint8(bytes1(_blob)));
+    return (bytes32(_blob));
   }
 
   /**
-   * @notice Set armor.
+   * @notice Set skills.
    */
-  function setArmor(bytes32 entity, uint8 armor) internal {
+  function setSkills(bytes32 entity, bytes32 skills) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((armor)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((skills)), _fieldLayout);
   }
 
   /**
-   * @notice Set armor.
+   * @notice Set skills.
    */
-  function _setArmor(bytes32 entity, uint8 armor) internal {
+  function _setSkills(bytes32 entity, bytes32 skills) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((armor)), _fieldLayout);
-  }
-
-  /**
-   * @notice Get engines.
-   */
-  function getEngines(bytes32 entity) internal view returns (uint8 engines) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 2, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Get engines.
-   */
-  function _getEngines(bytes32 entity) internal view returns (uint8 engines) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 2, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Set engines.
-   */
-  function setEngines(bytes32 entity, uint8 engines) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 2, abi.encodePacked((engines)), _fieldLayout);
-  }
-
-  /**
-   * @notice Set engines.
-   */
-  function _setEngines(bytes32 entity, uint8 engines) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreCore.setStaticField(_tableId, _keyTuple, 2, abi.encodePacked((engines)), _fieldLayout);
-  }
-
-  /**
-   * @notice Get leadership.
-   */
-  function getLeadership(bytes32 entity) internal view returns (uint8 leadership) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 3, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Get leadership.
-   */
-  function _getLeadership(bytes32 entity) internal view returns (uint8 leadership) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 3, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Set leadership.
-   */
-  function setLeadership(bytes32 entity, uint8 leadership) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 3, abi.encodePacked((leadership)), _fieldLayout);
-  }
-
-  /**
-   * @notice Set leadership.
-   */
-  function _setLeadership(bytes32 entity, uint8 leadership) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreCore.setStaticField(_tableId, _keyTuple, 3, abi.encodePacked((leadership)), _fieldLayout);
-  }
-
-  /**
-   * @notice Get navigation.
-   */
-  function getNavigation(bytes32 entity) internal view returns (uint8 navigation) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 4, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Get navigation.
-   */
-  function _getNavigation(bytes32 entity) internal view returns (uint8 navigation) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 4, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Set navigation.
-   */
-  function setNavigation(bytes32 entity, uint8 navigation) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 4, abi.encodePacked((navigation)), _fieldLayout);
-  }
-
-  /**
-   * @notice Set navigation.
-   */
-  function _setNavigation(bytes32 entity, uint8 navigation) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreCore.setStaticField(_tableId, _keyTuple, 4, abi.encodePacked((navigation)), _fieldLayout);
-  }
-
-  /**
-   * @notice Get negotiation.
-   */
-  function getNegotiation(bytes32 entity) internal view returns (uint8 negotiation) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 5, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Get negotiation.
-   */
-  function _getNegotiation(bytes32 entity) internal view returns (uint8 negotiation) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 5, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Set negotiation.
-   */
-  function setNegotiation(bytes32 entity, uint8 negotiation) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 5, abi.encodePacked((negotiation)), _fieldLayout);
-  }
-
-  /**
-   * @notice Set negotiation.
-   */
-  function _setNegotiation(bytes32 entity, uint8 negotiation) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreCore.setStaticField(_tableId, _keyTuple, 5, abi.encodePacked((negotiation)), _fieldLayout);
-  }
-
-  /**
-   * @notice Get repairs.
-   */
-  function getRepairs(bytes32 entity) internal view returns (uint8 repairs) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 6, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Get repairs.
-   */
-  function _getRepairs(bytes32 entity) internal view returns (uint8 repairs) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 6, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Set repairs.
-   */
-  function setRepairs(bytes32 entity, uint8 repairs) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 6, abi.encodePacked((repairs)), _fieldLayout);
-  }
-
-  /**
-   * @notice Set repairs.
-   */
-  function _setRepairs(bytes32 entity, uint8 repairs) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreCore.setStaticField(_tableId, _keyTuple, 6, abi.encodePacked((repairs)), _fieldLayout);
-  }
-
-  /**
-   * @notice Get sensors.
-   */
-  function getSensors(bytes32 entity) internal view returns (uint8 sensors) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 7, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Get sensors.
-   */
-  function _getSensors(bytes32 entity) internal view returns (uint8 sensors) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 7, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Set sensors.
-   */
-  function setSensors(bytes32 entity, uint8 sensors) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 7, abi.encodePacked((sensors)), _fieldLayout);
-  }
-
-  /**
-   * @notice Set sensors.
-   */
-  function _setSensors(bytes32 entity, uint8 sensors) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreCore.setStaticField(_tableId, _keyTuple, 7, abi.encodePacked((sensors)), _fieldLayout);
-  }
-
-  /**
-   * @notice Get shields.
-   */
-  function getShields(bytes32 entity) internal view returns (uint8 shields) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 8, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Get shields.
-   */
-  function _getShields(bytes32 entity) internal view returns (uint8 shields) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 8, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Set shields.
-   */
-  function setShields(bytes32 entity, uint8 shields) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 8, abi.encodePacked((shields)), _fieldLayout);
-  }
-
-  /**
-   * @notice Set shields.
-   */
-  function _setShields(bytes32 entity, uint8 shields) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreCore.setStaticField(_tableId, _keyTuple, 8, abi.encodePacked((shields)), _fieldLayout);
-  }
-
-  /**
-   * @notice Get weapons.
-   */
-  function getWeapons(bytes32 entity) internal view returns (uint8 weapons) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 9, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Get weapons.
-   */
-  function _getWeapons(bytes32 entity) internal view returns (uint8 weapons) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 9, _fieldLayout);
-    return (uint8(bytes1(_blob)));
-  }
-
-  /**
-   * @notice Set weapons.
-   */
-  function setWeapons(bytes32 entity, uint8 weapons) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 9, abi.encodePacked((weapons)), _fieldLayout);
-  }
-
-  /**
-   * @notice Set weapons.
-   */
-  function _setWeapons(bytes32 entity, uint8 weapons) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreCore.setStaticField(_tableId, _keyTuple, 9, abi.encodePacked((weapons)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((skills)), _fieldLayout);
   }
 
   /**
@@ -702,32 +350,8 @@ library Persona {
   /**
    * @notice Set the full data using individual values.
    */
-  function set(
-    bytes32 entity,
-    Race race,
-    uint8 armor,
-    uint8 engines,
-    uint8 leadership,
-    uint8 navigation,
-    uint8 negotiation,
-    uint8 repairs,
-    uint8 sensors,
-    uint8 shields,
-    uint8 weapons,
-    string memory name
-  ) internal {
-    bytes memory _staticData = encodeStatic(
-      race,
-      armor,
-      engines,
-      leadership,
-      navigation,
-      negotiation,
-      repairs,
-      sensors,
-      shields,
-      weapons
-    );
+  function set(bytes32 entity, Race race, bytes32 skills, string memory name) internal {
+    bytes memory _staticData = encodeStatic(race, skills);
 
     EncodedLengths _encodedLengths = encodeLengths(name);
     bytes memory _dynamicData = encodeDynamic(name);
@@ -741,32 +365,8 @@ library Persona {
   /**
    * @notice Set the full data using individual values.
    */
-  function _set(
-    bytes32 entity,
-    Race race,
-    uint8 armor,
-    uint8 engines,
-    uint8 leadership,
-    uint8 navigation,
-    uint8 negotiation,
-    uint8 repairs,
-    uint8 sensors,
-    uint8 shields,
-    uint8 weapons,
-    string memory name
-  ) internal {
-    bytes memory _staticData = encodeStatic(
-      race,
-      armor,
-      engines,
-      leadership,
-      navigation,
-      negotiation,
-      repairs,
-      sensors,
-      shields,
-      weapons
-    );
+  function _set(bytes32 entity, Race race, bytes32 skills, string memory name) internal {
+    bytes memory _staticData = encodeStatic(race, skills);
 
     EncodedLengths _encodedLengths = encodeLengths(name);
     bytes memory _dynamicData = encodeDynamic(name);
@@ -781,18 +381,7 @@ library Persona {
    * @notice Set the full data using the data struct.
    */
   function set(bytes32 entity, PersonaData memory _table) internal {
-    bytes memory _staticData = encodeStatic(
-      _table.race,
-      _table.armor,
-      _table.engines,
-      _table.leadership,
-      _table.navigation,
-      _table.negotiation,
-      _table.repairs,
-      _table.sensors,
-      _table.shields,
-      _table.weapons
-    );
+    bytes memory _staticData = encodeStatic(_table.race, _table.skills);
 
     EncodedLengths _encodedLengths = encodeLengths(_table.name);
     bytes memory _dynamicData = encodeDynamic(_table.name);
@@ -807,18 +396,7 @@ library Persona {
    * @notice Set the full data using the data struct.
    */
   function _set(bytes32 entity, PersonaData memory _table) internal {
-    bytes memory _staticData = encodeStatic(
-      _table.race,
-      _table.armor,
-      _table.engines,
-      _table.leadership,
-      _table.navigation,
-      _table.negotiation,
-      _table.repairs,
-      _table.sensors,
-      _table.shields,
-      _table.weapons
-    );
+    bytes memory _staticData = encodeStatic(_table.race, _table.skills);
 
     EncodedLengths _encodedLengths = encodeLengths(_table.name);
     bytes memory _dynamicData = encodeDynamic(_table.name);
@@ -832,43 +410,10 @@ library Persona {
   /**
    * @notice Decode the tightly packed blob of static data using this table's field layout.
    */
-  function decodeStatic(
-    bytes memory _blob
-  )
-    internal
-    pure
-    returns (
-      Race race,
-      uint8 armor,
-      uint8 engines,
-      uint8 leadership,
-      uint8 navigation,
-      uint8 negotiation,
-      uint8 repairs,
-      uint8 sensors,
-      uint8 shields,
-      uint8 weapons
-    )
-  {
+  function decodeStatic(bytes memory _blob) internal pure returns (Race race, bytes32 skills) {
     race = Race(uint8(Bytes.getBytes1(_blob, 0)));
 
-    armor = (uint8(Bytes.getBytes1(_blob, 1)));
-
-    engines = (uint8(Bytes.getBytes1(_blob, 2)));
-
-    leadership = (uint8(Bytes.getBytes1(_blob, 3)));
-
-    navigation = (uint8(Bytes.getBytes1(_blob, 4)));
-
-    negotiation = (uint8(Bytes.getBytes1(_blob, 5)));
-
-    repairs = (uint8(Bytes.getBytes1(_blob, 6)));
-
-    sensors = (uint8(Bytes.getBytes1(_blob, 7)));
-
-    shields = (uint8(Bytes.getBytes1(_blob, 8)));
-
-    weapons = (uint8(Bytes.getBytes1(_blob, 9)));
+    skills = (Bytes.getBytes32(_blob, 1));
   }
 
   /**
@@ -897,18 +442,7 @@ library Persona {
     EncodedLengths _encodedLengths,
     bytes memory _dynamicData
   ) internal pure returns (PersonaData memory _table) {
-    (
-      _table.race,
-      _table.armor,
-      _table.engines,
-      _table.leadership,
-      _table.navigation,
-      _table.negotiation,
-      _table.repairs,
-      _table.sensors,
-      _table.shields,
-      _table.weapons
-    ) = decodeStatic(_staticData);
+    (_table.race, _table.skills) = decodeStatic(_staticData);
 
     (_table.name) = decodeDynamic(_encodedLengths, _dynamicData);
   }
@@ -937,20 +471,8 @@ library Persona {
    * @notice Tightly pack static (fixed length) data using this table's schema.
    * @return The static data, encoded into a sequence of bytes.
    */
-  function encodeStatic(
-    Race race,
-    uint8 armor,
-    uint8 engines,
-    uint8 leadership,
-    uint8 navigation,
-    uint8 negotiation,
-    uint8 repairs,
-    uint8 sensors,
-    uint8 shields,
-    uint8 weapons
-  ) internal pure returns (bytes memory) {
-    return
-      abi.encodePacked(race, armor, engines, leadership, navigation, negotiation, repairs, sensors, shields, weapons);
+  function encodeStatic(Race race, bytes32 skills) internal pure returns (bytes memory) {
+    return abi.encodePacked(race, skills);
   }
 
   /**
@@ -980,29 +502,10 @@ library Persona {
    */
   function encode(
     Race race,
-    uint8 armor,
-    uint8 engines,
-    uint8 leadership,
-    uint8 navigation,
-    uint8 negotiation,
-    uint8 repairs,
-    uint8 sensors,
-    uint8 shields,
-    uint8 weapons,
+    bytes32 skills,
     string memory name
   ) internal pure returns (bytes memory, EncodedLengths, bytes memory) {
-    bytes memory _staticData = encodeStatic(
-      race,
-      armor,
-      engines,
-      leadership,
-      navigation,
-      negotiation,
-      repairs,
-      sensors,
-      shields,
-      weapons
-    );
+    bytes memory _staticData = encodeStatic(race, skills);
 
     EncodedLengths _encodedLengths = encodeLengths(name);
     bytes memory _dynamicData = encodeDynamic(name);

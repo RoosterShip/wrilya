@@ -4,11 +4,13 @@
 /* START OF COMPILED CODE */
 
 import Phaser from "phaser";
-import PreloadBarUpdaterScript from "../script-nodes/PreloadBarUpdaterScript";
+import PreloadBarUpdaterScript from "../../script-nodes/PreloadBarUpdaterScript";
 /* START-USER-IMPORTS */
-import assetPackUrl from "../../static/assets/asset-pack.json";
-import backgroundAssetPackUrl from "../../static/assets/background-asset-pack.json";
-import uiAssetPackUrl from "../../static/assets/ui-asset-pack.json";
+import assetPackUrl from "../../../static/assets/asset-pack.json";
+import backgroundAssetPackUrl from "../../../static/assets/background-asset-pack.json";
+import uiAssetPackUrl from "../../../static/assets/ui-asset-pack.json";
+import characterAssetPackUrl from "../../../static/assets/character-asset-pack.json";
+import shipsAssetPackUrl from "../../../static/assets/ships-asset-pack.json";
 /* END-USER-IMPORTS */
 
 export default class Preload extends Phaser.Scene {
@@ -62,29 +64,25 @@ export default class Preload extends Phaser.Scene {
 		this.load.pack("asset-pack", assetPackUrl);
 		this.load.pack("ui-asset-pack", uiAssetPackUrl);
 		this.load.pack("background-asset-pack", backgroundAssetPackUrl);
+		this.load.pack("character-asset-pack", characterAssetPackUrl);
+		this.load.pack("ships-asset-pack", shipsAssetPackUrl);
 	}
 
 	create() {
-
 		if (process.env.NODE_ENV === "development") {
-
 			const start = new URLSearchParams(location.search).get("start");
-
 			if (start) {
-
 				console.log(`Development: jump to ${start}`);
 				this.scene.start(start);
-
 				return;
 			}
 		}
-
-		this.scene.start("Level");
+		this.scene.start("Main");
 	}
 
-	init(message: object){
-		console.log("** MESSAGE, %s", JSON.stringify(message, null, 2))
-	}
+	//init(message: object){
+	//	console.log("** MESSAGE, %s", JSON.stringify(message, null, 2))
+	//}
 
 	/* END-USER-CODE */
 }

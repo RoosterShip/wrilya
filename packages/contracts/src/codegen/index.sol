@@ -6,6 +6,7 @@ pragma solidity >=0.8.24;
 import { Crew } from "./tables/Crew.sol";
 import { Ship } from "./tables/Ship.sol";
 import { OwnedBy } from "./tables/OwnedBy.sol";
+import { Training } from "./tables/Training.sol";
 import { Persona, PersonaData } from "./tables/Persona.sol";
 import { EntityCounter } from "./tables/EntityCounter.sol";
 import { Counter } from "./tables/Counter.sol";

@@ -1,0 +1,41 @@
+{
+    "id": "577fdb4d-a1ec-4b63-90eb-c58ae081e040",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Mission",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "prefabId": "080a0bd3-0ffe-479b-8b31-1d6781e51df7",
+            "id": "4e3a8630-5feb-4fbd-ac4f-294bf7f99981",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "btnSceneLoadBack",
+            "x": 0,
+            "y": 615
+        },
+        {
+            "type": "Text",
+            "id": "c53f9d4e-beb9-4d27-80e5-3d8af1802ef9",
+            "label": "text_1",
+            "text": "Mission Scene",
+            "fontSize": "64px"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}
