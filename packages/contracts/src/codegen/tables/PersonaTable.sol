@@ -23,8 +23,8 @@ struct PersonaTableData {
 }
 
 library PersonaTable {
-  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "", name: "PersonaTable", typeId: RESOURCE_TABLE });`
-  ResourceId constant _tableId = ResourceId.wrap(0x74620000000000000000000000000000506572736f6e615461626c6500000000);
+  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "app", name: "PersonaTable", typeId: RESOURCE_TABLE });`
+  ResourceId constant _tableId = ResourceId.wrap(0x74626170700000000000000000000000506572736f6e615461626c6500000000);
 
   FieldLayout constant _fieldLayout =
     FieldLayout.wrap(0x0004010204000000000000000000000000000000000000000000000000000000);

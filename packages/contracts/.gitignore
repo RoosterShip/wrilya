@@ -6,6 +6,6 @@ artifacts/
 broadcast/
 
 # Ignore MUD deploy artifacts
-deploys/
+deploys/**/*.json
 
 .env

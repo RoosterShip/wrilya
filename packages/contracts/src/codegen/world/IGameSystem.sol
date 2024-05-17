@@ -11,15 +11,15 @@ import { HomeEnum, FieldEnum } from "./../common.sol";
  * @dev This interface is automatically generated from the corresponding system contract. Do not edit manually.
  */
 interface IGameSystem {
-  function recruitVoidsman(string calldata name, string calldata portrait, HomeEnum home) external;
+  function app__recruitVoidsman(string calldata name, string calldata portrait, HomeEnum home) external;
 
-  function dismissVoidsmen(bytes32 entityId) external;
+  function app__dismissVoidsmen(bytes32 entityId) external;
 
-  function trainVoidsman(bytes32 entityId, FieldEnum subject) external;
+  function app__trainVoidsman(bytes32 entityId, FieldEnum subject) external;
 
-  function certifyVoidsman(bytes32 entityId) external;
+  function app__certifyVoidsman(bytes32 entityId) external;
 
-  function levelTime(uint256 level) external pure returns (uint256);
+  function app__levelTime(uint256 level) external pure returns (uint256);
 
-  function isContract(address _address) external view returns (bool);
+  function app__isContract(address _address) external view returns (bool);
 }

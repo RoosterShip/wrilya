@@ -17,8 +17,8 @@ import { EncodedLengths, EncodedLengthsLib } from "@latticexyz/store/src/Encoded
 import { ResourceId } from "@latticexyz/store/src/ResourceId.sol";
 
 library EntityCounterTable {
-  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "", name: "EntityCounterTab", typeId: RESOURCE_TABLE });`
-  ResourceId constant _tableId = ResourceId.wrap(0x74620000000000000000000000000000456e74697479436f756e746572546162);
+  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "app", name: "EntityCounterTab", typeId: RESOURCE_TABLE });`
+  ResourceId constant _tableId = ResourceId.wrap(0x74626170700000000000000000000000456e74697479436f756e746572546162);
 
   FieldLayout constant _fieldLayout =
     FieldLayout.wrap(0x0020010020000000000000000000000000000000000000000000000000000000);

@@ -47,28 +47,24 @@ export function createSystemCalls(
      * is in the root namespace, `.increment` can be called directly
      * on the World contract.
      */
-    const tx = await worldContract.write.increment();
+    const tx = await worldContract.write.app__increment();
     await waitForTransaction(tx);
     return getComponentValue(Counter, singletonEntity);
   };
 
   const recruitCrew = async (name: string, portrait: string, home: Home) => {
-    const tx = await worldContract.write.recruitVoidsman([name, portrait, home]);
+    const tx = await worldContract.write.app__recruitVoidsman([name, portrait, home]);
     await waitForTransaction(tx);
   };
 
   const trainVoidsman = async (entity: Entity, field: Field) => {
-    console.log("*** I am doing it");
-    const tx = await worldContract.write.trainVoidsman([entity as `0x${string}`, field]);
+    const tx = await worldContract.write.app__trainVoidsman([entity as `0x${string}`, field]);
     await waitForTransaction(tx);
-    console.log("*** All Done");
   };
 
   const certifyVoidsman = async (entity: Entity) => {
-    console.log("*** I am doing it");
-    const tx = await worldContract.write.certifyVoidsman([entity as `0x${string}`]);
+    const tx = await worldContract.write.app__certifyVoidsman([entity as `0x${string}`]);
     await waitForTransaction(tx);
-    console.log("*** All Done");
   };
 
   /**

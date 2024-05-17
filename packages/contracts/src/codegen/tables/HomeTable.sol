@@ -20,8 +20,8 @@ import { ResourceId } from "@latticexyz/store/src/ResourceId.sol";
 import { HomeEnum } from "./../common.sol";
 
 library HomeTable {
-  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "", name: "HomeTable", typeId: RESOURCE_TABLE });`
-  ResourceId constant _tableId = ResourceId.wrap(0x74620000000000000000000000000000486f6d655461626c6500000000000000);
+  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "app", name: "HomeTable", typeId: RESOURCE_TABLE });`
+  ResourceId constant _tableId = ResourceId.wrap(0x74626170700000000000000000000000486f6d655461626c6500000000000000);
 
   FieldLayout constant _fieldLayout =
     FieldLayout.wrap(0x0001010001000000000000000000000000000000000000000000000000000000);

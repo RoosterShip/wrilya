@@ -2,9 +2,8 @@
 solc = "0.8.24"
 ffi = false
 fuzz_runs = 256
-#optimizer = true
-#optimizer_runs = 3000
-via_ir = true
+optimizer = true
+optimizer_runs = 3000
 verbosity = 2
 src = "src"
 test = "test"
@@ -23,5 +22,8 @@ extra_output_files = [
 ]
 fs_permissions = [{ access = "read", path = "./"}]
 
-[profile.lattice-testnet]
-eth_rpc_url = "https://follower.testnet-chain.linfra.xyz"
+[profile.garnet]
+eth_rpc_url = "https://rpc.garnetchain.com"
+
+[profile.redstone]
+eth_rpc_url = "https://rpc.redstonechain.com"
