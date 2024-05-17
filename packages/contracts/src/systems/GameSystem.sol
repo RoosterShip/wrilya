@@ -21,94 +21,131 @@ pragma solidity >=0.8.24;
 // ----------------------------------------------------------------------------
 
 import { System } from "@latticexyz/world/src/System.sol";
-import { EntityCounter, Crew, Persona, OwnedBy, Training } from "../codegen/index.sol";
 import { toBytes32, getFieldUint8, setFieldUint8 } from "../utils.sol";
-import { Unauthorized, InvalidState, NotReady } from "../errors.sol";
-import { Race, Skill } from "../codegen/common.sol";
+import { Unauthorized, InvalidCaller, InvalidState, NotReady } from "../errors.sol";
+import { HomeEnum, FieldEnum, AbilityEnum } from "../codegen/common.sol";
+import {
+  EntityCounterTable,
+  VoidsmenTable,
+  ShipTable,
+  OwnedByTable,
+  HomeTable,
+  NameTable,
+  PortraitTable,
+  TrainingTable,
+  PersonaTable  } from "../codegen/index.sol";
 
 // ----------------------------------------------------------------------------
 /// @title GameSystem
 /// @author Chris Jimison
-/// @notice MUD.dev based smart for Game Crew.
+/// @notice MUD.dev based smart for Game Voidsmen.
 contract GameSystem is System {
+
+  uint8 constant MAX_LEVEL = 10;
+
   // --------------------------------------------------------------------------
   // CREW Interfaces
   // --------------------------------------------------------------------------
+
 
   /// Create a new Crew member and assign it to the caller.  This crew member
   /// will have all levels set to 0.
   //
   /// @param name of the new crew member
-  /// @param race Enum value for the crew member
-  function recruitCrew(string calldata name, Race race) public {
-    bytes32 owner = toBytes32(_msgSender());
-    uint256 entityValue = EntityCounter.get();
-    EntityCounter.set(entityValue + 1);
+  /// @param portrait code from the client that this voidsman is using
+  /// @param home Enum value for the crew member
+  function recruitVoidsman(string calldata name, string calldata portrait, HomeEnum home) public {
+    // Verify the sender is an actual wallet.
+    //
+    // NOTE: 
+    // 
+    // Might want to remove this later if used for batching
+    if(isContract(_msgSender())) revert InvalidCaller();
+
+    // Build the Entity ID
+    uint256 entityValue = EntityCounterTable.get();
+    EntityCounterTable.set(entityValue + 1);
     bytes32 entityId = toBytes32(entityValue);
-    OwnedBy.set(entityId, owner);
-    Crew.set(entityId, true);
-    Persona.set(entityId, race, bytes32(0), name);
+
+    // Setup state values for the new Voidsman
+    NameTable.set(entityId, name);
+    HomeTable.set(entityId, home);
+    PortraitTable.set(entityId, portrait);
+    VoidsmenTable.set(entityId, true);
+    PersonaTable.set(entityId, 0, new uint8[](9), new uint8[](7));
+    
+    // Setup the Ownership
+    OwnedByTable.set(entityId, toBytes32(_msgSender()));
   }
 
   /// Delete a crew member from the caller (burn NFT).
   ///
   /// Note: I might change this to actually transfer crew member instead
   /// @param entityId to delete from chain
-  function dismissCrew(bytes32 entityId) public {
-    if (OwnedBy.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
-
-    Persona.deleteRecord(entityId);
-    Crew.deleteRecord(entityId);
-    OwnedBy.deleteRecord(entityId);
+  function dismissVoidsmen(bytes32 entityId) public {
+    // if (OwnedBy.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
+    // Persona.deleteRecord(entityId);
+    // Crew.deleteRecord(entityId);
+    // OwnedBy.deleteRecord(entityId);
   }
 
   /// Start the training process for a crew member.  You can only have
   /// one skill being trained at any given time.
   /// @param entityId to train
-  /// @param skill to train
-  function trainCrew(bytes32 entityId, Skill skill) public {
+  /// @param subject to train
+  function trainVoidsman(bytes32 entityId, FieldEnum subject) public {
     // Does the caller own the entity?
-    if (OwnedBy.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
+    if (OwnedByTable.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
     // Can the entity be trained?
-    if (Training.getTime(entityId) != uint256(0)) revert InvalidState();
+    if (TrainingTable.getTime(entityId) != uint256(0)) revert InvalidState();
 
-    bytes32 skills = Persona.getSkills(entityId);
-    uint8 level = getFieldUint8(skills, uint8(skill));
-    uint256 time = levelTime(level + 1) + block.timestamp;
-    Training.set(entityId, time, skill);
+    // Pull out the competency level, calculate the time needed to train the level and set it
+    uint8 level = PersonaTable.getItemCompetencies(entityId, uint256(subject));
+
+    if(level >= MAX_LEVEL) revert InvalidState();
+
+    uint256 time = levelTime(uint256(level) + 1) + block.timestamp;
+    TrainingTable.set(entityId, time, subject);
   }
 
-  /// Stop training a skill.  All time invested into training skill is also lost
-  /// @param entityId to stop training
-  function stopTraining(bytes32 entityId) public {
-    // Does the caller own the entity?
-    if (OwnedBy.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
-
-    Training.deleteRecord(entityId);
-  }
+  // /// Stop training a skill.  All time invested into training skill is also lost
+  // /// @param entityId to stop training
+  // function stopTraining(bytes32 entityId) public {
+  //   // // Does the caller own the entity?
+  //   // if (OwnedBy.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
+  //   // Training.deleteRecord(entityId);
+  // }
 
   /// Once a crew person has finished training they can be "certified" to the
   /// next level.
   /// @param entityId to level up
-  function certifyCrew(bytes32 entityId) public {
+  function certifyVoidsman(bytes32 entityId) public {
     // Does the caller own the entity?
-    if (OwnedBy.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
-    (uint256 time, Skill skill) = Training.get(entityId);
+    if (OwnedByTable.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
+    (uint256 time, FieldEnum subject) = TrainingTable.get(entityId);
     // Check that they ARE training
-    if (time != uint256(0)) revert InvalidState();
+    if (time == uint256(0)) revert InvalidState();
     // Check that they are DONE training
-    if (time < block.timestamp) revert NotReady();
+    if (time > block.timestamp) revert NotReady();
+    uint8 level = PersonaTable.getItemCompetencies(entityId, uint256(subject));
+    if(level >= MAX_LEVEL) revert InvalidState();
 
-    bytes32 skills = Persona.getSkills(entityId);
-    uint8 level = getFieldUint8(skills, uint8(skill)) + 1;
-    skills = setFieldUint8(skills, level, uint8(skill));
-    Persona.setSkills(entityId, skills);
-    Training.deleteRecord(entityId);
+    // Update the state
+    PersonaTable.updateCompetencies(entityId, uint256(subject), level + 1);
+    TrainingTable.deleteRecord(entityId);
   }
 
   /// Based on our tuning data levels should increase at a speed
   /// @param level base for time
-  function levelTime(uint8 level) public pure returns (uint256) {
+  function levelTime(uint256 level) public pure returns (uint256) {
     return 10 * (level ** 6);
+  }
+
+  function isContract(address _address) public view returns (bool){
+    uint32 size;
+    assembly {
+      size := extcodesize(_address)
+    }
+    return (size > 0);//Warning: will return false if the call is made from the constructor of a smart contract
   }
 }

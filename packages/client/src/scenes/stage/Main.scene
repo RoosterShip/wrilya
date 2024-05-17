@@ -97,7 +97,6 @@
             "unlock": [
                 "x",
                 "y",
-                "next",
                 "hitArea.shape",
                 "hitArea.x",
                 "hitArea.y",
@@ -107,12 +106,13 @@
                 "hitArea.points",
                 "hitArea.alphaTolerance",
                 "text",
-                "fontSize"
+                "fontSize",
+                "next"
             ],
             "label": "btnMission",
             "useGameObjectName": true,
             "scope": "CLASS",
-            "next": "Mission",
+            "next": "Battle",
             "hitArea.shape": "RECTANGLE",
             "hitArea.x": 0,
             "hitArea.y": 0,

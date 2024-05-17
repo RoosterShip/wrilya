@@ -17,6 +17,16 @@
                 "key": "Backward_BTNA"
             },
             {
+                "url": "assets/ui/BTN.png",
+                "type": "image",
+                "key": "BTN"
+            },
+            {
+                "url": "assets/ui/BTNA.png",
+                "type": "image",
+                "key": "BTNA"
+            },
+            {
                 "url": "assets/ui/Close_BTN.png",
                 "type": "image",
                 "key": "Close_BTN"
@@ -25,6 +35,16 @@
                 "url": "assets/ui/Close_BTNA.png",
                 "type": "image",
                 "key": "Close_BTNA"
+            },
+            {
+                "url": "assets/ui/Dot_01.png",
+                "type": "image",
+                "key": "Dot_01"
+            },
+            {
+                "url": "assets/ui/Dot_02.png",
+                "type": "image",
+                "key": "Dot_02"
             },
             {
                 "url": "assets/ui/Facebook_BTN.png",
@@ -215,6 +235,21 @@
                 "url": "assets/ui/Sound_BTNA.png",
                 "type": "image",
                 "key": "Sound_BTNA"
+            },
+            {
+                "url": "assets/ui/Table.png",
+                "type": "image",
+                "key": "Table"
+            },
+            {
+                "url": "assets/ui/Table_01.png",
+                "type": "image",
+                "key": "Table_01"
+            },
+            {
+                "url": "assets/ui/Table_02.png",
+                "type": "image",
+                "key": "Table_02"
             },
             {
                 "url": "assets/ui/Twitter_BTN.png",

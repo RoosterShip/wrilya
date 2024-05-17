@@ -27,8 +27,7 @@ export default class Starfield extends Phaser.GameObjects.Container {
 		this.add(bg1);
 
 		/* START-USER-CTR-CODE */
-		// Write your code here.
-
+		scene.events.on('update', this.update, this);
 		/* END-USER-CTR-CODE */
 	}
 
@@ -40,13 +39,16 @@ export default class Starfield extends Phaser.GameObjects.Container {
 		const bg1: Phaser.GameObjects.Image = this.getAt(0);
 		const bg2: Phaser.GameObjects.Image = this.getAt(1);
 
-		bg1.setX(bg1.x - (this.velocity * delta) );
-		bg2.setX(bg2.x - (this.velocity * delta) );
+		if (bg1 && bg2) {
+			bg1.setX(bg1.x - (this.velocity * delta));
+			bg2.setX(bg2.x - (this.velocity * delta));
 
-		if(bg1.x < -1919)
-			bg1.setX(1919)
-		if(bg2.x < -1919)
-			bg2.setX(1919)
+			if (bg1.x < -1919)
+				bg1.setX(1919)
+			if (bg2.x < -1919)
+				bg2.setX(1919)
+		}
+
 	}
 	// Write your code here.
 

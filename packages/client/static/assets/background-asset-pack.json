@@ -15,6 +15,21 @@
                 "url": "assets/background/bg_003.png",
                 "type": "image",
                 "key": "bg_003"
+            },
+            {
+                "url": "assets/background/bg_004.png",
+                "type": "image",
+                "key": "bg_004"
+            },
+            {
+                "url": "assets/background/bg_005.png",
+                "type": "image",
+                "key": "bg_005"
+            },
+            {
+                "url": "assets/background/bg_006.png",
+                "type": "image",
+                "key": "bg_006"
             }
         ]
     },

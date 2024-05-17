@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Phaser Editor 2D <developers@phasereditor2d.com> (https://phasereditor2d.com/)",
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "dependencies": {
     "@latticexyz/common": "2.0.7",
     "@latticexyz/dev-tools": "2.0.7",

@@ -7,6 +7,7 @@ import Phaser from "phaser";
 import Starfield from "../prefab/background/Starfield";
 import BtnSceneLoadText from "../prefab/ui/BtnSceneLoadText";
 /* START-USER-IMPORTS */
+import Game from "../../game";
 /* END-USER-IMPORTS */
 
 export default class Main extends Phaser.Scene {
@@ -94,7 +95,7 @@ export default class Main extends Phaser.Scene {
 		btnShips.next = "Ships";
 
 		// btnMission (prefab fields)
-		btnMission.next = "Mission";
+		btnMission.next = "Battle";
 
 		// btnMarket (prefab fields)
 		btnMarket.next = "Market";
@@ -131,9 +132,9 @@ export default class Main extends Phaser.Scene {
 
 	// Write your code here
 	private registerEvents() {
-		this.events.on('update', this.starfield.update, this.starfield);
+		//this.events.on('update', this.starfield.update, this.starfield);
 		this.input.on('gameobjectdown', (pointer: Phaser.Input.Pointer, obj: Phaser.GameObjects.GameObject) => {
-			if(obj instanceof BtnSceneLoadText){
+			if (obj instanceof BtnSceneLoadText) {
 				obj.loadScene();
 			}
 		}, this);
@@ -148,10 +149,8 @@ export default class Main extends Phaser.Scene {
 
 	}
 
-	private loadAddress(){
-		const network = this.scene.scene.registry.get("mud_network");
-		const address = network.walletClient.account.address;
-		this.btnAddress.text = "Local Address: " + address;
+	private loadAddress() {
+		this.btnAddress.text = "Local Address: " + Game.Address();
 	}
 
 

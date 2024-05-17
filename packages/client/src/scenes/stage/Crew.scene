@@ -13,22 +13,583 @@
     },
     "displayList": [
         {
-            "prefabId": "080a0bd3-0ffe-479b-8b31-1d6781e51df7",
-            "id": "04ab937a-bcbf-4cac-a6a3-9f8613cd4db2",
+            "prefabId": "0a31e1b7-f588-48a3-a11d-307728a09cb1",
+            "id": "69c45054-fc14-449b-a2cd-e516b755abc2",
             "unlock": [
                 "x",
-                "y"
+                "y",
+                "velocity"
             ],
-            "label": "btnSceneLoadBack",
+            "label": "starfield",
+            "velocity": 0.01,
             "x": 0,
-            "y": 615
+            "y": 0
+        },
+        {
+            "type": "Image",
+            "id": "2a285cf0-516d-4a0a-8ed2-d1e138bfb8e8",
+            "label": "window",
+            "texture": {
+                "key": "Window"
+            },
+            "x": 640,
+            "y": 360,
+            "scaleX": 0.9,
+            "scaleY": 0.9
+        },
+        {
+            "prefabId": "60917a2c-495e-4eba-85a9-e98362503d62",
+            "id": "890127b9-b15a-49b3-9648-1080517fb151",
+            "unlock": [
+                "x",
+                "y",
+                "nextScene",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnRecruit",
+            "scope": "CLASS",
+            "nextScene": "Recruit",
+            "x": 740,
+            "y": 560,
+            "scaleX": 0.6,
+            "scaleY": 0.5
         },
         {
             "type": "Text",
-            "id": "074e1e28-a005-4068-b40d-21c3d275f4eb",
-            "label": "text_1",
-            "text": "Crew Scene",
+            "id": "d61956bb-e9a1-43a0-9adc-5ff01b65ee46",
+            "label": "lblRecruit",
+            "displayName": "lblRecruit",
+            "scope": "CLASS",
+            "x": 765,
+            "y": 575,
+            "text": "Recruit",
+            "fontSize": "48px"
+        },
+        {
+            "type": "Image",
+            "id": "4aef674f-c1ab-4974-a290-091a13d28eb9",
+            "label": "imgPortrait",
+            "scope": "CLASS",
+            "texture": {
+                "key": "h_m_002"
+            },
+            "x": 266,
+            "y": 165,
+            "scaleX": 0.4,
+            "scaleY": 0.4,
+            "originX": 0,
+            "originY": 0,
+            "list": [
+                {
+                    "type": "Glow",
+                    "id": "16aea838-504c-4e82-85dc-71f5dd1a5c13",
+                    "label": "glowFx",
+                    "outerStrength": 0,
+                    "innerStrength": 4,
+                    "preFX": true
+                },
+                {
+                    "type": "Pixelate",
+                    "id": "5b59d3b1-bfcb-41fc-8181-c1dbe8e7768b",
+                    "label": "pixelateFx",
+                    "scope": "CLASS",
+                    "amount": 20,
+                    "preFX": true
+                }
+            ]
+        },
+        {
+            "type": "Text",
+            "id": "5046770e-433f-4b67-ac96-67f828c42bfb",
+            "label": "lblName",
+            "displayName": "lblName",
+            "scope": "CLASS",
+            "x": 641,
+            "y": 77,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "Select Voidsman",
+            "align": "center",
             "fontSize": "64px"
+        },
+        {
+            "type": "Text",
+            "id": "291d7cb5-7e3a-4b15-b958-1fbcd33f7e08",
+            "label": "lblTrainingTime",
+            "scope": "CLASS",
+            "x": 470,
+            "y": 599,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "Training Remaining",
+            "fontSize": "32px"
+        },
+        {
+            "prefabId": "554b1cec-33be-4e07-afb3-2e6f0dd79bc6",
+            "id": "7ecd7fca-95a6-45c6-88b6-39ddbea86d2f",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnCertify",
+            "scope": "CLASS",
+            "x": 385,
+            "y": 625,
+            "scaleX": 0.4,
+            "scaleY": 0.3
+        },
+        {
+            "type": "Text",
+            "id": "fae4c16a-9b22-4e86-9cb1-b8909e6d3b76",
+            "label": "lblTrainingTimeValue",
+            "scope": "CLASS",
+            "x": 470,
+            "y": 650,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "Certify",
+            "fontSize": "32px"
+        },
+        {
+            "prefabId": "a68f8694-31fb-4aa9-8f93-e10ac6192b27",
+            "id": "b77a3fc0-0204-44c4-a83c-d27df978a8cf",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnLast",
+            "scope": "CLASS",
+            "x": 270,
+            "y": 50,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "prefabId": "52a8714b-bc3e-459e-b0da-3271d6340025",
+            "id": "dfdb6b4d-2d48-4fcc-8a4b-94994d25547e",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnNext",
+            "scope": "CLASS",
+            "x": 960,
+            "y": 50,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "prefabId": "a68f8694-31fb-4aa9-8f93-e10ac6192b27",
+            "id": "880183b4-1d96-4038-bc6b-cd778e4712cc",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnBack",
+            "scope": "CLASS",
+            "x": 0,
+            "y": 615,
+            "scaleX": 0.5,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "8e101f26-10b2-4236-a823-d31b51930eda",
+            "label": "lblArmor",
+            "scope": "CLASS",
+            "x": 753,
+            "y": 200,
+            "text": "Armor",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "d5f24f9e-e09c-43cf-9af2-0cd070fbb338",
+            "label": "lblEngines",
+            "scope": "CLASS",
+            "x": 753,
+            "y": 240,
+            "text": "Engines",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "87c94f0a-14a0-4b8c-8f5b-9b1c6e2f4549",
+            "label": "lblLeadership",
+            "scope": "CLASS",
+            "x": 753,
+            "y": 280,
+            "text": "Leadership",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "136f2f65-a5ea-4fc8-bea7-b4b09a4ab0c4",
+            "label": "lblNavigation",
+            "scope": "CLASS",
+            "x": 753,
+            "y": 320,
+            "text": "Navigation",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "99dd39be-71e5-454b-845d-d059733c84c1",
+            "label": "lblNegotiation",
+            "scope": "CLASS",
+            "x": 753,
+            "y": 360,
+            "text": "Negotiation\n",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "d88e343c-77b9-444a-80fd-fdcf23561e64",
+            "label": "lblShipcraft",
+            "scope": "CLASS",
+            "x": 753,
+            "y": 400,
+            "text": "Shipcraft\n",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "b3a4a219-f21e-4f6d-b9f7-44de15feefbb",
+            "label": "lblSensors",
+            "scope": "CLASS",
+            "x": 753,
+            "y": 440,
+            "text": "Sensors\n",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "63e2ce9c-ce37-4d1d-b8fc-8dd1a598e111",
+            "label": "lblShields",
+            "scope": "CLASS",
+            "x": 753,
+            "y": 480,
+            "text": "Shields\n",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "3ebbeb6c-986d-44fc-bf72-dff3ce3a97d1",
+            "label": "lblWeapons",
+            "scope": "CLASS",
+            "x": 753,
+            "y": 520,
+            "text": "Weapons\n",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "bee3af14-0af1-4ae4-82a3-534f8f2eec37",
+            "label": "lblArmorValue",
+            "scope": "CLASS",
+            "x": 973,
+            "y": 200,
+            "originX": 1,
+            "text": "0",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "a0e55a03-d0f1-4822-a130-6e1c3710b64a",
+            "label": "lblEnginesValue",
+            "scope": "CLASS",
+            "x": 973,
+            "y": 240,
+            "originX": 1,
+            "text": "1",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "3e815673-f82a-4384-8563-dcca2a57aa9e",
+            "label": "lblLeadershipValue",
+            "scope": "CLASS",
+            "x": 973,
+            "y": 280,
+            "originX": 1,
+            "text": "2",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "9990549e-b7f6-492f-8aec-e835cc8bf7c0",
+            "label": "lblNavigationValue",
+            "scope": "CLASS",
+            "x": 973,
+            "y": 320,
+            "originX": 1,
+            "text": "3",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "3a188ead-53b2-4143-906a-c2a821d49407",
+            "label": "lblNegotiationValue",
+            "scope": "CLASS",
+            "x": 973,
+            "y": 360,
+            "originX": 1,
+            "text": "4",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "7257692b-c395-4221-9afe-687b30f5ce72",
+            "label": "lblShipcraftValue",
+            "scope": "CLASS",
+            "x": 973,
+            "y": 401,
+            "originX": 1,
+            "text": "5",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "c1117376-14c6-4b09-998c-3910af968301",
+            "label": "lblSensorsValue",
+            "scope": "CLASS",
+            "x": 973,
+            "y": 441,
+            "originX": 1,
+            "text": "6",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "6236bb53-9903-4d44-a95f-b864370752ef",
+            "label": "lblShieldsValue",
+            "scope": "CLASS",
+            "x": 973,
+            "y": 481,
+            "originX": 1,
+            "text": "7",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "a2d1e8c9-49a5-4b37-962c-fab212192d4b",
+            "label": "lblWeaponsValue",
+            "scope": "CLASS",
+            "x": 973,
+            "y": 520,
+            "originX": 1,
+            "text": "8",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "8012b053-2516-472a-8be8-ff32e9d7cd97",
+            "label": "lblHome",
+            "scope": "CLASS",
+            "x": 753,
+            "y": 160,
+            "text": "Home",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "9f876c34-daec-4d94-8cf2-a716f206c846",
+            "label": "lblHomeValue",
+            "scope": "CLASS",
+            "x": 973,
+            "y": 160,
+            "originX": 1,
+            "text": "HOME WORLD",
+            "fontSize": "24px"
+        },
+        {
+            "prefabId": "aa865e17-9413-47ad-a532-cad6166777b3",
+            "id": "9cadea8d-1feb-4327-bae0-88899ebe327c",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY",
+                "velocity"
+            ],
+            "label": "lblArrowDownBouncing",
+            "scope": "CLASS",
+            "velocity": 3,
+            "x": 1356,
+            "y": 385,
+            "scaleX": 0.5,
+            "scaleY": 0.5
+        },
+        {
+            "prefabId": "320adce4-ba50-4753-badb-0180c77d1fb5",
+            "id": "8d881952-e526-4a46-bce7-c187e14cec35",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnUpgradeArmor",
+            "scope": "CLASS",
+            "x": 994,
+            "y": 200,
+            "scaleX": 0.12,
+            "scaleY": 0.12
+        },
+        {
+            "prefabId": "320adce4-ba50-4753-badb-0180c77d1fb5",
+            "id": "e3bc78e6-c847-4b9f-8e25-02daa052427a",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnUpgradeEngines",
+            "scope": "CLASS",
+            "x": 994,
+            "y": 240,
+            "scaleX": 0.12,
+            "scaleY": 0.12
+        },
+        {
+            "prefabId": "320adce4-ba50-4753-badb-0180c77d1fb5",
+            "id": "3a5f7bfd-5297-482b-8692-4621c5f4e91f",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnUpgradeLeadership",
+            "scope": "CLASS",
+            "x": 994,
+            "y": 280,
+            "scaleX": 0.12,
+            "scaleY": 0.12
+        },
+        {
+            "prefabId": "320adce4-ba50-4753-badb-0180c77d1fb5",
+            "id": "0aa8b956-9cb8-4e97-a5da-d472e1b635aa",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnUpgradeNavigation",
+            "scope": "CLASS",
+            "x": 994,
+            "y": 320,
+            "scaleX": 0.12,
+            "scaleY": 0.12
+        },
+        {
+            "prefabId": "320adce4-ba50-4753-badb-0180c77d1fb5",
+            "id": "1efb5f9a-b43e-4309-b21c-757b9ac2e7a5",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnUpgradeNegotiation",
+            "scope": "CLASS",
+            "x": 993,
+            "y": 360,
+            "scaleX": 0.12,
+            "scaleY": 0.12
+        },
+        {
+            "prefabId": "320adce4-ba50-4753-badb-0180c77d1fb5",
+            "id": "2d3502c4-9fff-44fb-ba6e-36e57ff0df9b",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnUpgradeShipcraft",
+            "scope": "CLASS",
+            "x": 993,
+            "y": 400,
+            "scaleX": 0.12,
+            "scaleY": 0.12
+        },
+        {
+            "prefabId": "320adce4-ba50-4753-badb-0180c77d1fb5",
+            "id": "f9b417e3-8b53-4ae4-98da-7961ca0aa7f5",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnUpgradeSensors",
+            "scope": "CLASS",
+            "x": 993,
+            "y": 440,
+            "scaleX": 0.12,
+            "scaleY": 0.12
+        },
+        {
+            "prefabId": "320adce4-ba50-4753-badb-0180c77d1fb5",
+            "id": "ce50130b-8b1e-45c7-8a71-adf4da1bfe34",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnUpgradeShields",
+            "scope": "CLASS",
+            "x": 993,
+            "y": 480,
+            "scaleX": 0.12,
+            "scaleY": 0.12
+        },
+        {
+            "prefabId": "320adce4-ba50-4753-badb-0180c77d1fb5",
+            "id": "2609da17-236d-44fa-9f99-03ff68a22cd9",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnUpgradeWeapons",
+            "scope": "CLASS",
+            "x": 993,
+            "y": 520,
+            "scaleX": 0.12,
+            "scaleY": 0.12
+        },
+        {
+            "prefabId": "2f35f58f-064d-4e82-97aa-4c8655c0d3c0",
+            "id": "3b50cff5-7fae-45bf-b00a-69f670271711",
+            "unlock": [
+                "x",
+                "y",
+                "visible",
+                "velocity",
+                "showScale"
+            ],
+            "label": "uiLoading",
+            "scope": "CLASS",
+            "velocity": 0.2,
+            "showScale": 0,
+            "x": 0,
+            "y": -1,
+            "visible": false
         }
     ],
     "plainObjects": [],

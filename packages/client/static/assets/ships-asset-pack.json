@@ -2,6 +2,24 @@
     "section1": {
         "files": [
             {
+                "url": "assets/ships/ship_001.json",
+                "type": "tilemapTiledJSON",
+                "key": "ship_001"
+            },
+            {
+                "url": "assets/ships/ship_tiles.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "ship_tiles"
+            },
+            {
                 "url": "assets/ships/ship1.png",
                 "type": "image",
                 "key": "ship1"
@@ -10,6 +28,46 @@
                 "url": "assets/ships/ship2.png",
                 "type": "image",
                 "key": "ship2"
+            },
+            {
+                "url": "assets/ships/wship-2.png",
+                "type": "image",
+                "key": "wship-2"
+            },
+            {
+                "url": "assets/ships/wship-2-n.png",
+                "type": "image",
+                "key": "wship-2-n"
+            },
+            {
+                "url": "assets/ships/wship-3.png",
+                "type": "image",
+                "key": "wship-3"
+            },
+            {
+                "url": "assets/ships/wship-3-n.png",
+                "type": "image",
+                "key": "wship-3-n"
+            },
+            {
+                "url": "assets/ships/wship-4.png",
+                "type": "image",
+                "key": "wship-4"
+            },
+            {
+                "url": "assets/ships/wship-4-n.png",
+                "type": "image",
+                "key": "wship-4-n"
+            },
+            {
+                "url": "assets/ships/wship1.png",
+                "type": "image",
+                "key": "wship1"
+            },
+            {
+                "url": "assets/ships/wship1-n.png",
+                "type": "image",
+                "key": "wship1-n"
             }
         ]
     },

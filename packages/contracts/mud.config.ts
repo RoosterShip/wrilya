@@ -2,61 +2,68 @@ import { defineWorld } from "@latticexyz/world";
 
 export default defineWorld({
   enums: {
-    Race: [
-      "UNKNOWN",
-      "HUMAN",
+    HomeEnum: [
       "ICOIR",
       "VREL",
+      "PRIME",
       "MILVEA",
       "SAREA",
       "GRAIK",
-      "CHIVEN"
+      "CHIVEN",
+      "AIGEA"
     ],
-    Skill: [
+    FieldEnum: [
       "ARMOR",
       "ENGINES",
       "LEADERSHIP",
       "NAVIGATION",
       "NEGOTIATION",
-      "REPAIRS",
+      "SHIPCRAFT",
       "SENSORS",
       "SHIELDS",
       "WEAPONS"
+    ],
+    AbilityEnum: [
+      "STRENGTH",
+      "PSYCHE",
+      "TECHNIQUE",
+      "INTELLIGENCE",
+      "FOCUS",
+      "ENDURANCE",
+      "RELEXES"
     ]
   },
   tables: {
     // Signal 
-    Crew: "bool",
-    Ship: "bool",
-    OwnedBy: "bytes32",
-    Training: {
+    VoidsmenTable: "bool",
+    ShipTable: "bool",
+    OwnedByTable: "bytes32",
+    HomeTable: "HomeEnum",
+    NameTable: "string",
+    PortraitTable: "string",
+    TrainingTable: {
       schema: {
         entity: "bytes32",
         time: "uint256",
-        skill: "Skill"
+        field: "FieldEnum"
       },
       key: ["entity"],
       codegen: {
         dataStruct: false
       }
     },
-    Persona: {
+    PersonaTable: {
       schema: {
         // Key
         entity: "bytes32",
-        // Persona Info
-        race: "Race",
-        // Future Info:
-        // imageHash: "bytes32"
-        // descriptionHash: "bytes32"
-        // Skills
-        skills: "bytes32",
-        // Crew Member Name
-        name: "string",
+        // Values
+        xp: "uint32",
+        competencies: "uint8[]",
+        stats: "uint8[]",
       },
       key: ["entity"],
     },
-    EntityCounter: {
+    EntityCounterTable: {
       schema: {
         value: "uint256",
       },
