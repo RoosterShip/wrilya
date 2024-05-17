@@ -1,0 +1,71 @@
+{
+    "id": "60917a2c-495e-4eba-85a9-e98362503d62",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "6f9386fe-d902-4b18-89e2-313ff5ced0cb",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "e369b4ad-e6a6-4c3e-a785-456a21e6da41",
+                    "label": "btna",
+                    "texture": {
+                        "key": "BTNA"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "624ba8b8-a1e2-442c-a155-e3f5b2d489d2",
+                    "label": "btn",
+                    "texture": {
+                        "key": "BTN"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "ee76002c-c3e9-43f4-bfc0-ab37334d0919",
+                    "label": "recHitBox",
+                    "originX": 0,
+                    "originY": 0,
+                    "width": 421,
+                    "height": 171
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "nextScene",
+            "label": "Next Scene",
+            "tooltip": "",
+            "defValue": "",
+            "customDefinition": false,
+            "type": {
+                "id": "string"
+            }
+        }
+    ]
+}

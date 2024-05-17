@@ -1,0 +1,78 @@
+{
+    "id": "d1b83110-d9f8-48fc-8705-4fd1700ae9c8",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "0ed2d71c-1c5b-4fb9-bd2b-4f42ff211b4c",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "b359cf22-b34e-4ae9-ad62-553cf0a19a81",
+                    "label": "btnForwardA",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Forward_BTNA"
+                    },
+                    "scaleX": 0.5,
+                    "scaleY": 0.5,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "c1c05a63-3391-494a-805b-6a18cc512b44",
+                    "label": "btnForward",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Forward_BTN"
+                    },
+                    "scaleX": 0.5,
+                    "scaleY": 0.5,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "5083ebb5-0c64-4343-bcc7-ba471acc48c3",
+                    "label": "recHitBox",
+                    "scope": "CLASS",
+                    "originX": 0,
+                    "originY": 0,
+                    "width": 105,
+                    "height": 105
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "nextScene",
+            "label": "Next Scene",
+            "tooltip": "The Next Scene to Forward to",
+            "defValue": "",
+            "customDefinition": false,
+            "type": {
+                "id": "scene-key"
+            }
+        }
+    ]
+}

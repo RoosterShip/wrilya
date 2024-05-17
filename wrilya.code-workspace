@@ -5,6 +5,13 @@
 		}
 	],
 	"settings": {
-		"typescript.tsdk": "node_modules/typescript/lib"
+		"typescript.tsdk": "node_modules/typescript/lib",
+		"editor.defaultFormatter": "vscode.typescript-language-features",
+		"typescript.inlayHints.enumMemberValues.enabled": false,
+		"typescript.inlayHints.functionLikeReturnTypes.enabled": false,
+		"typescript.inlayHints.parameterNames.enabled": "none",
+		"typescript.inlayHints.parameterTypes.enabled": false,
+		"typescript.inlayHints.propertyDeclarationTypes.enabled": false,
+		"typescript.inlayHints.variableTypes.enabled": false
 	}
 }

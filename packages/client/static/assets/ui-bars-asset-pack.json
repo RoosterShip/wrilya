@@ -1,0 +1,123 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/ui/Bar_Green_Dot.png",
+                "type": "image",
+                "key": "Bar_Green_Dot"
+            },
+            {
+                "url": "assets/ui/Bar_Table.png",
+                "type": "image",
+                "key": "Bar_Table"
+            },
+            {
+                "url": "assets/ui/Bar_Table_2.png",
+                "type": "image",
+                "key": "Bar_Table_2"
+            },
+            {
+                "url": "assets/ui/BG.png",
+                "type": "image",
+                "key": "BG"
+            },
+            {
+                "url": "assets/ui/Blue_Bar_1.png",
+                "type": "image",
+                "key": "Blue_Bar_1"
+            },
+            {
+                "url": "assets/ui/Blue_Bar_2.png",
+                "type": "image",
+                "key": "Blue_Bar_2"
+            },
+            {
+                "url": "assets/ui/Blue_Bar_3.png",
+                "type": "image",
+                "key": "Blue_Bar_3"
+            },
+            {
+                "url": "assets/ui/Dot_Armor_Table.png",
+                "type": "image",
+                "key": "Dot_Armor_Table"
+            },
+            {
+                "url": "assets/ui/Dot_Blue.png",
+                "type": "image",
+                "key": "Dot_Blue"
+            },
+            {
+                "url": "assets/ui/Dot_Generic_Table.png",
+                "type": "image",
+                "key": "Dot_Generic_Table"
+            },
+            {
+                "url": "assets/ui/Dot_Health_Table.png",
+                "type": "image",
+                "key": "Dot_Health_Table"
+            },
+            {
+                "url": "assets/ui/Dot_Red.png",
+                "type": "image",
+                "key": "Dot_Red"
+            },
+            {
+                "url": "assets/ui/Green_Bar_1.png",
+                "type": "image",
+                "key": "Green_Bar_1"
+            },
+            {
+                "url": "assets/ui/Green_Bar_2.png",
+                "type": "image",
+                "key": "Green_Bar_2"
+            },
+            {
+                "url": "assets/ui/Green_Bar_3.png",
+                "type": "image",
+                "key": "Green_Bar_3"
+            },
+            {
+                "url": "assets/ui/Name_Table.png",
+                "type": "image",
+                "key": "Name_Table"
+            },
+            {
+                "url": "assets/ui/Orange_Bar_1.png",
+                "type": "image",
+                "key": "Orange_Bar_1"
+            },
+            {
+                "url": "assets/ui/Orange_Bar_2.png",
+                "type": "image",
+                "key": "Orange_Bar_2"
+            },
+            {
+                "url": "assets/ui/Orange_Bar_3.png",
+                "type": "image",
+                "key": "Orange_Bar_3"
+            },
+            {
+                "url": "assets/ui/Red_Bar_1.png",
+                "type": "image",
+                "key": "Red_Bar_1"
+            },
+            {
+                "url": "assets/ui/Red_Bar_2.png",
+                "type": "image",
+                "key": "Red_Bar_2"
+            },
+            {
+                "url": "assets/ui/Red_Bar_3.png",
+                "type": "image",
+                "key": "Red_Bar_3"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}

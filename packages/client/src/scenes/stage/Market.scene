@@ -1,0 +1,41 @@
+{
+    "id": "43682797-ffc1-47d5-9462-0acdbe00462e",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Market",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "prefabId": "080a0bd3-0ffe-479b-8b31-1d6781e51df7",
+            "id": "625180ad-8968-4801-a041-0da566792c00",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "btnSceneLoadBack",
+            "x": 0,
+            "y": 615
+        },
+        {
+            "type": "Text",
+            "id": "99b0ec39-312e-4ea6-b4b3-9ccf183db3e2",
+            "label": "text_1",
+            "text": "Market Scene",
+            "fontSize": "64px"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

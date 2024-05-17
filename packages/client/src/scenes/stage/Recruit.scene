@@ -1,0 +1,364 @@
+{
+    "id": "1e61edb6-aeeb-44c2-bebd-00dde4d4a047",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Recruit",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "prefabId": "0a31e1b7-f588-48a3-a11d-307728a09cb1",
+            "id": "c62c077b-0daf-4def-9ebe-bb8212551b8a",
+            "unlock": [
+                "x",
+                "y",
+                "velocity"
+            ],
+            "label": "starfield",
+            "velocity": 0.011414,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "prefabId": "080a0bd3-0ffe-479b-8b31-1d6781e51df7",
+            "id": "fc858fdc-fdb1-4d3a-b96a-c83f49a47f1d",
+            "unlock": [
+                "x",
+                "y",
+                "nextScene"
+            ],
+            "label": "btnSceneLoadBack",
+            "scope": "CLASS",
+            "nextScene": "Crew",
+            "x": 0,
+            "y": 615
+        },
+        {
+            "type": "Image",
+            "id": "3e83db8d-1750-4abf-9c5d-0424e9fc339b",
+            "label": "window",
+            "texture": {
+                "key": "Window"
+            },
+            "x": 640,
+            "y": 360,
+            "scaleX": 0.9,
+            "scaleY": 0.9
+        },
+        {
+            "type": "Image",
+            "id": "e18eee16-f21c-4354-9552-820f08071367",
+            "label": "imgPortrait",
+            "useGameObjectName": true,
+            "scope": "CLASS",
+            "texture": {
+                "key": "h_f_001"
+            },
+            "x": 266,
+            "y": 165,
+            "scaleX": 0.4,
+            "scaleY": 0.4,
+            "originX": 0,
+            "originY": 0,
+            "list": [
+                {
+                    "type": "Glow",
+                    "id": "1682ff14-b540-42a3-89d6-b85b22fe3343",
+                    "label": "glowFx",
+                    "outerStrength": 0,
+                    "innerStrength": 4,
+                    "preFX": true
+                }
+            ]
+        },
+        {
+            "type": "Image",
+            "id": "63dfeadc-f8d6-4360-a6cc-eae9dfba8474",
+            "label": "btnPortraitForwardA",
+            "scope": "CLASS",
+            "texture": {
+                "key": "Forward_BTNA"
+            },
+            "x": 600,
+            "y": 620,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "type": "Image",
+            "id": "4e3e4870-990a-45ca-b2a6-db15b2f89009",
+            "label": "btnPortraitForward",
+            "scope": "CLASS",
+            "texture": {
+                "key": "Forward_BTN"
+            },
+            "x": 600,
+            "y": 620,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "type": "Rectangle",
+            "id": "695a4355-e4c7-46a1-ba6d-1ca12829aecb",
+            "label": "hbPortraitForward",
+            "scope": "CLASS",
+            "x": 600,
+            "y": 620,
+            "scaleX": 0.25,
+            "scaleY": 0.25,
+            "width": 210,
+            "height": 210
+        },
+        {
+            "type": "Image",
+            "id": "e2d7520e-5b66-418e-8d0a-b8ede757af2a",
+            "label": "btnPortraitBackA",
+            "scope": "CLASS",
+            "texture": {
+                "key": "Backward_BTNA"
+            },
+            "x": 340,
+            "y": 620,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "type": "Image",
+            "id": "08fdb009-fd53-42ba-9d86-f590fe3db7a7",
+            "label": "btnPortraitBack",
+            "scope": "CLASS",
+            "texture": {
+                "key": "Backward_BTN"
+            },
+            "x": 340,
+            "y": 620,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "type": "Rectangle",
+            "id": "e294be52-c341-4fa8-bbf1-3311fea43171",
+            "label": "hbPortraitBack",
+            "scope": "CLASS",
+            "x": 340,
+            "y": 620,
+            "scaleX": 0.25,
+            "scaleY": 0.25,
+            "width": 210,
+            "height": 210
+        },
+        {
+            "type": "Text",
+            "id": "98030768-ce69-4758-8498-adeb530b87c8",
+            "label": "lblPortrait",
+            "x": 393,
+            "y": 602,
+            "text": "Portrait",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Rectangle",
+            "id": "93de80ab-8d76-4c33-8641-8007b807d98d",
+            "label": "ibName",
+            "scope": "CLASS",
+            "x": 284,
+            "y": 30,
+            "originX": 0,
+            "originY": 0,
+            "width": 700,
+            "height": 90
+        },
+        {
+            "type": "Image",
+            "id": "a0f041a9-bf72-4744-937e-b23ef8e56a7f",
+            "label": "bgBackStory",
+            "texture": {
+                "key": "Table_01"
+            },
+            "x": 714,
+            "y": 300,
+            "scaleX": 0.75,
+            "scaleY": 0.5,
+            "originX": 0,
+            "originY": 0
+        },
+        {
+            "type": "Rectangle",
+            "id": "06e175c0-772a-45e8-81f0-d0ed6d5d07c8",
+            "label": "ibHistory",
+            "scope": "CLASS",
+            "x": 732,
+            "y": 311,
+            "originX": 0,
+            "originY": 0,
+            "width": 260,
+            "height": 220
+        },
+        {
+            "type": "Text",
+            "id": "aecce112-2b87-41c2-968b-1d6be961d33c",
+            "label": "lblHistory",
+            "x": 720,
+            "y": 270,
+            "text": "History",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "2d6b0825-3d09-4bec-8c09-e0827a0aa1e6",
+            "label": "lblHomeSystem",
+            "x": 710,
+            "y": 170,
+            "text": "Home System",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Image",
+            "id": "95c53504-7d79-4058-b754-6778bc622a83",
+            "label": "btnRaceForwardA",
+            "scope": "CLASS",
+            "texture": {
+                "key": "Forward_BTNA"
+            },
+            "x": 995,
+            "y": 238,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "type": "Image",
+            "id": "9ab6cf94-f25c-440b-84f6-8c4747b0cb3d",
+            "label": "btnRaceForward",
+            "scope": "CLASS",
+            "texture": {
+                "key": "Forward_BTN"
+            },
+            "x": 995,
+            "y": 238,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "type": "Rectangle",
+            "id": "9dc300f0-2655-439a-8970-220593b196f1",
+            "label": "hbRaceForward",
+            "scope": "CLASS",
+            "x": 995,
+            "y": 238,
+            "scaleX": 0.25,
+            "scaleY": 0.25,
+            "width": 210,
+            "height": 210
+        },
+        {
+            "type": "Image",
+            "id": "c33e0987-5cd3-42d6-86d2-68081d60c1bf",
+            "label": "btnRaceBackA",
+            "scope": "CLASS",
+            "texture": {
+                "key": "Backward_BTNA"
+            },
+            "x": 735,
+            "y": 238,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "type": "Image",
+            "id": "2f390c7b-e11f-423e-86ac-40bde3f81761",
+            "label": "btnRaceBack",
+            "scope": "CLASS",
+            "texture": {
+                "key": "Backward_BTN"
+            },
+            "x": 735,
+            "y": 238,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "type": "Rectangle",
+            "id": "96ccb6b0-9e7b-4212-a550-49faf50e0c0c",
+            "label": "hbRaceBack",
+            "scope": "CLASS",
+            "x": 735,
+            "y": 238,
+            "scaleX": 0.25,
+            "scaleY": 0.25,
+            "width": 210,
+            "height": 210
+        },
+        {
+            "type": "Text",
+            "id": "da71e76e-0c1a-440a-bb94-eb96b142258d",
+            "label": "lblRaceSelected",
+            "scope": "CLASS",
+            "x": 862,
+            "y": 237,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "Human",
+            "align": "center",
+            "fontSize": "32px"
+        },
+        {
+            "prefabId": "554b1cec-33be-4e07-afb3-2e6f0dd79bc6",
+            "id": "18db93f9-6dee-47c5-84d3-827c221714c9",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnStd",
+            "scope": "CLASS",
+            "x": 740,
+            "y": 560,
+            "scaleX": 0.6,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "13f2e269-58ca-4075-9714-d1a5b1b671db",
+            "label": "lblRecruit",
+            "scope": "CLASS",
+            "x": 765,
+            "y": 575,
+            "text": "Recruit",
+            "fontSize": "48px"
+        },
+        {
+            "prefabId": "2f35f58f-064d-4e82-97aa-4c8655c0d3c0",
+            "id": "7cb93e01-306c-47dd-9f0c-a7ff7ddddbd2",
+            "unlock": [
+                "x",
+                "y",
+                "visible",
+                "velocity",
+                "title",
+                "message"
+            ],
+            "label": "uiLoading",
+            "scope": "CLASS",
+            "velocity": 0.1,
+            "title": "Recruiting",
+            "message": "Recruiting Voidsman.  Please wait while your paperwork is processing...",
+            "x": 0,
+            "y": 0,
+            "visible": false
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

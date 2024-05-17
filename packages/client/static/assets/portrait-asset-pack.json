@@ -1,0 +1,73 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/portrait/h_f_001.png",
+                "type": "image",
+                "key": "h_f_001"
+            },
+            {
+                "url": "assets/portrait/h_f_002.png",
+                "type": "image",
+                "key": "h_f_002"
+            },
+            {
+                "url": "assets/portrait/h_f_003.png",
+                "type": "image",
+                "key": "h_f_003"
+            },
+            {
+                "url": "assets/portrait/h_f_004.png",
+                "type": "image",
+                "key": "h_f_004"
+            },
+            {
+                "url": "assets/portrait/h_f_005.png",
+                "type": "image",
+                "key": "h_f_005"
+            },
+            {
+                "url": "assets/portrait/h_f_006.png",
+                "type": "image",
+                "key": "h_f_006"
+            },
+            {
+                "url": "assets/portrait/h_m_001.png",
+                "type": "image",
+                "key": "h_m_001"
+            },
+            {
+                "url": "assets/portrait/h_m_002.png",
+                "type": "image",
+                "key": "h_m_002"
+            },
+            {
+                "url": "assets/portrait/h_m_003.png",
+                "type": "image",
+                "key": "h_m_003"
+            },
+            {
+                "url": "assets/portrait/h_m_004.png",
+                "type": "image",
+                "key": "h_m_004"
+            },
+            {
+                "url": "assets/portrait/h_m_005.png",
+                "type": "image",
+                "key": "h_m_005"
+            },
+            {
+                "url": "assets/portrait/h_m_006.png",
+                "type": "image",
+                "key": "h_m_006"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": true
+    }
+}

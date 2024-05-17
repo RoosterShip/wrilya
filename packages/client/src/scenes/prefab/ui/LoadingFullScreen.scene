@@ -1,0 +1,140 @@
+{
+    "id": "2f35f58f-064d-4e82-97aa-4c8655c0d3c0",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "ce0a7c87-e49f-4d4e-b60a-4a5d40d850b3",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Rectangle",
+                    "id": "0bf005dd-340f-4b2e-87d2-836504806eb1",
+                    "label": "hbBackDrop",
+                    "hitArea.shape": "RECTANGLE",
+                    "hitArea.width": 1280,
+                    "hitArea.height": 720,
+                    "originX": 0,
+                    "originY": 0,
+                    "isFilled": true,
+                    "fillAlpha": 0.1,
+                    "width": 1280,
+                    "height": 720
+                },
+                {
+                    "type": "Image",
+                    "id": "60a79b5b-8752-460f-8b2e-99ba2d59c752",
+                    "label": "imgWindow",
+                    "texture": {
+                        "key": "Table_01"
+                    },
+                    "x": 640,
+                    "y": 360,
+                    "scaleY": 0.5
+                },
+                {
+                    "type": "Image",
+                    "id": "9cb02505-9f14-470b-93fa-db173263f25e",
+                    "label": "imgSpinner",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Dot_02"
+                    },
+                    "x": 640,
+                    "y": 440,
+                    "scaleX": 0.5,
+                    "scaleY": 0.5
+                },
+                {
+                    "type": "Text",
+                    "id": "d642b1cd-6dc2-4fa2-baf9-7ed199c88b29",
+                    "label": "lblTitle",
+                    "scope": "PUBLIC",
+                    "x": 640,
+                    "y": 260,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "text": "Loading",
+                    "align": "center",
+                    "fontSize": "32px",
+                    "wordWrapUseAdvanced": true
+                },
+                {
+                    "type": "Text",
+                    "id": "d64381fd-8534-4c2a-94ab-6e8670da3ba4",
+                    "label": "lblMessage",
+                    "scope": "PUBLIC",
+                    "x": 640,
+                    "y": 319,
+                    "originX": 0.5,
+                    "text": "This is some loading text",
+                    "fixedWidth": 340,
+                    "fixedHeight": 90,
+                    "align": "center",
+                    "fontSize": "24px",
+                    "baselineY": 1.55,
+                    "wordWrapWidth": 340
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "velocity",
+            "label": "Velocity",
+            "tooltip": "Speed in which the display animation happens",
+            "defValue": 1,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "showScale",
+            "label": "Show Scale",
+            "tooltip": "What scale size should the animation start at.",
+            "defValue": 0,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "title",
+            "label": "Title",
+            "tooltip": "The title text to display",
+            "defValue": "Loading",
+            "customDefinition": false,
+            "type": {
+                "id": "string"
+            }
+        },
+        {
+            "name": "message",
+            "label": "Message",
+            "tooltip": "The message text to display",
+            "defValue": "Loading",
+            "customDefinition": false,
+            "type": {
+                "id": "string"
+            }
+        }
+    ]
+}

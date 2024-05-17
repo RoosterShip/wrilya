@@ -1,0 +1,59 @@
+{
+    "id": "320adce4-ba50-4753-badb-0180c77d1fb5",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "b7f7516e-1275-45fe-9e64-f65f606b3eba",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "4aecdb9b-af47-4980-b8ec-deeed4a9d1b2",
+                    "label": "btnMainA",
+                    "texture": {
+                        "key": "Upgrade_BTNA"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "cc3cccd4-d064-43a1-9d50-2a37caf7bbf5",
+                    "label": "btnMain",
+                    "texture": {
+                        "key": "Upgrade_BTN"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "e71554c0-9ed4-458a-8a4c-c599e5edf395",
+                    "label": "hbMain",
+                    "originX": 0,
+                    "originY": 0,
+                    "width": 210,
+                    "height": 210
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}
