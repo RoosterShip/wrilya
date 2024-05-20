@@ -21,19 +21,9 @@ pragma solidity >=0.8.24;
 // ----------------------------------------------------------------------------
 
 import { System } from "@latticexyz/world/src/System.sol";
-import { toBytes32, getFieldUint8, setFieldUint8 } from "../utils.sol";
-import { Unauthorized, InvalidCaller, InvalidState, NotReady } from "../errors.sol";
-import { HomeEnum, FieldEnum, AbilityEnum } from "../codegen/common.sol";
-import {
-  EntityCounterTable,
-  VoidsmenTable,
-  ShipTable,
-  OwnedByTable,
-  HomeTable,
-  NameTable,
-  PortraitTable,
-  TrainingTable,
-  PersonaTable  } from "../codegen/index.sol";
+import { notify, requireAdmin, requireGM, requireRunning, requireHalted } from "../utils.sol";
+import { GameConfigTable  } from "../codegen/index.sol";
+import { OperationEnum  } from "../codegen/common.sol";
 
 // ----------------------------------------------------------------------------
 /// @title GameSystem
@@ -41,111 +31,82 @@ import {
 /// @notice MUD.dev based smart for Game Voidsmen.
 contract GameSystem is System {
 
-  uint8 constant MAX_LEVEL = 10;
-
-  // --------------------------------------------------------------------------
-  // CREW Interfaces
-  // --------------------------------------------------------------------------
-
-
-  /// Create a new Crew member and assign it to the caller.  This crew member
-  /// will have all levels set to 0.
-  //
-  /// @param name of the new crew member
-  /// @param portrait code from the client that this voidsman is using
-  /// @param home Enum value for the crew member
-  function recruitVoidsman(string calldata name, string calldata portrait, HomeEnum home) public {
-    // Verify the sender is an actual wallet.
-    //
-    // NOTE: 
-    // 
-    // Might want to remove this later if used for batching
-    if(isContract(_msgSender())) revert InvalidCaller();
-
-    // Build the Entity ID
-    uint256 entityValue = EntityCounterTable.get();
-    EntityCounterTable.set(entityValue + 1);
-    bytes32 entityId = toBytes32(entityValue);
-
-    // Setup state values for the new Voidsman
-    NameTable.set(entityId, name);
-    HomeTable.set(entityId, home);
-    PortraitTable.set(entityId, portrait);
-    VoidsmenTable.set(entityId, true);
-    PersonaTable.set(entityId, 0, new uint8[](9), new uint8[](7));
-    
-    // Setup the Ownership
-    OwnedByTable.set(entityId, toBytes32(_msgSender()));
+  /**
+   * Call to put the game in a paused state.  Many operations will require
+   * that the game be running so doing this will cause those commands to
+   * revert.
+   */
+  function pause() public {
+    requireGM(_msgSender());
+    requireHalted();
+    GameConfigTable.setActive(false);
+    notify(OperationEnum.GAME_PAUSE, ""); 
   }
 
-  /// Delete a crew member from the caller (burn NFT).
-  ///
-  /// Note: I might change this to actually transfer crew member instead
-  /// @param entityId to delete from chain
-  function dismissVoidsmen(bytes32 entityId) public {
-    // if (OwnedBy.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
-    // Persona.deleteRecord(entityId);
-    // Crew.deleteRecord(entityId);
-    // OwnedBy.deleteRecord(entityId);
+  /**
+   * Unpauase the game and allow for on chain operations to begin again.
+   */
+  function unpause() public {
+    requireGM(_msgSender());
+    requireRunning();
+    GameConfigTable.setActive(true);
+    notify(OperationEnum.GAME_UNPAUSE, ""); 
   }
 
-  /// Start the training process for a crew member.  You can only have
-  /// one skill being trained at any given time.
-  /// @param entityId to train
-  /// @param subject to train
-  function trainVoidsman(bytes32 entityId, FieldEnum subject) public {
-    // Does the caller own the entity?
-    if (OwnedByTable.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
-    // Can the entity be trained?
-    if (TrainingTable.getTime(entityId) != uint256(0)) revert InvalidState();
-
-    // Pull out the competency level, calculate the time needed to train the level and set it
-    uint8 level = PersonaTable.getItemCompetencies(entityId, uint256(subject));
-
-    if(level >= MAX_LEVEL) revert InvalidState();
-
-    uint256 time = levelTime(uint256(level) + 1) + block.timestamp;
-    TrainingTable.set(entityId, time, subject);
+  /**
+   * Set the Address for the GM Account.
+   * 
+   * Please see documentation for more information about the GM Account
+   * 
+   * @param newGM address that is now the GM
+   */
+  function setGM(address newGM) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setGm(newGM);
+    notify(OperationEnum.GAME_SET_GM, ""); 
   }
 
-  // /// Stop training a skill.  All time invested into training skill is also lost
-  // /// @param entityId to stop training
-  // function stopTraining(bytes32 entityId) public {
-  //   // // Does the caller own the entity?
-  //   // if (OwnedBy.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
-  //   // Training.deleteRecord(entityId);
-  // }
-
-  /// Once a crew person has finished training they can be "certified" to the
-  /// next level.
-  /// @param entityId to level up
-  function certifyVoidsman(bytes32 entityId) public {
-    // Does the caller own the entity?
-    if (OwnedByTable.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
-    (uint256 time, FieldEnum subject) = TrainingTable.get(entityId);
-    // Check that they ARE training
-    if (time == uint256(0)) revert InvalidState();
-    // Check that they are DONE training
-    if (time > block.timestamp) revert NotReady();
-    uint8 level = PersonaTable.getItemCompetencies(entityId, uint256(subject));
-    if(level >= MAX_LEVEL) revert InvalidState();
-
-    // Update the state
-    PersonaTable.updateCompetencies(entityId, uint256(subject), level + 1);
-    TrainingTable.deleteRecord(entityId);
+  /**
+   * Set the Address for the admin account.
+   * 
+   * Please see documentation for more information about the admin account
+   * 
+   * @param newAdmin address that is now the admin
+   */
+  function setAdmin(address newAdmin) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setAdmin(newAdmin);
+    notify(OperationEnum.GAME_SET_ADMIN, ""); 
   }
 
-  /// Based on our tuning data levels should increase at a speed
-  /// @param level base for time
-  function levelTime(uint256 level) public pure returns (uint256) {
-    return 10 * (level ** 6);
+  /**
+   * Set the address of the currency ERC-20 proxy contract.
+   * @param proxy address to accept ERC-20 ops from
+   */
+  function setCurrencyProxy(address proxy) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setCurrencyProxy(proxy);
+    notify(OperationEnum.GAME_SET_CURRENCY_PROXY, ""); 
   }
 
-  function isContract(address _address) public view returns (bool){
-    uint32 size;
-    assembly {
-      size := extcodesize(_address)
-    }
-    return (size > 0);//Warning: will return false if the call is made from the constructor of a smart contract
+  /**
+   * Set the address for the item (ERC-1155) proxy contract
+   * @param proxy address to accept ERC-1155 ops from
+   */ 
+  function setItemProxy(address proxy) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setItemProxy(proxy);
+    notify(OperationEnum.GAME_SET_ITEM_PROXY, ""); 
   }
+
+  /**
+   * Set the address for the entity (ERC-721) proxy contract 
+   * @param proxy address to accept ERC-721 ops from
+   */
+  function setEntityProxy(address proxy) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setEntityProxy(proxy);
+    notify(OperationEnum.GAME_SET_ENTITY_PROXY, ""); 
+  }
+
 }

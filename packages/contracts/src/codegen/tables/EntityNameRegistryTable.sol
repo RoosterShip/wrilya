@@ -16,9 +16,9 @@ import { Schema } from "@latticexyz/store/src/Schema.sol";
 import { EncodedLengths, EncodedLengthsLib } from "@latticexyz/store/src/EncodedLengths.sol";
 import { ResourceId } from "@latticexyz/store/src/ResourceId.sol";
 
-library VoidsmenTable {
-  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "app", name: "VoidsmenTable", typeId: RESOURCE_TABLE });`
-  ResourceId constant _tableId = ResourceId.wrap(0x74626170700000000000000000000000566f6964736d656e5461626c65000000);
+library EntityNameRegistryTable {
+  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "game", name: "EntityNameRegist", typeId: RESOURCE_TABLE });`
+  ResourceId constant _tableId = ResourceId.wrap(0x746267616d6500000000000000000000456e746974794e616d65526567697374);
 
   FieldLayout constant _fieldLayout =
     FieldLayout.wrap(0x0001010001000000000000000000000000000000000000000000000000000000);
@@ -34,7 +34,7 @@ library VoidsmenTable {
    */
   function getKeyNames() internal pure returns (string[] memory keyNames) {
     keyNames = new string[](1);
-    keyNames[0] = "id";
+    keyNames[0] = "nameHash";
   }
 
   /**
@@ -63,9 +63,9 @@ library VoidsmenTable {
   /**
    * @notice Get value.
    */
-  function getValue(bytes32 id) internal view returns (bool value) {
+  function getValue(bytes32 nameHash) internal view returns (bool value) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = id;
+    _keyTuple[0] = nameHash;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return (_toBool(uint8(bytes1(_blob))));
@@ -74,9 +74,9 @@ library VoidsmenTable {
   /**
    * @notice Get value.
    */
-  function _getValue(bytes32 id) internal view returns (bool value) {
+  function _getValue(bytes32 nameHash) internal view returns (bool value) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = id;
+    _keyTuple[0] = nameHash;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return (_toBool(uint8(bytes1(_blob))));
@@ -85,9 +85,9 @@ library VoidsmenTable {
   /**
    * @notice Get value.
    */
-  function get(bytes32 id) internal view returns (bool value) {
+  function get(bytes32 nameHash) internal view returns (bool value) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = id;
+    _keyTuple[0] = nameHash;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return (_toBool(uint8(bytes1(_blob))));
@@ -96,9 +96,9 @@ library VoidsmenTable {
   /**
    * @notice Get value.
    */
-  function _get(bytes32 id) internal view returns (bool value) {
+  function _get(bytes32 nameHash) internal view returns (bool value) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = id;
+    _keyTuple[0] = nameHash;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return (_toBool(uint8(bytes1(_blob))));
@@ -107,9 +107,9 @@ library VoidsmenTable {
   /**
    * @notice Set value.
    */
-  function setValue(bytes32 id, bool value) internal {
+  function setValue(bytes32 nameHash, bool value) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = id;
+    _keyTuple[0] = nameHash;
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((value)), _fieldLayout);
   }
@@ -117,9 +117,9 @@ library VoidsmenTable {
   /**
    * @notice Set value.
    */
-  function _setValue(bytes32 id, bool value) internal {
+  function _setValue(bytes32 nameHash, bool value) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = id;
+    _keyTuple[0] = nameHash;
 
     StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((value)), _fieldLayout);
   }
@@ -127,9 +127,9 @@ library VoidsmenTable {
   /**
    * @notice Set value.
    */
-  function set(bytes32 id, bool value) internal {
+  function set(bytes32 nameHash, bool value) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = id;
+    _keyTuple[0] = nameHash;
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((value)), _fieldLayout);
   }
@@ -137,9 +137,9 @@ library VoidsmenTable {
   /**
    * @notice Set value.
    */
-  function _set(bytes32 id, bool value) internal {
+  function _set(bytes32 nameHash, bool value) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = id;
+    _keyTuple[0] = nameHash;
 
     StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((value)), _fieldLayout);
   }
@@ -147,9 +147,9 @@ library VoidsmenTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function deleteRecord(bytes32 id) internal {
+  function deleteRecord(bytes32 nameHash) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = id;
+    _keyTuple[0] = nameHash;
 
     StoreSwitch.deleteRecord(_tableId, _keyTuple);
   }
@@ -157,9 +157,9 @@ library VoidsmenTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function _deleteRecord(bytes32 id) internal {
+  function _deleteRecord(bytes32 nameHash) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = id;
+    _keyTuple[0] = nameHash;
 
     StoreCore.deleteRecord(_tableId, _keyTuple, _fieldLayout);
   }
@@ -190,9 +190,9 @@ library VoidsmenTable {
   /**
    * @notice Encode keys as a bytes32 array using this table's field layout.
    */
-  function encodeKeyTuple(bytes32 id) internal pure returns (bytes32[] memory) {
+  function encodeKeyTuple(bytes32 nameHash) internal pure returns (bytes32[] memory) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = id;
+    _keyTuple[0] = nameHash;
 
     return _keyTuple;
   }

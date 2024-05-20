@@ -16,23 +16,20 @@ import { Schema } from "@latticexyz/store/src/Schema.sol";
 import { EncodedLengths, EncodedLengthsLib } from "@latticexyz/store/src/EncodedLengths.sol";
 import { ResourceId } from "@latticexyz/store/src/ResourceId.sol";
 
-struct PersonaTableData {
-  uint32 xp;
-  uint8[] competencies;
-  uint8[] stats;
-}
+// Import user types
+import { HomeEnum } from "./../common.sol";
 
-library PersonaTable {
-  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "app", name: "PersonaTable", typeId: RESOURCE_TABLE });`
-  ResourceId constant _tableId = ResourceId.wrap(0x74626170700000000000000000000000506572736f6e615461626c6500000000);
+library EntityInfoTable {
+  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "game", name: "EntityInfoTable", typeId: RESOURCE_TABLE });`
+  ResourceId constant _tableId = ResourceId.wrap(0x746267616d6500000000000000000000456e74697479496e666f5461626c6500);
 
   FieldLayout constant _fieldLayout =
-    FieldLayout.wrap(0x0004010204000000000000000000000000000000000000000000000000000000);
+    FieldLayout.wrap(0x0001010201000000000000000000000000000000000000000000000000000000);
 
   // Hex-encoded key schema of (bytes32)
   Schema constant _keySchema = Schema.wrap(0x002001005f000000000000000000000000000000000000000000000000000000);
-  // Hex-encoded value schema of (uint32, uint8[], uint8[])
-  Schema constant _valueSchema = Schema.wrap(0x0004010203626200000000000000000000000000000000000000000000000000);
+  // Hex-encoded value schema of (uint8, string, string)
+  Schema constant _valueSchema = Schema.wrap(0x0001010200c5c500000000000000000000000000000000000000000000000000);
 
   /**
    * @notice Get the table's key field names.
@@ -49,9 +46,9 @@ library PersonaTable {
    */
   function getFieldNames() internal pure returns (string[] memory fieldNames) {
     fieldNames = new string[](3);
-    fieldNames[0] = "xp";
-    fieldNames[1] = "competencies";
-    fieldNames[2] = "stats";
+    fieldNames[0] = "home";
+    fieldNames[1] = "name";
+    fieldNames[2] = "portrait";
   }
 
   /**
@@ -69,93 +66,93 @@ library PersonaTable {
   }
 
   /**
-   * @notice Get xp.
+   * @notice Get home.
    */
-  function getXp(bytes32 entity) internal view returns (uint32 xp) {
+  function getHome(bytes32 entity) internal view returns (HomeEnum home) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
-    return (uint32(bytes4(_blob)));
+    return HomeEnum(uint8(bytes1(_blob)));
   }
 
   /**
-   * @notice Get xp.
+   * @notice Get home.
    */
-  function _getXp(bytes32 entity) internal view returns (uint32 xp) {
+  function _getHome(bytes32 entity) internal view returns (HomeEnum home) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
-    return (uint32(bytes4(_blob)));
+    return HomeEnum(uint8(bytes1(_blob)));
   }
 
   /**
-   * @notice Set xp.
+   * @notice Set home.
    */
-  function setXp(bytes32 entity, uint32 xp) internal {
+  function setHome(bytes32 entity, HomeEnum home) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((xp)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(home)), _fieldLayout);
   }
 
   /**
-   * @notice Set xp.
+   * @notice Set home.
    */
-  function _setXp(bytes32 entity, uint32 xp) internal {
+  function _setHome(bytes32 entity, HomeEnum home) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((xp)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(home)), _fieldLayout);
   }
 
   /**
-   * @notice Get competencies.
+   * @notice Get name.
    */
-  function getCompetencies(bytes32 entity) internal view returns (uint8[] memory competencies) {
+  function getName(bytes32 entity) internal view returns (string memory name) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     bytes memory _blob = StoreSwitch.getDynamicField(_tableId, _keyTuple, 0);
-    return (SliceLib.getSubslice(_blob, 0, _blob.length).decodeArray_uint8());
+    return (string(_blob));
   }
 
   /**
-   * @notice Get competencies.
+   * @notice Get name.
    */
-  function _getCompetencies(bytes32 entity) internal view returns (uint8[] memory competencies) {
+  function _getName(bytes32 entity) internal view returns (string memory name) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     bytes memory _blob = StoreCore.getDynamicField(_tableId, _keyTuple, 0);
-    return (SliceLib.getSubslice(_blob, 0, _blob.length).decodeArray_uint8());
+    return (string(_blob));
   }
 
   /**
-   * @notice Set competencies.
+   * @notice Set name.
    */
-  function setCompetencies(bytes32 entity, uint8[] memory competencies) internal {
+  function setName(bytes32 entity, string memory name) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreSwitch.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((competencies)));
+    StoreSwitch.setDynamicField(_tableId, _keyTuple, 0, bytes((name)));
   }
 
   /**
-   * @notice Set competencies.
+   * @notice Set name.
    */
-  function _setCompetencies(bytes32 entity, uint8[] memory competencies) internal {
+  function _setName(bytes32 entity, string memory name) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreCore.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((competencies)));
+    StoreCore.setDynamicField(_tableId, _keyTuple, 0, bytes((name)));
   }
 
   /**
-   * @notice Get the length of competencies.
+   * @notice Get the length of name.
    */
-  function lengthCompetencies(bytes32 entity) internal view returns (uint256) {
+  function lengthName(bytes32 entity) internal view returns (uint256) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -166,9 +163,9 @@ library PersonaTable {
   }
 
   /**
-   * @notice Get the length of competencies.
+   * @notice Get the length of name.
    */
-  function _lengthCompetencies(bytes32 entity) internal view returns (uint256) {
+  function _lengthName(bytes32 entity) internal view returns (uint256) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -179,57 +176,57 @@ library PersonaTable {
   }
 
   /**
-   * @notice Get an item of competencies.
+   * @notice Get an item of name.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function getItemCompetencies(bytes32 entity, uint256 _index) internal view returns (uint8) {
+  function getItemName(bytes32 entity, uint256 _index) internal view returns (string memory) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _blob = StoreSwitch.getDynamicFieldSlice(_tableId, _keyTuple, 0, _index * 1, (_index + 1) * 1);
-      return (uint8(bytes1(_blob)));
+      return (string(_blob));
     }
   }
 
   /**
-   * @notice Get an item of competencies.
+   * @notice Get an item of name.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function _getItemCompetencies(bytes32 entity, uint256 _index) internal view returns (uint8) {
+  function _getItemName(bytes32 entity, uint256 _index) internal view returns (string memory) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _blob = StoreCore.getDynamicFieldSlice(_tableId, _keyTuple, 0, _index * 1, (_index + 1) * 1);
-      return (uint8(bytes1(_blob)));
+      return (string(_blob));
     }
   }
 
   /**
-   * @notice Push an element to competencies.
+   * @notice Push a slice to name.
    */
-  function pushCompetencies(bytes32 entity, uint8 _element) internal {
+  function pushName(bytes32 entity, string memory _slice) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreSwitch.pushToDynamicField(_tableId, _keyTuple, 0, abi.encodePacked((_element)));
+    StoreSwitch.pushToDynamicField(_tableId, _keyTuple, 0, bytes((_slice)));
   }
 
   /**
-   * @notice Push an element to competencies.
+   * @notice Push a slice to name.
    */
-  function _pushCompetencies(bytes32 entity, uint8 _element) internal {
+  function _pushName(bytes32 entity, string memory _slice) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreCore.pushToDynamicField(_tableId, _keyTuple, 0, abi.encodePacked((_element)));
+    StoreCore.pushToDynamicField(_tableId, _keyTuple, 0, bytes((_slice)));
   }
 
   /**
-   * @notice Pop an element from competencies.
+   * @notice Pop a slice from name.
    */
-  function popCompetencies(bytes32 entity) internal {
+  function popName(bytes32 entity) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -237,9 +234,9 @@ library PersonaTable {
   }
 
   /**
-   * @notice Pop an element from competencies.
+   * @notice Pop a slice from name.
    */
-  function _popCompetencies(bytes32 entity) internal {
+  function _popName(bytes32 entity) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -247,77 +244,77 @@ library PersonaTable {
   }
 
   /**
-   * @notice Update an element of competencies at `_index`.
+   * @notice Update a slice of name at `_index`.
    */
-  function updateCompetencies(bytes32 entity, uint256 _index, uint8 _element) internal {
+  function updateName(bytes32 entity, uint256 _index, string memory _slice) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     unchecked {
-      bytes memory _encoded = abi.encodePacked((_element));
+      bytes memory _encoded = bytes((_slice));
       StoreSwitch.spliceDynamicData(_tableId, _keyTuple, 0, uint40(_index * 1), uint40(_encoded.length), _encoded);
     }
   }
 
   /**
-   * @notice Update an element of competencies at `_index`.
+   * @notice Update a slice of name at `_index`.
    */
-  function _updateCompetencies(bytes32 entity, uint256 _index, uint8 _element) internal {
+  function _updateName(bytes32 entity, uint256 _index, string memory _slice) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     unchecked {
-      bytes memory _encoded = abi.encodePacked((_element));
+      bytes memory _encoded = bytes((_slice));
       StoreCore.spliceDynamicData(_tableId, _keyTuple, 0, uint40(_index * 1), uint40(_encoded.length), _encoded);
     }
   }
 
   /**
-   * @notice Get stats.
+   * @notice Get portrait.
    */
-  function getStats(bytes32 entity) internal view returns (uint8[] memory stats) {
+  function getPortrait(bytes32 entity) internal view returns (string memory portrait) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     bytes memory _blob = StoreSwitch.getDynamicField(_tableId, _keyTuple, 1);
-    return (SliceLib.getSubslice(_blob, 0, _blob.length).decodeArray_uint8());
+    return (string(_blob));
   }
 
   /**
-   * @notice Get stats.
+   * @notice Get portrait.
    */
-  function _getStats(bytes32 entity) internal view returns (uint8[] memory stats) {
+  function _getPortrait(bytes32 entity) internal view returns (string memory portrait) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     bytes memory _blob = StoreCore.getDynamicField(_tableId, _keyTuple, 1);
-    return (SliceLib.getSubslice(_blob, 0, _blob.length).decodeArray_uint8());
+    return (string(_blob));
   }
 
   /**
-   * @notice Set stats.
+   * @notice Set portrait.
    */
-  function setStats(bytes32 entity, uint8[] memory stats) internal {
+  function setPortrait(bytes32 entity, string memory portrait) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreSwitch.setDynamicField(_tableId, _keyTuple, 1, EncodeArray.encode((stats)));
+    StoreSwitch.setDynamicField(_tableId, _keyTuple, 1, bytes((portrait)));
   }
 
   /**
-   * @notice Set stats.
+   * @notice Set portrait.
    */
-  function _setStats(bytes32 entity, uint8[] memory stats) internal {
+  function _setPortrait(bytes32 entity, string memory portrait) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreCore.setDynamicField(_tableId, _keyTuple, 1, EncodeArray.encode((stats)));
+    StoreCore.setDynamicField(_tableId, _keyTuple, 1, bytes((portrait)));
   }
 
   /**
-   * @notice Get the length of stats.
+   * @notice Get the length of portrait.
    */
-  function lengthStats(bytes32 entity) internal view returns (uint256) {
+  function lengthPortrait(bytes32 entity) internal view returns (uint256) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -328,9 +325,9 @@ library PersonaTable {
   }
 
   /**
-   * @notice Get the length of stats.
+   * @notice Get the length of portrait.
    */
-  function _lengthStats(bytes32 entity) internal view returns (uint256) {
+  function _lengthPortrait(bytes32 entity) internal view returns (uint256) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -341,57 +338,57 @@ library PersonaTable {
   }
 
   /**
-   * @notice Get an item of stats.
+   * @notice Get an item of portrait.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function getItemStats(bytes32 entity, uint256 _index) internal view returns (uint8) {
+  function getItemPortrait(bytes32 entity, uint256 _index) internal view returns (string memory) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _blob = StoreSwitch.getDynamicFieldSlice(_tableId, _keyTuple, 1, _index * 1, (_index + 1) * 1);
-      return (uint8(bytes1(_blob)));
+      return (string(_blob));
     }
   }
 
   /**
-   * @notice Get an item of stats.
+   * @notice Get an item of portrait.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function _getItemStats(bytes32 entity, uint256 _index) internal view returns (uint8) {
+  function _getItemPortrait(bytes32 entity, uint256 _index) internal view returns (string memory) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _blob = StoreCore.getDynamicFieldSlice(_tableId, _keyTuple, 1, _index * 1, (_index + 1) * 1);
-      return (uint8(bytes1(_blob)));
+      return (string(_blob));
     }
   }
 
   /**
-   * @notice Push an element to stats.
+   * @notice Push a slice to portrait.
    */
-  function pushStats(bytes32 entity, uint8 _element) internal {
+  function pushPortrait(bytes32 entity, string memory _slice) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreSwitch.pushToDynamicField(_tableId, _keyTuple, 1, abi.encodePacked((_element)));
+    StoreSwitch.pushToDynamicField(_tableId, _keyTuple, 1, bytes((_slice)));
   }
 
   /**
-   * @notice Push an element to stats.
+   * @notice Push a slice to portrait.
    */
-  function _pushStats(bytes32 entity, uint8 _element) internal {
+  function _pushPortrait(bytes32 entity, string memory _slice) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreCore.pushToDynamicField(_tableId, _keyTuple, 1, abi.encodePacked((_element)));
+    StoreCore.pushToDynamicField(_tableId, _keyTuple, 1, bytes((_slice)));
   }
 
   /**
-   * @notice Pop an element from stats.
+   * @notice Pop a slice from portrait.
    */
-  function popStats(bytes32 entity) internal {
+  function popPortrait(bytes32 entity) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -399,9 +396,9 @@ library PersonaTable {
   }
 
   /**
-   * @notice Pop an element from stats.
+   * @notice Pop a slice from portrait.
    */
-  function _popStats(bytes32 entity) internal {
+  function _popPortrait(bytes32 entity) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -409,27 +406,27 @@ library PersonaTable {
   }
 
   /**
-   * @notice Update an element of stats at `_index`.
+   * @notice Update a slice of portrait at `_index`.
    */
-  function updateStats(bytes32 entity, uint256 _index, uint8 _element) internal {
+  function updatePortrait(bytes32 entity, uint256 _index, string memory _slice) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     unchecked {
-      bytes memory _encoded = abi.encodePacked((_element));
+      bytes memory _encoded = bytes((_slice));
       StoreSwitch.spliceDynamicData(_tableId, _keyTuple, 1, uint40(_index * 1), uint40(_encoded.length), _encoded);
     }
   }
 
   /**
-   * @notice Update an element of stats at `_index`.
+   * @notice Update a slice of portrait at `_index`.
    */
-  function _updateStats(bytes32 entity, uint256 _index, uint8 _element) internal {
+  function _updatePortrait(bytes32 entity, uint256 _index, string memory _slice) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
     unchecked {
-      bytes memory _encoded = abi.encodePacked((_element));
+      bytes memory _encoded = bytes((_slice));
       StoreCore.spliceDynamicData(_tableId, _keyTuple, 1, uint40(_index * 1), uint40(_encoded.length), _encoded);
     }
   }
@@ -437,7 +434,7 @@ library PersonaTable {
   /**
    * @notice Get the full data.
    */
-  function get(bytes32 entity) internal view returns (PersonaTableData memory _table) {
+  function get(bytes32 entity) internal view returns (HomeEnum home, string memory name, string memory portrait) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -452,7 +449,7 @@ library PersonaTable {
   /**
    * @notice Get the full data.
    */
-  function _get(bytes32 entity) internal view returns (PersonaTableData memory _table) {
+  function _get(bytes32 entity) internal view returns (HomeEnum home, string memory name, string memory portrait) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -467,11 +464,11 @@ library PersonaTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function set(bytes32 entity, uint32 xp, uint8[] memory competencies, uint8[] memory stats) internal {
-    bytes memory _staticData = encodeStatic(xp);
+  function set(bytes32 entity, HomeEnum home, string memory name, string memory portrait) internal {
+    bytes memory _staticData = encodeStatic(home);
 
-    EncodedLengths _encodedLengths = encodeLengths(competencies, stats);
-    bytes memory _dynamicData = encodeDynamic(competencies, stats);
+    EncodedLengths _encodedLengths = encodeLengths(name, portrait);
+    bytes memory _dynamicData = encodeDynamic(name, portrait);
 
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
@@ -482,41 +479,11 @@ library PersonaTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function _set(bytes32 entity, uint32 xp, uint8[] memory competencies, uint8[] memory stats) internal {
-    bytes memory _staticData = encodeStatic(xp);
+  function _set(bytes32 entity, HomeEnum home, string memory name, string memory portrait) internal {
+    bytes memory _staticData = encodeStatic(home);
 
-    EncodedLengths _encodedLengths = encodeLengths(competencies, stats);
-    bytes memory _dynamicData = encodeDynamic(competencies, stats);
-
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreCore.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData, _fieldLayout);
-  }
-
-  /**
-   * @notice Set the full data using the data struct.
-   */
-  function set(bytes32 entity, PersonaTableData memory _table) internal {
-    bytes memory _staticData = encodeStatic(_table.xp);
-
-    EncodedLengths _encodedLengths = encodeLengths(_table.competencies, _table.stats);
-    bytes memory _dynamicData = encodeDynamic(_table.competencies, _table.stats);
-
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
-
-    StoreSwitch.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData);
-  }
-
-  /**
-   * @notice Set the full data using the data struct.
-   */
-  function _set(bytes32 entity, PersonaTableData memory _table) internal {
-    bytes memory _staticData = encodeStatic(_table.xp);
-
-    EncodedLengths _encodedLengths = encodeLengths(_table.competencies, _table.stats);
-    bytes memory _dynamicData = encodeDynamic(_table.competencies, _table.stats);
+    EncodedLengths _encodedLengths = encodeLengths(name, portrait);
+    bytes memory _dynamicData = encodeDynamic(name, portrait);
 
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
@@ -527,8 +494,8 @@ library PersonaTable {
   /**
    * @notice Decode the tightly packed blob of static data using this table's field layout.
    */
-  function decodeStatic(bytes memory _blob) internal pure returns (uint32 xp) {
-    xp = (uint32(Bytes.getBytes4(_blob, 0)));
+  function decodeStatic(bytes memory _blob) internal pure returns (HomeEnum home) {
+    home = HomeEnum(uint8(Bytes.getBytes1(_blob, 0)));
   }
 
   /**
@@ -537,19 +504,19 @@ library PersonaTable {
   function decodeDynamic(
     EncodedLengths _encodedLengths,
     bytes memory _blob
-  ) internal pure returns (uint8[] memory competencies, uint8[] memory stats) {
+  ) internal pure returns (string memory name, string memory portrait) {
     uint256 _start;
     uint256 _end;
     unchecked {
       _end = _encodedLengths.atIndex(0);
     }
-    competencies = (SliceLib.getSubslice(_blob, _start, _end).decodeArray_uint8());
+    name = (string(SliceLib.getSubslice(_blob, _start, _end).toBytes()));
 
     _start = _end;
     unchecked {
       _end += _encodedLengths.atIndex(1);
     }
-    stats = (SliceLib.getSubslice(_blob, _start, _end).decodeArray_uint8());
+    portrait = (string(SliceLib.getSubslice(_blob, _start, _end).toBytes()));
   }
 
   /**
@@ -562,10 +529,10 @@ library PersonaTable {
     bytes memory _staticData,
     EncodedLengths _encodedLengths,
     bytes memory _dynamicData
-  ) internal pure returns (PersonaTableData memory _table) {
-    (_table.xp) = decodeStatic(_staticData);
+  ) internal pure returns (HomeEnum home, string memory name, string memory portrait) {
+    (home) = decodeStatic(_staticData);
 
-    (_table.competencies, _table.stats) = decodeDynamic(_encodedLengths, _dynamicData);
+    (name, portrait) = decodeDynamic(_encodedLengths, _dynamicData);
   }
 
   /**
@@ -592,8 +559,8 @@ library PersonaTable {
    * @notice Tightly pack static (fixed length) data using this table's schema.
    * @return The static data, encoded into a sequence of bytes.
    */
-  function encodeStatic(uint32 xp) internal pure returns (bytes memory) {
-    return abi.encodePacked(xp);
+  function encodeStatic(HomeEnum home) internal pure returns (bytes memory) {
+    return abi.encodePacked(home);
   }
 
   /**
@@ -601,12 +568,12 @@ library PersonaTable {
    * @return _encodedLengths The lengths of the dynamic fields (packed into a single bytes32 value).
    */
   function encodeLengths(
-    uint8[] memory competencies,
-    uint8[] memory stats
+    string memory name,
+    string memory portrait
   ) internal pure returns (EncodedLengths _encodedLengths) {
     // Lengths are effectively checked during copy by 2**40 bytes exceeding gas limits
     unchecked {
-      _encodedLengths = EncodedLengthsLib.pack(competencies.length * 1, stats.length * 1);
+      _encodedLengths = EncodedLengthsLib.pack(bytes(name).length, bytes(portrait).length);
     }
   }
 
@@ -614,8 +581,8 @@ library PersonaTable {
    * @notice Tightly pack dynamic (variable length) data using this table's schema.
    * @return The dynamic data, encoded into a sequence of bytes.
    */
-  function encodeDynamic(uint8[] memory competencies, uint8[] memory stats) internal pure returns (bytes memory) {
-    return abi.encodePacked(EncodeArray.encode((competencies)), EncodeArray.encode((stats)));
+  function encodeDynamic(string memory name, string memory portrait) internal pure returns (bytes memory) {
+    return abi.encodePacked(bytes((name)), bytes((portrait)));
   }
 
   /**
@@ -625,14 +592,14 @@ library PersonaTable {
    * @return The dynamic (variable length) data, encoded into a sequence of bytes.
    */
   function encode(
-    uint32 xp,
-    uint8[] memory competencies,
-    uint8[] memory stats
+    HomeEnum home,
+    string memory name,
+    string memory portrait
   ) internal pure returns (bytes memory, EncodedLengths, bytes memory) {
-    bytes memory _staticData = encodeStatic(xp);
+    bytes memory _staticData = encodeStatic(home);
 
-    EncodedLengths _encodedLengths = encodeLengths(competencies, stats);
-    bytes memory _dynamicData = encodeDynamic(competencies, stats);
+    EncodedLengths _encodedLengths = encodeLengths(name, portrait);
+    bytes memory _dynamicData = encodeDynamic(name, portrait);
 
     return (_staticData, _encodedLengths, _dynamicData);
   }

@@ -19,7 +19,9 @@
     "@latticexyz/schema-type": "2.0.11",
     "@latticexyz/store": "2.0.11",
     "@latticexyz/world": "2.0.11",
-    "@latticexyz/world-modules": "2.0.11"
+    "@latticexyz/world-modules": "2.0.11",
+    "g": "^2.0.1",
+    "wait-port": "^1.0.4"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

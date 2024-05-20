@@ -19,9 +19,9 @@ import { ResourceId } from "@latticexyz/store/src/ResourceId.sol";
 // Import user types
 import { FieldEnum } from "./../common.sol";
 
-library TrainingTable {
-  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "app", name: "TrainingTable", typeId: RESOURCE_TABLE });`
-  ResourceId constant _tableId = ResourceId.wrap(0x74626170700000000000000000000000547261696e696e675461626c65000000);
+library VoidsmanTrainingTable {
+  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "game", name: "VoidsmanTraining", typeId: RESOURCE_TABLE });`
+  ResourceId constant _tableId = ResourceId.wrap(0x746267616d6500000000000000000000566f6964736d616e547261696e696e67);
 
   FieldLayout constant _fieldLayout =
     FieldLayout.wrap(0x0021020020010000000000000000000000000000000000000000000000000000);

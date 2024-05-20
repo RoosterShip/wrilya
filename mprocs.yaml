@@ -2,15 +2,15 @@ procs:
   client:
     cwd: packages/client
     shell: pnpm start
-    autostart: true
+    autostart: false
   server:
     cwd: packages/server
     shell: make run
-    autostart: true 
+    autostart: false 
   mud_client:
     cwd: packages/mud_client
     shell: pnpm run dev
-    autostart: true
+    autostart: false
   contracts:
     cwd: packages/contracts
     shell: pnpm mud dev-contracts --rpc http://127.0.0.1:8545
@@ -18,4 +18,17 @@ procs:
   environment:
     cwd: packages/environment
     shell: make up
+    autostart: false
+  # ---------------------------------------------------------------------------
+  # Anvil:
+  #
+  # A local development blockchain.  The "environment" also runs an anvil image
+  # however I have found Anvil to be a bit flaky with odd "Invalid gas estimate"
+  # errors and deployment issues.  In those cases it can be much faster just
+  # to start and stop anvil.  But with a docker-compose setup you end up
+  # needing to restart the whole thing.  This can be very helpful when doing
+  # just straight contract development
+  anvil:
+    cwd: packages/contracts
+    shell: anvil --base-fee 0 --block-time 10 
     autostart: true
