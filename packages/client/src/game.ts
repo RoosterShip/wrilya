@@ -1,3 +1,4 @@
+        this.mCrew.set(update.entity, new Voidsman(update.entity));
 // Copyright (C) 2024 Decentralized Consulting
 // 
 // This program is free software: you can redistribute it and/or modify

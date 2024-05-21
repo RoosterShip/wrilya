@@ -32,6 +32,8 @@ export function createSystemCalls(
    *   syncToRecs
    *   (https://github.com/latticexyz/mud/blob/main/templates/vanilla/packages/client/src/mud/setupNetwork.ts#L77-L83).
    */
+  //{ walletClient, worldContract, waitForTransaction }: SetupNetworkResult,
+  //{ Counter, Crew, OwnedBy, Persona, Traits }: ClientComponents,
   { worldContract, waitForTransaction }: SetupNetworkResult,
   //{ Counter, Crew, OwnedBy, Persona, Traits }: ClientComponents,
 ) {
