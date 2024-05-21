@@ -16,7 +16,7 @@ help:
 	@grep -E '[a-zA-Z\.\-]+:.*?@ .*$$' $(firstword $(MAKEFILE_LIST))| tr -d '#'  | awk 'BEGIN {FS = ":.*?@ "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
 # 🏃 run: @ Start up local client
-run: phaser
+run: 
 	@echo Client starting...
 	pnpm dev
 	@echo Client shutting down...
@@ -45,8 +45,3 @@ env.down:
 	@echo Spinning Environment down...
 	$(MAKE) -C packages/environment down
 	@echo Spinning Environment Down...
-
-phaser:
-	@echo Launching Phaser Desktop...
-	@cd packages/client && PhaserEditor-desktop 1> /dev/null 2> /dev/null &
-	
