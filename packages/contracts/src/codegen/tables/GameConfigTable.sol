@@ -23,8 +23,13 @@ struct GameConfigTableData {
   address currencyProxy;
   address itemProxy;
   address entityProxy;
-  uint256 voidsUpgradeBase;
-  uint256 voidsUpgradePower;
+  uint256 voidsmanCreateCost;
+  uint256 voidsmanUpgradeTimeBase;
+  uint256 voidsmanUpgradeTimePower;
+  uint256 voidsmanUpgradeCostBase;
+  uint256 voidsmanUpgradeCostPower;
+  uint8 voidsmanMaxStats;
+  uint8 voidsmanMaxCompetency;
 }
 
 library GameConfigTable {
@@ -32,12 +37,12 @@ library GameConfigTable {
   ResourceId constant _tableId = ResourceId.wrap(0x746267616d650000000000000000000047616d65436f6e6669675461626c6500);
 
   FieldLayout constant _fieldLayout =
-    FieldLayout.wrap(0x00a5080001141414141420200000000000000000000000000000000000000000);
+    FieldLayout.wrap(0x01070d0001141414141420202020200101000000000000000000000000000000);
 
   // Hex-encoded key schema of ()
   Schema constant _keySchema = Schema.wrap(0x0000000000000000000000000000000000000000000000000000000000000000);
-  // Hex-encoded value schema of (bool, address, address, address, address, address, uint256, uint256)
-  Schema constant _valueSchema = Schema.wrap(0x00a508006061616161611f1f0000000000000000000000000000000000000000);
+  // Hex-encoded value schema of (bool, address, address, address, address, address, uint256, uint256, uint256, uint256, uint256, uint8, uint8)
+  Schema constant _valueSchema = Schema.wrap(0x01070d006061616161611f1f1f1f1f0000000000000000000000000000000000);
 
   /**
    * @notice Get the table's key field names.
@@ -52,15 +57,20 @@ library GameConfigTable {
    * @return fieldNames An array of strings with the names of value fields.
    */
   function getFieldNames() internal pure returns (string[] memory fieldNames) {
-    fieldNames = new string[](8);
+    fieldNames = new string[](13);
     fieldNames[0] = "active";
     fieldNames[1] = "admin";
     fieldNames[2] = "gm";
     fieldNames[3] = "currencyProxy";
     fieldNames[4] = "itemProxy";
     fieldNames[5] = "entityProxy";
-    fieldNames[6] = "voidsUpgradeBase";
-    fieldNames[7] = "voidsUpgradePower";
+    fieldNames[6] = "voidsmanCreateCost";
+    fieldNames[7] = "voidsmanUpgradeTimeBase";
+    fieldNames[8] = "voidsmanUpgradeTimePower";
+    fieldNames[9] = "voidsmanUpgradeCostBase";
+    fieldNames[10] = "voidsmanUpgradeCostPower";
+    fieldNames[11] = "voidsmanMaxStats";
+    fieldNames[12] = "voidsmanMaxCompetency";
   }
 
   /**
@@ -306,9 +316,9 @@ library GameConfigTable {
   }
 
   /**
-   * @notice Get voidsUpgradeBase.
+   * @notice Get voidsmanCreateCost.
    */
-  function getVoidsUpgradeBase() internal view returns (uint256 voidsUpgradeBase) {
+  function getVoidsmanCreateCost() internal view returns (uint256 voidsmanCreateCost) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 6, _fieldLayout);
@@ -316,9 +326,9 @@ library GameConfigTable {
   }
 
   /**
-   * @notice Get voidsUpgradeBase.
+   * @notice Get voidsmanCreateCost.
    */
-  function _getVoidsUpgradeBase() internal view returns (uint256 voidsUpgradeBase) {
+  function _getVoidsmanCreateCost() internal view returns (uint256 voidsmanCreateCost) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 6, _fieldLayout);
@@ -326,27 +336,27 @@ library GameConfigTable {
   }
 
   /**
-   * @notice Set voidsUpgradeBase.
+   * @notice Set voidsmanCreateCost.
    */
-  function setVoidsUpgradeBase(uint256 voidsUpgradeBase) internal {
+  function setVoidsmanCreateCost(uint256 voidsmanCreateCost) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 6, abi.encodePacked((voidsUpgradeBase)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 6, abi.encodePacked((voidsmanCreateCost)), _fieldLayout);
   }
 
   /**
-   * @notice Set voidsUpgradeBase.
+   * @notice Set voidsmanCreateCost.
    */
-  function _setVoidsUpgradeBase(uint256 voidsUpgradeBase) internal {
+  function _setVoidsmanCreateCost(uint256 voidsmanCreateCost) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 6, abi.encodePacked((voidsUpgradeBase)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 6, abi.encodePacked((voidsmanCreateCost)), _fieldLayout);
   }
 
   /**
-   * @notice Get voidsUpgradePower.
+   * @notice Get voidsmanUpgradeTimeBase.
    */
-  function getVoidsUpgradePower() internal view returns (uint256 voidsUpgradePower) {
+  function getVoidsmanUpgradeTimeBase() internal view returns (uint256 voidsmanUpgradeTimeBase) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 7, _fieldLayout);
@@ -354,9 +364,9 @@ library GameConfigTable {
   }
 
   /**
-   * @notice Get voidsUpgradePower.
+   * @notice Get voidsmanUpgradeTimeBase.
    */
-  function _getVoidsUpgradePower() internal view returns (uint256 voidsUpgradePower) {
+  function _getVoidsmanUpgradeTimeBase() internal view returns (uint256 voidsmanUpgradeTimeBase) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 7, _fieldLayout);
@@ -364,21 +374,211 @@ library GameConfigTable {
   }
 
   /**
-   * @notice Set voidsUpgradePower.
+   * @notice Set voidsmanUpgradeTimeBase.
    */
-  function setVoidsUpgradePower(uint256 voidsUpgradePower) internal {
+  function setVoidsmanUpgradeTimeBase(uint256 voidsmanUpgradeTimeBase) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 7, abi.encodePacked((voidsUpgradePower)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 7, abi.encodePacked((voidsmanUpgradeTimeBase)), _fieldLayout);
   }
 
   /**
-   * @notice Set voidsUpgradePower.
+   * @notice Set voidsmanUpgradeTimeBase.
    */
-  function _setVoidsUpgradePower(uint256 voidsUpgradePower) internal {
+  function _setVoidsmanUpgradeTimeBase(uint256 voidsmanUpgradeTimeBase) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 7, abi.encodePacked((voidsUpgradePower)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 7, abi.encodePacked((voidsmanUpgradeTimeBase)), _fieldLayout);
+  }
+
+  /**
+   * @notice Get voidsmanUpgradeTimePower.
+   */
+  function getVoidsmanUpgradeTimePower() internal view returns (uint256 voidsmanUpgradeTimePower) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 8, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Get voidsmanUpgradeTimePower.
+   */
+  function _getVoidsmanUpgradeTimePower() internal view returns (uint256 voidsmanUpgradeTimePower) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 8, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Set voidsmanUpgradeTimePower.
+   */
+  function setVoidsmanUpgradeTimePower(uint256 voidsmanUpgradeTimePower) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 8, abi.encodePacked((voidsmanUpgradeTimePower)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set voidsmanUpgradeTimePower.
+   */
+  function _setVoidsmanUpgradeTimePower(uint256 voidsmanUpgradeTimePower) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 8, abi.encodePacked((voidsmanUpgradeTimePower)), _fieldLayout);
+  }
+
+  /**
+   * @notice Get voidsmanUpgradeCostBase.
+   */
+  function getVoidsmanUpgradeCostBase() internal view returns (uint256 voidsmanUpgradeCostBase) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 9, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Get voidsmanUpgradeCostBase.
+   */
+  function _getVoidsmanUpgradeCostBase() internal view returns (uint256 voidsmanUpgradeCostBase) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 9, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Set voidsmanUpgradeCostBase.
+   */
+  function setVoidsmanUpgradeCostBase(uint256 voidsmanUpgradeCostBase) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 9, abi.encodePacked((voidsmanUpgradeCostBase)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set voidsmanUpgradeCostBase.
+   */
+  function _setVoidsmanUpgradeCostBase(uint256 voidsmanUpgradeCostBase) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 9, abi.encodePacked((voidsmanUpgradeCostBase)), _fieldLayout);
+  }
+
+  /**
+   * @notice Get voidsmanUpgradeCostPower.
+   */
+  function getVoidsmanUpgradeCostPower() internal view returns (uint256 voidsmanUpgradeCostPower) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 10, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Get voidsmanUpgradeCostPower.
+   */
+  function _getVoidsmanUpgradeCostPower() internal view returns (uint256 voidsmanUpgradeCostPower) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 10, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Set voidsmanUpgradeCostPower.
+   */
+  function setVoidsmanUpgradeCostPower(uint256 voidsmanUpgradeCostPower) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 10, abi.encodePacked((voidsmanUpgradeCostPower)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set voidsmanUpgradeCostPower.
+   */
+  function _setVoidsmanUpgradeCostPower(uint256 voidsmanUpgradeCostPower) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 10, abi.encodePacked((voidsmanUpgradeCostPower)), _fieldLayout);
+  }
+
+  /**
+   * @notice Get voidsmanMaxStats.
+   */
+  function getVoidsmanMaxStats() internal view returns (uint8 voidsmanMaxStats) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 11, _fieldLayout);
+    return (uint8(bytes1(_blob)));
+  }
+
+  /**
+   * @notice Get voidsmanMaxStats.
+   */
+  function _getVoidsmanMaxStats() internal view returns (uint8 voidsmanMaxStats) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 11, _fieldLayout);
+    return (uint8(bytes1(_blob)));
+  }
+
+  /**
+   * @notice Set voidsmanMaxStats.
+   */
+  function setVoidsmanMaxStats(uint8 voidsmanMaxStats) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 11, abi.encodePacked((voidsmanMaxStats)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set voidsmanMaxStats.
+   */
+  function _setVoidsmanMaxStats(uint8 voidsmanMaxStats) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 11, abi.encodePacked((voidsmanMaxStats)), _fieldLayout);
+  }
+
+  /**
+   * @notice Get voidsmanMaxCompetency.
+   */
+  function getVoidsmanMaxCompetency() internal view returns (uint8 voidsmanMaxCompetency) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 12, _fieldLayout);
+    return (uint8(bytes1(_blob)));
+  }
+
+  /**
+   * @notice Get voidsmanMaxCompetency.
+   */
+  function _getVoidsmanMaxCompetency() internal view returns (uint8 voidsmanMaxCompetency) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 12, _fieldLayout);
+    return (uint8(bytes1(_blob)));
+  }
+
+  /**
+   * @notice Set voidsmanMaxCompetency.
+   */
+  function setVoidsmanMaxCompetency(uint8 voidsmanMaxCompetency) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 12, abi.encodePacked((voidsmanMaxCompetency)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set voidsmanMaxCompetency.
+   */
+  function _setVoidsmanMaxCompetency(uint8 voidsmanMaxCompetency) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 12, abi.encodePacked((voidsmanMaxCompetency)), _fieldLayout);
   }
 
   /**
@@ -419,8 +619,13 @@ library GameConfigTable {
     address currencyProxy,
     address itemProxy,
     address entityProxy,
-    uint256 voidsUpgradeBase,
-    uint256 voidsUpgradePower
+    uint256 voidsmanCreateCost,
+    uint256 voidsmanUpgradeTimeBase,
+    uint256 voidsmanUpgradeTimePower,
+    uint256 voidsmanUpgradeCostBase,
+    uint256 voidsmanUpgradeCostPower,
+    uint8 voidsmanMaxStats,
+    uint8 voidsmanMaxCompetency
   ) internal {
     bytes memory _staticData = encodeStatic(
       active,
@@ -429,8 +634,13 @@ library GameConfigTable {
       currencyProxy,
       itemProxy,
       entityProxy,
-      voidsUpgradeBase,
-      voidsUpgradePower
+      voidsmanCreateCost,
+      voidsmanUpgradeTimeBase,
+      voidsmanUpgradeTimePower,
+      voidsmanUpgradeCostBase,
+      voidsmanUpgradeCostPower,
+      voidsmanMaxStats,
+      voidsmanMaxCompetency
     );
 
     EncodedLengths _encodedLengths;
@@ -451,8 +661,13 @@ library GameConfigTable {
     address currencyProxy,
     address itemProxy,
     address entityProxy,
-    uint256 voidsUpgradeBase,
-    uint256 voidsUpgradePower
+    uint256 voidsmanCreateCost,
+    uint256 voidsmanUpgradeTimeBase,
+    uint256 voidsmanUpgradeTimePower,
+    uint256 voidsmanUpgradeCostBase,
+    uint256 voidsmanUpgradeCostPower,
+    uint8 voidsmanMaxStats,
+    uint8 voidsmanMaxCompetency
   ) internal {
     bytes memory _staticData = encodeStatic(
       active,
@@ -461,8 +676,13 @@ library GameConfigTable {
       currencyProxy,
       itemProxy,
       entityProxy,
-      voidsUpgradeBase,
-      voidsUpgradePower
+      voidsmanCreateCost,
+      voidsmanUpgradeTimeBase,
+      voidsmanUpgradeTimePower,
+      voidsmanUpgradeCostBase,
+      voidsmanUpgradeCostPower,
+      voidsmanMaxStats,
+      voidsmanMaxCompetency
     );
 
     EncodedLengths _encodedLengths;
@@ -484,8 +704,13 @@ library GameConfigTable {
       _table.currencyProxy,
       _table.itemProxy,
       _table.entityProxy,
-      _table.voidsUpgradeBase,
-      _table.voidsUpgradePower
+      _table.voidsmanCreateCost,
+      _table.voidsmanUpgradeTimeBase,
+      _table.voidsmanUpgradeTimePower,
+      _table.voidsmanUpgradeCostBase,
+      _table.voidsmanUpgradeCostPower,
+      _table.voidsmanMaxStats,
+      _table.voidsmanMaxCompetency
     );
 
     EncodedLengths _encodedLengths;
@@ -507,8 +732,13 @@ library GameConfigTable {
       _table.currencyProxy,
       _table.itemProxy,
       _table.entityProxy,
-      _table.voidsUpgradeBase,
-      _table.voidsUpgradePower
+      _table.voidsmanCreateCost,
+      _table.voidsmanUpgradeTimeBase,
+      _table.voidsmanUpgradeTimePower,
+      _table.voidsmanUpgradeCostBase,
+      _table.voidsmanUpgradeCostPower,
+      _table.voidsmanMaxStats,
+      _table.voidsmanMaxCompetency
     );
 
     EncodedLengths _encodedLengths;
@@ -534,8 +764,13 @@ library GameConfigTable {
       address currencyProxy,
       address itemProxy,
       address entityProxy,
-      uint256 voidsUpgradeBase,
-      uint256 voidsUpgradePower
+      uint256 voidsmanCreateCost,
+      uint256 voidsmanUpgradeTimeBase,
+      uint256 voidsmanUpgradeTimePower,
+      uint256 voidsmanUpgradeCostBase,
+      uint256 voidsmanUpgradeCostPower,
+      uint8 voidsmanMaxStats,
+      uint8 voidsmanMaxCompetency
     )
   {
     active = (_toBool(uint8(Bytes.getBytes1(_blob, 0))));
@@ -550,9 +785,19 @@ library GameConfigTable {
 
     entityProxy = (address(Bytes.getBytes20(_blob, 81)));
 
-    voidsUpgradeBase = (uint256(Bytes.getBytes32(_blob, 101)));
+    voidsmanCreateCost = (uint256(Bytes.getBytes32(_blob, 101)));
 
-    voidsUpgradePower = (uint256(Bytes.getBytes32(_blob, 133)));
+    voidsmanUpgradeTimeBase = (uint256(Bytes.getBytes32(_blob, 133)));
+
+    voidsmanUpgradeTimePower = (uint256(Bytes.getBytes32(_blob, 165)));
+
+    voidsmanUpgradeCostBase = (uint256(Bytes.getBytes32(_blob, 197)));
+
+    voidsmanUpgradeCostPower = (uint256(Bytes.getBytes32(_blob, 229)));
+
+    voidsmanMaxStats = (uint8(Bytes.getBytes1(_blob, 261)));
+
+    voidsmanMaxCompetency = (uint8(Bytes.getBytes1(_blob, 262)));
   }
 
   /**
@@ -573,8 +818,13 @@ library GameConfigTable {
       _table.currencyProxy,
       _table.itemProxy,
       _table.entityProxy,
-      _table.voidsUpgradeBase,
-      _table.voidsUpgradePower
+      _table.voidsmanCreateCost,
+      _table.voidsmanUpgradeTimeBase,
+      _table.voidsmanUpgradeTimePower,
+      _table.voidsmanUpgradeCostBase,
+      _table.voidsmanUpgradeCostPower,
+      _table.voidsmanMaxStats,
+      _table.voidsmanMaxCompetency
     ) = decodeStatic(_staticData);
   }
 
@@ -607,11 +857,30 @@ library GameConfigTable {
     address currencyProxy,
     address itemProxy,
     address entityProxy,
-    uint256 voidsUpgradeBase,
-    uint256 voidsUpgradePower
+    uint256 voidsmanCreateCost,
+    uint256 voidsmanUpgradeTimeBase,
+    uint256 voidsmanUpgradeTimePower,
+    uint256 voidsmanUpgradeCostBase,
+    uint256 voidsmanUpgradeCostPower,
+    uint8 voidsmanMaxStats,
+    uint8 voidsmanMaxCompetency
   ) internal pure returns (bytes memory) {
     return
-      abi.encodePacked(active, admin, gm, currencyProxy, itemProxy, entityProxy, voidsUpgradeBase, voidsUpgradePower);
+      abi.encodePacked(
+        active,
+        admin,
+        gm,
+        currencyProxy,
+        itemProxy,
+        entityProxy,
+        voidsmanCreateCost,
+        voidsmanUpgradeTimeBase,
+        voidsmanUpgradeTimePower,
+        voidsmanUpgradeCostBase,
+        voidsmanUpgradeCostPower,
+        voidsmanMaxStats,
+        voidsmanMaxCompetency
+      );
   }
 
   /**
@@ -627,8 +896,13 @@ library GameConfigTable {
     address currencyProxy,
     address itemProxy,
     address entityProxy,
-    uint256 voidsUpgradeBase,
-    uint256 voidsUpgradePower
+    uint256 voidsmanCreateCost,
+    uint256 voidsmanUpgradeTimeBase,
+    uint256 voidsmanUpgradeTimePower,
+    uint256 voidsmanUpgradeCostBase,
+    uint256 voidsmanUpgradeCostPower,
+    uint8 voidsmanMaxStats,
+    uint8 voidsmanMaxCompetency
   ) internal pure returns (bytes memory, EncodedLengths, bytes memory) {
     bytes memory _staticData = encodeStatic(
       active,
@@ -637,8 +911,13 @@ library GameConfigTable {
       currencyProxy,
       itemProxy,
       entityProxy,
-      voidsUpgradeBase,
-      voidsUpgradePower
+      voidsmanCreateCost,
+      voidsmanUpgradeTimeBase,
+      voidsmanUpgradeTimePower,
+      voidsmanUpgradeCostBase,
+      voidsmanUpgradeCostPower,
+      voidsmanMaxStats,
+      voidsmanMaxCompetency
     );
 
     EncodedLengths _encodedLengths;

@@ -135,6 +135,9 @@ importers:
       '@latticexyz/world-modules':
         specifier: 2.0.11
         version: 2.0.11(@aws-sdk/client-kms@3.577.0)(asn1.js@5.4.1)(typescript@5.4.2)
+      '@openzeppelin/contracts':
+        specifier: ^5.0.2
+        version: 5.0.2
       g:
         specifier: ^2.0.1
         version: 2.0.1
@@ -855,6 +858,9 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@openzeppelin/contracts@5.0.2':
+    resolution: {integrity: sha512-ytPc6eLGcHHnapAZ9S+5qsdomhjo6QBHTDRRBFfTxXIpsicMhVPouPgmUPebZZZGX7vt9USA+Z+0M0dSVtSUEA==}
 
   '@phaserjs/editor-scripts-core@2.0.0':
     resolution: {integrity: sha512-SP0oz8JOA2qrRtB1DsDV5ckEKMDo9XaUk9Fz4f0rYKY88zdGXaYdCkz7s1sqNHwn9Z8nnreWCbsNAf6uGJjleA==}
@@ -4704,6 +4710,8 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
+
+  '@openzeppelin/contracts@5.0.2': {}
 
   '@phaserjs/editor-scripts-core@2.0.0': {}
 

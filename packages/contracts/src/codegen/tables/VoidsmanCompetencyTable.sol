@@ -43,7 +43,7 @@ library VoidsmanCompetencyTable {
    */
   function getFieldNames() internal pure returns (string[] memory fieldNames) {
     fieldNames = new string[](1);
-    fieldNames[0] = "competencies";
+    fieldNames[0] = "value";
   }
 
   /**
@@ -61,9 +61,9 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Get competencies.
+   * @notice Get value.
    */
-  function getCompetencies(bytes32 entity) internal view returns (uint8[] memory competencies) {
+  function getValue(bytes32 entity) internal view returns (uint8[] memory value) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -72,9 +72,9 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Get competencies.
+   * @notice Get value.
    */
-  function _getCompetencies(bytes32 entity) internal view returns (uint8[] memory competencies) {
+  function _getValue(bytes32 entity) internal view returns (uint8[] memory value) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -83,9 +83,9 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Get competencies.
+   * @notice Get value.
    */
-  function get(bytes32 entity) internal view returns (uint8[] memory competencies) {
+  function get(bytes32 entity) internal view returns (uint8[] memory value) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -94,9 +94,9 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Get competencies.
+   * @notice Get value.
    */
-  function _get(bytes32 entity) internal view returns (uint8[] memory competencies) {
+  function _get(bytes32 entity) internal view returns (uint8[] memory value) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -105,49 +105,49 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Set competencies.
+   * @notice Set value.
    */
-  function setCompetencies(bytes32 entity, uint8[] memory competencies) internal {
+  function setValue(bytes32 entity, uint8[] memory value) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreSwitch.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((competencies)));
+    StoreSwitch.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((value)));
   }
 
   /**
-   * @notice Set competencies.
+   * @notice Set value.
    */
-  function _setCompetencies(bytes32 entity, uint8[] memory competencies) internal {
+  function _setValue(bytes32 entity, uint8[] memory value) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreCore.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((competencies)));
+    StoreCore.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((value)));
   }
 
   /**
-   * @notice Set competencies.
+   * @notice Set value.
    */
-  function set(bytes32 entity, uint8[] memory competencies) internal {
+  function set(bytes32 entity, uint8[] memory value) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreSwitch.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((competencies)));
+    StoreSwitch.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((value)));
   }
 
   /**
-   * @notice Set competencies.
+   * @notice Set value.
    */
-  function _set(bytes32 entity, uint8[] memory competencies) internal {
+  function _set(bytes32 entity, uint8[] memory value) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
-    StoreCore.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((competencies)));
+    StoreCore.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((value)));
   }
 
   /**
-   * @notice Get the length of competencies.
+   * @notice Get the length of value.
    */
-  function lengthCompetencies(bytes32 entity) internal view returns (uint256) {
+  function lengthValue(bytes32 entity) internal view returns (uint256) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -158,9 +158,9 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Get the length of competencies.
+   * @notice Get the length of value.
    */
-  function _lengthCompetencies(bytes32 entity) internal view returns (uint256) {
+  function _lengthValue(bytes32 entity) internal view returns (uint256) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -171,7 +171,7 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Get the length of competencies.
+   * @notice Get the length of value.
    */
   function length(bytes32 entity) internal view returns (uint256) {
     bytes32[] memory _keyTuple = new bytes32[](1);
@@ -184,7 +184,7 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Get the length of competencies.
+   * @notice Get the length of value.
    */
   function _length(bytes32 entity) internal view returns (uint256) {
     bytes32[] memory _keyTuple = new bytes32[](1);
@@ -197,10 +197,10 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Get an item of competencies.
+   * @notice Get an item of value.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function getItemCompetencies(bytes32 entity, uint256 _index) internal view returns (uint8) {
+  function getItemValue(bytes32 entity, uint256 _index) internal view returns (uint8) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -211,10 +211,10 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Get an item of competencies.
+   * @notice Get an item of value.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function _getItemCompetencies(bytes32 entity, uint256 _index) internal view returns (uint8) {
+  function _getItemValue(bytes32 entity, uint256 _index) internal view returns (uint8) {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -225,7 +225,7 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Get an item of competencies.
+   * @notice Get an item of value.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
   function getItem(bytes32 entity, uint256 _index) internal view returns (uint8) {
@@ -239,7 +239,7 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Get an item of competencies.
+   * @notice Get an item of value.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
   function _getItem(bytes32 entity, uint256 _index) internal view returns (uint8) {
@@ -253,9 +253,9 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Push an element to competencies.
+   * @notice Push an element to value.
    */
-  function pushCompetencies(bytes32 entity, uint8 _element) internal {
+  function pushValue(bytes32 entity, uint8 _element) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -263,9 +263,9 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Push an element to competencies.
+   * @notice Push an element to value.
    */
-  function _pushCompetencies(bytes32 entity, uint8 _element) internal {
+  function _pushValue(bytes32 entity, uint8 _element) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -273,7 +273,7 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Push an element to competencies.
+   * @notice Push an element to value.
    */
   function push(bytes32 entity, uint8 _element) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
@@ -283,7 +283,7 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Push an element to competencies.
+   * @notice Push an element to value.
    */
   function _push(bytes32 entity, uint8 _element) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
@@ -293,9 +293,9 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Pop an element from competencies.
+   * @notice Pop an element from value.
    */
-  function popCompetencies(bytes32 entity) internal {
+  function popValue(bytes32 entity) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -303,9 +303,9 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Pop an element from competencies.
+   * @notice Pop an element from value.
    */
-  function _popCompetencies(bytes32 entity) internal {
+  function _popValue(bytes32 entity) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -313,7 +313,7 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Pop an element from competencies.
+   * @notice Pop an element from value.
    */
   function pop(bytes32 entity) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
@@ -323,7 +323,7 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Pop an element from competencies.
+   * @notice Pop an element from value.
    */
   function _pop(bytes32 entity) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
@@ -333,9 +333,9 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Update an element of competencies at `_index`.
+   * @notice Update an element of value at `_index`.
    */
-  function updateCompetencies(bytes32 entity, uint256 _index, uint8 _element) internal {
+  function updateValue(bytes32 entity, uint256 _index, uint8 _element) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -346,9 +346,9 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Update an element of competencies at `_index`.
+   * @notice Update an element of value at `_index`.
    */
-  function _updateCompetencies(bytes32 entity, uint256 _index, uint8 _element) internal {
+  function _updateValue(bytes32 entity, uint256 _index, uint8 _element) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
     _keyTuple[0] = entity;
 
@@ -359,7 +359,7 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Update an element of competencies at `_index`.
+   * @notice Update an element of value at `_index`.
    */
   function update(bytes32 entity, uint256 _index, uint8 _element) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
@@ -372,7 +372,7 @@ library VoidsmanCompetencyTable {
   }
 
   /**
-   * @notice Update an element of competencies at `_index`.
+   * @notice Update an element of value at `_index`.
    */
   function _update(bytes32 entity, uint256 _index, uint8 _element) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
@@ -408,10 +408,10 @@ library VoidsmanCompetencyTable {
    * @notice Tightly pack dynamic data lengths using this table's schema.
    * @return _encodedLengths The lengths of the dynamic fields (packed into a single bytes32 value).
    */
-  function encodeLengths(uint8[] memory competencies) internal pure returns (EncodedLengths _encodedLengths) {
+  function encodeLengths(uint8[] memory value) internal pure returns (EncodedLengths _encodedLengths) {
     // Lengths are effectively checked during copy by 2**40 bytes exceeding gas limits
     unchecked {
-      _encodedLengths = EncodedLengthsLib.pack(competencies.length * 1);
+      _encodedLengths = EncodedLengthsLib.pack(value.length * 1);
     }
   }
 
@@ -419,8 +419,8 @@ library VoidsmanCompetencyTable {
    * @notice Tightly pack dynamic (variable length) data using this table's schema.
    * @return The dynamic data, encoded into a sequence of bytes.
    */
-  function encodeDynamic(uint8[] memory competencies) internal pure returns (bytes memory) {
-    return abi.encodePacked(EncodeArray.encode((competencies)));
+  function encodeDynamic(uint8[] memory value) internal pure returns (bytes memory) {
+    return abi.encodePacked(EncodeArray.encode((value)));
   }
 
   /**
@@ -429,10 +429,10 @@ library VoidsmanCompetencyTable {
    * @return The lengths of the dynamic fields (packed into a single bytes32 value).
    * @return The dynamic (variable length) data, encoded into a sequence of bytes.
    */
-  function encode(uint8[] memory competencies) internal pure returns (bytes memory, EncodedLengths, bytes memory) {
+  function encode(uint8[] memory value) internal pure returns (bytes memory, EncodedLengths, bytes memory) {
     bytes memory _staticData;
-    EncodedLengths _encodedLengths = encodeLengths(competencies);
-    bytes memory _dynamicData = encodeDynamic(competencies);
+    EncodedLengths _encodedLengths = encodeLengths(value);
+    bytes memory _dynamicData = encodeDynamic(value);
 
     return (_staticData, _encodedLengths, _dynamicData);
   }

@@ -34,7 +34,7 @@ library CurrencyTable {
    */
   function getKeyNames() internal pure returns (string[] memory keyNames) {
     keyNames = new string[](1);
-    keyNames[0] = "entity";
+    keyNames[0] = "owner";
   }
 
   /**
@@ -65,9 +65,9 @@ library CurrencyTable {
   /**
    * @notice Get tokens.
    */
-  function getTokens(bytes32 entity) internal view returns (uint256 tokens) {
+  function getTokens(bytes32 owner) internal view returns (uint256 tokens) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return (uint256(bytes32(_blob)));
@@ -76,9 +76,9 @@ library CurrencyTable {
   /**
    * @notice Get tokens.
    */
-  function _getTokens(bytes32 entity) internal view returns (uint256 tokens) {
+  function _getTokens(bytes32 owner) internal view returns (uint256 tokens) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return (uint256(bytes32(_blob)));
@@ -87,9 +87,9 @@ library CurrencyTable {
   /**
    * @notice Set tokens.
    */
-  function setTokens(bytes32 entity, uint256 tokens) internal {
+  function setTokens(bytes32 owner, uint256 tokens) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((tokens)), _fieldLayout);
   }
@@ -97,9 +97,9 @@ library CurrencyTable {
   /**
    * @notice Set tokens.
    */
-  function _setTokens(bytes32 entity, uint256 tokens) internal {
+  function _setTokens(bytes32 owner, uint256 tokens) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((tokens)), _fieldLayout);
   }
@@ -107,9 +107,9 @@ library CurrencyTable {
   /**
    * @notice Get credits.
    */
-  function getCredits(bytes32 entity) internal view returns (uint256 credits) {
+  function getCredits(bytes32 owner) internal view returns (uint256 credits) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 1, _fieldLayout);
     return (uint256(bytes32(_blob)));
@@ -118,9 +118,9 @@ library CurrencyTable {
   /**
    * @notice Get credits.
    */
-  function _getCredits(bytes32 entity) internal view returns (uint256 credits) {
+  function _getCredits(bytes32 owner) internal view returns (uint256 credits) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 1, _fieldLayout);
     return (uint256(bytes32(_blob)));
@@ -129,9 +129,9 @@ library CurrencyTable {
   /**
    * @notice Set credits.
    */
-  function setCredits(bytes32 entity, uint256 credits) internal {
+  function setCredits(bytes32 owner, uint256 credits) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((credits)), _fieldLayout);
   }
@@ -139,9 +139,9 @@ library CurrencyTable {
   /**
    * @notice Set credits.
    */
-  function _setCredits(bytes32 entity, uint256 credits) internal {
+  function _setCredits(bytes32 owner, uint256 credits) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     StoreCore.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((credits)), _fieldLayout);
   }
@@ -149,9 +149,9 @@ library CurrencyTable {
   /**
    * @notice Get debit.
    */
-  function getDebit(bytes32 entity) internal view returns (uint256 debit) {
+  function getDebit(bytes32 owner) internal view returns (uint256 debit) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 2, _fieldLayout);
     return (uint256(bytes32(_blob)));
@@ -160,9 +160,9 @@ library CurrencyTable {
   /**
    * @notice Get debit.
    */
-  function _getDebit(bytes32 entity) internal view returns (uint256 debit) {
+  function _getDebit(bytes32 owner) internal view returns (uint256 debit) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 2, _fieldLayout);
     return (uint256(bytes32(_blob)));
@@ -171,9 +171,9 @@ library CurrencyTable {
   /**
    * @notice Set debit.
    */
-  function setDebit(bytes32 entity, uint256 debit) internal {
+  function setDebit(bytes32 owner, uint256 debit) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 2, abi.encodePacked((debit)), _fieldLayout);
   }
@@ -181,9 +181,9 @@ library CurrencyTable {
   /**
    * @notice Set debit.
    */
-  function _setDebit(bytes32 entity, uint256 debit) internal {
+  function _setDebit(bytes32 owner, uint256 debit) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     StoreCore.setStaticField(_tableId, _keyTuple, 2, abi.encodePacked((debit)), _fieldLayout);
   }
@@ -191,9 +191,9 @@ library CurrencyTable {
   /**
    * @notice Get the full data.
    */
-  function get(bytes32 entity) internal view returns (uint256 tokens, uint256 credits, uint256 debit) {
+  function get(bytes32 owner) internal view returns (uint256 tokens, uint256 credits, uint256 debit) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     (bytes memory _staticData, EncodedLengths _encodedLengths, bytes memory _dynamicData) = StoreSwitch.getRecord(
       _tableId,
@@ -206,9 +206,9 @@ library CurrencyTable {
   /**
    * @notice Get the full data.
    */
-  function _get(bytes32 entity) internal view returns (uint256 tokens, uint256 credits, uint256 debit) {
+  function _get(bytes32 owner) internal view returns (uint256 tokens, uint256 credits, uint256 debit) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     (bytes memory _staticData, EncodedLengths _encodedLengths, bytes memory _dynamicData) = StoreCore.getRecord(
       _tableId,
@@ -221,14 +221,14 @@ library CurrencyTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function set(bytes32 entity, uint256 tokens, uint256 credits, uint256 debit) internal {
+  function set(bytes32 owner, uint256 tokens, uint256 credits, uint256 debit) internal {
     bytes memory _staticData = encodeStatic(tokens, credits, debit);
 
     EncodedLengths _encodedLengths;
     bytes memory _dynamicData;
 
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     StoreSwitch.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData);
   }
@@ -236,14 +236,14 @@ library CurrencyTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function _set(bytes32 entity, uint256 tokens, uint256 credits, uint256 debit) internal {
+  function _set(bytes32 owner, uint256 tokens, uint256 credits, uint256 debit) internal {
     bytes memory _staticData = encodeStatic(tokens, credits, debit);
 
     EncodedLengths _encodedLengths;
     bytes memory _dynamicData;
 
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     StoreCore.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData, _fieldLayout);
   }
@@ -276,9 +276,9 @@ library CurrencyTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function deleteRecord(bytes32 entity) internal {
+  function deleteRecord(bytes32 owner) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     StoreSwitch.deleteRecord(_tableId, _keyTuple);
   }
@@ -286,9 +286,9 @@ library CurrencyTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function _deleteRecord(bytes32 entity) internal {
+  function _deleteRecord(bytes32 owner) internal {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     StoreCore.deleteRecord(_tableId, _keyTuple, _fieldLayout);
   }
@@ -323,9 +323,9 @@ library CurrencyTable {
   /**
    * @notice Encode keys as a bytes32 array using this table's field layout.
    */
-  function encodeKeyTuple(bytes32 entity) internal pure returns (bytes32[] memory) {
+  function encodeKeyTuple(bytes32 owner) internal pure returns (bytes32[] memory) {
     bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    _keyTuple[0] = owner;
 
     return _keyTuple;
   }

@@ -22,7 +22,8 @@ import { SetupNetworkResult } from "./mud/setupNetwork";
 import { ClientComponents } from "./mud/createClientComponents";
 import { SystemCalls } from "./mud/createSystemCalls";
 import portraitAssetPackUrl from "../static/assets/portrait-asset-pack.json";
-import { Has, HasValue, runQuery, Entity } from "@latticexyz/recs";
+import { defineSystem, Has, HasValue, runQuery, Entity } from "@latticexyz/recs";
+import { OperationEnum } from "./mud"
 
 // ----------------------------------------------------------------------------
 /**
@@ -117,13 +118,11 @@ export default class Game {
   }
 
   private loadCrew(): Map<Entity, Voidsman> {
-    const { VoidsmenTable, OwnedByTable, PersonaTable } = this.mMUDComponents!;
+    const { EntityOwnerTable } = this.mMUDComponents!;
     const crew = new Map<Entity, Voidsman>();
     // Query for all the crew members that are owned by the player
     const entities = runQuery([
-      HasValue(OwnedByTable, { value: this.owner() }),
-      Has(VoidsmenTable),
-      Has(PersonaTable),
+      HasValue(EntityOwnerTable, { value: this.owner() }),
     ]);
 
     // Now pull out the data for each crew member
@@ -132,18 +131,32 @@ export default class Game {
   }
 
   private monitor() {
-    this.mMUDComponents!.OwnedByTable.update$.subscribe((update) => {
+    //const { EntityOwnerTable, NotificationTable } = this.mMUDComponents!;
+    //defineSystem(
+    //  this.mMUDNetwork!.world,
+    //  [
+    //    HasValue(NotificationTable, { operation: OperationEnum.ENTITY_CREATE })
+    //  ], ({ entity, component, value, type }) => {
+    //    // ABI DECODE HERE!!!
+    //    const owner = value[1]?.value as Entity;
+    //    if (owner == this.owner()) {
+    //      this.mCrew.set(entity as Entity, new Voidsman(entity as Entity));
+    //    }
+    //  });
+
+
+    this.mMUDComponents!.EntityOwnerTable.update$.subscribe((update) => {
       const owner = update.value[0]?.value as Entity;
       if (owner == this.owner()) {
         this.mCrew.set(update.entity, new Voidsman(update.entity));
       }
     });
-    this.mMUDComponents!.TrainingTable.update$.subscribe((update) => {
+    this.mMUDComponents!.VoidsmanTrainingTable.update$.subscribe((update) => {
       if (this.mCrew.has(update.entity)) {
         this.mCrew.set(update.entity, new Voidsman(update.entity));
       }
     });
-    this.mMUDComponents!.PersonaTable.update$.subscribe((update) => {
+    this.mMUDComponents!.VoidsmanCompetencyTable.update$.subscribe((update) => {
       if (this.mCrew.has(update.entity)) {
         this.mCrew.set(update.entity, new Voidsman(update.entity));
       }

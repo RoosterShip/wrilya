@@ -10,7 +10,7 @@ import BtnStd from "../prefab/ui/BtnStd";
 import LoadingFullScreen from "../prefab/ui/LoadingFullScreen";
 /* START-USER-IMPORTS */
 import ButtonPlugin from 'phaser3-rex-plugins/plugins/button-plugin';
-import { Home } from "../../mud";
+import { HomeEnum } from "../../mud";
 import Game from "../../game";
 
 /* END-USER-IMPORTS */
@@ -259,7 +259,7 @@ export default class Recruit extends Phaser.Scene {
 			this.uiLoading.setVisible(true);
 			const t: number = Date.now();
 			console.log("[Recruit.Scene.btnStd.onClick] Recruiting Transaction Started");
-			await Game.MUDSystemCalls().recruitCrew(name.text, Game.Portraits()[this.portraitsIndex], this.homeIndex as Home);
+			await Game.MUDSystemCalls().voidsmanCreate(name.text, Game.Portraits()[this.portraitsIndex], this.homeIndex as HomeEnum);
 			console.log("[Recruit.Scene.btnStd.onClick] Recruiting Transaction Completed: %d (ms)", Date.now() - t);
 			setTimeout(() => {
 				this.uiLoading.setVisible(false);
@@ -270,14 +270,14 @@ export default class Recruit extends Phaser.Scene {
 		//-------------------------------------------------------------------------
 		// Race Buttons
 		//-------------------------------------------------------------------------
-		this.lblRaceSelected.text = Home[this.homeIndex];
+		this.lblRaceSelected.text = HomeEnum[this.homeIndex];
 		let racebutton = rexButton.add(this.hbRaceForward, {});
 		racebutton.on('click', () => {
 			this.homeIndex += 1;
-			if (this.homeIndex >= Home.__LENGTH) {
-				this.homeIndex = 0;
+			if (this.homeIndex >= HomeEnum.__LENGTH) {
+				this.homeIndex = 1;
 			}
-			this.lblRaceSelected.text = Home[this.homeIndex];
+			this.lblRaceSelected.text = HomeEnum[this.homeIndex];
 		});
 		racebutton.on('down', () => {
 			this.btnRaceForward.visible = false;
@@ -292,10 +292,10 @@ export default class Recruit extends Phaser.Scene {
 		racebutton = rexButton.add(this.hbRaceBack, {});
 		racebutton.on('click', () => {
 			this.homeIndex -= 1;
-			if (this.homeIndex < 0) {
-				this.homeIndex = Home.__LENGTH - 1;
+			if (this.homeIndex < 1) {
+				this.homeIndex = HomeEnum.__LENGTH - 1;
 			}
-			this.lblRaceSelected.text = Home[this.homeIndex];
+			this.lblRaceSelected.text = HomeEnum[this.homeIndex];
 		});
 		racebutton.on('down', () => {
 			this.btnRaceBack.visible = false;

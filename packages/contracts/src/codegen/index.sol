@@ -8,6 +8,7 @@ import { NotificationIDTable } from "./tables/NotificationIDTable.sol";
 import { NotificationTable } from "./tables/NotificationTable.sol";
 import { CurrencyTable } from "./tables/CurrencyTable.sol";
 import { EntityIdTable } from "./tables/EntityIdTable.sol";
+import { EntityOwnerTable } from "./tables/EntityOwnerTable.sol";
 import { EntityTypeTable } from "./tables/EntityTypeTable.sol";
 import { EntityInfoTable } from "./tables/EntityInfoTable.sol";
 import { EntityNameRegistryTable } from "./tables/EntityNameRegistryTable.sol";

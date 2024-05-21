@@ -21,9 +21,12 @@ pragma solidity >=0.8.24;
 import { GameConfigTable, NotificationIDTable, NotificationTable  } from "./codegen/index.sol";
 import { OperationEnum  } from "./codegen/common.sol";
 import { Unauthorized, InvalidState } from "./errors.sol";
+import {IWorld} from "./codegen/world/IWorld.sol";
 
 function requireAdmin(address _address) view {
-  if(_address != GameConfigTable.getAdmin()){revert Unauthorized();}
+  if(GameConfigTable.getAdmin() != address(0) && _address != GameConfigTable.getAdmin()) {
+    revert Unauthorized();
+  }
 }
 
 function requireGM(address _address) view {

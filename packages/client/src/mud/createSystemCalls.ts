@@ -3,11 +3,8 @@
  * for changes in the World state (using the System contracts).
  */
 
-import { getComponentValue } from "@latticexyz/recs";
-import { ClientComponents } from "./createClientComponents";
 import { SetupNetworkResult } from "./setupNetwork";
-import { singletonEntity } from "@latticexyz/store-sync/recs";
-import { Home, Field } from "./index";
+import { HomeEnum, FieldEnum } from "./index";
 import { Entity } from "@latticexyz/recs";
 //import { Entity, Voidsmen } from "../entity"
 //
@@ -35,37 +32,56 @@ export function createSystemCalls(
    *   syncToRecs
    *   (https://github.com/latticexyz/mud/blob/main/templates/vanilla/packages/client/src/mud/setupNetwork.ts#L77-L83).
    */
-  //{ walletClient, worldContract, waitForTransaction }: SetupNetworkResult,
-  //{ Counter, Crew, OwnedBy, Persona, Traits }: ClientComponents,
   { worldContract, waitForTransaction }: SetupNetworkResult,
-  { Counter }: ClientComponents,
+  //{ Counter, Crew, OwnedBy, Persona, Traits }: ClientComponents,
 ) {
-  const increment = async () => {
-    /*
-     * Because IncrementSystem
-     * (https://mud.dev/templates/typescript/contracts#incrementsystemsol)
-     * is in the root namespace, `.increment` can be called directly
-     * on the World contract.
-     */
-    const tx = await worldContract.write.app__increment();
-    await waitForTransaction(tx);
-    return getComponentValue(Counter, singletonEntity);
-  };
 
-  const recruitCrew = async (name: string, portrait: string, home: Home) => {
-    const tx = await worldContract.write.app__recruitVoidsman([name, portrait, home]);
+  const voidsmanCreate = async (name: string, portrait: string, home: HomeEnum) => {
+    const tx = await worldContract.write.game__voidsmanCreate([name, portrait, home]);
     await waitForTransaction(tx);
   };
 
-  const trainVoidsman = async (entity: Entity, field: Field) => {
-    const tx = await worldContract.write.app__trainVoidsman([entity as `0x${string}`, field]);
+  const voidsmanDestroy = async (entity: Entity) => {
+    const tx = await worldContract.write.game__voidsmanDestroy([entity as `0x${string}`]);
     await waitForTransaction(tx);
   };
 
-  const certifyVoidsman = async (entity: Entity) => {
-    const tx = await worldContract.write.app__certifyVoidsman([entity as `0x${string}`]);
+  const voidsmanTrain = async (entity: Entity, field: FieldEnum) => {
+    const tx = await worldContract.write.game__voidsmanTrain([entity as `0x${string}`, field]);
     await waitForTransaction(tx);
   };
+
+  const voidsmanCertify = async (entity: Entity) => {
+    const tx = await worldContract.write.game__voidsmanCertify([entity as `0x${string}`]);
+    await waitForTransaction(tx);
+  };
+
+  //const increment = async () => {
+  //  /*
+  //   * Because IncrementSystem
+  //   * (https://mud.dev/templates/typescript/contracts#incrementsystemsol)
+  //   * is in the root namespace, `.increment` can be called directly
+  //   * on the World contract.
+  //   */
+  //  const tx = await worldContract.write.app__increment();
+  //  await waitForTransaction(tx);
+  //  return getComponentValue(Counter, singletonEntity);
+  //};
+
+  //const recruitCrew = async (name: string, portrait: string, home: Home) => {
+  //  const tx = await worldContract.write.app__recruitVoidsman([name, portrait, home]);
+  //  await waitForTransaction(tx);
+  //};
+
+  //const trainVoidsman = async (entity: Entity, field: Field) => {
+  //  const tx = await worldContract.write.app__trainVoidsman([entity as `0x${string}`, field]);
+  //  await waitForTransaction(tx);
+  //};
+
+  //const certifyVoidsman = async (entity: Entity) => {
+  //  const tx = await worldContract.write.app__certifyVoidsman([entity as `0x${string}`]);
+  //  await waitForTransaction(tx);
+  //};
 
   /**
    * 
@@ -94,11 +110,9 @@ export function createSystemCalls(
   //}
 
   return {
-    increment,
-    recruitCrew,
-    trainVoidsman,
-    certifyVoidsman,
-    //getCrew,
-    //getVoidsmen
+    voidsmanCreate,
+    voidsmanDestroy,
+    voidsmanTrain,
+    voidsmanCertify
   };
 }

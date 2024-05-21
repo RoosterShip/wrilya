@@ -38,23 +38,36 @@ export default defineWorld({
      * If the event "GAME_PAUSE" triggers then the game clients might log people out 
      */
     OperationEnum: [
-      "UNKNOWN",                            // 0,
+      "UNKNOWN",                              // 0,
 
       // Game Config Ops
 
-      "GAME_PAUSE",                         // 1
-      "GAME_UNPAUSE",                       // 2
-      "GAME_SET_ADMIN",                     // 3
-      "GAME_SET_GM",                        // 4
-      "GAME_SET_CURRENCY_PROXY",            // 5
-      "GAME_SET_ITEM_PROXY",                // 6
-      "GAME_SET_ENTITY_PROXY",              // 7
+      "GAME_PAUSE",                           // 1
+      "GAME_UNPAUSE",                         // 2
+      "GAME_SET_ADMIN",                       // 3
+      "GAME_SET_GM",                          // 4
+      "GAME_SET_CURRENCY_PROXY",              // 5
+      "GAME_SET_ITEM_PROXY",                  // 6
+      "GAME_SET_ENTITY_PROXY",                // 7
+      "GAME_SET_VOIDSMAN_CREATE_COST",        // 8
+      "GAME_SET_VOIDSMAN_UPGRADE_TIME_BASE",  // 9
+      "GAME_SET_VOIDSMAN_UPGRADE_TIME_POWER", // 10
+      "GAME_SET_VOIDSMAN_UPGRADE_COST_BASE",  // 11
+      "GAME_SET_VOIDSMAN_UPGRADE_COST_POWER", // 12
+      "GAME_SET_VOIDSMAN_MAX_STATS",          // 13
+      "GAME_SET_VOIDSMAN_MAX_COMPETENCY",     // 14
 
       // Entity Ops
-      "ENTITY_CREATE",                      // 8
-      "ENTITY_DESTROY",                     // 9
-      "ENTITY_TRANSFER",                    // 10
-      "ENTITY_UPDATE",                      // 11
+      "ENTITY_CREATE",                        // 15
+      "ENTITY_DESTROY",                       // 16
+      "ENTITY_TRANSFER",                      // 17
+      "ENTITY_UPDATE",                        // 18
+
+      // Voidsman Ops
+      "VOIDSMAN_TRAIN",                       // 19
+      "VOIDSMAN_TRAIN_CANCEL",                // 20
+      "VOIDSMAN_CERTIFY",                     // 21
+      "VOIDSMAN_SET_TRAINING_REQUIREMENT",    // 22
     ],
 
     /**
@@ -179,8 +192,17 @@ export default defineWorld({
         /**
          * Tuning param for the Training time
          */
-        voidsUpgradeBase: "uint256",
-        voidsUpgradePower: "uint256",
+        voidsmanCreateCost: "uint256",
+        voidsmanUpgradeTimeBase: "uint256",
+        voidsmanUpgradeTimePower: "uint256",
+        voidsmanUpgradeCostBase: "uint256",
+        voidsmanUpgradeCostPower: "uint256",
+        voidsmanMaxStats: "uint8",
+        voidsmanMaxCompetency: "uint8",
+
+        /**
+         * Costs Values
+         */
       }
     },
 
@@ -238,10 +260,10 @@ export default defineWorld({
      * - debit:   How much you own to the empire for services, etc.
      */
     CurrencyTable: {
-      key: ["entity"],
+      key: ["owner"],
       schema: {
         // Key
-        entity: "bytes32",
+        owner: "bytes32",
 
         // Value
         tokens: "uint256",
@@ -264,6 +286,17 @@ export default defineWorld({
       key: [],
       schema: {
         value: "uint256",
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    EntityOwnerTable: {
+      key: ["entity"],
+      schema: {
+        entity: "bytes32",
+        value: "bytes32"
       },
       codegen: {
         dataStruct: false
@@ -378,7 +411,6 @@ export default defineWorld({
         field: "FieldEnum",
 
         // Values
-        cost: "uint256",
         xp: "uint256",
         competencies: "uint8[]",
         stats: "uint8[]",
@@ -395,7 +427,7 @@ export default defineWorld({
         entity: "bytes32",
 
         // Values
-        competencies: "uint8[]"
+        value: "uint8[]"
       },
       codegen: {
         dataStruct: false
@@ -413,7 +445,7 @@ export default defineWorld({
         entity: "bytes32",
 
         // Values
-        stats: "uint8[]"
+        value: "uint8[]"
       },
       codegen: {
         dataStruct: false

@@ -20,7 +20,6 @@ import { ResourceId } from "@latticexyz/store/src/ResourceId.sol";
 import { FieldEnum } from "./../common.sol";
 
 struct VoidsmanRequirementsTableData {
-  uint256 cost;
   uint256 xp;
   uint8[] competencies;
   uint8[] stats;
@@ -31,12 +30,12 @@ library VoidsmanRequirementsTable {
   ResourceId constant _tableId = ResourceId.wrap(0x746267616d6500000000000000000000566f6964736d616e526571756972656d);
 
   FieldLayout constant _fieldLayout =
-    FieldLayout.wrap(0x0040020220200000000000000000000000000000000000000000000000000000);
+    FieldLayout.wrap(0x0020010220000000000000000000000000000000000000000000000000000000);
 
   // Hex-encoded key schema of (uint8, uint8)
   Schema constant _keySchema = Schema.wrap(0x0002020000000000000000000000000000000000000000000000000000000000);
-  // Hex-encoded value schema of (uint256, uint256, uint8[], uint8[])
-  Schema constant _valueSchema = Schema.wrap(0x004002021f1f6262000000000000000000000000000000000000000000000000);
+  // Hex-encoded value schema of (uint256, uint8[], uint8[])
+  Schema constant _valueSchema = Schema.wrap(0x002001021f626200000000000000000000000000000000000000000000000000);
 
   /**
    * @notice Get the table's key field names.
@@ -53,11 +52,10 @@ library VoidsmanRequirementsTable {
    * @return fieldNames An array of strings with the names of value fields.
    */
   function getFieldNames() internal pure returns (string[] memory fieldNames) {
-    fieldNames = new string[](4);
-    fieldNames[0] = "cost";
-    fieldNames[1] = "xp";
-    fieldNames[2] = "competencies";
-    fieldNames[3] = "stats";
+    fieldNames = new string[](3);
+    fieldNames[0] = "xp";
+    fieldNames[1] = "competencies";
+    fieldNames[2] = "stats";
   }
 
   /**
@@ -75,52 +73,6 @@ library VoidsmanRequirementsTable {
   }
 
   /**
-   * @notice Get cost.
-   */
-  function getCost(uint8 level, FieldEnum field) internal view returns (uint256 cost) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = bytes32(uint256(level));
-    _keyTuple[1] = bytes32(uint256(uint8(field)));
-
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
-    return (uint256(bytes32(_blob)));
-  }
-
-  /**
-   * @notice Get cost.
-   */
-  function _getCost(uint8 level, FieldEnum field) internal view returns (uint256 cost) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = bytes32(uint256(level));
-    _keyTuple[1] = bytes32(uint256(uint8(field)));
-
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
-    return (uint256(bytes32(_blob)));
-  }
-
-  /**
-   * @notice Set cost.
-   */
-  function setCost(uint8 level, FieldEnum field, uint256 cost) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = bytes32(uint256(level));
-    _keyTuple[1] = bytes32(uint256(uint8(field)));
-
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((cost)), _fieldLayout);
-  }
-
-  /**
-   * @notice Set cost.
-   */
-  function _setCost(uint8 level, FieldEnum field, uint256 cost) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = bytes32(uint256(level));
-    _keyTuple[1] = bytes32(uint256(uint8(field)));
-
-    StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((cost)), _fieldLayout);
-  }
-
-  /**
    * @notice Get xp.
    */
   function getXp(uint8 level, FieldEnum field) internal view returns (uint256 xp) {
@@ -128,7 +80,7 @@ library VoidsmanRequirementsTable {
     _keyTuple[0] = bytes32(uint256(level));
     _keyTuple[1] = bytes32(uint256(uint8(field)));
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 1, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -140,7 +92,7 @@ library VoidsmanRequirementsTable {
     _keyTuple[0] = bytes32(uint256(level));
     _keyTuple[1] = bytes32(uint256(uint8(field)));
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 1, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -152,7 +104,7 @@ library VoidsmanRequirementsTable {
     _keyTuple[0] = bytes32(uint256(level));
     _keyTuple[1] = bytes32(uint256(uint8(field)));
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((xp)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((xp)), _fieldLayout);
   }
 
   /**
@@ -163,7 +115,7 @@ library VoidsmanRequirementsTable {
     _keyTuple[0] = bytes32(uint256(level));
     _keyTuple[1] = bytes32(uint256(uint8(field)));
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((xp)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((xp)), _fieldLayout);
   }
 
   /**
@@ -553,15 +505,8 @@ library VoidsmanRequirementsTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function set(
-    uint8 level,
-    FieldEnum field,
-    uint256 cost,
-    uint256 xp,
-    uint8[] memory competencies,
-    uint8[] memory stats
-  ) internal {
-    bytes memory _staticData = encodeStatic(cost, xp);
+  function set(uint8 level, FieldEnum field, uint256 xp, uint8[] memory competencies, uint8[] memory stats) internal {
+    bytes memory _staticData = encodeStatic(xp);
 
     EncodedLengths _encodedLengths = encodeLengths(competencies, stats);
     bytes memory _dynamicData = encodeDynamic(competencies, stats);
@@ -576,15 +521,8 @@ library VoidsmanRequirementsTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function _set(
-    uint8 level,
-    FieldEnum field,
-    uint256 cost,
-    uint256 xp,
-    uint8[] memory competencies,
-    uint8[] memory stats
-  ) internal {
-    bytes memory _staticData = encodeStatic(cost, xp);
+  function _set(uint8 level, FieldEnum field, uint256 xp, uint8[] memory competencies, uint8[] memory stats) internal {
+    bytes memory _staticData = encodeStatic(xp);
 
     EncodedLengths _encodedLengths = encodeLengths(competencies, stats);
     bytes memory _dynamicData = encodeDynamic(competencies, stats);
@@ -600,7 +538,7 @@ library VoidsmanRequirementsTable {
    * @notice Set the full data using the data struct.
    */
   function set(uint8 level, FieldEnum field, VoidsmanRequirementsTableData memory _table) internal {
-    bytes memory _staticData = encodeStatic(_table.cost, _table.xp);
+    bytes memory _staticData = encodeStatic(_table.xp);
 
     EncodedLengths _encodedLengths = encodeLengths(_table.competencies, _table.stats);
     bytes memory _dynamicData = encodeDynamic(_table.competencies, _table.stats);
@@ -616,7 +554,7 @@ library VoidsmanRequirementsTable {
    * @notice Set the full data using the data struct.
    */
   function _set(uint8 level, FieldEnum field, VoidsmanRequirementsTableData memory _table) internal {
-    bytes memory _staticData = encodeStatic(_table.cost, _table.xp);
+    bytes memory _staticData = encodeStatic(_table.xp);
 
     EncodedLengths _encodedLengths = encodeLengths(_table.competencies, _table.stats);
     bytes memory _dynamicData = encodeDynamic(_table.competencies, _table.stats);
@@ -631,10 +569,8 @@ library VoidsmanRequirementsTable {
   /**
    * @notice Decode the tightly packed blob of static data using this table's field layout.
    */
-  function decodeStatic(bytes memory _blob) internal pure returns (uint256 cost, uint256 xp) {
-    cost = (uint256(Bytes.getBytes32(_blob, 0)));
-
-    xp = (uint256(Bytes.getBytes32(_blob, 32)));
+  function decodeStatic(bytes memory _blob) internal pure returns (uint256 xp) {
+    xp = (uint256(Bytes.getBytes32(_blob, 0)));
   }
 
   /**
@@ -669,7 +605,7 @@ library VoidsmanRequirementsTable {
     EncodedLengths _encodedLengths,
     bytes memory _dynamicData
   ) internal pure returns (VoidsmanRequirementsTableData memory _table) {
-    (_table.cost, _table.xp) = decodeStatic(_staticData);
+    (_table.xp) = decodeStatic(_staticData);
 
     (_table.competencies, _table.stats) = decodeDynamic(_encodedLengths, _dynamicData);
   }
@@ -700,8 +636,8 @@ library VoidsmanRequirementsTable {
    * @notice Tightly pack static (fixed length) data using this table's schema.
    * @return The static data, encoded into a sequence of bytes.
    */
-  function encodeStatic(uint256 cost, uint256 xp) internal pure returns (bytes memory) {
-    return abi.encodePacked(cost, xp);
+  function encodeStatic(uint256 xp) internal pure returns (bytes memory) {
+    return abi.encodePacked(xp);
   }
 
   /**
@@ -733,12 +669,11 @@ library VoidsmanRequirementsTable {
    * @return The dynamic (variable length) data, encoded into a sequence of bytes.
    */
   function encode(
-    uint256 cost,
     uint256 xp,
     uint8[] memory competencies,
     uint8[] memory stats
   ) internal pure returns (bytes memory, EncodedLengths, bytes memory) {
-    bytes memory _staticData = encodeStatic(cost, xp);
+    bytes memory _staticData = encodeStatic(xp);
 
     EncodedLengths _encodedLengths = encodeLengths(competencies, stats);
     bytes memory _dynamicData = encodeDynamic(competencies, stats);

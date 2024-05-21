@@ -22,4 +22,18 @@ interface IGameSystem {
   function game__setItemProxy(address proxy) external;
 
   function game__setEntityProxy(address proxy) external;
+
+  function game__setVoidsmanCreateCost(uint256 cost) external;
+
+  function game__setVoidsmanUpgradeTimeBase(uint256 base) external;
+
+  function game__setVoidsmanUpgradeTimePower(uint256 power) external;
+
+  function game__setVoidsmanUpgradeCostBase(uint256 base) external;
+
+  function game__setVoidsmanUpgradeCostPower(uint256 power) external;
+
+  function game__setVoidsmanMaxStats(uint8 max) external;
+
+  function game__setVoidsmanMaxCompetency(uint8 max) external;
 }

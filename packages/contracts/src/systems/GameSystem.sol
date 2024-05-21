@@ -38,7 +38,7 @@ contract GameSystem is System {
    */
   function pause() public {
     requireGM(_msgSender());
-    requireHalted();
+    requireRunning();
     GameConfigTable.setActive(false);
     notify(OperationEnum.GAME_PAUSE, ""); 
   }
@@ -48,7 +48,7 @@ contract GameSystem is System {
    */
   function unpause() public {
     requireGM(_msgSender());
-    requireRunning();
+    //requireHalted();
     GameConfigTable.setActive(true);
     notify(OperationEnum.GAME_UNPAUSE, ""); 
   }
@@ -107,6 +107,49 @@ contract GameSystem is System {
     requireAdmin(_msgSender());
     GameConfigTable.setEntityProxy(proxy);
     notify(OperationEnum.GAME_SET_ENTITY_PROXY, ""); 
+  }
+
+
+  function setVoidsmanCreateCost(uint256 cost) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setVoidsmanCreateCost(cost);
+    notify(OperationEnum.GAME_SET_VOIDSMAN_CREATE_COST, ""); 
+  }
+
+  function setVoidsmanUpgradeTimeBase(uint256 base) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setVoidsmanUpgradeTimeBase(base);
+    notify(OperationEnum.GAME_SET_VOIDSMAN_UPGRADE_TIME_BASE, ""); 
+  } 
+
+  function setVoidsmanUpgradeTimePower(uint256 power) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setVoidsmanUpgradeTimePower(power);
+    notify(OperationEnum.GAME_SET_VOIDSMAN_UPGRADE_TIME_POWER, ""); 
+  }
+
+  function setVoidsmanUpgradeCostBase(uint256 base) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setVoidsmanUpgradeCostBase(base);
+    notify(OperationEnum.GAME_SET_VOIDSMAN_UPGRADE_COST_BASE, ""); 
+  }
+
+  function setVoidsmanUpgradeCostPower(uint256 power) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setVoidsmanUpgradeCostPower(power);
+    notify(OperationEnum.GAME_SET_VOIDSMAN_UPGRADE_COST_POWER, ""); 
+  }
+
+  function setVoidsmanMaxStats(uint8 max) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setVoidsmanMaxStats(max);
+    notify(OperationEnum.GAME_SET_VOIDSMAN_MAX_STATS, ""); 
+  }
+
+  function setVoidsmanMaxCompetency(uint8 max) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setVoidsmanMaxCompetency(max);
+    notify(OperationEnum.GAME_SET_VOIDSMAN_MAX_COMPETENCY, ""); 
   }
 
 }

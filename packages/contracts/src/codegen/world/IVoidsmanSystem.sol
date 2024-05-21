@@ -15,20 +15,21 @@ interface IVoidsmanSystem {
 
   function game__voidsmanDestroy(bytes32 entityId) external;
 
-  function game__voidsmanUpdateTrain(bytes32 entityId, FieldEnum subject) external;
+  function game__voidsmanTrain(bytes32 entityId, FieldEnum field) external;
 
-  function game__voidsmanUpdateCancel(bytes32 entityId) external;
+  function game__voidsmanTrainCancel(bytes32 entityId) external;
 
-  function game__voidsmanUpdateCertify(bytes32 entityId) external;
+  function game__voidsmanCertify(bytes32 entityId) external;
 
-  function game__voidsmanTrainingRequirements(
-    FieldEnum filed,
+  function game__voidsmanSetTrainingRequirements(
     uint8 level,
-    uint256 cost,
+    FieldEnum field,
     uint256 xp,
     uint8[] calldata competencies,
     uint8[] calldata stats
   ) external;
 
-  function game__levelTime(uint256 level) external pure returns (uint256);
+  function game__levelTime(uint256 level) external view returns (uint256);
+
+  function game__levelCost(uint256 level) external view returns (uint256);
 }
