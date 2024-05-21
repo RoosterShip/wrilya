@@ -21,7 +21,16 @@ pragma solidity >=0.8.24;
 // ----------------------------------------------------------------------------
 
 import { System } from "@latticexyz/world/src/System.sol";
-import { toBytes32, getFieldUint8, setFieldUint8, isContract, notify } from "../utils.sol";
+
+import { 
+  newEntityID,
+  toBytes32,
+  getFieldUint8,
+  setFieldUint8,
+  isContract,
+  notify
+} from "../utils.sol";
+
 import { 
   Unauthorized,
   InvalidCaller,
@@ -31,20 +40,20 @@ import {
   GameInactive,
   InvalidArgument
 } from "../errors.sol";
+
 import { HomeEnum, FieldEnum, AbilityEnum, EntityEnum, OperationEnum } from "../codegen/common.sol";
+
 import {
   CurrencyTable,
-  EntityIdTable,
-  EntityInfoTable,
   EntityNameRegistryTable,
   EntityOwnerTable,
   EntityTypeTable,
-  EntityXPTable,
   GameConfigTable,
-  VoidsmanCompetencyTable,
+  VoidsmanInfoTable,
+  VoidsmanInfoTableData,
+  VoidsmanPersonaTable,
   VoidsmanRequirementsTable,
   VoidsmanRequirementsTableData,
-  VoidsmanStatsTable,
   VoidsmanTrainingTable
 } from "../codegen/index.sol";
 
@@ -75,26 +84,22 @@ contract VoidsmanSystem is System {
     bytes32 owner = toBytes32(caller);
 
     // Set Entity Info
-    uint256 entityValue = EntityIdTable.get() + 1;
-    bytes32 entityId = toBytes32(entityValue);
-
-    EntityIdTable.set(entityValue);
+    bytes32 entityId = newEntityID();
     EntityOwnerTable.set(entityId, toBytes32(caller));
-    EntityTypeTable.set(entityId, EntityEnum.VOIDSMAN);
-    EntityInfoTable.set(entityId, home, name, portrait);
+
+    EntityTypeTable.set(owner, entityId, EntityEnum.VOIDSMAN);
     EntityNameRegistryTable.set(nameHash, true);
-    EntityXPTable.set(entityId, 0);
 
     // Set Voidsman Info
-    VoidsmanCompetencyTable.set(entityId, new uint8[](10));
-    VoidsmanStatsTable.set(entityId, new uint8[](8));
+    VoidsmanPersonaTable.set(owner, entityId, home, name, portrait);
+    VoidsmanInfoTable.set(owner, entityId, 0, new uint8[](10), new uint8[](8));
 
     // Charge a fee for this.
     invoice(owner, GameConfigTable.getVoidsmanCreateCost());
 
     // Finally assign ownership
     EntityOwnerTable.set(entityId, toBytes32(caller));
-    notify(OperationEnum.ENTITY_CREATE, abi.encode(entityId, owner)); 
+    notify(OperationEnum.ENTITY_CREATE, abi.encode(owner, entityId)); 
   }
 
   /// Delete a crew member from the caller (burn NFT).
@@ -107,29 +112,28 @@ contract VoidsmanSystem is System {
 
     // And that the caller owns the entity
     if (EntityOwnerTable.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
-
+    
     // Setup the Owner
     address caller = _msgSender();
     bytes32 owner = toBytes32(caller);
+    if (EntityTypeTable.get(owner, entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
 
     // Get the name hash because we will want to free it back up for usage 
-    bytes32 nameHash = keccak256(bytes(EntityInfoTable.getName(entityId)));
+    bytes32 nameHash = keccak256(bytes(VoidsmanPersonaTable.getName(owner, entityId)));
 
     // Delete the entity info
-    EntityTypeTable.deleteRecord(entityId);
-    EntityInfoTable.deleteRecord(entityId);
+    EntityTypeTable.deleteRecord(owner, entityId);
     EntityNameRegistryTable.deleteRecord(nameHash);
-    EntityXPTable.deleteRecord(entityId);
 
     // Delete the Voidsman info
-    VoidsmanTrainingTable.deleteRecord(entityId);
-    VoidsmanCompetencyTable.deleteRecord(entityId);
-    VoidsmanStatsTable.deleteRecord(entityId);
+    VoidsmanTrainingTable.deleteRecord(owner, entityId);
+    VoidsmanInfoTable.deleteRecord(owner, entityId);
+    VoidsmanPersonaTable.deleteRecord(owner, entityId);
 
     // Release it from ownership 
     EntityOwnerTable.deleteRecord(entityId);
 
-    notify(OperationEnum.ENTITY_DESTROY, abi.encode(entityId, owner)); 
+    notify(OperationEnum.ENTITY_DESTROY, abi.encode(owner, entityId)); 
   }
 
   /// Start the training process for a crew member.  You can only have
@@ -137,7 +141,7 @@ contract VoidsmanSystem is System {
   /// @param entityId to train
   /// @param field to train
   function voidsmanTrain(bytes32 entityId, FieldEnum field) public {
-
+   
     bytes32 owner = toBytes32(_msgSender());
 
     // Verify Game is Up and Running
@@ -146,60 +150,59 @@ contract VoidsmanSystem is System {
     // And that the caller owns the entity
     if (EntityOwnerTable.get(entityId) != owner) revert Unauthorized();
 
+    // Make sure we have a voidsman 
+    if (EntityTypeTable.get(owner, entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
+
     // Make sure we are not currently training
-    if (VoidsmanTrainingTable.getTime(entityId) != uint256(0)) revert InvalidState();
+    if (VoidsmanTrainingTable.getTime(owner, entityId) != uint256(0)) revert InvalidState();
 
-    // // Verify this voidsman meets the requirements
-    uint8[] memory comps = VoidsmanCompetencyTable.get(entityId);
-    uint8 nextLevel = comps[uint(field)] + 1;
-    
+    VoidsmanInfoTableData memory info = VoidsmanInfoTable.get(owner, entityId);
+
+    // Verify compentency requiremetns
+    uint8 nextLevel = info.comps[uint(field)] + 1;
     if(nextLevel > GameConfigTable.getVoidsmanMaxCompetency()) revert InvalidState();
-
-    // Let's get the cost of doing this upgrade
-    uint8[] memory stats = VoidsmanStatsTable.get(entityId);
     VoidsmanRequirementsTableData memory req = VoidsmanRequirementsTable.get(nextLevel, field);
-
     if(req.competencies.length != 0) {
-      if(req.competencies[0] > comps[0]) revert InvalidState();
-      if(req.competencies[1] > comps[1]) revert InvalidState();
-      if(req.competencies[2] > comps[2]) revert InvalidState();
-      if(req.competencies[3] > comps[3]) revert InvalidState();
-      if(req.competencies[4] > comps[4]) revert InvalidState();
-      if(req.competencies[5] > comps[5]) revert InvalidState();
-      if(req.competencies[6] > comps[6]) revert InvalidState();
-      if(req.competencies[7] > comps[7]) revert InvalidState();
-      if(req.competencies[8] > comps[8]) revert InvalidState();
-      if(req.competencies[9] > comps[9]) revert InvalidState();
+      if(req.competencies[0] > info.comps[0]) revert InvalidState();
+      if(req.competencies[1] > info.comps[1]) revert InvalidState();
+      if(req.competencies[2] > info.comps[2]) revert InvalidState();
+      if(req.competencies[3] > info.comps[3]) revert InvalidState();
+      if(req.competencies[4] > info.comps[4]) revert InvalidState();
+      if(req.competencies[5] > info.comps[5]) revert InvalidState();
+      if(req.competencies[6] > info.comps[6]) revert InvalidState();
+      if(req.competencies[7] > info.comps[7]) revert InvalidState();
+      if(req.competencies[8] > info.comps[8]) revert InvalidState();
+      if(req.competencies[9] > info.comps[9]) revert InvalidState();
     }
     
-    // Do the same for the stats
+    // Verify stats requirements
     if(req.stats.length != 0) {
-      if(req.stats[0] > stats[0]) revert InvalidState();
-      if(req.stats[1] > stats[1]) revert InvalidState();
-      if(req.stats[2] > stats[2]) revert InvalidState();
-      if(req.stats[3] > stats[3]) revert InvalidState();
-      if(req.stats[4] > stats[4]) revert InvalidState();
-      if(req.stats[5] > stats[5]) revert InvalidState();
-      if(req.stats[6] > stats[6]) revert InvalidState();
-      if(req.stats[7] > stats[7]) revert InvalidState();
+      if(req.stats[0] > info.stats[0]) revert InvalidState();
+      if(req.stats[1] > info.stats[1]) revert InvalidState();
+      if(req.stats[2] > info.stats[2]) revert InvalidState();
+      if(req.stats[3] > info.stats[3]) revert InvalidState();
+      if(req.stats[4] > info.stats[4]) revert InvalidState();
+      if(req.stats[5] > info.stats[5]) revert InvalidState();
+      if(req.stats[6] > info.stats[6]) revert InvalidState();
+      if(req.stats[7] > info.stats[7]) revert InvalidState();
     }
 
     // Check that the XP reg is good
-    if(req.xp > EntityXPTable.get(entityId)) revert InvalidState();
+    if(req.xp > info.xp) revert InvalidState();
 
-    // // All checks pass.  Start training
-    VoidsmanTrainingTable.set(entityId, levelTime(uint256(nextLevel)) + block.timestamp, field);
+    // All checks pass.  Start training
+    VoidsmanTrainingTable.set(owner, entityId, levelTime(uint256(nextLevel)) + block.timestamp, field);
 
-    // // And now let's bill the user
+    // And now let's bill the user
     invoice(owner, levelCost(nextLevel));
 
-    notify(OperationEnum.VOIDSMAN_TRAIN, abi.encode(entityId, owner)); 
+    notify(OperationEnum.VOIDSMAN_TRAIN, abi.encode(owner, entityId)); 
   }
 
   /// Stop training a skill.  All time invested into training skill is also lost
   /// @param entityId to stop training
   function voidsmanTrainCancel(bytes32 entityId) public {
-
+   
     bytes32 owner = toBytes32(_msgSender());
 
     // Verify Game is Up and Running
@@ -208,10 +211,13 @@ contract VoidsmanSystem is System {
     // And that the caller owns the entity
     if (EntityOwnerTable.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
 
+    // Make sure we have a voidsman 
+    if (EntityTypeTable.get(owner, entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
+
     // All good to go 
-    VoidsmanTrainingTable.deleteRecord(entityId);
-    
-    notify(OperationEnum.VOIDSMAN_TRAIN_CANCEL, abi.encode(entityId, owner)); 
+    VoidsmanTrainingTable.deleteRecord(owner, entityId);
+   
+    notify(OperationEnum.VOIDSMAN_TRAIN_CANCEL, abi.encode(owner, entityId)); 
   }
 
   /// Once a crew person has finished training they can be "certified" to the
@@ -225,9 +231,11 @@ contract VoidsmanSystem is System {
 
     // And that the caller owns the entity
     if (EntityOwnerTable.get(entityId) != owner) revert Unauthorized();
+    
+    // Make sure we have a voidsman 
+    if (EntityTypeTable.get(owner, entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
 
-
-    (uint256 time, FieldEnum field) = VoidsmanTrainingTable.get(entityId);
+    (uint256 time, FieldEnum field) = VoidsmanTrainingTable.get(owner, entityId);
     // Check that they ARE training
     if (time == uint256(0)) revert InvalidState();
     // Check that they are DONE training
@@ -235,27 +243,34 @@ contract VoidsmanSystem is System {
 
     // If we are this far then we are good to update the record.
     // NOTE:  Certification does not cost the player anything
-    uint8 level = VoidsmanCompetencyTable.getItem(entityId, uint256(field));
-    VoidsmanCompetencyTable.update(entityId, uint256(field), level + 1);
-    VoidsmanTrainingTable.deleteRecord(entityId);
+    uint8 level = VoidsmanInfoTable.getItemComps(owner, entityId, uint256(field));
+    VoidsmanInfoTable.updateComps(owner, entityId, uint256(field), level + 1);
+    VoidsmanTrainingTable.deleteRecord(owner, entityId);
     
-    notify(OperationEnum.VOIDSMAN_CERTIFY, abi.encode(entityId, owner)); 
+    notify(OperationEnum.VOIDSMAN_CERTIFY, abi.encode(owner, entityId)); 
   }
 
+  /// Admin function to set the training requirments for a specific field of a specific
+  /// level.  This is to allow for non-algorithmic tuning of "skill tree" requirements
+  /// @param level of the field in that the requirements will apply to
+  /// @param field for the requirement
+  /// @param xp that must be met or exceeded
+  /// @param comps uint8 array of length of the FieldEnum
+  /// @param stats uint8 array of length of the AbilityEnum
   function voidsmanSetTrainingRequirements(
     uint8 level,
     FieldEnum field,
     uint256 xp,
-    uint8[] calldata competencies,
+    uint8[] calldata comps,
     uint8[] calldata stats)
   public {
     // Verify Game is Up and Running
     if(GameConfigTable.getAdmin() != _msgSender() ) revert Unauthorized();
 
-    if(competencies.length != 10) revert InvalidArgument();
+    if(comps.length != 10) revert InvalidArgument();
     if(stats.length != 8) revert InvalidArgument();
 
-    VoidsmanRequirementsTable.set(level, field, xp, competencies, stats);
+    VoidsmanRequirementsTable.set(level, field, xp, comps, stats);
   }
 
   /// Based on our tuning data levels should increase at a speed

@@ -26,8 +26,8 @@ library EntityTypeTable {
   FieldLayout constant _fieldLayout =
     FieldLayout.wrap(0x0001010001000000000000000000000000000000000000000000000000000000);
 
-  // Hex-encoded key schema of (bytes32)
-  Schema constant _keySchema = Schema.wrap(0x002001005f000000000000000000000000000000000000000000000000000000);
+  // Hex-encoded key schema of (bytes32, bytes32)
+  Schema constant _keySchema = Schema.wrap(0x004002005f5f0000000000000000000000000000000000000000000000000000);
   // Hex-encoded value schema of (uint8)
   Schema constant _valueSchema = Schema.wrap(0x0001010000000000000000000000000000000000000000000000000000000000);
 
@@ -36,8 +36,9 @@ library EntityTypeTable {
    * @return keyNames An array of strings with the names of key fields.
    */
   function getKeyNames() internal pure returns (string[] memory keyNames) {
-    keyNames = new string[](1);
-    keyNames[0] = "entity";
+    keyNames = new string[](2);
+    keyNames[0] = "owner";
+    keyNames[1] = "entity";
   }
 
   /**
@@ -66,9 +67,10 @@ library EntityTypeTable {
   /**
    * @notice Get value.
    */
-  function getValue(bytes32 entity) internal view returns (EntityEnum value) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function getValue(bytes32 owner, bytes32 entity) internal view returns (EntityEnum value) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = owner;
+    _keyTuple[1] = entity;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return EntityEnum(uint8(bytes1(_blob)));
@@ -77,9 +79,10 @@ library EntityTypeTable {
   /**
    * @notice Get value.
    */
-  function _getValue(bytes32 entity) internal view returns (EntityEnum value) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _getValue(bytes32 owner, bytes32 entity) internal view returns (EntityEnum value) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = owner;
+    _keyTuple[1] = entity;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return EntityEnum(uint8(bytes1(_blob)));
@@ -88,9 +91,10 @@ library EntityTypeTable {
   /**
    * @notice Get value.
    */
-  function get(bytes32 entity) internal view returns (EntityEnum value) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function get(bytes32 owner, bytes32 entity) internal view returns (EntityEnum value) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = owner;
+    _keyTuple[1] = entity;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return EntityEnum(uint8(bytes1(_blob)));
@@ -99,9 +103,10 @@ library EntityTypeTable {
   /**
    * @notice Get value.
    */
-  function _get(bytes32 entity) internal view returns (EntityEnum value) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _get(bytes32 owner, bytes32 entity) internal view returns (EntityEnum value) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = owner;
+    _keyTuple[1] = entity;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return EntityEnum(uint8(bytes1(_blob)));
@@ -110,9 +115,10 @@ library EntityTypeTable {
   /**
    * @notice Set value.
    */
-  function setValue(bytes32 entity, EntityEnum value) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function setValue(bytes32 owner, bytes32 entity, EntityEnum value) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = owner;
+    _keyTuple[1] = entity;
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(value)), _fieldLayout);
   }
@@ -120,9 +126,10 @@ library EntityTypeTable {
   /**
    * @notice Set value.
    */
-  function _setValue(bytes32 entity, EntityEnum value) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _setValue(bytes32 owner, bytes32 entity, EntityEnum value) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = owner;
+    _keyTuple[1] = entity;
 
     StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(value)), _fieldLayout);
   }
@@ -130,9 +137,10 @@ library EntityTypeTable {
   /**
    * @notice Set value.
    */
-  function set(bytes32 entity, EntityEnum value) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function set(bytes32 owner, bytes32 entity, EntityEnum value) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = owner;
+    _keyTuple[1] = entity;
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(value)), _fieldLayout);
   }
@@ -140,9 +148,10 @@ library EntityTypeTable {
   /**
    * @notice Set value.
    */
-  function _set(bytes32 entity, EntityEnum value) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _set(bytes32 owner, bytes32 entity, EntityEnum value) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = owner;
+    _keyTuple[1] = entity;
 
     StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(value)), _fieldLayout);
   }
@@ -150,9 +159,10 @@ library EntityTypeTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function deleteRecord(bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function deleteRecord(bytes32 owner, bytes32 entity) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = owner;
+    _keyTuple[1] = entity;
 
     StoreSwitch.deleteRecord(_tableId, _keyTuple);
   }
@@ -160,9 +170,10 @@ library EntityTypeTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function _deleteRecord(bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _deleteRecord(bytes32 owner, bytes32 entity) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = owner;
+    _keyTuple[1] = entity;
 
     StoreCore.deleteRecord(_tableId, _keyTuple, _fieldLayout);
   }
@@ -193,9 +204,10 @@ library EntityTypeTable {
   /**
    * @notice Encode keys as a bytes32 array using this table's field layout.
    */
-  function encodeKeyTuple(bytes32 entity) internal pure returns (bytes32[] memory) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function encodeKeyTuple(bytes32 owner, bytes32 entity) internal pure returns (bytes32[] memory) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = owner;
+    _keyTuple[1] = entity;
 
     return _keyTuple;
   }

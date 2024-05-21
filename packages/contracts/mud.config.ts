@@ -211,34 +211,14 @@ export default defineWorld({
     //-------------------------------------------------------------------------
 
     /**
-     * When the system sends notification offchain it needs an ID.
-     */
-    NotificationIDTable: {
-      schema: {
-        value: "uint256",
-      },
-      key: [],
-      codegen: {
-        dataStruct: false
-      }
-    },
-
-    /**
      * Offchain table which will be updated by notifications that something
      * happened on chain.  The data field is expected to be encoded arguments
      * needed for the offchain system to parse.
-     * 
-     * NOTE:  
-     * 
-     * Encoded data will be ABI encoded for now but could move to something else
-     * in the future.
-     * 
      */
     NotificationTable: {
       type: "offchainTable",
-      key: ["opID"],
+      key: [],
       schema: {
-        opID: "bytes32",
         operation: "OperationEnum",
         data: "bytes"
       },
@@ -307,26 +287,11 @@ export default defineWorld({
      * The type of entity this is
      */
     EntityTypeTable: {
-      key: ["entity"],
+      key: ["owner", "entity"],
       schema: {
+        owner: "bytes32",
         entity: "bytes32",
         value: "EntityEnum"
-      },
-      codegen: {
-        dataStruct: false
-      }
-    },
-
-    /**
-     * Some generic info about this entity
-     */
-    EntityInfoTable: {
-      key: ["entity"],
-      schema: {
-        entity: "bytes32",
-        home: "HomeEnum",
-        name: "string",
-        portrait: "string",
       },
       codegen: {
         dataStruct: false
@@ -362,33 +327,55 @@ export default defineWorld({
       }
     },
 
+    //-------------------------------------------------------------------------
+    // Voidsman Tables
+    //-------------------------------------------------------------------------
+
     /**
-     * The current XP value assigned to the entity.  In some cases this value
-     * could be used as current assigned XP or it could be used as an XP
-     * reward, etc.
+     * Some generic info about this voidsman
      */
-    EntityXPTable: {
-      key: ["entity"],
+    VoidsmanPersonaTable: {
+      key: ["owner", "entity"],
       schema: {
+        // Key
+        owner: "bytes32",
         entity: "bytes32",
-        value: "uint32",
+
+        // Values
+        home: "HomeEnum",
+        name: "string",
+        portrait: "string",
       },
       codegen: {
         dataStruct: false
       }
     },
 
-    //-------------------------------------------------------------------------
-    // Voidsman Tables
-    //-------------------------------------------------------------------------
+    /**
+     * The competency values of a voidman for set of fields.
+     */
+    VoidsmanInfoTable: {
+      key: ["owner", "entity"],
+      schema: {
+        // Key
+        owner: "bytes32",
+        entity: "bytes32",
+
+        // Values
+        xp: "uint32",
+        comps: "uint8[]",
+        stats: "uint8[]"
+      },
+    },
 
     /**
      * When training a voidsman it will take time and effort
      */
     VoidsmanTrainingTable: {
-      key: ["entity"],
+      key: ["owner", "entity"],
       schema: {
         // Key
+        owner: "bytes32",
         entity: "bytes32",
 
         // Values
@@ -414,41 +401,6 @@ export default defineWorld({
         xp: "uint256",
         competencies: "uint8[]",
         stats: "uint8[]",
-      }
-    },
-
-    /**
-     * The competency values of a voidman for set of fields.
-     */
-    VoidsmanCompetencyTable: {
-      key: ["entity"],
-      schema: {
-        // Key
-        entity: "bytes32",
-
-        // Values
-        value: "uint8[]"
-      },
-      codegen: {
-        dataStruct: false
-      }
-    },
-
-    /**
-     * As a player levels up they can select stats boosts above
-     * the default values for a given level.
-     */
-    VoidsmanStatsTable: {
-      key: ["entity"],
-      schema: {
-        // Key
-        entity: "bytes32",
-
-        // Values
-        value: "uint8[]"
-      },
-      codegen: {
-        dataStruct: false
       }
     },
 

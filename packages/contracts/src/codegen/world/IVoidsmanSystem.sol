@@ -25,7 +25,7 @@ interface IVoidsmanSystem {
     uint8 level,
     FieldEnum field,
     uint256 xp,
-    uint8[] calldata competencies,
+    uint8[] calldata comps,
     uint8[] calldata stats
   ) external;
 

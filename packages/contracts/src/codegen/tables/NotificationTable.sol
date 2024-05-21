@@ -26,8 +26,8 @@ library NotificationTable {
   FieldLayout constant _fieldLayout =
     FieldLayout.wrap(0x0001010101000000000000000000000000000000000000000000000000000000);
 
-  // Hex-encoded key schema of (bytes32)
-  Schema constant _keySchema = Schema.wrap(0x002001005f000000000000000000000000000000000000000000000000000000);
+  // Hex-encoded key schema of ()
+  Schema constant _keySchema = Schema.wrap(0x0000000000000000000000000000000000000000000000000000000000000000);
   // Hex-encoded value schema of (uint8, bytes)
   Schema constant _valueSchema = Schema.wrap(0x0001010100c40000000000000000000000000000000000000000000000000000);
 
@@ -36,8 +36,7 @@ library NotificationTable {
    * @return keyNames An array of strings with the names of key fields.
    */
   function getKeyNames() internal pure returns (string[] memory keyNames) {
-    keyNames = new string[](1);
-    keyNames[0] = "opID";
+    keyNames = new string[](0);
   }
 
   /**
@@ -67,9 +66,8 @@ library NotificationTable {
   /**
    * @notice Set operation.
    */
-  function setOperation(bytes32 opID, OperationEnum operation) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = opID;
+  function setOperation(OperationEnum operation) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(operation)), _fieldLayout);
   }
@@ -77,9 +75,8 @@ library NotificationTable {
   /**
    * @notice Set operation.
    */
-  function _setOperation(bytes32 opID, OperationEnum operation) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = opID;
+  function _setOperation(OperationEnum operation) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
 
     StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(operation)), _fieldLayout);
   }
@@ -87,14 +84,13 @@ library NotificationTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function set(bytes32 opID, OperationEnum operation, bytes memory data) internal {
+  function set(OperationEnum operation, bytes memory data) internal {
     bytes memory _staticData = encodeStatic(operation);
 
     EncodedLengths _encodedLengths = encodeLengths(data);
     bytes memory _dynamicData = encodeDynamic(data);
 
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = opID;
+    bytes32[] memory _keyTuple = new bytes32[](0);
 
     StoreSwitch.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData);
   }
@@ -102,14 +98,13 @@ library NotificationTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function _set(bytes32 opID, OperationEnum operation, bytes memory data) internal {
+  function _set(OperationEnum operation, bytes memory data) internal {
     bytes memory _staticData = encodeStatic(operation);
 
     EncodedLengths _encodedLengths = encodeLengths(data);
     bytes memory _dynamicData = encodeDynamic(data);
 
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = opID;
+    bytes32[] memory _keyTuple = new bytes32[](0);
 
     StoreCore.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData, _fieldLayout);
   }
@@ -152,9 +147,8 @@ library NotificationTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function deleteRecord(bytes32 opID) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = opID;
+  function deleteRecord() internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
 
     StoreSwitch.deleteRecord(_tableId, _keyTuple);
   }
@@ -162,9 +156,8 @@ library NotificationTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function _deleteRecord(bytes32 opID) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = opID;
+  function _deleteRecord() internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
 
     StoreCore.deleteRecord(_tableId, _keyTuple, _fieldLayout);
   }
@@ -217,9 +210,8 @@ library NotificationTable {
   /**
    * @notice Encode keys as a bytes32 array using this table's field layout.
    */
-  function encodeKeyTuple(bytes32 opID) internal pure returns (bytes32[] memory) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = opID;
+  function encodeKeyTuple() internal pure returns (bytes32[] memory) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
 
     return _keyTuple;
   }
