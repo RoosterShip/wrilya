@@ -5,7 +5,9 @@
 
 import { SetupNetworkResult } from "./setupNetwork";
 import { HomeEnum, FieldEnum } from "./index";
-import { Entity } from "@latticexyz/recs";
+import { Entity, getComponentValueStrict } from "@latticexyz/recs";
+import { ClientComponents } from "./createClientComponents";
+
 //import { Entity, Voidsmen } from "../entity"
 //
 //import { runQuery, Has, HasValue, getComponentValueStrict } from "@latticexyz/recs";
@@ -32,11 +34,13 @@ export function createSystemCalls(
    *   syncToRecs
    *   (https://github.com/latticexyz/mud/blob/main/templates/vanilla/packages/client/src/mud/setupNetwork.ts#L77-L83).
    */
-  //{ walletClient, worldContract, waitForTransaction }: SetupNetworkResult,
-  //{ Counter, Crew, OwnedBy, Persona, Traits }: ClientComponents,
   { worldContract, waitForTransaction }: SetupNetworkResult,
-  //{ Counter, Crew, OwnedBy, Persona, Traits }: ClientComponents,
+  { EntityOwnedBy }: ClientComponents,
 ) {
+
+  const voidsmanOwner = async (entity: Entity) => {
+    return getComponentValueStrict(EntityOwnedBy, entity);
+  }
 
   const voidsmanCreate = async (name: string, portrait: string, home: HomeEnum) => {
     const tx = await worldContract.write.game__voidsmanCreate([name, portrait, home]);
@@ -55,6 +59,24 @@ export function createSystemCalls(
 
   const voidsmanCertify = async (entity: Entity) => {
     const tx = await worldContract.write.game__voidsmanCertify([entity as `0x${string}`]);
+    await waitForTransaction(tx);
+  };
+
+  const currencyMint = async (amount: number) => {
+    const amt = BigInt(amount);
+    const tx = await worldContract.write.game__mint([amt]);
+    await waitForTransaction(tx);
+  };
+
+  const currencyStake = async (amount: number) => {
+    const amt = BigInt(amount);
+    const tx = await worldContract.write.game__stake([amt]);
+    await waitForTransaction(tx);
+  };
+
+  const currencyPayment = async (amount: number) => {
+    const amt = BigInt(amount);
+    const tx = await worldContract.write.game__payment([amt]);
     await waitForTransaction(tx);
   };
 
@@ -112,9 +134,13 @@ export function createSystemCalls(
   //}
 
   return {
+    voidsmanOwner,
     voidsmanCreate,
     voidsmanDestroy,
     voidsmanTrain,
-    voidsmanCertify
+    voidsmanCertify,
+    currencyMint,
+    currencyStake,
+    currencyPayment
   };
 }

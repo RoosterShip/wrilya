@@ -30,6 +30,9 @@ struct GameConfigTableData {
   uint256 voidsmanUpgradeCostPower;
   uint8 voidsmanMaxStats;
   uint8 voidsmanMaxCompetency;
+  uint256 stdMaxDebit;
+  uint256 collateralDebitRatio;
+  uint256 currencyUnstakeTime;
 }
 
 library GameConfigTable {
@@ -37,12 +40,12 @@ library GameConfigTable {
   ResourceId constant _tableId = ResourceId.wrap(0x746267616d650000000000000000000047616d65436f6e6669675461626c6500);
 
   FieldLayout constant _fieldLayout =
-    FieldLayout.wrap(0x01070d0001141414141420202020200101000000000000000000000000000000);
+    FieldLayout.wrap(0x0167100001141414141420202020200101202020000000000000000000000000);
 
   // Hex-encoded key schema of ()
   Schema constant _keySchema = Schema.wrap(0x0000000000000000000000000000000000000000000000000000000000000000);
-  // Hex-encoded value schema of (bool, address, address, address, address, address, uint256, uint256, uint256, uint256, uint256, uint8, uint8)
-  Schema constant _valueSchema = Schema.wrap(0x01070d006061616161611f1f1f1f1f0000000000000000000000000000000000);
+  // Hex-encoded value schema of (bool, address, address, address, address, address, uint256, uint256, uint256, uint256, uint256, uint8, uint8, uint256, uint256, uint256)
+  Schema constant _valueSchema = Schema.wrap(0x016710006061616161611f1f1f1f1f00001f1f1f000000000000000000000000);
 
   /**
    * @notice Get the table's key field names.
@@ -57,7 +60,7 @@ library GameConfigTable {
    * @return fieldNames An array of strings with the names of value fields.
    */
   function getFieldNames() internal pure returns (string[] memory fieldNames) {
-    fieldNames = new string[](13);
+    fieldNames = new string[](16);
     fieldNames[0] = "active";
     fieldNames[1] = "admin";
     fieldNames[2] = "gm";
@@ -71,6 +74,9 @@ library GameConfigTable {
     fieldNames[10] = "voidsmanUpgradeCostPower";
     fieldNames[11] = "voidsmanMaxStats";
     fieldNames[12] = "voidsmanMaxCompetency";
+    fieldNames[13] = "stdMaxDebit";
+    fieldNames[14] = "collateralDebitRatio";
+    fieldNames[15] = "currencyUnstakeTime";
   }
 
   /**
@@ -582,6 +588,120 @@ library GameConfigTable {
   }
 
   /**
+   * @notice Get stdMaxDebit.
+   */
+  function getStdMaxDebit() internal view returns (uint256 stdMaxDebit) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 13, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Get stdMaxDebit.
+   */
+  function _getStdMaxDebit() internal view returns (uint256 stdMaxDebit) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 13, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Set stdMaxDebit.
+   */
+  function setStdMaxDebit(uint256 stdMaxDebit) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 13, abi.encodePacked((stdMaxDebit)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set stdMaxDebit.
+   */
+  function _setStdMaxDebit(uint256 stdMaxDebit) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 13, abi.encodePacked((stdMaxDebit)), _fieldLayout);
+  }
+
+  /**
+   * @notice Get collateralDebitRatio.
+   */
+  function getCollateralDebitRatio() internal view returns (uint256 collateralDebitRatio) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 14, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Get collateralDebitRatio.
+   */
+  function _getCollateralDebitRatio() internal view returns (uint256 collateralDebitRatio) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 14, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Set collateralDebitRatio.
+   */
+  function setCollateralDebitRatio(uint256 collateralDebitRatio) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 14, abi.encodePacked((collateralDebitRatio)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set collateralDebitRatio.
+   */
+  function _setCollateralDebitRatio(uint256 collateralDebitRatio) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 14, abi.encodePacked((collateralDebitRatio)), _fieldLayout);
+  }
+
+  /**
+   * @notice Get currencyUnstakeTime.
+   */
+  function getCurrencyUnstakeTime() internal view returns (uint256 currencyUnstakeTime) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 15, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Get currencyUnstakeTime.
+   */
+  function _getCurrencyUnstakeTime() internal view returns (uint256 currencyUnstakeTime) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 15, _fieldLayout);
+    return (uint256(bytes32(_blob)));
+  }
+
+  /**
+   * @notice Set currencyUnstakeTime.
+   */
+  function setCurrencyUnstakeTime(uint256 currencyUnstakeTime) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 15, abi.encodePacked((currencyUnstakeTime)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set currencyUnstakeTime.
+   */
+  function _setCurrencyUnstakeTime(uint256 currencyUnstakeTime) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 15, abi.encodePacked((currencyUnstakeTime)), _fieldLayout);
+  }
+
+  /**
    * @notice Get the full data.
    */
   function get() internal view returns (GameConfigTableData memory _table) {
@@ -625,7 +745,10 @@ library GameConfigTable {
     uint256 voidsmanUpgradeCostBase,
     uint256 voidsmanUpgradeCostPower,
     uint8 voidsmanMaxStats,
-    uint8 voidsmanMaxCompetency
+    uint8 voidsmanMaxCompetency,
+    uint256 stdMaxDebit,
+    uint256 collateralDebitRatio,
+    uint256 currencyUnstakeTime
   ) internal {
     bytes memory _staticData = encodeStatic(
       active,
@@ -640,7 +763,10 @@ library GameConfigTable {
       voidsmanUpgradeCostBase,
       voidsmanUpgradeCostPower,
       voidsmanMaxStats,
-      voidsmanMaxCompetency
+      voidsmanMaxCompetency,
+      stdMaxDebit,
+      collateralDebitRatio,
+      currencyUnstakeTime
     );
 
     EncodedLengths _encodedLengths;
@@ -667,7 +793,10 @@ library GameConfigTable {
     uint256 voidsmanUpgradeCostBase,
     uint256 voidsmanUpgradeCostPower,
     uint8 voidsmanMaxStats,
-    uint8 voidsmanMaxCompetency
+    uint8 voidsmanMaxCompetency,
+    uint256 stdMaxDebit,
+    uint256 collateralDebitRatio,
+    uint256 currencyUnstakeTime
   ) internal {
     bytes memory _staticData = encodeStatic(
       active,
@@ -682,7 +811,10 @@ library GameConfigTable {
       voidsmanUpgradeCostBase,
       voidsmanUpgradeCostPower,
       voidsmanMaxStats,
-      voidsmanMaxCompetency
+      voidsmanMaxCompetency,
+      stdMaxDebit,
+      collateralDebitRatio,
+      currencyUnstakeTime
     );
 
     EncodedLengths _encodedLengths;
@@ -710,7 +842,10 @@ library GameConfigTable {
       _table.voidsmanUpgradeCostBase,
       _table.voidsmanUpgradeCostPower,
       _table.voidsmanMaxStats,
-      _table.voidsmanMaxCompetency
+      _table.voidsmanMaxCompetency,
+      _table.stdMaxDebit,
+      _table.collateralDebitRatio,
+      _table.currencyUnstakeTime
     );
 
     EncodedLengths _encodedLengths;
@@ -738,7 +873,10 @@ library GameConfigTable {
       _table.voidsmanUpgradeCostBase,
       _table.voidsmanUpgradeCostPower,
       _table.voidsmanMaxStats,
-      _table.voidsmanMaxCompetency
+      _table.voidsmanMaxCompetency,
+      _table.stdMaxDebit,
+      _table.collateralDebitRatio,
+      _table.currencyUnstakeTime
     );
 
     EncodedLengths _encodedLengths;
@@ -770,7 +908,10 @@ library GameConfigTable {
       uint256 voidsmanUpgradeCostBase,
       uint256 voidsmanUpgradeCostPower,
       uint8 voidsmanMaxStats,
-      uint8 voidsmanMaxCompetency
+      uint8 voidsmanMaxCompetency,
+      uint256 stdMaxDebit,
+      uint256 collateralDebitRatio,
+      uint256 currencyUnstakeTime
     )
   {
     active = (_toBool(uint8(Bytes.getBytes1(_blob, 0))));
@@ -798,6 +939,12 @@ library GameConfigTable {
     voidsmanMaxStats = (uint8(Bytes.getBytes1(_blob, 261)));
 
     voidsmanMaxCompetency = (uint8(Bytes.getBytes1(_blob, 262)));
+
+    stdMaxDebit = (uint256(Bytes.getBytes32(_blob, 263)));
+
+    collateralDebitRatio = (uint256(Bytes.getBytes32(_blob, 295)));
+
+    currencyUnstakeTime = (uint256(Bytes.getBytes32(_blob, 327)));
   }
 
   /**
@@ -824,7 +971,10 @@ library GameConfigTable {
       _table.voidsmanUpgradeCostBase,
       _table.voidsmanUpgradeCostPower,
       _table.voidsmanMaxStats,
-      _table.voidsmanMaxCompetency
+      _table.voidsmanMaxCompetency,
+      _table.stdMaxDebit,
+      _table.collateralDebitRatio,
+      _table.currencyUnstakeTime
     ) = decodeStatic(_staticData);
   }
 
@@ -863,7 +1013,10 @@ library GameConfigTable {
     uint256 voidsmanUpgradeCostBase,
     uint256 voidsmanUpgradeCostPower,
     uint8 voidsmanMaxStats,
-    uint8 voidsmanMaxCompetency
+    uint8 voidsmanMaxCompetency,
+    uint256 stdMaxDebit,
+    uint256 collateralDebitRatio,
+    uint256 currencyUnstakeTime
   ) internal pure returns (bytes memory) {
     return
       abi.encodePacked(
@@ -879,7 +1032,10 @@ library GameConfigTable {
         voidsmanUpgradeCostBase,
         voidsmanUpgradeCostPower,
         voidsmanMaxStats,
-        voidsmanMaxCompetency
+        voidsmanMaxCompetency,
+        stdMaxDebit,
+        collateralDebitRatio,
+        currencyUnstakeTime
       );
   }
 
@@ -902,7 +1058,10 @@ library GameConfigTable {
     uint256 voidsmanUpgradeCostBase,
     uint256 voidsmanUpgradeCostPower,
     uint8 voidsmanMaxStats,
-    uint8 voidsmanMaxCompetency
+    uint8 voidsmanMaxCompetency,
+    uint256 stdMaxDebit,
+    uint256 collateralDebitRatio,
+    uint256 currencyUnstakeTime
   ) internal pure returns (bytes memory, EncodedLengths, bytes memory) {
     bytes memory _staticData = encodeStatic(
       active,
@@ -917,7 +1076,10 @@ library GameConfigTable {
       voidsmanUpgradeCostBase,
       voidsmanUpgradeCostPower,
       voidsmanMaxStats,
-      voidsmanMaxCompetency
+      voidsmanMaxCompetency,
+      stdMaxDebit,
+      collateralDebitRatio,
+      currencyUnstakeTime
     );
 
     EncodedLengths _encodedLengths;

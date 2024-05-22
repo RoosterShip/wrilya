@@ -5,7 +5,7 @@ pragma solidity >=0.8.24;
 
 import { GameConfigTable, GameConfigTableData } from "./tables/GameConfigTable.sol";
 import { NotificationTable } from "./tables/NotificationTable.sol";
-import { CurrencyTable } from "./tables/CurrencyTable.sol";
+import { CurrencyTable, CurrencyTableData } from "./tables/CurrencyTable.sol";
 import { EntityIdTable } from "./tables/EntityIdTable.sol";
 import { EntityOwnerTable } from "./tables/EntityOwnerTable.sol";
 import { EntityTypeTable } from "./tables/EntityTypeTable.sol";

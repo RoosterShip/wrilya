@@ -26,8 +26,8 @@ library VoidsmanPersonaTable {
   FieldLayout constant _fieldLayout =
     FieldLayout.wrap(0x0001010201000000000000000000000000000000000000000000000000000000);
 
-  // Hex-encoded key schema of (bytes32, bytes32)
-  Schema constant _keySchema = Schema.wrap(0x004002005f5f0000000000000000000000000000000000000000000000000000);
+  // Hex-encoded key schema of (bytes32)
+  Schema constant _keySchema = Schema.wrap(0x002001005f000000000000000000000000000000000000000000000000000000);
   // Hex-encoded value schema of (uint8, string, string)
   Schema constant _valueSchema = Schema.wrap(0x0001010200c5c500000000000000000000000000000000000000000000000000);
 
@@ -36,9 +36,8 @@ library VoidsmanPersonaTable {
    * @return keyNames An array of strings with the names of key fields.
    */
   function getKeyNames() internal pure returns (string[] memory keyNames) {
-    keyNames = new string[](2);
-    keyNames[0] = "owner";
-    keyNames[1] = "entity";
+    keyNames = new string[](1);
+    keyNames[0] = "entity";
   }
 
   /**
@@ -69,10 +68,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get home.
    */
-  function getHome(bytes32 owner, bytes32 entity) internal view returns (HomeEnum home) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function getHome(bytes32 entity) internal view returns (HomeEnum home) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return HomeEnum(uint8(bytes1(_blob)));
@@ -81,10 +79,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get home.
    */
-  function _getHome(bytes32 owner, bytes32 entity) internal view returns (HomeEnum home) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _getHome(bytes32 entity) internal view returns (HomeEnum home) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return HomeEnum(uint8(bytes1(_blob)));
@@ -93,10 +90,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Set home.
    */
-  function setHome(bytes32 owner, bytes32 entity, HomeEnum home) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function setHome(bytes32 entity, HomeEnum home) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(home)), _fieldLayout);
   }
@@ -104,10 +100,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Set home.
    */
-  function _setHome(bytes32 owner, bytes32 entity, HomeEnum home) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _setHome(bytes32 entity, HomeEnum home) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked(uint8(home)), _fieldLayout);
   }
@@ -115,10 +110,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get name.
    */
-  function getName(bytes32 owner, bytes32 entity) internal view returns (string memory name) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function getName(bytes32 entity) internal view returns (string memory name) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     bytes memory _blob = StoreSwitch.getDynamicField(_tableId, _keyTuple, 0);
     return (string(_blob));
@@ -127,10 +121,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get name.
    */
-  function _getName(bytes32 owner, bytes32 entity) internal view returns (string memory name) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _getName(bytes32 entity) internal view returns (string memory name) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     bytes memory _blob = StoreCore.getDynamicField(_tableId, _keyTuple, 0);
     return (string(_blob));
@@ -139,10 +132,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Set name.
    */
-  function setName(bytes32 owner, bytes32 entity, string memory name) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function setName(bytes32 entity, string memory name) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.setDynamicField(_tableId, _keyTuple, 0, bytes((name)));
   }
@@ -150,10 +142,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Set name.
    */
-  function _setName(bytes32 owner, bytes32 entity, string memory name) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _setName(bytes32 entity, string memory name) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.setDynamicField(_tableId, _keyTuple, 0, bytes((name)));
   }
@@ -161,10 +152,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get the length of name.
    */
-  function lengthName(bytes32 owner, bytes32 entity) internal view returns (uint256) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function lengthName(bytes32 entity) internal view returns (uint256) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     uint256 _byteLength = StoreSwitch.getDynamicFieldLength(_tableId, _keyTuple, 0);
     unchecked {
@@ -175,10 +165,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get the length of name.
    */
-  function _lengthName(bytes32 owner, bytes32 entity) internal view returns (uint256) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _lengthName(bytes32 entity) internal view returns (uint256) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     uint256 _byteLength = StoreCore.getDynamicFieldLength(_tableId, _keyTuple, 0);
     unchecked {
@@ -190,10 +179,9 @@ library VoidsmanPersonaTable {
    * @notice Get an item of name.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function getItemName(bytes32 owner, bytes32 entity, uint256 _index) internal view returns (string memory) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function getItemName(bytes32 entity, uint256 _index) internal view returns (string memory) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _blob = StoreSwitch.getDynamicFieldSlice(_tableId, _keyTuple, 0, _index * 1, (_index + 1) * 1);
@@ -205,10 +193,9 @@ library VoidsmanPersonaTable {
    * @notice Get an item of name.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function _getItemName(bytes32 owner, bytes32 entity, uint256 _index) internal view returns (string memory) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _getItemName(bytes32 entity, uint256 _index) internal view returns (string memory) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _blob = StoreCore.getDynamicFieldSlice(_tableId, _keyTuple, 0, _index * 1, (_index + 1) * 1);
@@ -219,10 +206,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Push a slice to name.
    */
-  function pushName(bytes32 owner, bytes32 entity, string memory _slice) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function pushName(bytes32 entity, string memory _slice) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.pushToDynamicField(_tableId, _keyTuple, 0, bytes((_slice)));
   }
@@ -230,10 +216,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Push a slice to name.
    */
-  function _pushName(bytes32 owner, bytes32 entity, string memory _slice) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _pushName(bytes32 entity, string memory _slice) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.pushToDynamicField(_tableId, _keyTuple, 0, bytes((_slice)));
   }
@@ -241,10 +226,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Pop a slice from name.
    */
-  function popName(bytes32 owner, bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function popName(bytes32 entity) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.popFromDynamicField(_tableId, _keyTuple, 0, 1);
   }
@@ -252,10 +236,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Pop a slice from name.
    */
-  function _popName(bytes32 owner, bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _popName(bytes32 entity) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.popFromDynamicField(_tableId, _keyTuple, 0, 1);
   }
@@ -263,10 +246,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Update a slice of name at `_index`.
    */
-  function updateName(bytes32 owner, bytes32 entity, uint256 _index, string memory _slice) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function updateName(bytes32 entity, uint256 _index, string memory _slice) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _encoded = bytes((_slice));
@@ -277,10 +259,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Update a slice of name at `_index`.
    */
-  function _updateName(bytes32 owner, bytes32 entity, uint256 _index, string memory _slice) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _updateName(bytes32 entity, uint256 _index, string memory _slice) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _encoded = bytes((_slice));
@@ -291,10 +272,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get portrait.
    */
-  function getPortrait(bytes32 owner, bytes32 entity) internal view returns (string memory portrait) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function getPortrait(bytes32 entity) internal view returns (string memory portrait) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     bytes memory _blob = StoreSwitch.getDynamicField(_tableId, _keyTuple, 1);
     return (string(_blob));
@@ -303,10 +283,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get portrait.
    */
-  function _getPortrait(bytes32 owner, bytes32 entity) internal view returns (string memory portrait) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _getPortrait(bytes32 entity) internal view returns (string memory portrait) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     bytes memory _blob = StoreCore.getDynamicField(_tableId, _keyTuple, 1);
     return (string(_blob));
@@ -315,10 +294,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Set portrait.
    */
-  function setPortrait(bytes32 owner, bytes32 entity, string memory portrait) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function setPortrait(bytes32 entity, string memory portrait) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.setDynamicField(_tableId, _keyTuple, 1, bytes((portrait)));
   }
@@ -326,10 +304,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Set portrait.
    */
-  function _setPortrait(bytes32 owner, bytes32 entity, string memory portrait) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _setPortrait(bytes32 entity, string memory portrait) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.setDynamicField(_tableId, _keyTuple, 1, bytes((portrait)));
   }
@@ -337,10 +314,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get the length of portrait.
    */
-  function lengthPortrait(bytes32 owner, bytes32 entity) internal view returns (uint256) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function lengthPortrait(bytes32 entity) internal view returns (uint256) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     uint256 _byteLength = StoreSwitch.getDynamicFieldLength(_tableId, _keyTuple, 1);
     unchecked {
@@ -351,10 +327,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get the length of portrait.
    */
-  function _lengthPortrait(bytes32 owner, bytes32 entity) internal view returns (uint256) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _lengthPortrait(bytes32 entity) internal view returns (uint256) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     uint256 _byteLength = StoreCore.getDynamicFieldLength(_tableId, _keyTuple, 1);
     unchecked {
@@ -366,10 +341,9 @@ library VoidsmanPersonaTable {
    * @notice Get an item of portrait.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function getItemPortrait(bytes32 owner, bytes32 entity, uint256 _index) internal view returns (string memory) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function getItemPortrait(bytes32 entity, uint256 _index) internal view returns (string memory) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _blob = StoreSwitch.getDynamicFieldSlice(_tableId, _keyTuple, 1, _index * 1, (_index + 1) * 1);
@@ -381,10 +355,9 @@ library VoidsmanPersonaTable {
    * @notice Get an item of portrait.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function _getItemPortrait(bytes32 owner, bytes32 entity, uint256 _index) internal view returns (string memory) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _getItemPortrait(bytes32 entity, uint256 _index) internal view returns (string memory) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _blob = StoreCore.getDynamicFieldSlice(_tableId, _keyTuple, 1, _index * 1, (_index + 1) * 1);
@@ -395,10 +368,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Push a slice to portrait.
    */
-  function pushPortrait(bytes32 owner, bytes32 entity, string memory _slice) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function pushPortrait(bytes32 entity, string memory _slice) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.pushToDynamicField(_tableId, _keyTuple, 1, bytes((_slice)));
   }
@@ -406,10 +378,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Push a slice to portrait.
    */
-  function _pushPortrait(bytes32 owner, bytes32 entity, string memory _slice) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _pushPortrait(bytes32 entity, string memory _slice) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.pushToDynamicField(_tableId, _keyTuple, 1, bytes((_slice)));
   }
@@ -417,10 +388,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Pop a slice from portrait.
    */
-  function popPortrait(bytes32 owner, bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function popPortrait(bytes32 entity) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.popFromDynamicField(_tableId, _keyTuple, 1, 1);
   }
@@ -428,10 +398,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Pop a slice from portrait.
    */
-  function _popPortrait(bytes32 owner, bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _popPortrait(bytes32 entity) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.popFromDynamicField(_tableId, _keyTuple, 1, 1);
   }
@@ -439,10 +408,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Update a slice of portrait at `_index`.
    */
-  function updatePortrait(bytes32 owner, bytes32 entity, uint256 _index, string memory _slice) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function updatePortrait(bytes32 entity, uint256 _index, string memory _slice) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _encoded = bytes((_slice));
@@ -453,10 +421,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Update a slice of portrait at `_index`.
    */
-  function _updatePortrait(bytes32 owner, bytes32 entity, uint256 _index, string memory _slice) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _updatePortrait(bytes32 entity, uint256 _index, string memory _slice) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     unchecked {
       bytes memory _encoded = bytes((_slice));
@@ -467,13 +434,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get the full data.
    */
-  function get(
-    bytes32 owner,
-    bytes32 entity
-  ) internal view returns (HomeEnum home, string memory name, string memory portrait) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function get(bytes32 entity) internal view returns (HomeEnum home, string memory name, string memory portrait) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     (bytes memory _staticData, EncodedLengths _encodedLengths, bytes memory _dynamicData) = StoreSwitch.getRecord(
       _tableId,
@@ -486,13 +449,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Get the full data.
    */
-  function _get(
-    bytes32 owner,
-    bytes32 entity
-  ) internal view returns (HomeEnum home, string memory name, string memory portrait) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _get(bytes32 entity) internal view returns (HomeEnum home, string memory name, string memory portrait) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     (bytes memory _staticData, EncodedLengths _encodedLengths, bytes memory _dynamicData) = StoreCore.getRecord(
       _tableId,
@@ -505,15 +464,14 @@ library VoidsmanPersonaTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function set(bytes32 owner, bytes32 entity, HomeEnum home, string memory name, string memory portrait) internal {
+  function set(bytes32 entity, HomeEnum home, string memory name, string memory portrait) internal {
     bytes memory _staticData = encodeStatic(home);
 
     EncodedLengths _encodedLengths = encodeLengths(name, portrait);
     bytes memory _dynamicData = encodeDynamic(name, portrait);
 
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData);
   }
@@ -521,15 +479,14 @@ library VoidsmanPersonaTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function _set(bytes32 owner, bytes32 entity, HomeEnum home, string memory name, string memory portrait) internal {
+  function _set(bytes32 entity, HomeEnum home, string memory name, string memory portrait) internal {
     bytes memory _staticData = encodeStatic(home);
 
     EncodedLengths _encodedLengths = encodeLengths(name, portrait);
     bytes memory _dynamicData = encodeDynamic(name, portrait);
 
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData, _fieldLayout);
   }
@@ -581,10 +538,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function deleteRecord(bytes32 owner, bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function deleteRecord(bytes32 entity) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.deleteRecord(_tableId, _keyTuple);
   }
@@ -592,10 +548,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function _deleteRecord(bytes32 owner, bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _deleteRecord(bytes32 entity) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.deleteRecord(_tableId, _keyTuple, _fieldLayout);
   }
@@ -652,10 +607,9 @@ library VoidsmanPersonaTable {
   /**
    * @notice Encode keys as a bytes32 array using this table's field layout.
    */
-  function encodeKeyTuple(bytes32 owner, bytes32 entity) internal pure returns (bytes32[] memory) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function encodeKeyTuple(bytes32 entity) internal pure returns (bytes32[] memory) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     return _keyTuple;
   }

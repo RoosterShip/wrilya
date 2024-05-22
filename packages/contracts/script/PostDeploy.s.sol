@@ -34,6 +34,13 @@ contract PostDeploy is Script {
 
     IWorld(worldAddress).game__setVoidsmanUpgradeCostBase(2);
     IWorld(worldAddress).game__setVoidsmanUpgradeCostPower(6);
+    
+    IWorld(worldAddress).game__setStdMaxDebit(100);
+
+    IWorld(worldAddress).game__setCollateralDebitRatio(10);
+
+    // Set ustake time to 30 days (in seconds)
+    IWorld(worldAddress).game__setCurrencyUnstakeTime(2592000);
 
 
     // ------------------ Voidsman Setup -----------------------------

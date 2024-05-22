@@ -36,4 +36,10 @@ interface IGameSystem {
   function game__setVoidsmanMaxStats(uint8 max) external;
 
   function game__setVoidsmanMaxCompetency(uint8 max) external;
+
+  function game__setStdMaxDebit(uint256 value) external;
+
+  function game__setCollateralDebitRatio(uint256 ratio) external;
+
+  function game__setCurrencyUnstakeTime(uint256 ratio) external;
 }

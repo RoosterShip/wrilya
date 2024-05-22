@@ -26,8 +26,8 @@ library VoidsmanTrainingTable {
   FieldLayout constant _fieldLayout =
     FieldLayout.wrap(0x0021020020010000000000000000000000000000000000000000000000000000);
 
-  // Hex-encoded key schema of (bytes32, bytes32)
-  Schema constant _keySchema = Schema.wrap(0x004002005f5f0000000000000000000000000000000000000000000000000000);
+  // Hex-encoded key schema of (bytes32)
+  Schema constant _keySchema = Schema.wrap(0x002001005f000000000000000000000000000000000000000000000000000000);
   // Hex-encoded value schema of (uint256, uint8)
   Schema constant _valueSchema = Schema.wrap(0x002102001f000000000000000000000000000000000000000000000000000000);
 
@@ -36,9 +36,8 @@ library VoidsmanTrainingTable {
    * @return keyNames An array of strings with the names of key fields.
    */
   function getKeyNames() internal pure returns (string[] memory keyNames) {
-    keyNames = new string[](2);
-    keyNames[0] = "owner";
-    keyNames[1] = "entity";
+    keyNames = new string[](1);
+    keyNames[0] = "entity";
   }
 
   /**
@@ -68,10 +67,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Get time.
    */
-  function getTime(bytes32 owner, bytes32 entity) internal view returns (uint256 time) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function getTime(bytes32 entity) internal view returns (uint256 time) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return (uint256(bytes32(_blob)));
@@ -80,10 +78,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Get time.
    */
-  function _getTime(bytes32 owner, bytes32 entity) internal view returns (uint256 time) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _getTime(bytes32 entity) internal view returns (uint256 time) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
     return (uint256(bytes32(_blob)));
@@ -92,10 +89,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Set time.
    */
-  function setTime(bytes32 owner, bytes32 entity, uint256 time) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function setTime(bytes32 entity, uint256 time) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((time)), _fieldLayout);
   }
@@ -103,10 +99,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Set time.
    */
-  function _setTime(bytes32 owner, bytes32 entity, uint256 time) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _setTime(bytes32 entity, uint256 time) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((time)), _fieldLayout);
   }
@@ -114,10 +109,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Get field.
    */
-  function getField(bytes32 owner, bytes32 entity) internal view returns (FieldEnum field) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function getField(bytes32 entity) internal view returns (FieldEnum field) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 1, _fieldLayout);
     return FieldEnum(uint8(bytes1(_blob)));
@@ -126,10 +120,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Get field.
    */
-  function _getField(bytes32 owner, bytes32 entity) internal view returns (FieldEnum field) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _getField(bytes32 entity) internal view returns (FieldEnum field) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 1, _fieldLayout);
     return FieldEnum(uint8(bytes1(_blob)));
@@ -138,10 +131,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Set field.
    */
-  function setField(bytes32 owner, bytes32 entity, FieldEnum field) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function setField(bytes32 entity, FieldEnum field) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked(uint8(field)), _fieldLayout);
   }
@@ -149,10 +141,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Set field.
    */
-  function _setField(bytes32 owner, bytes32 entity, FieldEnum field) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _setField(bytes32 entity, FieldEnum field) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked(uint8(field)), _fieldLayout);
   }
@@ -160,10 +151,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Get the full data.
    */
-  function get(bytes32 owner, bytes32 entity) internal view returns (uint256 time, FieldEnum field) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function get(bytes32 entity) internal view returns (uint256 time, FieldEnum field) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     (bytes memory _staticData, EncodedLengths _encodedLengths, bytes memory _dynamicData) = StoreSwitch.getRecord(
       _tableId,
@@ -176,10 +166,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Get the full data.
    */
-  function _get(bytes32 owner, bytes32 entity) internal view returns (uint256 time, FieldEnum field) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _get(bytes32 entity) internal view returns (uint256 time, FieldEnum field) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     (bytes memory _staticData, EncodedLengths _encodedLengths, bytes memory _dynamicData) = StoreCore.getRecord(
       _tableId,
@@ -192,15 +181,14 @@ library VoidsmanTrainingTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function set(bytes32 owner, bytes32 entity, uint256 time, FieldEnum field) internal {
+  function set(bytes32 entity, uint256 time, FieldEnum field) internal {
     bytes memory _staticData = encodeStatic(time, field);
 
     EncodedLengths _encodedLengths;
     bytes memory _dynamicData;
 
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData);
   }
@@ -208,15 +196,14 @@ library VoidsmanTrainingTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function _set(bytes32 owner, bytes32 entity, uint256 time, FieldEnum field) internal {
+  function _set(bytes32 entity, uint256 time, FieldEnum field) internal {
     bytes memory _staticData = encodeStatic(time, field);
 
     EncodedLengths _encodedLengths;
     bytes memory _dynamicData;
 
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData, _fieldLayout);
   }
@@ -247,10 +234,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function deleteRecord(bytes32 owner, bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function deleteRecord(bytes32 entity) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreSwitch.deleteRecord(_tableId, _keyTuple);
   }
@@ -258,10 +244,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function _deleteRecord(bytes32 owner, bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function _deleteRecord(bytes32 entity) internal {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     StoreCore.deleteRecord(_tableId, _keyTuple, _fieldLayout);
   }
@@ -292,10 +277,9 @@ library VoidsmanTrainingTable {
   /**
    * @notice Encode keys as a bytes32 array using this table's field layout.
    */
-  function encodeKeyTuple(bytes32 owner, bytes32 entity) internal pure returns (bytes32[] memory) {
-    bytes32[] memory _keyTuple = new bytes32[](2);
-    _keyTuple[0] = owner;
-    _keyTuple[1] = entity;
+  function encodeKeyTuple(bytes32 entity) internal pure returns (bytes32[] memory) {
+    bytes32[] memory _keyTuple = new bytes32[](1);
+    _keyTuple[0] = entity;
 
     return _keyTuple;
   }

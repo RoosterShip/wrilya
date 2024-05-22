@@ -56,18 +56,29 @@ export default defineWorld({
       "GAME_SET_VOIDSMAN_UPGRADE_COST_POWER", // 12
       "GAME_SET_VOIDSMAN_MAX_STATS",          // 13
       "GAME_SET_VOIDSMAN_MAX_COMPETENCY",     // 14
+      "GAME_SET_STD_MAX_DEBIT",               // 15
+      "GAME_SET_COLLATERAL_DEBIT_RATIO",      // 16
+      "GAME_SET_CURRENCY_UNSTAKE_TIME",       // 17
+
+      // Currency Ops
+      "CURRENCY_MINT",                        // 18
+      "CURRENCY_STAKE",                       // 19
+      "CURRENCY_RELEASE",                     // 20
+      "CURRENCY_CLAIM",                       // 21
+      "CURRENCY_PAYMENT",                     // 22
+
 
       // Entity Ops
-      "ENTITY_CREATE",                        // 15
-      "ENTITY_DESTROY",                       // 16
-      "ENTITY_TRANSFER",                      // 17
-      "ENTITY_UPDATE",                        // 18
+      "ENTITY_CREATE",                        // 23
+      "ENTITY_DESTROY",                       // 24
+      "ENTITY_TRANSFER",                      // 25
+      "ENTITY_UPDATE",                        // 26
 
       // Voidsman Ops
-      "VOIDSMAN_TRAIN",                       // 19
-      "VOIDSMAN_TRAIN_CANCEL",                // 20
-      "VOIDSMAN_CERTIFY",                     // 21
-      "VOIDSMAN_SET_TRAINING_REQUIREMENT",    // 22
+      "VOIDSMAN_TRAIN",                       // 27
+      "VOIDSMAN_TRAIN_CANCEL",                // 28
+      "VOIDSMAN_CERTIFY",                     // 29
+      "VOIDSMAN_SET_TRAINING_REQUIREMENT",    // 30
     ],
 
     /**
@@ -203,6 +214,9 @@ export default defineWorld({
         /**
          * Costs Values
          */
+        stdMaxDebit: "uint256",
+        collateralDebitRatio: "uint256",
+        currencyUnstakeTime: "uint256",
       }
     },
 
@@ -248,10 +262,10 @@ export default defineWorld({
         // Value
         tokens: "uint256",
         credits: "uint256",
+        staked: "uint256",
+        unstaked: "uint256",
+        uts: "uint256",
         debit: "uint256"
-      },
-      codegen: {
-        dataStruct: false
       }
     },
 
@@ -287,9 +301,8 @@ export default defineWorld({
      * The type of entity this is
      */
     EntityTypeTable: {
-      key: ["owner", "entity"],
+      key: ["entity"],
       schema: {
-        owner: "bytes32",
         entity: "bytes32",
         value: "EntityEnum"
       },
@@ -335,10 +348,9 @@ export default defineWorld({
      * Some generic info about this voidsman
      */
     VoidsmanPersonaTable: {
-      key: ["owner", "entity"],
+      key: ["entity"],
       schema: {
         // Key
-        owner: "bytes32",
         entity: "bytes32",
 
         // Values
@@ -355,10 +367,9 @@ export default defineWorld({
      * The competency values of a voidman for set of fields.
      */
     VoidsmanInfoTable: {
-      key: ["owner", "entity"],
+      key: ["entity"],
       schema: {
         // Key
-        owner: "bytes32",
         entity: "bytes32",
 
         // Values
@@ -372,10 +383,9 @@ export default defineWorld({
      * When training a voidsman it will take time and effort
      */
     VoidsmanTrainingTable: {
-      key: ["owner", "entity"],
+      key: ["entity"],
       schema: {
         // Key
-        owner: "bytes32",
         entity: "bytes32",
 
         // Values

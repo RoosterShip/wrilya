@@ -85,6 +85,45 @@ export default class Main extends Phaser.Scene {
 		// shineFx
 		ship2.preFX!.addShine(0.05, 0.5, 3, false);
 
+		// lblTokens
+		const lblTokens = this.add.text(17, 566, "", {});
+		lblTokens.text = "Tokens: ";
+		lblTokens.setStyle({ "color": "#41ff4dff", "fontSize": "32px" });
+
+		// lblCredits
+		const lblCredits = this.add.text(17, 606, "", {});
+		lblCredits.text = "Credits: ";
+		lblCredits.setStyle({ "color": "#9d99feff", "fontSize": "32px" });
+
+		// lblDebit
+		const lblDebit = this.add.text(17, 646, "", {});
+		lblDebit.text = "Debit: ";
+		lblDebit.setStyle({ "color": "#fd6666ff", "fontSize": "32px" });
+
+		// lblTokensAmt
+		const lblTokensAmt = this.add.text(200, 566, "", {});
+		lblTokensAmt.text = "0";
+		lblTokensAmt.setStyle({ "color": "#41ff4dff", "fontSize": "32px" });
+
+		// lblCreditsAmt
+		const lblCreditsAmt = this.add.text(200, 606, "", {});
+		lblCreditsAmt.text = "0";
+		lblCreditsAmt.setStyle({ "color": "#9d99feff", "fontSize": "32px" });
+
+		// lblDebitAmt
+		const lblDebitAmt = this.add.text(200, 646, "", {});
+		lblDebitAmt.text = "0";
+		lblDebitAmt.setStyle({ "color": "#fd6666ff", "fontSize": "32px" });
+
+		// btnWallet
+		const btnWallet = new BtnSceneLoadText(this, 1000, 500);
+		this.add.existing(btnWallet);
+		btnWallet.name = "btnWallet";
+		btnWallet.removeInteractive();
+		btnWallet.setInteractive(new Phaser.Geom.Rectangle(0, 0, 231, 67), Phaser.Geom.Rectangle.Contains);
+		btnWallet.text = "Wallet";
+		btnWallet.setStyle({ "fontSize": "64px" });
+
 		// starfield (prefab fields)
 		starfield.velocity = 0.02;
 
@@ -103,6 +142,9 @@ export default class Main extends Phaser.Scene {
 		// btnAddress (prefab fields)
 		btnAddress.next = "Wallet";
 
+		// btnWallet (prefab fields)
+		btnWallet.next = "Wallet";
+
 		this.starfield = starfield;
 		this.btnCrew = btnCrew;
 		this.btnShips = btnShips;
@@ -110,6 +152,10 @@ export default class Main extends Phaser.Scene {
 		this.lblWrilya = lblWrilya;
 		this.btnMarket = btnMarket;
 		this.btnAddress = btnAddress;
+		this.lblTokensAmt = lblTokensAmt;
+		this.lblCreditsAmt = lblCreditsAmt;
+		this.lblDebitAmt = lblDebitAmt;
+		this.btnWallet = btnWallet;
 
 		this.events.emit("scene-awake");
 	}
@@ -121,6 +167,10 @@ export default class Main extends Phaser.Scene {
 	private lblWrilya!: Phaser.GameObjects.Text;
 	private btnMarket!: BtnSceneLoadText;
 	private btnAddress!: BtnSceneLoadText;
+	private lblTokensAmt!: Phaser.GameObjects.Text;
+	private lblCreditsAmt!: Phaser.GameObjects.Text;
+	private lblDebitAmt!: Phaser.GameObjects.Text;
+	private btnWallet!: BtnSceneLoadText;
 
 	/* START-USER-CODE */
 
@@ -130,9 +180,18 @@ export default class Main extends Phaser.Scene {
 		this.loadAddress();
 	}
 
-	// Write your code here
+	// Update Callback
+	//
+	// Lint checks disabled because Phaser requires the arguments
+	// 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	update(_time: number, _delta: number) {
+		this.lblTokensAmt.text = Game.Tokens().toString();
+		this.lblCreditsAmt.text = Game.Credits().toString();
+		this.lblDebitAmt.text = Game.Debit().toString();
+	}
+
 	private registerEvents() {
-		//this.events.on('update', this.starfield.update, this.starfield);
 		this.input.on('gameobjectdown', (pointer: Phaser.Input.Pointer, obj: Phaser.GameObjects.GameObject) => {
 			if (obj instanceof BtnSceneLoadText) {
 				obj.loadScene();

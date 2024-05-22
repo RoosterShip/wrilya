@@ -57,6 +57,12 @@ module.exports = {
         hot: true,
         port: 8080,
     },
+    //watch: true,
+    watchOptions: {
+        poll: 1000, // Check for changes every second
+        ignored: /node_modules/,
+        followSymlinks: true,
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(__dirname, "src/index.html"),

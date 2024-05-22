@@ -151,5 +151,23 @@ contract GameSystem is System {
     GameConfigTable.setVoidsmanMaxCompetency(max);
     notify(OperationEnum.GAME_SET_VOIDSMAN_MAX_COMPETENCY, ""); 
   }
+  
+  function setStdMaxDebit(uint256 value) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setStdMaxDebit(value);
+    notify(OperationEnum.GAME_SET_STD_MAX_DEBIT, ""); 
+  }
+  
+  function setCollateralDebitRatio(uint256 ratio) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setCollateralDebitRatio(ratio);
+    notify(OperationEnum.GAME_SET_COLLATERAL_DEBIT_RATIO, ""); 
+  }
+  
+  function setCurrencyUnstakeTime(uint256 ratio) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setCurrencyUnstakeTime(ratio);
+    notify(OperationEnum.GAME_SET_CURRENCY_UNSTAKE_TIME, ""); 
+  }
 
 }

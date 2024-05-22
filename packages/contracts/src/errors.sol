@@ -44,3 +44,7 @@ error NameInUse();
 /// Error for when the game is not currently running but some operation was requested
 /// code: e76abfdd
 error GameInactive();
+
+/// Error for when the user doesn't have enough funds
+/// code: 356680b7
+error InsufficientFunds();

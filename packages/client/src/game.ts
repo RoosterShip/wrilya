@@ -22,8 +22,9 @@ import { SetupNetworkResult } from "./mud/setupNetwork";
 import { ClientComponents } from "./mud/createClientComponents";
 import { SystemCalls } from "./mud/createSystemCalls";
 import portraitAssetPackUrl from "../static/assets/portrait-asset-pack.json";
-import { defineSystem, Has, HasValue, runQuery, Entity } from "@latticexyz/recs";
-import { OperationEnum } from "./mud"
+import { HasValue, runQuery, Entity, getComponentEntities, getComponentValue, getComponentValueStrict } from "@latticexyz/recs";
+import { EntityEnum, OperationEnum } from "./mud"
+import { ethers } from "ethers"
 
 // ----------------------------------------------------------------------------
 /**
@@ -41,6 +42,13 @@ export default class Game {
   private mPortraits: string[] = [];
   private mCrew: Map<Entity, Voidsman> = new Map<Entity, Voidsman>();
   private mFleet: Map<Entity, Ship> = new Map<Entity, Ship>();
+
+  private mTokens: number = 0;
+  private mCredits: number = 0;
+  private mDebit: number = 0;
+  private mStaked: number = 0;
+  private mUnstaked: number = 0;
+  private mUTS: number = 0;
 
   // --------------------------------------------------------------------------
   // Constructor
@@ -82,8 +90,6 @@ export default class Game {
     Game.Instance().mMUDSystemCalls = systemCalls;
 
     // Load the crew up;
-    console.log("[Game.SetMUD] Loading Crew");
-    Game.Instance().loadCrew();
     console.log("[Game.SetMUD] Starting Monitor");
     Game.Instance().monitor();
     console.log("[Game.SetMUD] Complete");
@@ -117,48 +123,245 @@ export default class Game {
     return Game.Instance().address();
   }
 
-  private loadCrew(): Map<Entity, Voidsman> {
+  public static Tokens(): number {
+    return Game.Instance().mTokens;
+  }
+
+  public static Debit(): number {
+    return Game.Instance().mDebit;
+  }
+
+  public static MaxDebit(): number {
+    return Game.Instance().getMaxDebit();
+  }
+
+  public static Credits(): number {
+    return Game.Instance().mCredits;
+  }
+
+  public static Stake(): number {
+    return Game.Instance().mStaked;
+  }
+
+  public static Unstake(): number {
+    return Game.Instance().mUnstaked;
+  }
+
+  public static UTS(): number {
+    return Game.Instance().mUTS;
+  }
+
+  public static Start() {
+    Game.Instance().start();
+  }
+
+  private start() {
+    this.loadCrew();
+    this.loadCurrency();
+  }
+
+  private getMaxDebit() {
+    const { GameConfigTable } = this.mMUDComponents!;
+    const entities = getComponentEntities(GameConfigTable);
+    const gameConfig = getComponentValue(GameConfigTable, entities.next().value)!;
+    return Number(gameConfig.stdMaxDebit) + (this.mStaked * Number(gameConfig.collateralDebitRatio));
+  }
+
+  private loadCurrency() {
+    const { CurrencyTable } = this.mMUDComponents!;
+    const currency = getComponentValue(CurrencyTable, this.owner());
+    if (currency) {
+      this.mTokens = Number(currency.tokens);
+      this.mCredits = Number(currency.credits);
+      this.mDebit = Number(currency.debit);
+      this.mStaked = Number(currency.staked);
+      this.mUnstaked = Number(currency.unstaked);
+      this.mUTS = Number(currency.uts);
+    }
+    else {
+      this.mTokens = 0;
+      this.mCredits = 0;
+      this.mDebit = 0;
+      this.mStaked = 0;
+      this.mUnstaked = 0;
+      this.mUTS = 0;
+    }
+  }
+
+  private loadCrew() {
     const { EntityOwnerTable } = this.mMUDComponents!;
-    const crew = new Map<Entity, Voidsman>();
+    this.mCrew.clear();
     // Query for all the crew members that are owned by the player
     const entities = runQuery([
       HasValue(EntityOwnerTable, { value: this.owner() }),
     ]);
 
     // Now pull out the data for each crew member
-    for (const entity of entities) { crew.set(entity, new Voidsman(entity)); }
-    return crew;
+    for (const entity of entities) { this.mCrew.set(entity, new Voidsman(entity)); }
+  }
+
+  private onEntityCreate(data: string) { this.onEntityLoad(data); }
+  private onEntityDestroy(data: string) { this.onEntityUnload(data); }
+  private onVoidsmanTrain(data: string) { this.onEntityLoad(data); }
+  private onVoidsmanTrainCancel(data: string) { this.onEntityLoad(data); }
+  private onVoidsmanCertify(data: string) { this.onEntityLoad(data); }
+
+  private onEntityLoad(data: string) {
+    const { EntityTypeTable } = this.mMUDComponents!;
+    const [owner, entity] = ethers.AbiCoder.defaultAbiCoder().decode(['bytes32', 'bytes32'], data);
+    if (owner as Entity == this.owner()) {
+      const etype: EntityEnum = getComponentValueStrict(EntityTypeTable, entity).value as EntityEnum;
+      switch (etype) {
+        case EntityEnum.VOIDSMAN:
+          this.mCrew.set(entity as Entity, new Voidsman(entity as Entity));
+          break;
+
+        default:
+          console.log("Unhandled type")
+      }
+    }
+  }
+
+  private onEntityUnload(data: string) {
+    const { EntityTypeTable } = this.mMUDComponents!;
+    const [owner, entity] = ethers.AbiCoder.defaultAbiCoder().decode(['bytes32', 'bytes32'], data);
+    if (owner as Entity == this.owner()) {
+      const etype: EntityEnum = getComponentValueStrict(EntityTypeTable, entity).value as EntityEnum;
+      switch (etype) {
+        case EntityEnum.VOIDSMAN:
+          this.mCrew.delete(entity as Entity);
+          break;
+
+        default:
+          console.log("Unhandled type")
+      }
+    }
+  }
+
+  private onCurrencyMint(data: string) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [owner, amt] = ethers.AbiCoder.defaultAbiCoder().decode(['bytes32', 'bytes32'], data);
+    if (owner as Entity == this.owner()) {
+      this.loadCurrency();
+    }
+  }
+
+  private onCurrencyStake(data: string) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [owner, amt] = ethers.AbiCoder.defaultAbiCoder().decode(['bytes32', 'bytes32'], data);
+    if (owner as Entity == this.owner()) {
+      this.loadCurrency();
+    }
+  }
+
+  private onCurrencyRelease(data: string) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [owner, amt] = ethers.AbiCoder.defaultAbiCoder().decode(['bytes32', 'bytes32'], data);
+    if (owner as Entity == this.owner()) {
+      this.loadCurrency();
+    }
+  }
+
+  private onCurrencyClaim(data: string) {
+    const [owner] = ethers.AbiCoder.defaultAbiCoder().decode(['bytes32'], data);
+    if (owner as Entity == this.owner()) {
+      this.loadCurrency();
+    }
+  }
+
+  private onCurrencyPayment(data: string) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [owner, amt] = ethers.AbiCoder.defaultAbiCoder().decode(['bytes32', 'bytes32'], data);
+    if (owner as Entity == this.owner()) {
+      this.loadCurrency();
+    }
   }
 
   private monitor() {
-    //const { EntityOwnerTable, NotificationTable } = this.mMUDComponents!;
-    //defineSystem(
-    //  this.mMUDNetwork!.world,
-    //  [
-    //    HasValue(NotificationTable, { operation: OperationEnum.ENTITY_CREATE })
-    //  ], ({ entity, component, value, type }) => {
-    //    // ABI DECODE HERE!!!
-    //    const owner = value[1]?.value as Entity;
-    //    if (owner == this.owner()) {
-    //      this.mCrew.set(entity as Entity, new Voidsman(entity as Entity));
-    //    }
-    //  });
+    const { NotificationTable } = this.mMUDComponents!;
+    NotificationTable.update$.subscribe((update) => {
+      this.loadCurrency();
+      const { operation: op, data: data } = update.value[0]!;
+      switch (op) {
+        case OperationEnum.GAME_PAUSE:
+          break;
+        case OperationEnum.GAME_UNPAUSE:
+          break;
+        case OperationEnum.GAME_SET_ADMIN:
+          break;
+        case OperationEnum.GAME_SET_GM:
+          break;
+        case OperationEnum.GAME_SET_CURRENCY_PROXY:
+          break;
+        case OperationEnum.GAME_SET_ITEM_PROXY:
+          break;
+        case OperationEnum.GAME_SET_ENTITY_PROXY:
+          break;
+        case OperationEnum.GAME_SET_VOIDSMAN_CREATE_COST:
+          break;
+        case OperationEnum.GAME_SET_VOIDSMAN_UPGRADE_TIME_BASE:
+          break;
+        case OperationEnum.GAME_SET_VOIDSMAN_UPGRADE_TIME_POWER:
+          break;
+        case OperationEnum.GAME_SET_VOIDSMAN_UPGRADE_COST_BASE:
+          break;
+        case OperationEnum.GAME_SET_VOIDSMAN_UPGRADE_COST_POWER:
+          break;
+        case OperationEnum.GAME_SET_VOIDSMAN_MAX_STATS:
+          break;
+        case OperationEnum.GAME_SET_VOIDSMAN_MAX_COMPETENCY:
+          break;
 
+        case OperationEnum.ENTITY_CREATE:
+          this.onEntityCreate(data);
+          break;
 
-    this.mMUDComponents!.EntityOwnerTable.update$.subscribe((update) => {
-      const owner = update.value[0]?.value as Entity;
-      if (owner == this.owner()) {
-        this.mCrew.set(update.entity, new Voidsman(update.entity));
-      }
-    });
-    this.mMUDComponents!.VoidsmanTrainingTable.update$.subscribe((update) => {
-      if (this.mCrew.has(update.entity)) {
-        this.mCrew.set(update.entity, new Voidsman(update.entity));
-      }
-    });
-    this.mMUDComponents!.VoidsmanCompetencyTable.update$.subscribe((update) => {
-      if (this.mCrew.has(update.entity)) {
-        this.mCrew.set(update.entity, new Voidsman(update.entity));
+        case OperationEnum.ENTITY_DESTROY:
+          this.onEntityDestroy(data);
+          break;
+
+        case OperationEnum.ENTITY_TRANSFER:
+          break;
+        case OperationEnum.ENTITY_UPDATE:
+          break;
+
+        case OperationEnum.VOIDSMAN_TRAIN:
+          this.onVoidsmanTrain(data);
+          break;
+
+        case OperationEnum.VOIDSMAN_TRAIN_CANCEL:
+          this.onVoidsmanTrainCancel(data);
+          break;
+
+        case OperationEnum.VOIDSMAN_CERTIFY:
+          this.onVoidsmanCertify(data);
+          break;
+
+        case OperationEnum.VOIDSMAN_SET_TRAINING_REQUIREMENT:
+          break;
+
+        case OperationEnum.CURRENCY_MINT:
+          this.onCurrencyMint(data);
+          break;
+
+        case OperationEnum.CURRENCY_STAKE:
+          this.onCurrencyStake(data);
+          break;
+
+        case OperationEnum.CURRENCY_RELEASE:
+          this.onCurrencyRelease(data);
+          break;
+
+        case OperationEnum.CURRENCY_CLAIM:
+          this.onCurrencyClaim(data);
+          break;
+
+        case OperationEnum.CURRENCY_PAYMENT:
+          this.onCurrencyPayment(data);
+          break;
+
+        default:
+          break;
       }
     });
   }

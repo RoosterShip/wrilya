@@ -85,20 +85,19 @@ contract VoidsmanSystem is System {
 
     // Set Entity Info
     bytes32 entityId = newEntityID();
-    EntityOwnerTable.set(entityId, toBytes32(caller));
 
-    EntityTypeTable.set(owner, entityId, EntityEnum.VOIDSMAN);
+    EntityTypeTable.set(entityId, EntityEnum.VOIDSMAN);
     EntityNameRegistryTable.set(nameHash, true);
 
     // Set Voidsman Info
-    VoidsmanPersonaTable.set(owner, entityId, home, name, portrait);
-    VoidsmanInfoTable.set(owner, entityId, 0, new uint8[](10), new uint8[](8));
+    VoidsmanPersonaTable.set(entityId, home, name, portrait);
+    VoidsmanInfoTable.set(entityId, 0, new uint8[](10), new uint8[](8));
 
     // Charge a fee for this.
     invoice(owner, GameConfigTable.getVoidsmanCreateCost());
 
     // Finally assign ownership
-    EntityOwnerTable.set(entityId, toBytes32(caller));
+    EntityOwnerTable.set(entityId, owner);
     notify(OperationEnum.ENTITY_CREATE, abi.encode(owner, entityId)); 
   }
 
@@ -116,19 +115,19 @@ contract VoidsmanSystem is System {
     // Setup the Owner
     address caller = _msgSender();
     bytes32 owner = toBytes32(caller);
-    if (EntityTypeTable.get(owner, entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
+    if (EntityTypeTable.get(entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
 
     // Get the name hash because we will want to free it back up for usage 
-    bytes32 nameHash = keccak256(bytes(VoidsmanPersonaTable.getName(owner, entityId)));
+    bytes32 nameHash = keccak256(bytes(VoidsmanPersonaTable.getName(entityId)));
 
     // Delete the entity info
-    EntityTypeTable.deleteRecord(owner, entityId);
+    EntityTypeTable.deleteRecord(entityId);
     EntityNameRegistryTable.deleteRecord(nameHash);
 
     // Delete the Voidsman info
-    VoidsmanTrainingTable.deleteRecord(owner, entityId);
-    VoidsmanInfoTable.deleteRecord(owner, entityId);
-    VoidsmanPersonaTable.deleteRecord(owner, entityId);
+    VoidsmanTrainingTable.deleteRecord(entityId);
+    VoidsmanInfoTable.deleteRecord(entityId);
+    VoidsmanPersonaTable.deleteRecord(entityId);
 
     // Release it from ownership 
     EntityOwnerTable.deleteRecord(entityId);
@@ -151,12 +150,12 @@ contract VoidsmanSystem is System {
     if (EntityOwnerTable.get(entityId) != owner) revert Unauthorized();
 
     // Make sure we have a voidsman 
-    if (EntityTypeTable.get(owner, entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
+    if (EntityTypeTable.get(entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
 
     // Make sure we are not currently training
-    if (VoidsmanTrainingTable.getTime(owner, entityId) != uint256(0)) revert InvalidState();
+    if (VoidsmanTrainingTable.getTime(entityId) != uint256(0)) revert InvalidState();
 
-    VoidsmanInfoTableData memory info = VoidsmanInfoTable.get(owner, entityId);
+    VoidsmanInfoTableData memory info = VoidsmanInfoTable.get(entityId);
 
     // Verify compentency requiremetns
     uint8 nextLevel = info.comps[uint(field)] + 1;
@@ -191,7 +190,7 @@ contract VoidsmanSystem is System {
     if(req.xp > info.xp) revert InvalidState();
 
     // All checks pass.  Start training
-    VoidsmanTrainingTable.set(owner, entityId, levelTime(uint256(nextLevel)) + block.timestamp, field);
+    VoidsmanTrainingTable.set(entityId, levelTime(uint256(nextLevel)) + block.timestamp, field);
 
     // And now let's bill the user
     invoice(owner, levelCost(nextLevel));
@@ -212,10 +211,10 @@ contract VoidsmanSystem is System {
     if (EntityOwnerTable.get(entityId) != toBytes32(_msgSender())) revert Unauthorized();
 
     // Make sure we have a voidsman 
-    if (EntityTypeTable.get(owner, entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
+    if (EntityTypeTable.get(entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
 
     // All good to go 
-    VoidsmanTrainingTable.deleteRecord(owner, entityId);
+    VoidsmanTrainingTable.deleteRecord(entityId);
    
     notify(OperationEnum.VOIDSMAN_TRAIN_CANCEL, abi.encode(owner, entityId)); 
   }
@@ -233,9 +232,9 @@ contract VoidsmanSystem is System {
     if (EntityOwnerTable.get(entityId) != owner) revert Unauthorized();
     
     // Make sure we have a voidsman 
-    if (EntityTypeTable.get(owner, entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
+    if (EntityTypeTable.get(entityId) != EntityEnum.VOIDSMAN) revert InvalidArgument();
 
-    (uint256 time, FieldEnum field) = VoidsmanTrainingTable.get(owner, entityId);
+    (uint256 time, FieldEnum field) = VoidsmanTrainingTable.get(entityId);
     // Check that they ARE training
     if (time == uint256(0)) revert InvalidState();
     // Check that they are DONE training
@@ -243,9 +242,9 @@ contract VoidsmanSystem is System {
 
     // If we are this far then we are good to update the record.
     // NOTE:  Certification does not cost the player anything
-    uint8 level = VoidsmanInfoTable.getItemComps(owner, entityId, uint256(field));
-    VoidsmanInfoTable.updateComps(owner, entityId, uint256(field), level + 1);
-    VoidsmanTrainingTable.deleteRecord(owner, entityId);
+    uint8 level = VoidsmanInfoTable.getItemComps(entityId, uint256(field));
+    VoidsmanInfoTable.updateComps(entityId, uint256(field), level + 1);
+    VoidsmanTrainingTable.deleteRecord(entityId);
     
     notify(OperationEnum.VOIDSMAN_CERTIFY, abi.encode(owner, entityId)); 
   }

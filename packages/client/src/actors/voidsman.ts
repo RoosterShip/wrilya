@@ -95,26 +95,26 @@ export default class Voidsman extends Actor {
   //---------------------------------------------------------------------------
   private fetch() {
     const {
-      EntityInfoTable,
-      EntityXPTable,
-      VoidsmanCompetencyTable,
-      VoidsmanStatsTable,
+      VoidsmanPersonaTable,
+      VoidsmanInfoTable,
       VoidsmanTrainingTable
     } = Game.MUDComponents();
 
     const entity = super.getID();
 
     // Read out the mostly static data
-    const entityInfo = getComponentValueStrict(EntityInfoTable, entity);
-    this.mName = entityInfo.name;
-    this.mHome = entityInfo.home as HomeEnum;
-    this.mPortrait = entityInfo.portrait;
+    const persona = getComponentValueStrict(VoidsmanPersonaTable, entity);
+    this.mName = persona.name;
+    this.mHome = persona.home as HomeEnum;
+    this.mPortrait = persona.portrait;
 
 
     // Readout persona data
-    this.mXP = getComponentValueStrict(EntityXPTable, entity).value;
-    this.mCompetencies = getComponentValueStrict(VoidsmanCompetencyTable, entity).value;
-    this.mStats = getComponentValueStrict(VoidsmanStatsTable, entity).value;
+    const info = getComponentValueStrict(VoidsmanInfoTable, entity);
+
+    this.mXP = info.xp;
+    this.mCompetencies = info.comps;
+    this.mStats = info.stats;
 
 
     // Readout training data
