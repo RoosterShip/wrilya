@@ -22,9 +22,10 @@ import { SetupNetworkResult } from "./mud/setupNetwork";
 import { ClientComponents } from "./mud/createClientComponents";
 import { SystemCalls } from "./mud/createSystemCalls";
 import portraitAssetPackUrl from "../static/assets/portrait-asset-pack.json";
-import { HasValue, runQuery, Entity, getComponentEntities, getComponentValue, getComponentValueStrict } from "@latticexyz/recs";
+import { HasValue, runQuery, Entity, getComponentValue, getComponentValueStrict } from "@latticexyz/recs";
 import { EntityEnum, OperationEnum } from "./mud"
 import { ethers } from "ethers"
+import { singletonEntity } from "@latticexyz/store-sync/recs";
 
 // ----------------------------------------------------------------------------
 /**
@@ -155,6 +156,10 @@ export default class Game {
     Game.Instance().start();
   }
 
+  // --------------------------------------------------------------------------
+  // Private Helpers
+  // --------------------------------------------------------------------------
+
   private start() {
     this.loadCrew();
     this.loadCurrency();
@@ -162,8 +167,7 @@ export default class Game {
 
   private getMaxDebit() {
     const { GameConfigTable } = this.mMUDComponents!;
-    const entities = getComponentEntities(GameConfigTable);
-    const gameConfig = getComponentValue(GameConfigTable, entities.next().value)!;
+    const gameConfig = getComponentValue(GameConfigTable, singletonEntity)!;
     return Number(gameConfig.stdMaxDebit) + (this.mStaked * Number(gameConfig.collateralDebitRatio));
   }
 

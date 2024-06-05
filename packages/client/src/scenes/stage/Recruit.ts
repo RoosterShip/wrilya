@@ -220,7 +220,7 @@ export default class Recruit extends Phaser.Scene {
 	/* START-USER-CODE */
 
 	private portraitsIndex: number = 0;
-	private homeIndex: number = 0;
+	private homeIndex: number = 1;
 
 	// Write your code here
 

@@ -18,9 +18,16 @@
 pragma solidity >=0.8.24;
 
 // Convert argument to a bytes32
-import { CurrencyTable } from "./codegen/index.sol";
+import { CurrencyTable, GameConfigTable } from "./codegen/index.sol";
+
+import { InsufficientFunds } from "./errors.sol";
 
 function invoice(bytes32 owner, uint256 amount) {
-    uint256 debit = CurrencyTable.getDebit(owner);
-    CurrencyTable.setDebit(owner, debit + amount);
+    uint256 debit = CurrencyTable.getDebit(owner) + amount;
+    if(debit > maxDebit(owner) ) revert InsufficientFunds();
+    CurrencyTable.setDebit(owner, debit);
+}
+
+function maxDebit(bytes32 owner) view returns (uint256){
+    return GameConfigTable.getStdMaxDebit() + (CurrencyTable.getStaked(owner) * GameConfigTable.getCollateralDebitRatio());
 }
