@@ -224,6 +224,101 @@
                     "preFX": true
                 }
             ]
+        },
+        {
+            "type": "Text",
+            "id": "dd9f43fe-b03a-44c6-a698-0f1d601c87ff",
+            "label": "lblTokens",
+            "x": 17,
+            "y": 566,
+            "text": "Tokens: ",
+            "fontSize": "32px",
+            "color": "#41ff4dff"
+        },
+        {
+            "type": "Text",
+            "id": "cb2be95d-add5-46c8-9649-ef7c78d7c185",
+            "label": "lblCredits",
+            "x": 17,
+            "y": 606,
+            "text": "Credits: ",
+            "fontSize": "32px",
+            "color": "#9d99feff"
+        },
+        {
+            "type": "Text",
+            "id": "348c1f7d-3456-4937-b3eb-1742aee4ab27",
+            "label": "lblDebit",
+            "x": 17,
+            "y": 646,
+            "text": "Debit: ",
+            "fontSize": "32px",
+            "color": "#fd6666ff"
+        },
+        {
+            "type": "Text",
+            "id": "6089161d-35a4-488c-b55c-811f24a42886",
+            "label": "lblTokensAmt",
+            "scope": "CLASS",
+            "x": 200,
+            "y": 566,
+            "text": "0",
+            "fontSize": "32px",
+            "color": "#41ff4dff"
+        },
+        {
+            "type": "Text",
+            "id": "9cf97ee3-ae92-4cc7-9023-43dcfc303e66",
+            "label": "lblCreditsAmt",
+            "scope": "CLASS",
+            "x": 200,
+            "y": 606,
+            "text": "0",
+            "fontSize": "32px",
+            "color": "#9d99feff"
+        },
+        {
+            "type": "Text",
+            "id": "17787760-7e79-46fc-b2e5-c53746975536",
+            "label": "lblDebitAmt",
+            "scope": "CLASS",
+            "x": 200,
+            "y": 646,
+            "text": "0",
+            "fontSize": "32px",
+            "color": "#fd6666ff"
+        },
+        {
+            "prefabId": "20345dcc-2435-476b-ad14-4d3ad4dc4bf2",
+            "id": "2ab5f653-88a2-458c-9c37-c9fb62e7da12",
+            "unlock": [
+                "x",
+                "y",
+                "hitArea.shape",
+                "hitArea.x",
+                "hitArea.y",
+                "hitArea.width",
+                "hitArea.height",
+                "hitArea.radius",
+                "hitArea.points",
+                "hitArea.alphaTolerance",
+                "fontSize",
+                "text",
+                "next"
+            ],
+            "label": "btnWallet",
+            "useGameObjectName": true,
+            "scope": "CLASS",
+            "next": "Wallet",
+            "hitArea.shape": "RECTANGLE",
+            "hitArea.x": 0,
+            "hitArea.y": 0,
+            "hitArea.width": 231,
+            "hitArea.height": 67,
+            "x": 1000,
+            "y": 500,
+            "text": "Wallet",
+            "fontSize": "64px"
         }
     ],
     "plainObjects": [],

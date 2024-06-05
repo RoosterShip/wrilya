@@ -33,7 +33,7 @@ import LoadingFullScreen from "../prefab/ui/LoadingFullScreen";
 /* START-USER-IMPORTS */
 import { Voidsman } from '../../actors'
 import Game from '../../game';
-import { Home, Field } from "../../mud";
+import { HomeEnum, FieldEnum } from "../../mud";
 /* END-USER-IMPORTS */
 
 export default class Crew extends Phaser.Scene {
@@ -437,7 +437,7 @@ export default class Crew extends Phaser.Scene {
 	 * Action handler for when the "Training" button has been selected
 	 * @param field to train the voidsman in
 	 */
-	private async trainVoidsman(field: Field) {
+	private async trainVoidsman(field: FieldEnum) {
 		// Get the voidsman to train	
 		const crew = Game.Crew();
 		const key: string = Array.from(crew.keys())[this.voidsmanIndex];
@@ -457,7 +457,7 @@ export default class Crew extends Phaser.Scene {
 		// Shutdown Popup
 		setTimeout(() => {
 			this.uiLoading.setVisible(false);
-		}, 2000);
+		}, 1000);
 	}
 
 	/**
@@ -483,7 +483,7 @@ export default class Crew extends Phaser.Scene {
 		// Shutdown Popup
 		setTimeout(() => {
 			this.uiLoading.setVisible(false);
-		}, 2000);
+		}, 1000);
 	}
 
 	private setupButtonHandlers() {
@@ -502,15 +502,15 @@ export default class Crew extends Phaser.Scene {
 		this.btnCertify.onUp = () => { this.lblTrainingTimeValue.setColor("white"); }
 
 		// All the upgrade Buttons
-		this.btnUpgradeArmor.onClick = async () => { this.trainVoidsman(Field.ARMOR); };
-		this.btnUpgradeEngines.onClick = async () => { this.trainVoidsman(Field.ENGINES); };
-		this.btnUpgradeLeadership.onClick = async () => { this.trainVoidsman(Field.LEADERSHIP); };
-		this.btnUpgradeNavigation.onClick = async () => { this.trainVoidsman(Field.NAVIGATION); };
-		this.btnUpgradeNegotiation.onClick = async () => { this.trainVoidsman(Field.NEGOTIATION); };
-		this.btnUpgradeShipcraft.onClick = async () => { this.trainVoidsman(Field.SHIPCRAFT); };
-		this.btnUpgradeSensors.onClick = async () => { this.trainVoidsman(Field.SENSORS); };
-		this.btnUpgradeShields.onClick = async () => { this.trainVoidsman(Field.SHIELDS); };
-		this.btnUpgradeWeapons.onClick = async () => { this.trainVoidsman(Field.WEAPONS); };
+		this.btnUpgradeArmor.onClick = async () => { this.trainVoidsman(FieldEnum.ARMOR); };
+		this.btnUpgradeEngines.onClick = async () => { this.trainVoidsman(FieldEnum.ENGINES); };
+		this.btnUpgradeLeadership.onClick = async () => { this.trainVoidsman(FieldEnum.LEADERSHIP); };
+		this.btnUpgradeNavigation.onClick = async () => { this.trainVoidsman(FieldEnum.NAVIGATION); };
+		this.btnUpgradeNegotiation.onClick = async () => { this.trainVoidsman(FieldEnum.NEGOTIATION); };
+		this.btnUpgradeShipcraft.onClick = async () => { this.trainVoidsman(FieldEnum.SHIPCRAFT); };
+		this.btnUpgradeSensors.onClick = async () => { this.trainVoidsman(FieldEnum.SENSORS); };
+		this.btnUpgradeShields.onClick = async () => { this.trainVoidsman(FieldEnum.SHIELDS); };
+		this.btnUpgradeWeapons.onClick = async () => { this.trainVoidsman(FieldEnum.WEAPONS); };
 
 		// Crew member selection buttons
 		this.btnNext.onClick = () => {
@@ -629,16 +629,16 @@ export default class Crew extends Phaser.Scene {
 		// Load up the voidsman
 		this.imgPortrait.setTexture(voidsman!.portrait());
 		this.lblName.setText(voidsman!.name());
-		this.lblHomeValue.setText(Home[voidsman!.home()]);
-		this.lblArmorValue.setText(voidsman!.competencies()[Field.ARMOR].toString(10));
-		this.lblEnginesValue.setText(voidsman!.competencies()[Field.ENGINES].toString(10));
-		this.lblLeadershipValue.setText(voidsman!.competencies()[Field.LEADERSHIP].toString(10));
-		this.lblNavigationValue.setText(voidsman!.competencies()[Field.NAVIGATION].toString(10));
-		this.lblNegotiationValue.setText(voidsman!.competencies()[Field.NEGOTIATION].toString(10));
-		this.lblShipcraftValue.setText(voidsman!.competencies()[Field.SHIPCRAFT].toString(10));
-		this.lblSensorsValue.setText(voidsman!.competencies()[Field.SENSORS].toString(10));
-		this.lblShieldsValue.setText(voidsman!.competencies()[Field.SHIELDS].toString(10));
-		this.lblWeaponsValue.setText(voidsman!.competencies()[Field.WEAPONS].toString(10));
+		this.lblHomeValue.setText(HomeEnum[voidsman!.home()]);
+		this.lblArmorValue.setText(voidsman!.competencies()[FieldEnum.ARMOR].toString(10));
+		this.lblEnginesValue.setText(voidsman!.competencies()[FieldEnum.ENGINES].toString(10));
+		this.lblLeadershipValue.setText(voidsman!.competencies()[FieldEnum.LEADERSHIP].toString(10));
+		this.lblNavigationValue.setText(voidsman!.competencies()[FieldEnum.NAVIGATION].toString(10));
+		this.lblNegotiationValue.setText(voidsman!.competencies()[FieldEnum.NEGOTIATION].toString(10));
+		this.lblShipcraftValue.setText(voidsman!.competencies()[FieldEnum.SHIPCRAFT].toString(10));
+		this.lblSensorsValue.setText(voidsman!.competencies()[FieldEnum.SENSORS].toString(10));
+		this.lblShieldsValue.setText(voidsman!.competencies()[FieldEnum.SHIELDS].toString(10));
+		this.lblWeaponsValue.setText(voidsman!.competencies()[FieldEnum.WEAPONS].toString(10));
 	}
 
 	private secondsToDhms(time: number) {

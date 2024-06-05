@@ -18,6 +18,51 @@
 pragma solidity >=0.8.24;
 
 // Convert argument to a bytes32
+import { EntityIdTable, GameConfigTable, NotificationTable } from "./codegen/index.sol";
+import { OperationEnum  } from "./codegen/common.sol";
+import { Unauthorized, InvalidState } from "./errors.sol";
+import {IWorld} from "./codegen/world/IWorld.sol";
+
+function newEntityID() returns (bytes32){
+  uint256 entityValue = EntityIdTable.get() + 1;
+  bytes32 entityId = toBytes32(entityValue);
+  EntityIdTable.set(entityValue);
+  return entityId;
+}
+
+function requireAdmin(address _address) view {
+  if(GameConfigTable.getAdmin() != address(0) && _address != GameConfigTable.getAdmin()) {
+    revert Unauthorized();
+  }
+}
+
+function requireGM(address _address) view {
+  if(_address != GameConfigTable.getGm()){revert Unauthorized();}
+}
+
+function requireRunning() view {
+  if(!GameConfigTable.getActive()){revert InvalidState();}
+}
+
+function requireHalted() view {
+  if(!GameConfigTable.getActive()){revert InvalidState();}
+}
+
+function requireCurrencyProxy(address _address) view {
+  if(_address != GameConfigTable.getCurrencyProxy()){revert Unauthorized();}
+}
+
+function requireItemProxy(address _address) view {
+  if(_address != GameConfigTable.getItemProxy()){revert Unauthorized();}
+}
+
+function requireEntityProxy(address _address) view {
+  if(_address != GameConfigTable.getEntityProxy()){revert Unauthorized();}
+}
+
+function notify(OperationEnum op, bytes memory data) {
+  NotificationTable.set(op, data);
+}
 
 function toBytes32(address addr) pure returns (bytes32) {
   return bytes32(uint256(uint160(addr)));
@@ -56,4 +101,22 @@ function setFieldUint8(bytes32 field, uint8 value, uint8 offset) pure returns (b
 /// @param offset into the bitfield to read the unit8 value
 function getFieldUint8(bytes32 field, uint8 offset) pure returns (uint8) {
   return uint8(field[offset]);
+}
+
+
+/// Check to see if the address is a contract.  
+/// 
+/// NOTE:  
+/// 
+/// This isn't all that SUPER safe given you can trick it by calling this
+/// function from a contract constructor.
+///
+/// @param _address to check if contract
+function isContract(address _address) view returns (bool){
+  uint32 size;
+  assembly {
+    size := extcodesize(_address)
+  }
+  //Warning: will return false if the call is made from the constructor of a smart contract
+  return (size > 0);
 }

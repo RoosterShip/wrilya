@@ -17,7 +17,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import { Home, Field } from "../mud";
+import { HomeEnum, FieldEnum } from "../mud";
 import Game from "../game";
 import Actor from "./actor";
 import { getComponentValue, getComponentValueStrict } from "@latticexyz/recs";
@@ -32,7 +32,7 @@ export default class Voidsman extends Actor {
   //---------------------------------------------------------------------------
   private mName: string = "";
   private mPortrait: string = "";
-  private mHome: Home = Home.ICOIR;
+  private mHome: HomeEnum = HomeEnum.ICOIR;
   private mXP: number = 0;
   private mCompetencies: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   private mStats: number[] = [0, 0, 0, 0, 0, 0];
@@ -64,14 +64,14 @@ export default class Voidsman extends Actor {
   //---------------------------------------------------------------------------
   // Transactions
   //---------------------------------------------------------------------------
-  public async beginTraining(field: Field) {
+  public async beginTraining(field: FieldEnum) {
     // This is where I would want to fetch the contract and do an operation
-    await Game.MUDSystemCalls().trainVoidsman(super.getID(), field);
+    await Game.MUDSystemCalls().voidsmanTrain(super.getID(), field);
   }
 
   public async certifyTraining() {
     // This is where I would want to fetch the contract and do an operation
-    await Game.MUDSystemCalls().certifyVoidsman(super.getID());
+    await Game.MUDSystemCalls().voidsmanCertify(super.getID());
   }
 
   //---------------------------------------------------------------------------
@@ -94,22 +94,31 @@ export default class Voidsman extends Actor {
   // Static Helper Functions
   //---------------------------------------------------------------------------
   private fetch() {
-    const { NameTable, HomeTable, PortraitTable, PersonaTable, TrainingTable } = Game.MUDComponents();
+    const {
+      VoidsmanPersonaTable,
+      VoidsmanInfoTable,
+      VoidsmanTrainingTable
+    } = Game.MUDComponents();
+
     const entity = super.getID();
 
     // Read out the mostly static data
-    this.mName = getComponentValueStrict(NameTable, entity).value;
-    this.mHome = getComponentValueStrict(HomeTable, entity).value as Home;
-    this.mPortrait = getComponentValueStrict(PortraitTable, entity).value;
+    const persona = getComponentValueStrict(VoidsmanPersonaTable, entity);
+    this.mName = persona.name;
+    this.mHome = persona.home as HomeEnum;
+    this.mPortrait = persona.portrait;
+
 
     // Readout persona data
-    const persona = getComponentValueStrict(PersonaTable, entity);
-    this.mXP = persona.xp;
-    this.mCompetencies = persona.competencies;
-    this.mStats = persona.stats;
+    const info = getComponentValueStrict(VoidsmanInfoTable, entity);
+
+    this.mXP = info.xp;
+    this.mCompetencies = info.comps;
+    this.mStats = info.stats;
+
 
     // Readout training data
-    const training = getComponentValue(TrainingTable, entity);
+    const training = getComponentValue(VoidsmanTrainingTable, entity);
     if (training) {
       this.mTrainingComplete = Number(training.time);
     }

@@ -17,14 +17,34 @@
 pragma solidity >=0.8.24;
 
 /// Error raised when the caller is not authorized to perform the action
+/// code: 82b42900
 error Unauthorized();
 
 /// Error raised when the caller is not valid.  Typically a contract
+/// code: 48f5c3ed
 error InvalidCaller();
 
 /// The operation could not be completed because of an invalid state in the game
 /// Example would be training a crew member who is already training
+/// code: baf3f0f7
 error InvalidState();
 
+/// One of the supply arguments was no good
+/// code: a9cb9e0d
+error InvalidArgument();
+
 /// The operation could not be done at this time.
+/// code: 9488aaa6
 error NotReady();
+
+/// This name is already in use
+/// code: 023cabe9
+error NameInUse();
+
+/// Error for when the game is not currently running but some operation was requested
+/// code: e76abfdd
+error GameInactive();
+
+/// Error for when the user doesn't have enough funds
+/// code: 356680b7
+error InsufficientFunds();

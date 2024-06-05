@@ -18,11 +18,39 @@ contract PostDeploy is Script {
     // Start broadcasting transactions from the deployer account
     vm.startBroadcast(deployerPrivateKey);
 
-    // ------------------ EXAMPLES ------------------
+    // ------------------ Configure Game Tables ------------------
 
-    // Call increment on the world via the registered function selector
-    uint32 newValue = IWorld(worldAddress).app__increment();
-    console.log("Increment via IWorld:", newValue);
+    address addr = vm.addr(deployerPrivateKey);
+
+    IWorld(worldAddress).game__setAdmin(addr);
+    IWorld(worldAddress).game__setGM(addr);
+    
+    IWorld(worldAddress).game__setVoidsmanMaxCompetency(10);
+    IWorld(worldAddress).game__setVoidsmanMaxStats(10);
+    
+    IWorld(worldAddress).game__setVoidsmanCreateCost(100);
+    IWorld(worldAddress).game__setVoidsmanUpgradeTimeBase(10);
+    IWorld(worldAddress).game__setVoidsmanUpgradeTimePower(6);
+
+    IWorld(worldAddress).game__setVoidsmanUpgradeCostBase(2);
+    IWorld(worldAddress).game__setVoidsmanUpgradeCostPower(6);
+    
+    IWorld(worldAddress).game__setStdMaxDebit(100);
+
+    IWorld(worldAddress).game__setCollateralDebitRatio(10);
+
+    // Set ustake time to 30 days (in seconds)
+    IWorld(worldAddress).game__setCurrencyUnstakeTime(2592000);
+
+
+    // ------------------ Voidsman Setup -----------------------------
+
+    // 
+
+    // ------------------ Game Launch -----------------------------
+
+    // Launch the game
+    IWorld(worldAddress).game__unpause();
 
     vm.stopBroadcast();
   }

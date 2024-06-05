@@ -16,31 +16,35 @@ import { Schema } from "@latticexyz/store/src/Schema.sol";
 import { EncodedLengths, EncodedLengthsLib } from "@latticexyz/store/src/EncodedLengths.sol";
 import { ResourceId } from "@latticexyz/store/src/ResourceId.sol";
 
-struct PersonaTableData {
-  uint32 xp;
+// Import user types
+import { FieldEnum } from "./../common.sol";
+
+struct VoidsmanRequirementsTableData {
+  uint256 xp;
   uint8[] competencies;
   uint8[] stats;
 }
 
-library PersonaTable {
-  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "app", name: "PersonaTable", typeId: RESOURCE_TABLE });`
-  ResourceId constant _tableId = ResourceId.wrap(0x74626170700000000000000000000000506572736f6e615461626c6500000000);
+library VoidsmanRequirementsTable {
+  // Hex below is the result of `WorldResourceIdLib.encode({ namespace: "game", name: "VoidsmanRequirem", typeId: RESOURCE_TABLE });`
+  ResourceId constant _tableId = ResourceId.wrap(0x746267616d6500000000000000000000566f6964736d616e526571756972656d);
 
   FieldLayout constant _fieldLayout =
-    FieldLayout.wrap(0x0004010204000000000000000000000000000000000000000000000000000000);
+    FieldLayout.wrap(0x0020010220000000000000000000000000000000000000000000000000000000);
 
-  // Hex-encoded key schema of (bytes32)
-  Schema constant _keySchema = Schema.wrap(0x002001005f000000000000000000000000000000000000000000000000000000);
-  // Hex-encoded value schema of (uint32, uint8[], uint8[])
-  Schema constant _valueSchema = Schema.wrap(0x0004010203626200000000000000000000000000000000000000000000000000);
+  // Hex-encoded key schema of (uint8, uint8)
+  Schema constant _keySchema = Schema.wrap(0x0002020000000000000000000000000000000000000000000000000000000000);
+  // Hex-encoded value schema of (uint256, uint8[], uint8[])
+  Schema constant _valueSchema = Schema.wrap(0x002001021f626200000000000000000000000000000000000000000000000000);
 
   /**
    * @notice Get the table's key field names.
    * @return keyNames An array of strings with the names of key fields.
    */
   function getKeyNames() internal pure returns (string[] memory keyNames) {
-    keyNames = new string[](1);
-    keyNames[0] = "entity";
+    keyNames = new string[](2);
+    keyNames[0] = "level";
+    keyNames[1] = "field";
   }
 
   /**
@@ -71,31 +75,34 @@ library PersonaTable {
   /**
    * @notice Get xp.
    */
-  function getXp(bytes32 entity) internal view returns (uint32 xp) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function getXp(uint8 level, FieldEnum field) internal view returns (uint256 xp) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
-    return (uint32(bytes4(_blob)));
+    return (uint256(bytes32(_blob)));
   }
 
   /**
    * @notice Get xp.
    */
-  function _getXp(bytes32 entity) internal view returns (uint32 xp) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _getXp(uint8 level, FieldEnum field) internal view returns (uint256 xp) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 0, _fieldLayout);
-    return (uint32(bytes4(_blob)));
+    return (uint256(bytes32(_blob)));
   }
 
   /**
    * @notice Set xp.
    */
-  function setXp(bytes32 entity, uint32 xp) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function setXp(uint8 level, FieldEnum field, uint256 xp) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreSwitch.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((xp)), _fieldLayout);
   }
@@ -103,9 +110,10 @@ library PersonaTable {
   /**
    * @notice Set xp.
    */
-  function _setXp(bytes32 entity, uint32 xp) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _setXp(uint8 level, FieldEnum field, uint256 xp) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreCore.setStaticField(_tableId, _keyTuple, 0, abi.encodePacked((xp)), _fieldLayout);
   }
@@ -113,9 +121,10 @@ library PersonaTable {
   /**
    * @notice Get competencies.
    */
-  function getCompetencies(bytes32 entity) internal view returns (uint8[] memory competencies) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function getCompetencies(uint8 level, FieldEnum field) internal view returns (uint8[] memory competencies) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     bytes memory _blob = StoreSwitch.getDynamicField(_tableId, _keyTuple, 0);
     return (SliceLib.getSubslice(_blob, 0, _blob.length).decodeArray_uint8());
@@ -124,9 +133,10 @@ library PersonaTable {
   /**
    * @notice Get competencies.
    */
-  function _getCompetencies(bytes32 entity) internal view returns (uint8[] memory competencies) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _getCompetencies(uint8 level, FieldEnum field) internal view returns (uint8[] memory competencies) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     bytes memory _blob = StoreCore.getDynamicField(_tableId, _keyTuple, 0);
     return (SliceLib.getSubslice(_blob, 0, _blob.length).decodeArray_uint8());
@@ -135,9 +145,10 @@ library PersonaTable {
   /**
    * @notice Set competencies.
    */
-  function setCompetencies(bytes32 entity, uint8[] memory competencies) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function setCompetencies(uint8 level, FieldEnum field, uint8[] memory competencies) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreSwitch.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((competencies)));
   }
@@ -145,9 +156,10 @@ library PersonaTable {
   /**
    * @notice Set competencies.
    */
-  function _setCompetencies(bytes32 entity, uint8[] memory competencies) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _setCompetencies(uint8 level, FieldEnum field, uint8[] memory competencies) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreCore.setDynamicField(_tableId, _keyTuple, 0, EncodeArray.encode((competencies)));
   }
@@ -155,9 +167,10 @@ library PersonaTable {
   /**
    * @notice Get the length of competencies.
    */
-  function lengthCompetencies(bytes32 entity) internal view returns (uint256) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function lengthCompetencies(uint8 level, FieldEnum field) internal view returns (uint256) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     uint256 _byteLength = StoreSwitch.getDynamicFieldLength(_tableId, _keyTuple, 0);
     unchecked {
@@ -168,9 +181,10 @@ library PersonaTable {
   /**
    * @notice Get the length of competencies.
    */
-  function _lengthCompetencies(bytes32 entity) internal view returns (uint256) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _lengthCompetencies(uint8 level, FieldEnum field) internal view returns (uint256) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     uint256 _byteLength = StoreCore.getDynamicFieldLength(_tableId, _keyTuple, 0);
     unchecked {
@@ -182,9 +196,10 @@ library PersonaTable {
    * @notice Get an item of competencies.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function getItemCompetencies(bytes32 entity, uint256 _index) internal view returns (uint8) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function getItemCompetencies(uint8 level, FieldEnum field, uint256 _index) internal view returns (uint8) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     unchecked {
       bytes memory _blob = StoreSwitch.getDynamicFieldSlice(_tableId, _keyTuple, 0, _index * 1, (_index + 1) * 1);
@@ -196,9 +211,10 @@ library PersonaTable {
    * @notice Get an item of competencies.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function _getItemCompetencies(bytes32 entity, uint256 _index) internal view returns (uint8) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _getItemCompetencies(uint8 level, FieldEnum field, uint256 _index) internal view returns (uint8) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     unchecked {
       bytes memory _blob = StoreCore.getDynamicFieldSlice(_tableId, _keyTuple, 0, _index * 1, (_index + 1) * 1);
@@ -209,9 +225,10 @@ library PersonaTable {
   /**
    * @notice Push an element to competencies.
    */
-  function pushCompetencies(bytes32 entity, uint8 _element) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function pushCompetencies(uint8 level, FieldEnum field, uint8 _element) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreSwitch.pushToDynamicField(_tableId, _keyTuple, 0, abi.encodePacked((_element)));
   }
@@ -219,9 +236,10 @@ library PersonaTable {
   /**
    * @notice Push an element to competencies.
    */
-  function _pushCompetencies(bytes32 entity, uint8 _element) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _pushCompetencies(uint8 level, FieldEnum field, uint8 _element) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreCore.pushToDynamicField(_tableId, _keyTuple, 0, abi.encodePacked((_element)));
   }
@@ -229,9 +247,10 @@ library PersonaTable {
   /**
    * @notice Pop an element from competencies.
    */
-  function popCompetencies(bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function popCompetencies(uint8 level, FieldEnum field) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreSwitch.popFromDynamicField(_tableId, _keyTuple, 0, 1);
   }
@@ -239,9 +258,10 @@ library PersonaTable {
   /**
    * @notice Pop an element from competencies.
    */
-  function _popCompetencies(bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _popCompetencies(uint8 level, FieldEnum field) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreCore.popFromDynamicField(_tableId, _keyTuple, 0, 1);
   }
@@ -249,9 +269,10 @@ library PersonaTable {
   /**
    * @notice Update an element of competencies at `_index`.
    */
-  function updateCompetencies(bytes32 entity, uint256 _index, uint8 _element) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function updateCompetencies(uint8 level, FieldEnum field, uint256 _index, uint8 _element) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     unchecked {
       bytes memory _encoded = abi.encodePacked((_element));
@@ -262,9 +283,10 @@ library PersonaTable {
   /**
    * @notice Update an element of competencies at `_index`.
    */
-  function _updateCompetencies(bytes32 entity, uint256 _index, uint8 _element) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _updateCompetencies(uint8 level, FieldEnum field, uint256 _index, uint8 _element) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     unchecked {
       bytes memory _encoded = abi.encodePacked((_element));
@@ -275,9 +297,10 @@ library PersonaTable {
   /**
    * @notice Get stats.
    */
-  function getStats(bytes32 entity) internal view returns (uint8[] memory stats) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function getStats(uint8 level, FieldEnum field) internal view returns (uint8[] memory stats) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     bytes memory _blob = StoreSwitch.getDynamicField(_tableId, _keyTuple, 1);
     return (SliceLib.getSubslice(_blob, 0, _blob.length).decodeArray_uint8());
@@ -286,9 +309,10 @@ library PersonaTable {
   /**
    * @notice Get stats.
    */
-  function _getStats(bytes32 entity) internal view returns (uint8[] memory stats) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _getStats(uint8 level, FieldEnum field) internal view returns (uint8[] memory stats) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     bytes memory _blob = StoreCore.getDynamicField(_tableId, _keyTuple, 1);
     return (SliceLib.getSubslice(_blob, 0, _blob.length).decodeArray_uint8());
@@ -297,9 +321,10 @@ library PersonaTable {
   /**
    * @notice Set stats.
    */
-  function setStats(bytes32 entity, uint8[] memory stats) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function setStats(uint8 level, FieldEnum field, uint8[] memory stats) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreSwitch.setDynamicField(_tableId, _keyTuple, 1, EncodeArray.encode((stats)));
   }
@@ -307,9 +332,10 @@ library PersonaTable {
   /**
    * @notice Set stats.
    */
-  function _setStats(bytes32 entity, uint8[] memory stats) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _setStats(uint8 level, FieldEnum field, uint8[] memory stats) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreCore.setDynamicField(_tableId, _keyTuple, 1, EncodeArray.encode((stats)));
   }
@@ -317,9 +343,10 @@ library PersonaTable {
   /**
    * @notice Get the length of stats.
    */
-  function lengthStats(bytes32 entity) internal view returns (uint256) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function lengthStats(uint8 level, FieldEnum field) internal view returns (uint256) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     uint256 _byteLength = StoreSwitch.getDynamicFieldLength(_tableId, _keyTuple, 1);
     unchecked {
@@ -330,9 +357,10 @@ library PersonaTable {
   /**
    * @notice Get the length of stats.
    */
-  function _lengthStats(bytes32 entity) internal view returns (uint256) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _lengthStats(uint8 level, FieldEnum field) internal view returns (uint256) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     uint256 _byteLength = StoreCore.getDynamicFieldLength(_tableId, _keyTuple, 1);
     unchecked {
@@ -344,9 +372,10 @@ library PersonaTable {
    * @notice Get an item of stats.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function getItemStats(bytes32 entity, uint256 _index) internal view returns (uint8) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function getItemStats(uint8 level, FieldEnum field, uint256 _index) internal view returns (uint8) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     unchecked {
       bytes memory _blob = StoreSwitch.getDynamicFieldSlice(_tableId, _keyTuple, 1, _index * 1, (_index + 1) * 1);
@@ -358,9 +387,10 @@ library PersonaTable {
    * @notice Get an item of stats.
    * @dev Reverts with Store_IndexOutOfBounds if `_index` is out of bounds for the array.
    */
-  function _getItemStats(bytes32 entity, uint256 _index) internal view returns (uint8) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _getItemStats(uint8 level, FieldEnum field, uint256 _index) internal view returns (uint8) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     unchecked {
       bytes memory _blob = StoreCore.getDynamicFieldSlice(_tableId, _keyTuple, 1, _index * 1, (_index + 1) * 1);
@@ -371,9 +401,10 @@ library PersonaTable {
   /**
    * @notice Push an element to stats.
    */
-  function pushStats(bytes32 entity, uint8 _element) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function pushStats(uint8 level, FieldEnum field, uint8 _element) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreSwitch.pushToDynamicField(_tableId, _keyTuple, 1, abi.encodePacked((_element)));
   }
@@ -381,9 +412,10 @@ library PersonaTable {
   /**
    * @notice Push an element to stats.
    */
-  function _pushStats(bytes32 entity, uint8 _element) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _pushStats(uint8 level, FieldEnum field, uint8 _element) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreCore.pushToDynamicField(_tableId, _keyTuple, 1, abi.encodePacked((_element)));
   }
@@ -391,9 +423,10 @@ library PersonaTable {
   /**
    * @notice Pop an element from stats.
    */
-  function popStats(bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function popStats(uint8 level, FieldEnum field) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreSwitch.popFromDynamicField(_tableId, _keyTuple, 1, 1);
   }
@@ -401,9 +434,10 @@ library PersonaTable {
   /**
    * @notice Pop an element from stats.
    */
-  function _popStats(bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _popStats(uint8 level, FieldEnum field) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreCore.popFromDynamicField(_tableId, _keyTuple, 1, 1);
   }
@@ -411,9 +445,10 @@ library PersonaTable {
   /**
    * @notice Update an element of stats at `_index`.
    */
-  function updateStats(bytes32 entity, uint256 _index, uint8 _element) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function updateStats(uint8 level, FieldEnum field, uint256 _index, uint8 _element) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     unchecked {
       bytes memory _encoded = abi.encodePacked((_element));
@@ -424,9 +459,10 @@ library PersonaTable {
   /**
    * @notice Update an element of stats at `_index`.
    */
-  function _updateStats(bytes32 entity, uint256 _index, uint8 _element) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _updateStats(uint8 level, FieldEnum field, uint256 _index, uint8 _element) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     unchecked {
       bytes memory _encoded = abi.encodePacked((_element));
@@ -437,9 +473,10 @@ library PersonaTable {
   /**
    * @notice Get the full data.
    */
-  function get(bytes32 entity) internal view returns (PersonaTableData memory _table) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function get(uint8 level, FieldEnum field) internal view returns (VoidsmanRequirementsTableData memory _table) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     (bytes memory _staticData, EncodedLengths _encodedLengths, bytes memory _dynamicData) = StoreSwitch.getRecord(
       _tableId,
@@ -452,9 +489,10 @@ library PersonaTable {
   /**
    * @notice Get the full data.
    */
-  function _get(bytes32 entity) internal view returns (PersonaTableData memory _table) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _get(uint8 level, FieldEnum field) internal view returns (VoidsmanRequirementsTableData memory _table) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     (bytes memory _staticData, EncodedLengths _encodedLengths, bytes memory _dynamicData) = StoreCore.getRecord(
       _tableId,
@@ -467,14 +505,15 @@ library PersonaTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function set(bytes32 entity, uint32 xp, uint8[] memory competencies, uint8[] memory stats) internal {
+  function set(uint8 level, FieldEnum field, uint256 xp, uint8[] memory competencies, uint8[] memory stats) internal {
     bytes memory _staticData = encodeStatic(xp);
 
     EncodedLengths _encodedLengths = encodeLengths(competencies, stats);
     bytes memory _dynamicData = encodeDynamic(competencies, stats);
 
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreSwitch.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData);
   }
@@ -482,14 +521,15 @@ library PersonaTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function _set(bytes32 entity, uint32 xp, uint8[] memory competencies, uint8[] memory stats) internal {
+  function _set(uint8 level, FieldEnum field, uint256 xp, uint8[] memory competencies, uint8[] memory stats) internal {
     bytes memory _staticData = encodeStatic(xp);
 
     EncodedLengths _encodedLengths = encodeLengths(competencies, stats);
     bytes memory _dynamicData = encodeDynamic(competencies, stats);
 
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreCore.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData, _fieldLayout);
   }
@@ -497,14 +537,15 @@ library PersonaTable {
   /**
    * @notice Set the full data using the data struct.
    */
-  function set(bytes32 entity, PersonaTableData memory _table) internal {
+  function set(uint8 level, FieldEnum field, VoidsmanRequirementsTableData memory _table) internal {
     bytes memory _staticData = encodeStatic(_table.xp);
 
     EncodedLengths _encodedLengths = encodeLengths(_table.competencies, _table.stats);
     bytes memory _dynamicData = encodeDynamic(_table.competencies, _table.stats);
 
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreSwitch.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData);
   }
@@ -512,14 +553,15 @@ library PersonaTable {
   /**
    * @notice Set the full data using the data struct.
    */
-  function _set(bytes32 entity, PersonaTableData memory _table) internal {
+  function _set(uint8 level, FieldEnum field, VoidsmanRequirementsTableData memory _table) internal {
     bytes memory _staticData = encodeStatic(_table.xp);
 
     EncodedLengths _encodedLengths = encodeLengths(_table.competencies, _table.stats);
     bytes memory _dynamicData = encodeDynamic(_table.competencies, _table.stats);
 
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreCore.setRecord(_tableId, _keyTuple, _staticData, _encodedLengths, _dynamicData, _fieldLayout);
   }
@@ -527,8 +569,8 @@ library PersonaTable {
   /**
    * @notice Decode the tightly packed blob of static data using this table's field layout.
    */
-  function decodeStatic(bytes memory _blob) internal pure returns (uint32 xp) {
-    xp = (uint32(Bytes.getBytes4(_blob, 0)));
+  function decodeStatic(bytes memory _blob) internal pure returns (uint256 xp) {
+    xp = (uint256(Bytes.getBytes32(_blob, 0)));
   }
 
   /**
@@ -562,7 +604,7 @@ library PersonaTable {
     bytes memory _staticData,
     EncodedLengths _encodedLengths,
     bytes memory _dynamicData
-  ) internal pure returns (PersonaTableData memory _table) {
+  ) internal pure returns (VoidsmanRequirementsTableData memory _table) {
     (_table.xp) = decodeStatic(_staticData);
 
     (_table.competencies, _table.stats) = decodeDynamic(_encodedLengths, _dynamicData);
@@ -571,9 +613,10 @@ library PersonaTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function deleteRecord(bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function deleteRecord(uint8 level, FieldEnum field) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreSwitch.deleteRecord(_tableId, _keyTuple);
   }
@@ -581,9 +624,10 @@ library PersonaTable {
   /**
    * @notice Delete all data for given keys.
    */
-  function _deleteRecord(bytes32 entity) internal {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function _deleteRecord(uint8 level, FieldEnum field) internal {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     StoreCore.deleteRecord(_tableId, _keyTuple, _fieldLayout);
   }
@@ -592,7 +636,7 @@ library PersonaTable {
    * @notice Tightly pack static (fixed length) data using this table's schema.
    * @return The static data, encoded into a sequence of bytes.
    */
-  function encodeStatic(uint32 xp) internal pure returns (bytes memory) {
+  function encodeStatic(uint256 xp) internal pure returns (bytes memory) {
     return abi.encodePacked(xp);
   }
 
@@ -625,7 +669,7 @@ library PersonaTable {
    * @return The dynamic (variable length) data, encoded into a sequence of bytes.
    */
   function encode(
-    uint32 xp,
+    uint256 xp,
     uint8[] memory competencies,
     uint8[] memory stats
   ) internal pure returns (bytes memory, EncodedLengths, bytes memory) {
@@ -640,9 +684,10 @@ library PersonaTable {
   /**
    * @notice Encode keys as a bytes32 array using this table's field layout.
    */
-  function encodeKeyTuple(bytes32 entity) internal pure returns (bytes32[] memory) {
-    bytes32[] memory _keyTuple = new bytes32[](1);
-    _keyTuple[0] = entity;
+  function encodeKeyTuple(uint8 level, FieldEnum field) internal pure returns (bytes32[] memory) {
+    bytes32[] memory _keyTuple = new bytes32[](2);
+    _keyTuple[0] = bytes32(uint256(level));
+    _keyTuple[1] = bytes32(uint256(uint8(field)));
 
     return _keyTuple;
   }
