@@ -60,11 +60,15 @@ export default class Preload extends Phaser.Scene {
 	preload() {
 
 		this.editorCreate();
-
+		// @ts-expect-error due to phaser spec for pack function
 		this.load.pack("asset-pack", assetPackUrl);
+		// @ts-expect-error due to phaser spec for pack function
 		this.load.pack("ui-asset-pack", uiAssetPackUrl);
+		// @ts-expect-error due to phaser spec for pack function
 		this.load.pack("background-asset-pack", backgroundAssetPackUrl);
+		// @ts-expect-error due to phaser spec for pack function
 		this.load.pack("character-asset-pack", characterAssetPackUrl);
+		// @ts-expect-error due to phaser spec for pack function
 		this.load.pack("ships-asset-pack", shipsAssetPackUrl);
 	}
 
