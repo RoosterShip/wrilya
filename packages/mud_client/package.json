@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "mud-client",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
@@ -11,17 +11,17 @@
     "test": "tsc --noEmit"
   },
   "dependencies": {
-    "@latticexyz/common": "2.0.11",
-    "@latticexyz/dev-tools": "2.0.11",
-    "@latticexyz/recs": "2.0.11",
-    "@latticexyz/schema-type": "2.0.11",
-    "@latticexyz/store-sync": "2.0.11",
-    "@latticexyz/utils": "2.0.11",
-    "@latticexyz/world": "2.0.11",
-    "contracts": "workspace:*",
-    "client": "workspace:*",
+    "@latticexyz/common": "2.0.12",
+    "@latticexyz/dev-tools": "2.0.12",
+    "@latticexyz/recs": "2.0.12",
+    "@latticexyz/schema-type": "2.0.12",
+    "@latticexyz/store-sync": "2.0.12",
+    "@latticexyz/utils": "2.0.12",
+    "@latticexyz/world": "2.0.12",
     "rxjs": "7.5.5",
-    "viem": "2.9.20"
+    "viem": "2.9.20",
+    "contracts": "workspace:*",
+    "client": "workspace:*"
   },
   "devDependencies": {
     "@types/react-dom": "18.2.7",
