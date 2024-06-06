@@ -18,7 +18,7 @@
 pragma solidity >=0.8.24;
 
 // Convert argument to a bytes32
-import { EntityIdTable, GameConfigTable, NotificationTable } from "./codegen/index.sol";
+import { EntityIdTable, GameConfigTable, NotificationIdTable, NotificationTable } from "./codegen/index.sol";
 import { OperationEnum  } from "./codegen/common.sol";
 import { Unauthorized, InvalidState } from "./errors.sol";
 import {IWorld} from "./codegen/world/IWorld.sol";
@@ -61,7 +61,10 @@ function requireEntityProxy(address _address) view {
 }
 
 function notify(OperationEnum op, bytes memory data) {
-  NotificationTable.set(op, data);
+  uint256 notificationValue = NotificationIdTable.get() + 1;
+  bytes32 nid = toBytes32(notificationValue);
+  NotificationIdTable.set(notificationValue);
+  NotificationTable.set(op, nid, data);
 }
 
 function toBytes32(address addr) pure returns (bytes32) {

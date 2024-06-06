@@ -224,6 +224,15 @@ export default defineWorld({
     // Offchain Notification Table
     //-------------------------------------------------------------------------
 
+    NotificationIdTable: {
+      key: [],
+      schema: {
+        value: "uint256",
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
     /**
      * Offchain table which will be updated by notifications that something
      * happened on chain.  The data field is expected to be encoded arguments
@@ -234,7 +243,8 @@ export default defineWorld({
       key: [],
       schema: {
         operation: "OperationEnum",
-        data: "bytes"
+        nid: "bytes32",
+        data: "bytes",
       },
       codegen: {
         dataStruct: false

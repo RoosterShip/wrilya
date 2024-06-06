@@ -20,7 +20,7 @@
     "eslint": "8.57.0",
     "mprocs": "^0.6.4",
     "rimraf": "^5.0.7",
-    "typescript": "5.4.2"
+    "typescript": "5.4.5"
   },
   "engines": {
     "node": "^18",

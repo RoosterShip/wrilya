@@ -27,7 +27,8 @@
     "phaser": "^3.80.1",
     "phaser3-rex-plugins": "^1.80.4",
     "rxjs": "7.5.5",
-    "viem": "2.9.20"
+    "viem": "2.9.20",
+    "typescript": "^5.4.5"
   },
   "devDependencies": {
     "@types/react-dom": "18.2.7",
@@ -36,7 +37,6 @@
     "html-webpack-plugin": "^5.3.1",
     "phaser-asset-pack-hashing": "^1.0.5",
     "ts-loader": "^9.4.2",
-    "typescript": "^5.0.4",
     "vite": "^4.2.1",
     "wait-port": "^1.0.4",
     "webpack": "^5.28.0",
