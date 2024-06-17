@@ -85,4 +85,4 @@ config :swoosh, :api_client, false
 config :phoenix, :stacktrace_depth, 20
 
 config :nostrum,
-  token: "MTIzMDI3MDkwNTQwNjQ1NTkwMA.GbZkRy.X--Hu2xlpoXBRtmuSg5pYXDwaQ9FBYA4H4Nyaw"
+  token: System.get_env("DISCORD_TOKEN")
