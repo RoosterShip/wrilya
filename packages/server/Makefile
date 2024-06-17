@@ -7,6 +7,8 @@ default: help
 
 SHELL := /bin/bash
 
+include .env
+
 #------------------------------------------------------------------------------
 # General operations
 #------------------------------------------------------------------------------
@@ -18,7 +20,7 @@ help:
 # 🏃 run: @ Start up local client
 run: setup
 	@echo Server starting...
-	touch .env && source .env && iex -S mix phx.server
+	iex -S mix phx.server
 	@echo Server shutting down...
 
 #🧹 clean: @ Delete all temp and downloaded files

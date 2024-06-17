@@ -92,6 +92,8 @@ services:
     environment:
       RPC_HTTP_URL: http://host.docker.internal:8545
       DATABASE_URL: postgres://postgres:postgres@host.docker.internal:5432/postgres
+      POLLING_INTERVAL: 500
+      FOLLOW_BLOCK_TAG: "latest"
     working_dir: /app/packages/store-indexer
     entrypoint:
       - pnpm

@@ -87,11 +87,17 @@ class Boot extends Phaser.Scene {
    * data and NOT the actual full assets.
    */
   preload() {
+    // @ts-expect-error due to phaser spec for pack function
     this.load.pack("pack", preloadAssetPackUrl);
+    // @ts-expect-error due to phaser spec for pack function
     this.load.pack("background", backgroundAssetPackUrl);
+    // @ts-expect-error due to phaser spec for pack function
     this.load.pack("ui", uiAssetPackUrl);
+    // @ts-expect-error due to phaser spec for pack function
     this.load.pack("ui-bars", uiBarsAssetPackUrl);
+    // @ts-expect-error due to phaser spec for pack function
     this.load.pack("portrait", portraitAssetPackUrl);
+    // @ts-expect-error due to phaser spec for pack function
     this.load.pack("ships", shipsAssetPackUrl);
   }
 

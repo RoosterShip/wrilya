@@ -7,12 +7,15 @@ import { StoreSwitch } from "@latticexyz/store/src/StoreSwitch.sol";
 
 import { IWorld } from "../src/codegen/world/IWorld.sol";
 
+import { WrilyaVoteToken } from "../src/governance/vote.sol";
+import { WrilyaGovernor } from "../src/governance/governor.sol";
+
 contract PostDeploy is Script {
   function run(address worldAddress) external {
     // Specify a store so that you can use tables directly in PostDeploy
     StoreSwitch.setStoreAddress(worldAddress);
 
-    // Load the private key from the `PRIVATE_KEY` environment variable (in .env)
+    // Load the private key from the `PRIVATE_KEY` environment variable
     uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
 
     // Start broadcasting transactions from the deployer account
@@ -43,14 +46,27 @@ contract PostDeploy is Script {
     IWorld(worldAddress).game__setCurrencyUnstakeTime(2592000);
 
 
-    // ------------------ Voidsman Setup -----------------------------
+    // ------------------ DAO Setup -----------------------------
+    WrilyaVoteToken wvt = new WrilyaVoteToken(1000000);
 
-    // 
+    address wvtAddr = address(wvt);
+
+    WrilyaGovernor wgc = new WrilyaGovernor(wvt, worldAddress);
+    address wgcAddr = address(wgc);
+
+    IWorld(worldAddress).game__setGovernor(wgcAddr);
+    IWorld(worldAddress).game__setVoteToken(wvtAddr);
 
     // ------------------ Game Launch -----------------------------
 
     // Launch the game
     IWorld(worldAddress).game__unpause();
+
+    console.log("----------------------------------------------------");
+    console.log("World Contract Deployed at: %s", worldAddress);
+    console.log("Governor Contract Deployed at: %s", wgcAddr);
+    console.log("Vote Contract Deployed at: %s", wvtAddr);
+    console.log("----------------------------------------------------");
 
     vm.stopBroadcast();
   }

@@ -24,12 +24,12 @@ library NotificationTable {
   ResourceId constant _tableId = ResourceId.wrap(0x6f7467616d65000000000000000000004e6f74696669636174696f6e5461626c);
 
   FieldLayout constant _fieldLayout =
-    FieldLayout.wrap(0x0001010101000000000000000000000000000000000000000000000000000000);
+    FieldLayout.wrap(0x0021020101200000000000000000000000000000000000000000000000000000);
 
   // Hex-encoded key schema of ()
   Schema constant _keySchema = Schema.wrap(0x0000000000000000000000000000000000000000000000000000000000000000);
-  // Hex-encoded value schema of (uint8, bytes)
-  Schema constant _valueSchema = Schema.wrap(0x0001010100c40000000000000000000000000000000000000000000000000000);
+  // Hex-encoded value schema of (uint8, bytes32, bytes)
+  Schema constant _valueSchema = Schema.wrap(0x00210201005fc400000000000000000000000000000000000000000000000000);
 
   /**
    * @notice Get the table's key field names.
@@ -44,9 +44,10 @@ library NotificationTable {
    * @return fieldNames An array of strings with the names of value fields.
    */
   function getFieldNames() internal pure returns (string[] memory fieldNames) {
-    fieldNames = new string[](2);
+    fieldNames = new string[](3);
     fieldNames[0] = "operation";
-    fieldNames[1] = "data";
+    fieldNames[1] = "nid";
+    fieldNames[2] = "data";
   }
 
   /**
@@ -82,10 +83,28 @@ library NotificationTable {
   }
 
   /**
+   * @notice Set nid.
+   */
+  function setNid(bytes32 nid) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((nid)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set nid.
+   */
+  function _setNid(bytes32 nid) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 1, abi.encodePacked((nid)), _fieldLayout);
+  }
+
+  /**
    * @notice Set the full data using individual values.
    */
-  function set(OperationEnum operation, bytes memory data) internal {
-    bytes memory _staticData = encodeStatic(operation);
+  function set(OperationEnum operation, bytes32 nid, bytes memory data) internal {
+    bytes memory _staticData = encodeStatic(operation, nid);
 
     EncodedLengths _encodedLengths = encodeLengths(data);
     bytes memory _dynamicData = encodeDynamic(data);
@@ -98,8 +117,8 @@ library NotificationTable {
   /**
    * @notice Set the full data using individual values.
    */
-  function _set(OperationEnum operation, bytes memory data) internal {
-    bytes memory _staticData = encodeStatic(operation);
+  function _set(OperationEnum operation, bytes32 nid, bytes memory data) internal {
+    bytes memory _staticData = encodeStatic(operation, nid);
 
     EncodedLengths _encodedLengths = encodeLengths(data);
     bytes memory _dynamicData = encodeDynamic(data);
@@ -112,8 +131,10 @@ library NotificationTable {
   /**
    * @notice Decode the tightly packed blob of static data using this table's field layout.
    */
-  function decodeStatic(bytes memory _blob) internal pure returns (OperationEnum operation) {
+  function decodeStatic(bytes memory _blob) internal pure returns (OperationEnum operation, bytes32 nid) {
     operation = OperationEnum(uint8(Bytes.getBytes1(_blob, 0)));
+
+    nid = (Bytes.getBytes32(_blob, 1));
   }
 
   /**
@@ -138,8 +159,8 @@ library NotificationTable {
     bytes memory _staticData,
     EncodedLengths _encodedLengths,
     bytes memory _dynamicData
-  ) internal pure returns (OperationEnum operation, bytes memory data) {
-    (operation) = decodeStatic(_staticData);
+  ) internal pure returns (OperationEnum operation, bytes32 nid, bytes memory data) {
+    (operation, nid) = decodeStatic(_staticData);
 
     (data) = decodeDynamic(_encodedLengths, _dynamicData);
   }
@@ -166,8 +187,8 @@ library NotificationTable {
    * @notice Tightly pack static (fixed length) data using this table's schema.
    * @return The static data, encoded into a sequence of bytes.
    */
-  function encodeStatic(OperationEnum operation) internal pure returns (bytes memory) {
-    return abi.encodePacked(operation);
+  function encodeStatic(OperationEnum operation, bytes32 nid) internal pure returns (bytes memory) {
+    return abi.encodePacked(operation, nid);
   }
 
   /**
@@ -197,9 +218,10 @@ library NotificationTable {
    */
   function encode(
     OperationEnum operation,
+    bytes32 nid,
     bytes memory data
   ) internal pure returns (bytes memory, EncodedLengths, bytes memory) {
-    bytes memory _staticData = encodeStatic(operation);
+    bytes memory _staticData = encodeStatic(operation, nid);
 
     EncodedLengths _encodedLengths = encodeLengths(data);
     bytes memory _dynamicData = encodeDynamic(data);

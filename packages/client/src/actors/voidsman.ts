@@ -104,17 +104,17 @@ export default class Voidsman extends Actor {
 
     // Read out the mostly static data
     const persona = getComponentValueStrict(VoidsmanPersonaTable, entity);
-    this.mName = persona.name;
+    this.mName = persona.name as string;
     this.mHome = persona.home as HomeEnum;
-    this.mPortrait = persona.portrait;
+    this.mPortrait = persona.portrait as string;
 
 
     // Readout persona data
     const info = getComponentValueStrict(VoidsmanInfoTable, entity);
 
-    this.mXP = info.xp;
-    this.mCompetencies = info.comps;
-    this.mStats = info.stats;
+    this.mXP = info.xp as number;
+    this.mCompetencies = info.comps as number[];
+    this.mStats = info.stats as number[];
 
 
     // Readout training data

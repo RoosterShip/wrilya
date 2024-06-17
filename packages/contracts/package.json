@@ -6,8 +6,9 @@
   "scripts": {
     "build": "mud build",
     "clean": "forge clean && rimraf src/codegen",
-    "deploy:local": "pnpm run build && mud deploy",
-    "deploy:testnet": "pnpm run build && mud deploy --profile=lattice-testnet",
+    "deploy:local": ". ./.env && export PRIVATE_KEY=$LOCAL_PRIVATE_KEY && pnpm run build && mud deploy --profile local",
+    "deploy:test":  ". ./.env && export PRIVATE_KEY=$TEST_PRIVATE_KEY && pnpm run build && mud deploy --profile test",
+    "deploy:main":  ". ./.env && export PRIVATE_KEY=$MAIN_PRIVATE_KEY && pnpm run build && mud deploy --profile main",
     "dev": "wait-port localhost:8545 && pnpm mud dev-contracts",
     "lint": "pnpm run prettier && pnpm run solhint",
     "prettier": "prettier --write 'src/**/*.sol'",
@@ -15,11 +16,11 @@
     "test": "tsc --noEmit && mud test"
   },
   "dependencies": {
-    "@latticexyz/cli": "2.0.11",
-    "@latticexyz/schema-type": "2.0.11",
-    "@latticexyz/store": "2.0.11",
-    "@latticexyz/world": "2.0.11",
-    "@latticexyz/world-modules": "2.0.11",
+    "@latticexyz/cli": "2.0.12",
+    "@latticexyz/schema-type": "2.0.12",
+    "@latticexyz/store": "2.0.12",
+    "@latticexyz/world": "2.0.12",
+    "@latticexyz/world-modules": "2.0.12",
     "@openzeppelin/contracts": "^5.0.2",
     "g": "^2.0.1",
     "wait-port": "^1.0.4"
@@ -31,7 +32,7 @@
     "prettier": "3.2.5",
     "prettier-plugin-solidity": "1.3.1",
     "solhint": "^3.3.7",
-    "solhint-config-mud": "2.0.11",
-    "solhint-plugin-mud": "2.0.11"
+    "solhint-config-mud": "2.0.12",
+    "solhint-plugin-mud": "2.0.12"
   }
 }

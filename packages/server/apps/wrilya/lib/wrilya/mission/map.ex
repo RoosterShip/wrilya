@@ -1,15 +1,15 @@
 defmodule Wrilya.Mission.Map do
 
-  def foo() do
+  # def foo() do
 
-  end
+  # end
 
-  defp generate() do
+  # defp generate() do
 
-  end
+  # end
 
-  defp randomPointInCircle(radius) do
-    t = 2 * :math.pi()
-  end
+  # defp randomPointInCircle(radius) do
+  #   t = 2 * :math.pi()
+  # end
 
 end

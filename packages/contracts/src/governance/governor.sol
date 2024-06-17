@@ -8,17 +8,25 @@ import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
 
-/// @custom:security-contact chris@roostership.com
+import "@openzeppelin/contracts/governance/Governor.sol";
+import "@openzeppelin/contracts/governance/extensions/GovernorSettings.sol";
+import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol";
+import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
+import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
+
 contract WrilyaGovernor is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction {
-    constructor(IVotes _token)
+    address private world;
+
+    constructor(IVotes _token, address _world)
         Governor("WrilyaGovernor")
-        GovernorSettings(1 minutes, 10 minutes, 100e18)
+        GovernorSettings(5 /* 1 minute */, 50 /* 10 minutes */, 1e18)
         GovernorVotes(_token)
         GovernorVotesQuorumFraction(4)
-    {}
+    {
+        world = _world;
+    }
 
     // The following functions are overrides required by Solidity.
-
     function votingDelay()
         public
         view

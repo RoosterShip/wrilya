@@ -26,6 +26,28 @@ config :wrilya_web,
   ecto_repos: [Wrilya.Repo],
   generators: [context_app: :wrilya]
 
+config :wrilya, Oban,
+  engine: Oban.Pro.Engines.Smart,
+  repo: Wrilya.Repo,
+  plugins: [
+    Oban.Pro.Plugins.DynamicLifeline,
+    {
+      Oban.Pro.Plugins.DynamicCron,
+      crontab: [
+        # Cron job to watch the facuet
+        {"0 * * * *", Wrilya.Chain.Facuet.Monitor},
+      ]
+    },
+    {
+      Oban.Pro.Plugins.DynamicQueues,
+      queues: [
+        default: 20,
+        mailers: [global_limit: 20],
+        events: [local_limit: 30, rate_limit: [allowed: 100, period: 60]]
+      ]
+    }
+  ]
+
 # Configures the endpoint
 config :wrilya_web, WrilyaWeb.Endpoint,
   url: [host: "localhost"],
@@ -66,6 +88,12 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :nostrum,
+  num_shards: :auto
+
+config :tesla, :adapter, {Tesla.Adapter.Finch, name: Wrilya.Finch}
+
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -286,7 +286,7 @@ export default class Game {
     NotificationTable.update$.subscribe((update) => {
       this.loadCurrency();
       const { operation: op, data: data } = update.value[0]!;
-      switch (op) {
+      switch (op as OperationEnum) {
         case OperationEnum.GAME_PAUSE:
           break;
         case OperationEnum.GAME_UNPAUSE:
@@ -317,11 +317,11 @@ export default class Game {
           break;
 
         case OperationEnum.ENTITY_CREATE:
-          this.onEntityCreate(data);
+          this.onEntityCreate(data as string);
           break;
 
         case OperationEnum.ENTITY_DESTROY:
-          this.onEntityDestroy(data);
+          this.onEntityDestroy(data as string);
           break;
 
         case OperationEnum.ENTITY_TRANSFER:
@@ -330,38 +330,38 @@ export default class Game {
           break;
 
         case OperationEnum.VOIDSMAN_TRAIN:
-          this.onVoidsmanTrain(data);
+          this.onVoidsmanTrain(data as string);
           break;
 
         case OperationEnum.VOIDSMAN_TRAIN_CANCEL:
-          this.onVoidsmanTrainCancel(data);
+          this.onVoidsmanTrainCancel(data as string);
           break;
 
         case OperationEnum.VOIDSMAN_CERTIFY:
-          this.onVoidsmanCertify(data);
+          this.onVoidsmanCertify(data as string);
           break;
 
         case OperationEnum.VOIDSMAN_SET_TRAINING_REQUIREMENT:
           break;
 
         case OperationEnum.CURRENCY_MINT:
-          this.onCurrencyMint(data);
+          this.onCurrencyMint(data as string);
           break;
 
         case OperationEnum.CURRENCY_STAKE:
-          this.onCurrencyStake(data);
+          this.onCurrencyStake(data as string);
           break;
 
         case OperationEnum.CURRENCY_RELEASE:
-          this.onCurrencyRelease(data);
+          this.onCurrencyRelease(data as string);
           break;
 
         case OperationEnum.CURRENCY_CLAIM:
-          this.onCurrencyClaim(data);
+          this.onCurrencyClaim(data as string);
           break;
 
         case OperationEnum.CURRENCY_PAYMENT:
-          this.onCurrencyPayment(data);
+          this.onCurrencyPayment(data as string);
           break;
 
         default:
