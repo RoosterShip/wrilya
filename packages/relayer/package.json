@@ -5,7 +5,7 @@
   "private": "true",
   "type": "module",
   "scripts": {
-    "start": "pnpm tsx src/main.ts"
+    "start": "wait-port localhost:4000 && pnpm tsx src/main.ts"
   },
   "keywords": [],
   "author": "",
@@ -30,5 +30,8 @@
     "typescript": "^5.4.5",
     "viem": "2.9.20",
     "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "wait-port": "^1.0.4"
   }
 }

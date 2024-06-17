@@ -22,6 +22,15 @@ extra_output_files = [
 ]
 fs_permissions = [{ access = "read", path = "./"}]
 
+[profile.local]
+eth_rpc_url = "http://localhost:8545"
+
+[profile.test]
+eth_rpc_url = "https://sepolia-rollup.arbitrum.io/rpc"
+
+[profile.main]
+eth_rpc_url = "https://sepolia-rollup.arbitrum.io/rpc"
+
 [profile.garnet]
 eth_rpc_url = "https://rpc.garnetchain.com"
 

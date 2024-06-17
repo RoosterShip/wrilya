@@ -98,7 +98,7 @@ contract VoidsmanSystem is System {
 
     // Finally assign ownership
     EntityOwnerTable.set(entityId, owner);
-    notify(OperationEnum.ENTITY_CREATE, abi.encode(owner, entityId)); 
+    notify(OperationEnum.ENTITY_CREATE, abi.encode(owner, entityId, uint16(EntityEnum.VOIDSMAN))); 
   }
 
   /// Delete a crew member from the caller (burn NFT).
@@ -132,7 +132,7 @@ contract VoidsmanSystem is System {
     // Release it from ownership 
     EntityOwnerTable.deleteRecord(entityId);
 
-    notify(OperationEnum.ENTITY_DESTROY, abi.encode(owner, entityId)); 
+    notify(OperationEnum.ENTITY_DESTROY, abi.encode(owner, entityId, uint16(EntityEnum.VOIDSMAN))); 
   }
 
   /// Start the training process for a crew member.  You can only have

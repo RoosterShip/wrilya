@@ -83,3 +83,6 @@ config :swoosh, :api_client, false
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
+
+config :nostrum,
+  token: "MTIzMDI3MDkwNTQwNjQ1NTkwMA.GbZkRy.X--Hu2xlpoXBRtmuSg5pYXDwaQ9FBYA4H4Nyaw"

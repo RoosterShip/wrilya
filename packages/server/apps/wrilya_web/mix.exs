@@ -37,11 +37,11 @@ defmodule WrilyaWeb.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.7.12"},
-      {:phoenix_ecto, "~> 4.4"},
-      {:phoenix_html, "~> 4.0"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.20.2"},
-      {:floki, ">= 0.30.0", only: :test},
+      {:phoenix_ecto, "~> 4.6"},
+      {:phoenix_html, "~> 4.1"},
+      {:phoenix_live_reload, "~> 1.5", only: :dev},
+      {:phoenix_live_view, "~> 0.20"},
+      {:floki, ">= 0.36.2", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
@@ -53,11 +53,11 @@ defmodule WrilyaWeb.MixProject do
        compile: false,
        depth: 1},
       {:telemetry_metrics, "~> 1.0"},
-      {:telemetry_poller, "~> 1.0"},
-      {:gettext, "~> 0.20"},
+      {:telemetry_poller, "~> 1.1"},
+      {:gettext, "~> 0.24"},
       {:wrilya, in_umbrella: true},
-      {:jason, "~> 1.2"},
-      {:bandit, "~> 1.2"}
+      {:jason, "~> 1.4"},
+      {:bandit, "~> 1.5"}
     ]
   end
 

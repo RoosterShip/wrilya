@@ -21,6 +21,10 @@ interface IGameSystem {
 
   function game__setItemProxy(address proxy) external;
 
+  function game__setGovernor(address gov) external;
+
+  function game__setVoteToken(address token) external;
+
   function game__setEntityProxy(address proxy) external;
 
   function game__setVoidsmanCreateCost(uint256 cost) external;

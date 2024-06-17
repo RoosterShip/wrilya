@@ -68,6 +68,14 @@ export async function setupNetwork() {
     address: networkConfig.worldAddress as Hex,
     publicClient,
     startBlock: BigInt(networkConfig.initialBlockNumber),
+    // Make sure this matchs the Environment variable that the indexer uses
+    followBlockTag: "latest",
+    //indexerUrl: "http://localhost:3001",
+    filters: [
+      {
+        tableId: mudConfig.default.tables.game__NotificationTable.tableId
+      }
+    ]
   });
 
   return {

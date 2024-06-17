@@ -98,6 +98,22 @@ contract GameSystem is System {
     GameConfigTable.setItemProxy(proxy);
     notify(OperationEnum.GAME_SET_ITEM_PROXY, ""); 
   }
+  
+  /**
+   */ 
+  function setGovernor(address gov) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setGovernor(gov);
+    notify(OperationEnum.GAME_SET_GOVERNOR, ""); 
+  }
+  
+  /**
+   */ 
+  function setVoteToken(address token) public {
+    requireAdmin(_msgSender());
+    GameConfigTable.setVoteToken(token);
+    notify(OperationEnum.GAME_SET_VOTE_TOKEN, ""); 
+  }
 
   /**
    * Set the address for the entity (ERC-721) proxy contract 

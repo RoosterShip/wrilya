@@ -40,11 +40,5 @@ NotificationTable.update$.subscribe((update) => {
     nid: nid,
     data: data
   };
-
   sendNotification(newNotification);
-
-  // This is stupid but I need to dig into this more at a later date
-  console.log("nid = %s", nid as string);
-  console.log("op = %s", op);
-  console.log("data = %s", data as string);
 });

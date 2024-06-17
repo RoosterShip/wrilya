@@ -105,5 +105,15 @@ if config_env() == :prod do
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
 
+  discord_token =
+    System.get_env("DISCORD_TOKEN") ||
+      raise """
+      environment variable "DISCORD_TOKEN" is missing.
+      Please fetch this info from discord and set it as an environment variable
+      """
+  config :nostrum,
+    token: discord_token
+
+
   config :wrilya, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 end

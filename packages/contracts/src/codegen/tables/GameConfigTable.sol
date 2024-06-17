@@ -21,6 +21,8 @@ struct GameConfigTableData {
   address admin;
   address gm;
   address currencyProxy;
+  address governor;
+  address voteToken;
   address itemProxy;
   address entityProxy;
   uint256 voidsmanCreateCost;
@@ -40,12 +42,12 @@ library GameConfigTable {
   ResourceId constant _tableId = ResourceId.wrap(0x746267616d650000000000000000000047616d65436f6e6669675461626c6500);
 
   FieldLayout constant _fieldLayout =
-    FieldLayout.wrap(0x0167100001141414141420202020200101202020000000000000000000000000);
+    FieldLayout.wrap(0x018f120001141414141414142020202020010120202000000000000000000000);
 
   // Hex-encoded key schema of ()
   Schema constant _keySchema = Schema.wrap(0x0000000000000000000000000000000000000000000000000000000000000000);
-  // Hex-encoded value schema of (bool, address, address, address, address, address, uint256, uint256, uint256, uint256, uint256, uint8, uint8, uint256, uint256, uint256)
-  Schema constant _valueSchema = Schema.wrap(0x016710006061616161611f1f1f1f1f00001f1f1f000000000000000000000000);
+  // Hex-encoded value schema of (bool, address, address, address, address, address, address, address, uint256, uint256, uint256, uint256, uint256, uint8, uint8, uint256, uint256, uint256)
+  Schema constant _valueSchema = Schema.wrap(0x018f120060616161616161611f1f1f1f1f00001f1f1f00000000000000000000);
 
   /**
    * @notice Get the table's key field names.
@@ -60,23 +62,25 @@ library GameConfigTable {
    * @return fieldNames An array of strings with the names of value fields.
    */
   function getFieldNames() internal pure returns (string[] memory fieldNames) {
-    fieldNames = new string[](16);
+    fieldNames = new string[](18);
     fieldNames[0] = "active";
     fieldNames[1] = "admin";
     fieldNames[2] = "gm";
     fieldNames[3] = "currencyProxy";
-    fieldNames[4] = "itemProxy";
-    fieldNames[5] = "entityProxy";
-    fieldNames[6] = "voidsmanCreateCost";
-    fieldNames[7] = "voidsmanUpgradeTimeBase";
-    fieldNames[8] = "voidsmanUpgradeTimePower";
-    fieldNames[9] = "voidsmanUpgradeCostBase";
-    fieldNames[10] = "voidsmanUpgradeCostPower";
-    fieldNames[11] = "voidsmanMaxStats";
-    fieldNames[12] = "voidsmanMaxCompetency";
-    fieldNames[13] = "stdMaxDebit";
-    fieldNames[14] = "collateralDebitRatio";
-    fieldNames[15] = "currencyUnstakeTime";
+    fieldNames[4] = "governor";
+    fieldNames[5] = "voteToken";
+    fieldNames[6] = "itemProxy";
+    fieldNames[7] = "entityProxy";
+    fieldNames[8] = "voidsmanCreateCost";
+    fieldNames[9] = "voidsmanUpgradeTimeBase";
+    fieldNames[10] = "voidsmanUpgradeTimePower";
+    fieldNames[11] = "voidsmanUpgradeCostBase";
+    fieldNames[12] = "voidsmanUpgradeCostPower";
+    fieldNames[13] = "voidsmanMaxStats";
+    fieldNames[14] = "voidsmanMaxCompetency";
+    fieldNames[15] = "stdMaxDebit";
+    fieldNames[16] = "collateralDebitRatio";
+    fieldNames[17] = "currencyUnstakeTime";
   }
 
   /**
@@ -246,12 +250,88 @@ library GameConfigTable {
   }
 
   /**
+   * @notice Get governor.
+   */
+  function getGovernor() internal view returns (address governor) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 4, _fieldLayout);
+    return (address(bytes20(_blob)));
+  }
+
+  /**
+   * @notice Get governor.
+   */
+  function _getGovernor() internal view returns (address governor) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 4, _fieldLayout);
+    return (address(bytes20(_blob)));
+  }
+
+  /**
+   * @notice Set governor.
+   */
+  function setGovernor(address governor) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 4, abi.encodePacked((governor)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set governor.
+   */
+  function _setGovernor(address governor) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 4, abi.encodePacked((governor)), _fieldLayout);
+  }
+
+  /**
+   * @notice Get voteToken.
+   */
+  function getVoteToken() internal view returns (address voteToken) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 5, _fieldLayout);
+    return (address(bytes20(_blob)));
+  }
+
+  /**
+   * @notice Get voteToken.
+   */
+  function _getVoteToken() internal view returns (address voteToken) {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 5, _fieldLayout);
+    return (address(bytes20(_blob)));
+  }
+
+  /**
+   * @notice Set voteToken.
+   */
+  function setVoteToken(address voteToken) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 5, abi.encodePacked((voteToken)), _fieldLayout);
+  }
+
+  /**
+   * @notice Set voteToken.
+   */
+  function _setVoteToken(address voteToken) internal {
+    bytes32[] memory _keyTuple = new bytes32[](0);
+
+    StoreCore.setStaticField(_tableId, _keyTuple, 5, abi.encodePacked((voteToken)), _fieldLayout);
+  }
+
+  /**
    * @notice Get itemProxy.
    */
   function getItemProxy() internal view returns (address itemProxy) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 4, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 6, _fieldLayout);
     return (address(bytes20(_blob)));
   }
 
@@ -261,7 +341,7 @@ library GameConfigTable {
   function _getItemProxy() internal view returns (address itemProxy) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 4, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 6, _fieldLayout);
     return (address(bytes20(_blob)));
   }
 
@@ -271,7 +351,7 @@ library GameConfigTable {
   function setItemProxy(address itemProxy) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 4, abi.encodePacked((itemProxy)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 6, abi.encodePacked((itemProxy)), _fieldLayout);
   }
 
   /**
@@ -280,7 +360,7 @@ library GameConfigTable {
   function _setItemProxy(address itemProxy) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 4, abi.encodePacked((itemProxy)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 6, abi.encodePacked((itemProxy)), _fieldLayout);
   }
 
   /**
@@ -289,7 +369,7 @@ library GameConfigTable {
   function getEntityProxy() internal view returns (address entityProxy) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 5, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 7, _fieldLayout);
     return (address(bytes20(_blob)));
   }
 
@@ -299,7 +379,7 @@ library GameConfigTable {
   function _getEntityProxy() internal view returns (address entityProxy) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 5, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 7, _fieldLayout);
     return (address(bytes20(_blob)));
   }
 
@@ -309,7 +389,7 @@ library GameConfigTable {
   function setEntityProxy(address entityProxy) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 5, abi.encodePacked((entityProxy)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 7, abi.encodePacked((entityProxy)), _fieldLayout);
   }
 
   /**
@@ -318,7 +398,7 @@ library GameConfigTable {
   function _setEntityProxy(address entityProxy) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 5, abi.encodePacked((entityProxy)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 7, abi.encodePacked((entityProxy)), _fieldLayout);
   }
 
   /**
@@ -327,7 +407,7 @@ library GameConfigTable {
   function getVoidsmanCreateCost() internal view returns (uint256 voidsmanCreateCost) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 6, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 8, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -337,7 +417,7 @@ library GameConfigTable {
   function _getVoidsmanCreateCost() internal view returns (uint256 voidsmanCreateCost) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 6, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 8, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -347,7 +427,7 @@ library GameConfigTable {
   function setVoidsmanCreateCost(uint256 voidsmanCreateCost) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 6, abi.encodePacked((voidsmanCreateCost)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 8, abi.encodePacked((voidsmanCreateCost)), _fieldLayout);
   }
 
   /**
@@ -356,7 +436,7 @@ library GameConfigTable {
   function _setVoidsmanCreateCost(uint256 voidsmanCreateCost) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 6, abi.encodePacked((voidsmanCreateCost)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 8, abi.encodePacked((voidsmanCreateCost)), _fieldLayout);
   }
 
   /**
@@ -365,7 +445,7 @@ library GameConfigTable {
   function getVoidsmanUpgradeTimeBase() internal view returns (uint256 voidsmanUpgradeTimeBase) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 7, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 9, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -375,7 +455,7 @@ library GameConfigTable {
   function _getVoidsmanUpgradeTimeBase() internal view returns (uint256 voidsmanUpgradeTimeBase) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 7, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 9, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -385,7 +465,7 @@ library GameConfigTable {
   function setVoidsmanUpgradeTimeBase(uint256 voidsmanUpgradeTimeBase) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 7, abi.encodePacked((voidsmanUpgradeTimeBase)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 9, abi.encodePacked((voidsmanUpgradeTimeBase)), _fieldLayout);
   }
 
   /**
@@ -394,7 +474,7 @@ library GameConfigTable {
   function _setVoidsmanUpgradeTimeBase(uint256 voidsmanUpgradeTimeBase) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 7, abi.encodePacked((voidsmanUpgradeTimeBase)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 9, abi.encodePacked((voidsmanUpgradeTimeBase)), _fieldLayout);
   }
 
   /**
@@ -403,7 +483,7 @@ library GameConfigTable {
   function getVoidsmanUpgradeTimePower() internal view returns (uint256 voidsmanUpgradeTimePower) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 8, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 10, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -413,7 +493,7 @@ library GameConfigTable {
   function _getVoidsmanUpgradeTimePower() internal view returns (uint256 voidsmanUpgradeTimePower) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 8, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 10, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -423,7 +503,7 @@ library GameConfigTable {
   function setVoidsmanUpgradeTimePower(uint256 voidsmanUpgradeTimePower) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 8, abi.encodePacked((voidsmanUpgradeTimePower)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 10, abi.encodePacked((voidsmanUpgradeTimePower)), _fieldLayout);
   }
 
   /**
@@ -432,7 +512,7 @@ library GameConfigTable {
   function _setVoidsmanUpgradeTimePower(uint256 voidsmanUpgradeTimePower) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 8, abi.encodePacked((voidsmanUpgradeTimePower)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 10, abi.encodePacked((voidsmanUpgradeTimePower)), _fieldLayout);
   }
 
   /**
@@ -441,7 +521,7 @@ library GameConfigTable {
   function getVoidsmanUpgradeCostBase() internal view returns (uint256 voidsmanUpgradeCostBase) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 9, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 11, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -451,7 +531,7 @@ library GameConfigTable {
   function _getVoidsmanUpgradeCostBase() internal view returns (uint256 voidsmanUpgradeCostBase) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 9, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 11, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -461,7 +541,7 @@ library GameConfigTable {
   function setVoidsmanUpgradeCostBase(uint256 voidsmanUpgradeCostBase) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 9, abi.encodePacked((voidsmanUpgradeCostBase)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 11, abi.encodePacked((voidsmanUpgradeCostBase)), _fieldLayout);
   }
 
   /**
@@ -470,7 +550,7 @@ library GameConfigTable {
   function _setVoidsmanUpgradeCostBase(uint256 voidsmanUpgradeCostBase) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 9, abi.encodePacked((voidsmanUpgradeCostBase)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 11, abi.encodePacked((voidsmanUpgradeCostBase)), _fieldLayout);
   }
 
   /**
@@ -479,7 +559,7 @@ library GameConfigTable {
   function getVoidsmanUpgradeCostPower() internal view returns (uint256 voidsmanUpgradeCostPower) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 10, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 12, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -489,7 +569,7 @@ library GameConfigTable {
   function _getVoidsmanUpgradeCostPower() internal view returns (uint256 voidsmanUpgradeCostPower) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 10, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 12, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -499,7 +579,7 @@ library GameConfigTable {
   function setVoidsmanUpgradeCostPower(uint256 voidsmanUpgradeCostPower) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 10, abi.encodePacked((voidsmanUpgradeCostPower)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 12, abi.encodePacked((voidsmanUpgradeCostPower)), _fieldLayout);
   }
 
   /**
@@ -508,7 +588,7 @@ library GameConfigTable {
   function _setVoidsmanUpgradeCostPower(uint256 voidsmanUpgradeCostPower) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 10, abi.encodePacked((voidsmanUpgradeCostPower)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 12, abi.encodePacked((voidsmanUpgradeCostPower)), _fieldLayout);
   }
 
   /**
@@ -517,7 +597,7 @@ library GameConfigTable {
   function getVoidsmanMaxStats() internal view returns (uint8 voidsmanMaxStats) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 11, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 13, _fieldLayout);
     return (uint8(bytes1(_blob)));
   }
 
@@ -527,7 +607,7 @@ library GameConfigTable {
   function _getVoidsmanMaxStats() internal view returns (uint8 voidsmanMaxStats) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 11, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 13, _fieldLayout);
     return (uint8(bytes1(_blob)));
   }
 
@@ -537,7 +617,7 @@ library GameConfigTable {
   function setVoidsmanMaxStats(uint8 voidsmanMaxStats) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 11, abi.encodePacked((voidsmanMaxStats)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 13, abi.encodePacked((voidsmanMaxStats)), _fieldLayout);
   }
 
   /**
@@ -546,7 +626,7 @@ library GameConfigTable {
   function _setVoidsmanMaxStats(uint8 voidsmanMaxStats) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 11, abi.encodePacked((voidsmanMaxStats)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 13, abi.encodePacked((voidsmanMaxStats)), _fieldLayout);
   }
 
   /**
@@ -555,7 +635,7 @@ library GameConfigTable {
   function getVoidsmanMaxCompetency() internal view returns (uint8 voidsmanMaxCompetency) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 12, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 14, _fieldLayout);
     return (uint8(bytes1(_blob)));
   }
 
@@ -565,7 +645,7 @@ library GameConfigTable {
   function _getVoidsmanMaxCompetency() internal view returns (uint8 voidsmanMaxCompetency) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 12, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 14, _fieldLayout);
     return (uint8(bytes1(_blob)));
   }
 
@@ -575,7 +655,7 @@ library GameConfigTable {
   function setVoidsmanMaxCompetency(uint8 voidsmanMaxCompetency) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 12, abi.encodePacked((voidsmanMaxCompetency)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 14, abi.encodePacked((voidsmanMaxCompetency)), _fieldLayout);
   }
 
   /**
@@ -584,7 +664,7 @@ library GameConfigTable {
   function _setVoidsmanMaxCompetency(uint8 voidsmanMaxCompetency) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 12, abi.encodePacked((voidsmanMaxCompetency)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 14, abi.encodePacked((voidsmanMaxCompetency)), _fieldLayout);
   }
 
   /**
@@ -593,7 +673,7 @@ library GameConfigTable {
   function getStdMaxDebit() internal view returns (uint256 stdMaxDebit) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 13, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 15, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -603,7 +683,7 @@ library GameConfigTable {
   function _getStdMaxDebit() internal view returns (uint256 stdMaxDebit) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 13, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 15, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -613,7 +693,7 @@ library GameConfigTable {
   function setStdMaxDebit(uint256 stdMaxDebit) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 13, abi.encodePacked((stdMaxDebit)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 15, abi.encodePacked((stdMaxDebit)), _fieldLayout);
   }
 
   /**
@@ -622,7 +702,7 @@ library GameConfigTable {
   function _setStdMaxDebit(uint256 stdMaxDebit) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 13, abi.encodePacked((stdMaxDebit)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 15, abi.encodePacked((stdMaxDebit)), _fieldLayout);
   }
 
   /**
@@ -631,7 +711,7 @@ library GameConfigTable {
   function getCollateralDebitRatio() internal view returns (uint256 collateralDebitRatio) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 14, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 16, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -641,7 +721,7 @@ library GameConfigTable {
   function _getCollateralDebitRatio() internal view returns (uint256 collateralDebitRatio) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 14, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 16, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -651,7 +731,7 @@ library GameConfigTable {
   function setCollateralDebitRatio(uint256 collateralDebitRatio) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 14, abi.encodePacked((collateralDebitRatio)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 16, abi.encodePacked((collateralDebitRatio)), _fieldLayout);
   }
 
   /**
@@ -660,7 +740,7 @@ library GameConfigTable {
   function _setCollateralDebitRatio(uint256 collateralDebitRatio) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 14, abi.encodePacked((collateralDebitRatio)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 16, abi.encodePacked((collateralDebitRatio)), _fieldLayout);
   }
 
   /**
@@ -669,7 +749,7 @@ library GameConfigTable {
   function getCurrencyUnstakeTime() internal view returns (uint256 currencyUnstakeTime) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 15, _fieldLayout);
+    bytes32 _blob = StoreSwitch.getStaticField(_tableId, _keyTuple, 17, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -679,7 +759,7 @@ library GameConfigTable {
   function _getCurrencyUnstakeTime() internal view returns (uint256 currencyUnstakeTime) {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 15, _fieldLayout);
+    bytes32 _blob = StoreCore.getStaticField(_tableId, _keyTuple, 17, _fieldLayout);
     return (uint256(bytes32(_blob)));
   }
 
@@ -689,7 +769,7 @@ library GameConfigTable {
   function setCurrencyUnstakeTime(uint256 currencyUnstakeTime) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreSwitch.setStaticField(_tableId, _keyTuple, 15, abi.encodePacked((currencyUnstakeTime)), _fieldLayout);
+    StoreSwitch.setStaticField(_tableId, _keyTuple, 17, abi.encodePacked((currencyUnstakeTime)), _fieldLayout);
   }
 
   /**
@@ -698,7 +778,7 @@ library GameConfigTable {
   function _setCurrencyUnstakeTime(uint256 currencyUnstakeTime) internal {
     bytes32[] memory _keyTuple = new bytes32[](0);
 
-    StoreCore.setStaticField(_tableId, _keyTuple, 15, abi.encodePacked((currencyUnstakeTime)), _fieldLayout);
+    StoreCore.setStaticField(_tableId, _keyTuple, 17, abi.encodePacked((currencyUnstakeTime)), _fieldLayout);
   }
 
   /**
@@ -737,6 +817,8 @@ library GameConfigTable {
     address admin,
     address gm,
     address currencyProxy,
+    address governor,
+    address voteToken,
     address itemProxy,
     address entityProxy,
     uint256 voidsmanCreateCost,
@@ -755,6 +837,8 @@ library GameConfigTable {
       admin,
       gm,
       currencyProxy,
+      governor,
+      voteToken,
       itemProxy,
       entityProxy,
       voidsmanCreateCost,
@@ -785,6 +869,8 @@ library GameConfigTable {
     address admin,
     address gm,
     address currencyProxy,
+    address governor,
+    address voteToken,
     address itemProxy,
     address entityProxy,
     uint256 voidsmanCreateCost,
@@ -803,6 +889,8 @@ library GameConfigTable {
       admin,
       gm,
       currencyProxy,
+      governor,
+      voteToken,
       itemProxy,
       entityProxy,
       voidsmanCreateCost,
@@ -834,6 +922,8 @@ library GameConfigTable {
       _table.admin,
       _table.gm,
       _table.currencyProxy,
+      _table.governor,
+      _table.voteToken,
       _table.itemProxy,
       _table.entityProxy,
       _table.voidsmanCreateCost,
@@ -865,6 +955,8 @@ library GameConfigTable {
       _table.admin,
       _table.gm,
       _table.currencyProxy,
+      _table.governor,
+      _table.voteToken,
       _table.itemProxy,
       _table.entityProxy,
       _table.voidsmanCreateCost,
@@ -900,6 +992,8 @@ library GameConfigTable {
       address admin,
       address gm,
       address currencyProxy,
+      address governor,
+      address voteToken,
       address itemProxy,
       address entityProxy,
       uint256 voidsmanCreateCost,
@@ -922,29 +1016,33 @@ library GameConfigTable {
 
     currencyProxy = (address(Bytes.getBytes20(_blob, 41)));
 
-    itemProxy = (address(Bytes.getBytes20(_blob, 61)));
+    governor = (address(Bytes.getBytes20(_blob, 61)));
 
-    entityProxy = (address(Bytes.getBytes20(_blob, 81)));
+    voteToken = (address(Bytes.getBytes20(_blob, 81)));
 
-    voidsmanCreateCost = (uint256(Bytes.getBytes32(_blob, 101)));
+    itemProxy = (address(Bytes.getBytes20(_blob, 101)));
 
-    voidsmanUpgradeTimeBase = (uint256(Bytes.getBytes32(_blob, 133)));
+    entityProxy = (address(Bytes.getBytes20(_blob, 121)));
 
-    voidsmanUpgradeTimePower = (uint256(Bytes.getBytes32(_blob, 165)));
+    voidsmanCreateCost = (uint256(Bytes.getBytes32(_blob, 141)));
 
-    voidsmanUpgradeCostBase = (uint256(Bytes.getBytes32(_blob, 197)));
+    voidsmanUpgradeTimeBase = (uint256(Bytes.getBytes32(_blob, 173)));
 
-    voidsmanUpgradeCostPower = (uint256(Bytes.getBytes32(_blob, 229)));
+    voidsmanUpgradeTimePower = (uint256(Bytes.getBytes32(_blob, 205)));
 
-    voidsmanMaxStats = (uint8(Bytes.getBytes1(_blob, 261)));
+    voidsmanUpgradeCostBase = (uint256(Bytes.getBytes32(_blob, 237)));
 
-    voidsmanMaxCompetency = (uint8(Bytes.getBytes1(_blob, 262)));
+    voidsmanUpgradeCostPower = (uint256(Bytes.getBytes32(_blob, 269)));
 
-    stdMaxDebit = (uint256(Bytes.getBytes32(_blob, 263)));
+    voidsmanMaxStats = (uint8(Bytes.getBytes1(_blob, 301)));
 
-    collateralDebitRatio = (uint256(Bytes.getBytes32(_blob, 295)));
+    voidsmanMaxCompetency = (uint8(Bytes.getBytes1(_blob, 302)));
 
-    currencyUnstakeTime = (uint256(Bytes.getBytes32(_blob, 327)));
+    stdMaxDebit = (uint256(Bytes.getBytes32(_blob, 303)));
+
+    collateralDebitRatio = (uint256(Bytes.getBytes32(_blob, 335)));
+
+    currencyUnstakeTime = (uint256(Bytes.getBytes32(_blob, 367)));
   }
 
   /**
@@ -963,6 +1061,8 @@ library GameConfigTable {
       _table.admin,
       _table.gm,
       _table.currencyProxy,
+      _table.governor,
+      _table.voteToken,
       _table.itemProxy,
       _table.entityProxy,
       _table.voidsmanCreateCost,
@@ -1005,6 +1105,8 @@ library GameConfigTable {
     address admin,
     address gm,
     address currencyProxy,
+    address governor,
+    address voteToken,
     address itemProxy,
     address entityProxy,
     uint256 voidsmanCreateCost,
@@ -1024,6 +1126,8 @@ library GameConfigTable {
         admin,
         gm,
         currencyProxy,
+        governor,
+        voteToken,
         itemProxy,
         entityProxy,
         voidsmanCreateCost,
@@ -1050,6 +1154,8 @@ library GameConfigTable {
     address admin,
     address gm,
     address currencyProxy,
+    address governor,
+    address voteToken,
     address itemProxy,
     address entityProxy,
     uint256 voidsmanCreateCost,
@@ -1068,6 +1174,8 @@ library GameConfigTable {
       admin,
       gm,
       currencyProxy,
+      governor,
+      voteToken,
       itemProxy,
       entityProxy,
       voidsmanCreateCost,

@@ -18,9 +18,7 @@ class RabbitMQConnection {
       );
 
       console.log(`✅ Rabbit MQ Connection is ready`);
-
       this.channel = await this.connection.createChannel();
-
       console.log(`🛸 Created RabbitMQ Channel successfully`);
     } catch (error) {
       console.error(error);
