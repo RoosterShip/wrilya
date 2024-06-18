@@ -1,0 +1,4 @@
+config:
+  gcp:project: rooster-ship-framework
+  gcp:region: us-central1
+  wrilya-base:dev: ""

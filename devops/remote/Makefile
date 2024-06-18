@@ -1,0 +1,58 @@
+#------------------------------------------------------------------------------
+# Make setup
+#------------------------------------------------------------------------------
+.PHONY: help up.dev down.dev setup
+
+default: help
+
+SHELL := /bin/bash
+
+#------------------------------------------------------------------------------
+# General operations
+#------------------------------------------------------------------------------
+
+#❓ help: @ Displays this message
+help:
+	@grep -E '[a-zA-Z\.\-]+:.*?@ .*$$' $(firstword $(MAKEFILE_LIST))| tr -d '#'  | awk 'BEGIN {FS = ":.*?@ "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
+
+#🏃 up.dev: @ Launch the service
+up.common:
+	@echo ======== Update - wrilya-base ========
+	@pulumi up --yes --config dev --cwd ./wrilya-base
+	@echo ======== Update - Complete ========
+
+#🏃 up.dev: @ Launch the service
+up.dev: up.common up.dev.infra up.dev.env
+	@echo ======== Dev Ready ========
+
+up.dev.infra:
+	@echo ======== Update - wrilya-infra ========
+	@pulumi up --yes --config dev --cwd ./wrilya-infra
+	@echo ======== Update - Complete ========
+
+up.dev.env:
+	@echo ======== Update - wrilya-env ========
+	@pulumi up --yes --config dev --cwd ./wrilya-env
+	@echo ======== Update - Complete ========
+
+
+#🧹 down.dev: @ Delete the whole service
+down.dev: down.dev.env down.dev.infra
+	@echo ======== Releasing - Complete ========
+
+#🧹 down.dev.infra: @ Delete the whole service
+down.dev.infra: 
+	@echo ======== Releasing - wrilya-infra ========
+	@pulumi down --yes --cwd ./wrilya-infra
+	@echo ======== Releasing - Complete ========
+
+#🧹 down.dev.infra: @ Delete the whole service
+down.dev.env: 
+	@echo ======== Releasing - wrilya-env ========
+	@pulumi down --yes --cwd ./wrilya-env
+	@echo ======== Releasing - Complete ========
+
+#🏗️  setup: @   Download any deps and run the setup for the environment
+setup:
+	@echo Setup started...
+	@echo Setup complete...

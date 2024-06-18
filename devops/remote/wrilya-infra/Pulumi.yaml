@@ -1,0 +1,10 @@
+name: wrilya-infra
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: Project Wrilya basic GCP infra requirements
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: kubernetes-gcp-python

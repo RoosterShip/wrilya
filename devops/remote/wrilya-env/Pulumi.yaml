@@ -1,0 +1,10 @@
+name: wrilya-env
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: 3rd party services used by the system
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: kubernetes-gcp-python
