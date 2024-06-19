@@ -36,6 +36,10 @@ defmodule WrilyaWeb.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      # Project Deps
+      {:utils, in_umbrella: true},
+
+      # Phoenix includes
       {:phoenix, "~> 1.7.12"},
       {:phoenix_ecto, "~> 4.6"},
       {:phoenix_html, "~> 4.1"},

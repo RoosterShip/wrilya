@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+create() {
+    echo ======== Creating database - apps/wrilya ========
+    bin/wrilya_create
+}
+
+migrate() {
+    echo ======== Migrating database - apps/wrilya ========
+    bin/wrilya_migrate
+}
+
+deploy() {
+    set -e
+    create
+    migrate
+    echo ========= Starting server ==========
+    exec bin/wrilya_server
+}
+
+case $1 in
+    deploy) "$@"; exit;;
+    create) "$@"; exit;;
+    migrate) "$@"; exit;;
+esac
