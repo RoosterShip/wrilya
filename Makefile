@@ -10,6 +10,7 @@ REGISTERY_PATH := us-docker.pkg.dev/rooster-ship-framework/wrilya
 ERLANG_VSN := 27.0.0
 ELIXIR_VSN := 1.17.1
 WRILYA_VSN := 0.1.0
+CLIENT_VSN := 0.1.0
 
 #------------------------------------------------------------------------------
 # General operations
@@ -77,3 +78,6 @@ build.base:
 build.image:
 	@docker build --build-arg="RELEASE_TYPE=wrilya" -t $(REGISTERY_PATH)/wrilya:v$(WRILYA_VSN) -t $(REGISTERY_PATH)/wrilya:latest -f ./builder/server/Dockerfile ./packages/server
 	@docker image push $(REGISTERY_PATH)/wrilya --all-tags
+	@cd packages/client && pnpm run build
+	@docker build -t $(REGISTERY_PATH)/client:v$(CLIENT_VSN) -t $(REGISTERY_PATH)/client:latest -f ./builder/client/Dockerfile ./packages/client
+	@docker image push $(REGISTERY_PATH)/client --all-tags
