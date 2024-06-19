@@ -5,7 +5,8 @@
   "private": "true",
   "type": "module",
   "scripts": {
-    "start": "wait-port localhost:4000 && pnpm tsx src/main.ts"
+    "dev": "wait-port localhost:4000 && pnpm tsx src/main.ts",
+    "start": "pnpm tsx src/main.ts"
   },
   "keywords": [],
   "author": "",

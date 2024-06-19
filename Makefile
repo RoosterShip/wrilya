@@ -75,9 +75,23 @@ build.base:
 	@docker image push $(REGISTERY_PATH)/elixir --all-tags
 
 #👷 build.image:@ Run the actual build
-build.image:
+build.image: build.image.wrilya build.image.client build.image.relayer
+	@echo ------------------- Build Complete ----------------
+
+build.image.wrilya:
+	@echo ------------------- Wrilya ----------------
 	@docker build --build-arg="RELEASE_TYPE=wrilya" -t $(REGISTERY_PATH)/wrilya:v$(WRILYA_VSN) -t $(REGISTERY_PATH)/wrilya:latest -f ./builder/server/Dockerfile ./packages/server
 	@docker image push $(REGISTERY_PATH)/wrilya --all-tags
+
+build.image.client:
+	@echo ------------------- Client ----------------
 	@cd packages/client && pnpm run build
 	@docker build -t $(REGISTERY_PATH)/client:v$(CLIENT_VSN) -t $(REGISTERY_PATH)/client:latest -f ./builder/client/Dockerfile ./packages/client
 	@docker image push $(REGISTERY_PATH)/client --all-tags
+
+build.image.relayer:
+	@echo ------------------- Relayer ----------------
+	@rm -rf packages/relayer/dist
+	@cd packages/relayer && pnpm --filter=relayer deploy dist --prod
+	@docker build -t $(REGISTERY_PATH)/relayer:v$(RELAYER_VSN) -t $(REGISTERY_PATH)/relayer:latest -f ./builder/relayer/Dockerfile ./packages/relayer
+	@docker image push $(REGISTERY_PATH)/relayer --all-tags

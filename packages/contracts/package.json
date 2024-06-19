@@ -9,7 +9,7 @@
     "deploy:local": ". ./.env && export PRIVATE_KEY=$LOCAL_PRIVATE_KEY && pnpm run build && mud deploy --profile local",
     "deploy:test":  ". ./.env && export PRIVATE_KEY=$TEST_PRIVATE_KEY && pnpm run build && mud deploy --profile test",
     "deploy:main":  ". ./.env && export PRIVATE_KEY=$MAIN_PRIVATE_KEY && pnpm run build && mud deploy --profile main",
-    "dev": "wait-port localhost:8545 && pnpm mud dev-contracts",
+    "dev": ". ./.env && export PRIVATE_KEY=$LOCAL_PRIVATE_KEY && wait-port localhost:8545 && pnpm mud dev-contracts --rpc http://127.0.0.1:8545",
     "lint": "pnpm run prettier && pnpm run solhint",
     "prettier": "prettier --write 'src/**/*.sol'",
     "solhint": "solhint --config ./.solhint.json 'src/**/*.sol' --fix",
