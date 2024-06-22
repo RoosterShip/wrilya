@@ -11,9 +11,10 @@
  */
 
 import { MUDChain, mudFoundry, redstone, garnet } from "@latticexyz/common/chains";
+import { sepolia } from "viem/chains";
 
 /*
  * See https://mud.dev/tutorials/minimal/deploy#run-the-user-interface
  * for instructions on how to add networks.
  */
-export const supportedChains: MUDChain[] = [mudFoundry, redstone, garnet];
+export const supportedChains: MUDChain[] = [mudFoundry, redstone, garnet, sepolia];

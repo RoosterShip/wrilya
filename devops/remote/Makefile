@@ -35,9 +35,18 @@ up.dev.env:
 	@pulumi up --yes --config dev --cwd ./wrilya-env
 	@echo ======== Update - Complete ========
 
+up.dev.app:
+	@echo ======== Update - wrilya-app ========
+	@pulumi up --yes --config dev --cwd ./wrilya-app
+	@echo ======== Update - Complete ========
+
+up.dev.ingress:
+	@echo ======== Update - wrilya-ingress ========
+	@pulumi up --yes --config dev --cwd ./wrilya-ingress
+	@echo ======== Update - Complete ========
 
 #🧹 down.dev: @ Delete the whole service
-down.dev: down.dev.env down.dev.infra
+down.dev: down.dev.app down.dev.env down.dev.infra
 	@echo ======== Releasing - Complete ========
 
 #🧹 down.dev.infra: @ Delete the whole service
@@ -50,6 +59,11 @@ down.dev.infra:
 down.dev.env: 
 	@echo ======== Releasing - wrilya-env ========
 	@pulumi down --yes --cwd ./wrilya-env --config-file Pulumi.dev.yaml
+	@echo ======== Releasing - Complete ========
+
+down.dev.app: 
+	@echo ======== Releasing - wrilya-app ========
+	@pulumi down --yes --cwd ./wrilya-app --config-file Pulumi.dev.yaml
 	@echo ======== Releasing - Complete ========
 
 #🏗️  setup: @   Download any deps and run the setup for the environment

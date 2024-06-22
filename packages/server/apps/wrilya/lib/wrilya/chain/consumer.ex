@@ -17,7 +17,10 @@ defmodule Wrilya.Chain.Consumer do
   @queue_error "#{@queue}_error"
 
   def init(_opts) do
-    {:ok, conn} = Connection.open("amqp://guest:guest@localhost")
+    user = System.get_env("RABBITMQ_USER", "guest")
+    pass = System.get_env("RABBITMQ_PASS", "guest")
+    host = System.get_env("RABBITMQ_HOST", "localhost")
+    {:ok, conn} = Connection.open("amqp://#{user}:#{pass}@#{host}")
     {:ok, chan} = Channel.open(conn)
     setup_queue(chan)
 

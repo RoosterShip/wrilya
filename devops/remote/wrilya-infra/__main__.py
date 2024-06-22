@@ -63,11 +63,67 @@ wrilya_gke_subnet = gcp.compute.Subnetwork(
     f"wrilya-gke-subnet-{stack}",
     ip_cidr_range="10.128.0.0/12",
     network=wrilya_gke_network.id,
-    private_ip_google_access=True
+    #private_ip_google_access=True,
+    region=gcp_region,
 )
 
 pulumi.export("network::subnet::name", wrilya_gke_subnet.name)
 pulumi.export("network::subnet::id", wrilya_gke_subnet.id)
+
+# -----------------------------------------------------------------------------
+# Router and NAT
+# -----------------------------------------------------------------------------
+
+wrilya_gke_router = gcp.compute.Router(
+    f"wrilya-gke-router-{stack}",
+    network=wrilya_gke_network.id,
+    region=wrilya_gke_subnet.region
+)
+
+pulumi.export("network::router::name", wrilya_gke_router.name)
+pulumi.export("network::router::id", wrilya_gke_router.id)
+
+wrilya_gke_nat = gcp.compute.RouterNat(
+    f"wrilya-gke-nat-{stack}",
+    region=gcp_region,
+    router=wrilya_gke_router.name,
+    nat_ip_allocate_option="AUTO_ONLY",
+    source_subnetwork_ip_ranges_to_nat="ALL_SUBNETWORKS_ALL_IP_RANGES",
+    log_config=gcp.compute.RouterNatLogConfigArgs(
+        enable=True,
+        filter="ERRORS_ONLY",
+    )
+)
+
+pulumi.export("network::nat::name", wrilya_gke_nat.name)
+pulumi.export("network::nat::id", wrilya_gke_nat.id)
+ 
+# -----------------------------------------------------------------------------
+# Global Address Setup
+# -----------------------------------------------------------------------------
+
+wrilya_ip_range = gcp.compute.GlobalAddress(
+    f"wrilya-gke-ip-range-{stack}",
+    purpose="VPC_PEERING",
+    address_type="INTERNAL",
+    prefix_length=16,
+    network=wrilya_gke_network.id
+    )
+
+pulumi.export("network::range::name", wrilya_ip_range.name)
+pulumi.export("network::range::id", wrilya_ip_range.id)
+
+# -----------------------------------------------------------------------------
+# Network Connection
+# -----------------------------------------------------------------------------
+
+wrilya_connection = gcp.servicenetworking.Connection(
+    f"wrilya-gke-connection-{stack}",
+    network=wrilya_gke_network.id,
+    service="servicenetworking.googleapis.com",
+    reserved_peering_ranges=[wrilya_ip_range.name])
+
+pulumi.export("network::connection::id", wrilya_connection.id)
 
 # -----------------------------------------------------------------------------
 # GKE Cluster Setup
@@ -129,6 +185,14 @@ wrilya_gke_nodepool_sa = gcp.serviceaccount.Account(
     account_id=f"wrilya-gke-np-sa-{stack}",
     display_name="Nodepool Service Account"
 )
+wrilya_gke_nodepool_sa_iam_binding = gcp.artifactregistry.RepositoryIamBinding(
+    f"wrilya-gke-nodepool-sa-iam-binding-{stack}",
+    repository="wrilya",
+    project=gcp_project,
+    location=gcp_region,
+    role="roles/artifactregistry.reader",
+    members=[wrilya_gke_nodepool_sa.email.apply(lambda email: f"serviceAccount:{email}")])
+
 
 pulumi.export("cluster::sa", wrilya_gke_nodepool_sa)
 

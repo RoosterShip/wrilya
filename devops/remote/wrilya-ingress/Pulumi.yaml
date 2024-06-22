@@ -1,0 +1,10 @@
+name: wrilya-ingress
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: Manage Ingress Controller for Wrilya
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: kubernetes-gcp-python

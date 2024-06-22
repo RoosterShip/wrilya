@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 # Elixir Based Apline Linux Setup
 #------------------------------------------------------------------------------
-FROM us-docker.pkg.dev/rooster-ship-framework/wrilya/erlang:v27.0.0
+FROM us-central1-docker.pkg.dev/rooster-ship-framework/wrilya/erlang:v27.0.0
 
 # elixir expects utf8.
 ENV ELIXIR_VERSION="v1.17.1" \

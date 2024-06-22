@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 # Wrilya Project Builder 
 #------------------------------------------------------------------------------
-FROM us-docker.pkg.dev/rooster-ship-framework/wrilya/elixir:latest AS builder
+FROM us-central1-docker.pkg.dev/rooster-ship-framework/wrilya/elixir:latest AS builder
 
 # Set the release type, this will be usefull in the future if we happen to 
 # separate the releses and deployments. More changes to this Dockerfile should 
@@ -28,7 +28,7 @@ COPY config config
 COPY deps deps
 COPY apps apps
 COPY rel rel
-
+RUN chmod -R 755 rel
 # RUN cd apps/wrilya_web/assets && npm install && cd ../ && mix assets.deploy && mix phx.digest
 RUN cd apps/wrilya_web/ && mix assets.deploy
 RUN mix compile
@@ -57,8 +57,8 @@ RUN chown nobody /app
 ENV MIX_ENV="prod"
 
 # Only copy the final release from the build stage
-COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/${RELEASE} ./
+COPY --from=builder --chown=nobody:root /app/_build/prod/rel/wrilya ./
 
 USER nobody
 ENV HOME=/app
-ENTRYPOINT [ "sh", "bin/${RELEASE}_entrypoint", "deploy"]
+ENTRYPOINT [ "sh", "bin/wrilya_entrypoint", "deploy"]

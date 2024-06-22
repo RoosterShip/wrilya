@@ -21,6 +21,7 @@ from pulumi_kubernetes.core.v1 import ProbeArgs #type: ignore
 from pulumi_kubernetes.core.v1 import ResourceRequirementsArgs #type: ignore
 from pulumi_kubernetes.core.v1 import SecretVolumeSourceArgs, SecurityContextArgs #type: ignore
 from pulumi_kubernetes.core.v1 import Service, ServiceSpecArgs, ServicePortArgs #type: ignore
+from pulumi_kubernetes.core.v1.outputs import TCPSocketAction #type: ignore
 from pulumi_kubernetes.core.v1 import VolumeArgs, VolumeMountArgs #type: ignore
 from pulumi_kubernetes.meta.v1 import LabelSelectorArgs #type: ignore
 from pulumi_kubernetes.meta.v1 import ObjectMetaArgs #type: ignore
@@ -33,21 +34,21 @@ org = pulumi.get_organization()
 provider_cfg = pulumi.Config("gcp")
 gcp_project = provider_cfg.require("project")
 config = pulumi.Config()
-namespace = config.get("namespace", "default")
+namespace = config.get("namespace")
 
 # -----------------------------------------------------------------------------
 # Namespace Setup
 # -----------------------------------------------------------------------------
 
 # Create a namespace
-namespace = Namespace(
+wrilya_namespace = Namespace(
     f"wrilya-namespace-{stack}",
     metadata=ObjectMetaArgs(
         name=f"{namespace}",
     )
 )
 
-pulumi.export(f"namespace::id", namespace.id)
+pulumi.export(f"namespace::id", wrilya_namespace.id)
 pulumi.export(f"namespace::name", namespace)
 
 # -----------------------------------------------------------------------------
@@ -84,7 +85,7 @@ pulumi.export('postgres::persistent_volume_claim', persistent_volume_claim.metad
 postgres_password = random.RandomPassword(
     f"wrilya-postgres-password-gen-{stack}",
     length=16,
-    special=True)
+    special=False)
 
 secret = gcp.secretmanager.Secret(
     f"wrilya-postgres-password-sm-{stack}",
@@ -111,13 +112,14 @@ secret_version = gcp.secretmanager.SecretVersion(
 postgres_secret_map = Secret(
     f"wrilya-postgres-secret-{stack}",
     metadata=ObjectMetaArgs(
-        name=f"postgres-secret-stack",
+        name=f"postgres-secret-{stack}",
         namespace=namespace,
         labels={ "app": "postgres" }
     ),
     string_data={
         "POSTGRES_PASSWORD": postgres_password.result,
-        "POSTGRES_USER": "postgres",
+        "POSTGRES_URL": postgres_password.result.apply(lambda p: f"postgres://postgres:{p}@postgres.{namespace}.svc.cluster.local:5432/postgres"),
+        "DATABASE_URL": postgres_password.result.apply(lambda p: f"postgres://postgres:{p}@postgres.{namespace}.svc.cluster.local:5432/postgres")
     }
 )
 
@@ -136,10 +138,9 @@ postgres_config_map = ConfigMap(
     ),
     data={
         "POSTGRES_DEPLOYMENT": f"{namespace}",
-        "POSTGRES_DB": "postgres",
-        "POSTGRES_USER": "postgres",
         "POSTGRES_HOST": f"postgres.{namespace}.svc.cluster.local",
-        "POSTGRES_PORT": "5432"
+        "POSTGRES_PORT": "5432",
+        "POSTGRES_USER": "postgres",
     }
 )
 
@@ -263,7 +264,7 @@ postgres_deployment = StatefulSet(
 postgres_service = Service(
     f"wrilya-postgres-service-{stack}",
     metadata=ObjectMetaArgs(
-        name=f"postgres-service",
+        name=f"postgres",
         namespace=namespace,
         labels={ "app": "postgres" }
     ),
@@ -302,15 +303,15 @@ pulumi.export('redis::config::name', redis_config_map.metadata["name"])
 # Redis Deployment
 # -----------------------------------------------------------------------------
 redis_deployment = StatefulSet(
-    f"wrilya-redis-cache-stack",
+    f"wrilya-redis-{stack}",
     kind="Deployment",
     metadata=ObjectMetaArgs(
-        name="redis-cache",
+        name="redis",
         namespace=namespace,
         labels={ "app": "redis" }
     ),
     spec=StatefulSetSpecArgs(
-        service_name="redis-cache",
+        service_name="redis",
         selector=LabelSelectorArgs(
             match_labels={ "app": "redis" },
         ),
@@ -324,15 +325,43 @@ redis_deployment = StatefulSet(
                 containers=[
                     ContainerArgs(
                         image="redis:7-alpine",
-                        name="redis-cache",
+                        name="redis",
                         image_pull_policy="IfNotPresent",
                         ports=[
                             ContainerPortArgs(
+                                name="client",
                                 container_port=6379,
                                 host_port=6379,
                                 protocol="TCP",
+                            ),
+                            ContainerPortArgs(
+                                name="gossip",
+                                container_port=16379,
+                                host_port=16379,
+                                protocol="TCP",
                             )
                         ],
+                        liveness_probe=ProbeArgs(
+                            tcp_socket=TCPSocketAction(
+                                port="client"
+                            ),
+                            initial_delay_seconds=10,
+                            period_seconds=10,
+                            timeout_seconds=5,
+                            failure_threshold=5,
+                            success_threshold=1
+                        ),
+                        readiness_probe=ProbeArgs(
+                            exec_=ExecActionArgs(
+                                command=[
+                                  "redis-cli",
+                                  "ping"
+                                ]
+                            ),
+                            initial_delay_seconds=20,
+                            timeout_seconds=5,
+                            period_seconds=3,
+                        ),
                     ),
                 ],
             ),
@@ -346,7 +375,7 @@ redis_deployment = StatefulSet(
 redis_service = Service(
     f"wrilya-redis-service-{stack}",
     metadata=ObjectMetaArgs(
-        name="redis-service",
+        name="redis",
         namespace=namespace,
         labels={ "app": "redis" }
     ),
@@ -374,8 +403,11 @@ rabbitmq_config_map = ConfigMap(
     ),
     data={
         "RABBITMQ_HOST": f"rabbitmq.{namespace}.svc.cluster.local",
+        "RABBITMQ_PORT": "5672", 
+        "RABBITMQ_USER": "guest",
+        "RABBITMQ_PASS": "guest",
         "RABBITMQ_DEFAULT_USER": "guest",
-        "RABBITMQ_DEFAULT_PASS": "guest"
+        "RABBITMQ_DEFAULT_PASS": "guest",
     }
 )
 
@@ -417,6 +449,37 @@ rabbitmq_deployment = StatefulSet(
                                 protocol="TCP",
                             )
                         ],
+                        env_from=[
+                            EnvFromSourceArgs(
+                                config_map_ref= ConfigMapEnvSourceArgs(
+                                    name=rabbitmq_config_map.metadata["name"],
+                                    optional=False
+                                )
+                            ),
+                        ],
+                        liveness_probe=ProbeArgs(
+                            exec_=ExecActionArgs(
+                                command=[
+                                  "rabbitmq-diagnostics",
+                                  "-q",
+                                  "check_port_connectivity"
+                                ]
+                            ),
+                            initial_delay_seconds=10,
+                            timeout_seconds=5,
+                            period_seconds=3,
+                        ),
+                        readiness_probe=ProbeArgs(
+                            exec_=ExecActionArgs(
+                                command=[
+                                  "rabbitmq-diagnostics",
+                                  "ping"
+                                ]
+                            ),
+                            initial_delay_seconds=20,
+                            timeout_seconds=5,
+                            period_seconds=3,
+                        ),
                     ),
                 ],
             ),
@@ -430,7 +493,7 @@ rabbitmq_deployment = StatefulSet(
 rabbitmq_service = Service(
     f"wrilya-rabbitmq-service-{stack}",
     metadata=ObjectMetaArgs(
-        name="rabbitmq-service",
+        name="rabbitmq",
         namespace=namespace,
         labels={ "app": "rabbitmq" }
     ),

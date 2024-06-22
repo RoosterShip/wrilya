@@ -26,6 +26,7 @@ defmodule WrilyaWeb.Router do
 
     scope "/status" do
       get "/healthy", StatusController, :healthy
+      get "/ready", StatusController, :ready
     end
   end
 

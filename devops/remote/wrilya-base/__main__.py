@@ -36,22 +36,16 @@ gcp_region = provider_cfg.get("region", "us-central1")
 # Setup Artifact Repository
 # -----------------------------------------------------------------------------
 
-# Currently Pulumi doesn't allow for creating "multi-region" repositories.  To
-# get around this please create the repository directy in google cloud console
-# and then run this script to cache off the needed info.
-
-# For added fun it looks like artifactregistry docs don't seem to be working
-# so for now we just going to let this be since frankly it doesn't really
-# matter all that much.  If/When pulumi gets this working the following code
-# can be used
-
-# repo = gcp.artifactregistry.get_repository(repository_id="wrilya", project=gcp_project)
-# 
-# pulumi.export(f'artifact_repository::id', repo.id)
-# pulumi.export(f'artifact_repository::name', repo.name)
-# pulumi.export(f'artifact_repository::repository_id', repo.repository_id)
+artifact_repository = gcp.artifactregistry.Repository("artifactRepository",
+    format="DOCKER",
+    project=gcp_project,
+    location=gcp_region,
+    repository_id="wrilya",
+    description="Project Wrilya General Registry"  # Provide a description for your repository.
+)
 
 # Hard coded values
-pulumi.export(f'artifact_repository::name', "wrilya")
-pulumi.export(f'artifact_repository::repository_id', "wrilya")
-pulumi.export(f'artifact_repository::path', "us-docker.pkg.dev/rooster-ship-framework/wrilya")
+pulumi.export(f'artifact_repository::id', artifact_repository.id)
+pulumi.export(f'artifact_repository::name', artifact_repository.name)
+pulumi.export(f'artifact_repository::repository_id', artifact_repository.repository_id)
+pulumi.export(f'artifact_repository::path', f"us-{gcp_region}-docker.pkg.dev/rooster-ship-framework/wrilya")

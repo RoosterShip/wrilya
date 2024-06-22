@@ -8,19 +8,13 @@ import {
   fallback,
   webSocket,
   http,
-  createWalletClient,
   Hex,
   ClientConfig,
-  getContract,
 } from "viem";
-import { encodeEntity, syncToRecs } from "@latticexyz/store-sync/recs";
-
+import { syncToRecs } from "@latticexyz/store-sync/recs";
 import { getNetworkConfig } from "./getNetworkConfig";
 import { world } from "./world";
-import IWorldAbi from "contracts/out/IWorld.sol/IWorld.abi.json";
-import { createBurnerAccount, transportObserver, ContractWrite } from "@latticexyz/common";
-import { transactionQueue, writeObserver } from "@latticexyz/common/actions";
-
+import { transportObserver, ContractWrite } from "@latticexyz/common";
 import { Subject, share } from "rxjs";
 
 /*
@@ -35,7 +29,7 @@ import mudConfig from "contracts/mud.config";
 
 export type SetupNetworkResult = Awaited<ReturnType<typeof setupNetwork>>;
 
-export async function setupNetwork() {
+export async function setupNetwork(): Promise<object> {
   const networkConfig = await getNetworkConfig();
 
   /*
@@ -44,7 +38,7 @@ export async function setupNetwork() {
    */
   const clientOptions = {
     chain: networkConfig.chain,
-    transport: transportObserver(fallback([webSocket(), http()])),
+    transport: transportObserver(fallback([http()])),
     pollingInterval: 1000,
   } as const satisfies ClientConfig;
 
@@ -68,9 +62,7 @@ export async function setupNetwork() {
     address: networkConfig.worldAddress as Hex,
     publicClient,
     startBlock: BigInt(networkConfig.initialBlockNumber),
-    // Make sure this matchs the Environment variable that the indexer uses
     followBlockTag: "latest",
-    //indexerUrl: "http://localhost:3001",
     filters: [
       {
         tableId: mudConfig.default.tables.game__NotificationTable.tableId

@@ -5,12 +5,16 @@
 
 default: help
 
+GKE_CLUSTER := wrilya-gke-cluster-dev-1acdde7
+GKE_REGION := us-central1
+
 SHELL := /bin/bash
-REGISTERY_PATH := us-docker.pkg.dev/rooster-ship-framework/wrilya
+REGISTERY_PATH := us-central1-docker.pkg.dev/rooster-ship-framework/wrilya
 ERLANG_VSN := 27.0.0
 ELIXIR_VSN := 1.17.1
 WRILYA_VSN := 0.1.0
 CLIENT_VSN := 0.1.0
+RELAYER_VSN := 0.1.0
 
 #------------------------------------------------------------------------------
 # General operations
@@ -38,6 +42,17 @@ setup:
 	@echo Setup started...
 	$(MAKE) -C packages/server setup
 	@echo Setup complete...
+
+login:
+	@echo ---------- Remote Services Login started ----------
+	@gcloud auth login
+	@gcloud auth application-default login
+	@echo ---------- Remote Services Login Finished ----------
+
+auth:
+	@echo ---------- Authorizing started ----------
+	@gcloud container clusters get-credentials $(GKE_CLUSTER) --region $(GKE_REGION)
+	@echo ---------- Authorizing Finished ----------
 
 #------------------------------------------------------------------------------
 # Build Operations
@@ -73,6 +88,9 @@ build.base:
 	@docker image push $(REGISTERY_PATH)/erlang --all-tags
 	@docker build -t $(REGISTERY_PATH)/elixir:v$(ELIXIR_VSN) -t $(REGISTERY_PATH)/elixir:latest -f ./builder/elixir/Dockerfile ./
 	@docker image push $(REGISTERY_PATH)/elixir --all-tags
+	@docker pull ghcr.io/latticexyz/store-indexer:latest
+	@docker tag ghcr.io/latticexyz/store-indexer:latest $(REGISTERY_PATH)/store-indexer:latest
+	@docker image push $(REGISTERY_PATH)/store-indexer --all-tags
 
 #👷 build.image:@ Run the actual build
 build.image: build.image.wrilya build.image.client build.image.relayer
