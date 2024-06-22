@@ -46,8 +46,11 @@ export async function getNetworkConfig() {
    * 3. The VITE_CHAIN_ID environment variable set when the
    *    vite dev server was started or client was built
    * 4. The default, 31337 (anvil)
+   * 
+   * TODO:  Let's pull this from the game server instead...
    */
-  const chainId = Number(params.get("chainId") || params.get("chainid") || 31337);
+  //const chainId = Number(params.get("chainId") || params.get("chainid") || 31337);
+  const chainId = Number(params.get("chainId") || params.get("chainid") || 11155111);
 
   /*
    * Find the chain (unless it isn't in the list of supported chains).
