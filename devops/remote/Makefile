@@ -22,7 +22,7 @@ up.base:
 	@echo ======== Update - Complete ========
 
 #🏃 up.dev: @ Launch the service
-up.dev: up.base up.dev.infra up.dev.env
+up.dev: up.base up.dev.infra up.dev.env up.dev.app up.dev.ingress
 	@echo ======== Dev Ready ========
 
 up.dev.infra:

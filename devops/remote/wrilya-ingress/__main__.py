@@ -1,37 +1,48 @@
 # -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
-import pulumi
-import pulumi_gcp as gcp
-import pulumi_kubernetes as kubernetes
-from pulumi_gcp.compute import GlobalAddress
-from pulumi_gcp.dns import *
-from pulumi_kubernetes.apps.v1 import *
-from pulumi_kubernetes.core.v1 import *
-from pulumi_kubernetes.meta.v1 import *
-from pulumi_kubernetes.networking.v1 import *
-from pulumi_kubernetes.yaml import *
+import pulumi #type: ignore
+import pulumi_gcp as gcp #type: ignore
+import pulumi_kubernetes as kubernetes #type: ignore
+# from pulumi_kubernetes.apps.v1 import *
+# from pulumi_kubernetes.core.v1 import *
+# from pulumi_kubernetes.meta.v1 import *
+# from pulumi_kubernetes.networking.v1 import *
+
+from pulumi_gcp.compute import GlobalAddress # type: ignore
+from pulumi_gcp.dns import ManagedZone #type: ignore
+from pulumi_gcp.dns import RecordSet #type: ignore
+from pulumi_kubernetes.yaml import ConfigGroup # type: ignore
+from pulumi_kubernetes.networking.v1 import Ingress #type: ignore
+from pulumi_kubernetes.networking.v1 import IngressSpecArgs #type: ignore
+from pulumi_kubernetes.networking.v1 import IngressRuleArgs #type: ignore
+from pulumi_kubernetes.networking.v1 import HTTPIngressRuleValueArgs #type: ignore
+from pulumi_kubernetes.networking.v1 import HTTPIngressPathArgs #type: ignore
+from pulumi_kubernetes.networking.v1 import IngressBackendArgs #type: ignore
+from pulumi_kubernetes.networking.v1 import IngressServiceBackendArgs #type: ignore
+from pulumi_kubernetes.networking.v1 import ServiceBackendPortArgs #type: ignore
+from pulumi_kubernetes.meta.v1 import ObjectMetaArgs #type: ignore
+
+# -----------------------------------------------------------------------------
+# Global Configuration Setup
+# -----------------------------------------------------------------------------
 
 stack = pulumi.get_stack()
 org = pulumi.get_organization()
 config = pulumi.Config()
-k8sNamespace = config.get("namespace", "dev")
+namespace = config.get("namespace", "dev")
+subdomain = config.get("subdomain", "dev")
 
-admin_labels = {
-    "rsf-admin": "true",
-}
-
-wrilya_labels = {
-    "wrilya-client": "true",
-}
-
-global_static_ip = GlobalAddress("rsf-static-ip-"+k8sNamespace)
+# -----------------------------------------------------------------------------
+# Create Global Address for Ingress
+# -----------------------------------------------------------------------------
+global_static_ip = GlobalAddress(f"wrilya-static-ip-{stack}")
 
 # Expose the Deployment as a Kubernetes Service
 managed_zone = ManagedZone.get("wrilya.com", id="wrilya-com")
 a_record = RecordSet(
   "a-record",
-  name="dev.wrilya.com.",
+  name=f"{subdomain}.wrilya.com.",
   type="A",
   ttl=300,
   managed_zone=managed_zone.name,
@@ -47,11 +58,11 @@ managed_cert_cmd = f"""
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  name: rsf-managed-cert
-  namespace: {k8sNamespace}
+  name: wrilya-managed-cert-{stack}
+  namespace: {namespace}
 spec:
   domains:
-    - dev.wrilya.com
+    - {subdomain}.wrilya.com
 """
 
 managed_cert = ConfigGroup(
@@ -64,7 +75,7 @@ apiVersion: networking.gke.io/v1beta1
 kind: FrontendConfig
 metadata:
   name: http-to-https
-  namespace: {k8sNamespace}
+  namespace: {namespace}
 spec:
   redirectToHttps:
     enabled: true
@@ -82,10 +93,10 @@ wrilya_ingress = Ingress(
     kind="Ingress",
     metadata=ObjectMetaArgs(
         name="wrilya-ingress",
-        namespace=k8sNamespace,
+        namespace=namespace,
         annotations={
             "kubernetes.io/ingress.global-static-ip-name": global_static_ip.name,
-            "networking.gke.io/managed-certificates": "rsf-managed-cert",
+            "networking.gke.io/managed-certificates": f"wrilya-managed-cert-{stack}",
             "networking.gke.io/v1beta1.FrontendConfig": "http-to-https",
             "ingressClassName": "gce" 
         },
@@ -96,49 +107,13 @@ wrilya_ingress = Ingress(
                 http=HTTPIngressRuleValueArgs(
                     paths=[
                         HTTPIngressPathArgs(
-                            path="/client",
+                            path="/api/*",
                             path_type="ImplementationSpecific",
                             backend=IngressBackendArgs(
                                 service=IngressServiceBackendArgs(
-                                    name="wrilya-client",
+                                    name="wrilya",
                                     port=ServiceBackendPortArgs(
-                                        number=80
-                                    )
-                                ) 
-                            )
-                        ),
-                        HTTPIngressPathArgs(
-                            path="/client/*",
-                            path_type="ImplementationSpecific",
-                            backend=IngressBackendArgs(
-                                service=IngressServiceBackendArgs(
-                                    name="wrilya-client",
-                                    port=ServiceBackendPortArgs(
-                                        number=80
-                                    )
-                                ) 
-                            )
-                        ),
-                        HTTPIngressPathArgs(
-                            path="/admin",
-                            path_type="ImplementationSpecific",
-                            backend=IngressBackendArgs(
-                                service=IngressServiceBackendArgs(
-                                    name="rsf-admin",
-                                    port=ServiceBackendPortArgs(
-                                        number=80
-                                    )
-                                ) 
-                            )
-                        ),
-                        HTTPIngressPathArgs(
-                            path="/admin/*",
-                            path_type="ImplementationSpecific",
-                            backend=IngressBackendArgs(
-                                service=IngressServiceBackendArgs(
-                                    name="rsf-admin",
-                                    port=ServiceBackendPortArgs(
-                                        number=80
+                                        number=4000
                                     )
                                 ) 
                             )
@@ -148,7 +123,7 @@ wrilya_ingress = Ingress(
                             path_type="ImplementationSpecific",
                             backend=IngressBackendArgs(
                                 service=IngressServiceBackendArgs(
-                                    name="wrilya-site",
+                                    name="client",
                                     port=ServiceBackendPortArgs(
                                         number=80
                                     )

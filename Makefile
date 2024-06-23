@@ -5,7 +5,7 @@
 
 default: help
 
-GKE_CLUSTER := wrilya-gke-cluster-dev-1acdde7
+GKE_CLUSTER := wrilya-gke-cluster-dev-1df3786
 GKE_REGION := us-central1
 
 SHELL := /bin/bash
