@@ -1,9 +1,13 @@
+import { config } from 'dotenv';
+config();
+
 // Import the 'express' module
 import express from 'express';
 import { setup } from './mud/setup';
 
 import mqConnection from "./connection";
 import { sendNotification } from "./notification";
+
 
 // Connect to MUD
 const {
@@ -18,9 +22,18 @@ const app = express();
 const port = 6000;
 
 // Define a route for the root path ('/')
-app.get('/', (req, res) => {
+app.get('/ping', (req, res) => {
   // Send a response to the client
-  res.send('Hello, TypeScript + Node.js + Express!');
+  res.send('poing');
+});
+
+app.get('/healthy', (req, res) => {
+  // Send a response to the client
+  res.send('OK');
+});
+
+app.get('/ready', (req, res) => {
+  res.send('OK');
 });
 
 // Start the server and listen on the specified port
@@ -33,7 +46,7 @@ await mqConnection.connect();
 
 const { NotificationTable } = components!;
 
-NotificationTable.update$.subscribe((update) => {
+NotificationTable.update$.subscribe((update: { value: { operation: string, data: string, nid: string }[] }) => {
   const { operation: op, data: data, nid: nid } = update.value[0]!;
   const newNotification = {
     op: op,

@@ -1,11 +1,20 @@
 #------------------------------------------------------------------------------
 # Make setup
 #------------------------------------------------------------------------------
-.PHONY: help run clean setup env.down env.up phaser 
+.PHONY: help run clean setup env.down env.up phaser build build.docs build.base build.image 
 
 default: help
 
+GKE_CLUSTER := wrilya-gke-cluster-dev-1df3786
+GKE_REGION := us-central1
+
 SHELL := /bin/bash
+REGISTERY_PATH := us-central1-docker.pkg.dev/rooster-ship-framework/wrilya
+ERLANG_VSN := 27.0.0
+ELIXIR_VSN := 1.17.1
+WRILYA_VSN := 0.1.0
+CLIENT_VSN := 0.1.0
+RELAYER_VSN := 0.1.0
 
 #------------------------------------------------------------------------------
 # General operations
@@ -34,6 +43,21 @@ setup:
 	$(MAKE) -C packages/server setup
 	@echo Setup complete...
 
+login:
+	@echo ---------- Remote Services Login started ----------
+	@gcloud auth login
+	@gcloud auth application-default login
+	@echo ---------- Remote Services Login Finished ----------
+
+auth:
+	@echo ---------- Authorizing started ----------
+	@gcloud container clusters get-credentials $(GKE_CLUSTER) --region $(GKE_REGION)
+	@echo ---------- Authorizing Finished ----------
+
+#------------------------------------------------------------------------------
+# Build Operations
+#------------------------------------------------------------------------------
+
 #⚙️  env.up:@   Starts up the `docker-compose.yaml` local environment services located in ./devops/local
 env.up:
 	@echo Spinning Environment Up...
@@ -45,3 +69,47 @@ env.down:
 	@echo Spinning Environment down...
 	$(MAKE) -C packages/environment down
 	@echo Spinning Environment Down...
+
+#------------------------------------------------------------------------------
+# Build Operations
+#------------------------------------------------------------------------------
+
+#👷 build:@ Builds everything
+build: build.base build.image
+	@echo "Build Complete"
+
+#👷 build.docs:@ Generate the docs
+#build.docs:
+#	@mix docs -o docs/code --proglang elixir -f html
+
+#👷 build.base:@ Setup the builder project
+build.base:
+	@docker build -t $(REGISTERY_PATH)/erlang:v$(ERLANG_VSN) -t $(REGISTERY_PATH)/erlang:latest -f ./builder/erlang/Dockerfile ./
+	@docker image push $(REGISTERY_PATH)/erlang --all-tags
+	@docker build -t $(REGISTERY_PATH)/elixir:v$(ELIXIR_VSN) -t $(REGISTERY_PATH)/elixir:latest -f ./builder/elixir/Dockerfile ./
+	@docker image push $(REGISTERY_PATH)/elixir --all-tags
+	@docker pull ghcr.io/latticexyz/store-indexer:latest
+	@docker tag ghcr.io/latticexyz/store-indexer:latest $(REGISTERY_PATH)/store-indexer:latest
+	@docker image push $(REGISTERY_PATH)/store-indexer --all-tags
+
+#👷 build.image:@ Run the actual build
+build.image: build.image.wrilya build.image.client build.image.relayer
+	@echo ------------------- Build Complete ----------------
+
+build.image.wrilya:
+	@echo ------------------- Wrilya ----------------
+	@docker build --build-arg="RELEASE_TYPE=wrilya" -t $(REGISTERY_PATH)/wrilya:v$(WRILYA_VSN) -t $(REGISTERY_PATH)/wrilya:latest -f ./builder/server/Dockerfile ./packages/server
+	@docker image push $(REGISTERY_PATH)/wrilya --all-tags
+
+build.image.client:
+	@echo ------------------- Client ----------------
+	@cd packages/client && pnpm run build
+	@docker build -t $(REGISTERY_PATH)/client:v$(CLIENT_VSN) -t $(REGISTERY_PATH)/client:latest -f ./builder/client/Dockerfile ./packages/client
+	@docker image push $(REGISTERY_PATH)/client --all-tags
+
+build.image.relayer:
+	@echo ------------------- Relayer ----------------
+	@rm -rf packages/relayer/dist
+	@cd packages/relayer && pnpm --filter=relayer deploy dist --prod
+	@docker build -t $(REGISTERY_PATH)/relayer:v$(RELAYER_VSN) -t $(REGISTERY_PATH)/relayer:latest -f ./builder/relayer/Dockerfile ./packages/relayer
+	@docker image push $(REGISTERY_PATH)/relayer --all-tags

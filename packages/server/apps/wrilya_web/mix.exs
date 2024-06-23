@@ -36,6 +36,10 @@ defmodule WrilyaWeb.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      # Project Deps
+      {:utils, in_umbrella: true},
+
+      # Phoenix includes
       {:phoenix, "~> 1.7.12"},
       {:phoenix_ecto, "~> 4.6"},
       {:phoenix_html, "~> 4.1"},
@@ -50,8 +54,7 @@ defmodule WrilyaWeb.MixProject do
        tag: "v2.1.1",
        sparse: "optimized",
        app: false,
-       compile: false,
-       depth: 1},
+       compile: false},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.1"},
       {:gettext, "~> 0.24"},

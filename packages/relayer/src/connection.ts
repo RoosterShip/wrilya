@@ -1,21 +1,19 @@
-import client, { Connection, Channel, ConsumeMessage } from "amqplib";
-
-import { rmqUser, rmqPass, rmqhost, NOTIFICATION_QUEUE } from "./config";
+import client, { Connection, Channel } from "amqplib";
 
 class RabbitMQConnection {
   connection!: Connection;
   channel!: Channel;
-  private connected!: Boolean;
+  private connected!: boolean;
 
   async connect() {
     if (this.connected && this.channel) return;
     else this.connected = true;
 
     try {
-      console.log(`⌛️ Connecting to Rabbit-MQ Server`);
-      this.connection = await client.connect(
-        `amqp://${rmqUser}:${rmqPass}@${rmqhost}:5672`
-      );
+
+      const server = `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASS}@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`;
+      console.log(`⌛️ Connecting to Rabbit-MQ Server ${server}`);
+      this.connection = await client.connect(server);
 
       console.log(`✅ Rabbit MQ Connection is ready`);
       this.channel = await this.connection.createChannel();
@@ -26,7 +24,9 @@ class RabbitMQConnection {
     }
   }
 
-  async sendToQueue(queue: string, message: any) {
+  isConnected(): boolean { return this.connected; }
+
+  async sendToQueue(queue: string, message: object) {
     try {
       if (!this.channel) {
         await this.connect();

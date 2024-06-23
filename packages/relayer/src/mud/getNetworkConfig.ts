@@ -36,43 +36,20 @@ import worlds from "contracts/worlds.json";
 import { supportedChains } from "./supportedChains";
 
 export async function getNetworkConfig() {
-  /*
-   * The chain ID is the first item available from this list:
-   * 1. chainId query parameter
-   * 2. chainid query parameter
-   * 3. The VITE_CHAIN_ID environment variable set when the
-   *    vite dev server was started or client was built
-   * 4. The default, 31337 (anvil)
-   */
-  const chainId = Number(31337);
-
-  /*
-   * Find the chain (unless it isn't in the list of supported chains).
-   */
-  const chainIndex = supportedChains.findIndex((c) => c.id === chainId);
+  const chainId = Number(process.env.CHAIN_ID!);
+  const chainIndex = supportedChains.findIndex((c) => {
+    return c.id === chainId;
+  });
   const chain = supportedChains[chainIndex];
   if (!chain) {
     throw new Error(`Chain ${chainId} not found`);
   }
-
-  /*
-   * Get the address of the World. If you want to use a
-   * different address than the one in worlds.json,
-   * provide it as worldAddress in the query string.
-   */
   const world = worlds[chain.id.toString()];
   const worldAddress = world?.address;
   if (!worldAddress) {
     throw new Error(`No world address found for chain ${chainId}. Did you run \`mud deploy\`?`);
   }
 
-  /*
-   * MUD clients use events to synchronize the database, meaning
-   * they need to look as far back as when the World was started.
-   * The block number for the World start can be specified either
-   * on the URL (as initialBlockNumber) or in the worlds.json
-   * file. If neither has it, it starts at the first block, zero.
-   */
   const initialBlockNumber = world?.blockNumber ?? 0n;
 
   return {

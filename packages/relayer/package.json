@@ -5,7 +5,8 @@
   "private": "true",
   "type": "module",
   "scripts": {
-    "start": "wait-port localhost:4000 && pnpm tsx src/main.ts"
+    "dev": "wait-port localhost:4000 && pnpm tsx src/main.ts",
+    "start": "pnpm tsx src/main.ts"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,7 @@
     "amqplib": "^0.10.4",
     "client": "workspace:*",
     "contracts": "workspace:*",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "rxjs": "7.5.5",
     "tsx": "^4.11.2",

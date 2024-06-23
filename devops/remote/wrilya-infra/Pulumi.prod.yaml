@@ -1,0 +1,5 @@
+config:
+  gcp:project: rooster-ship-framework
+  gcp:region: us-central1
+  wrilya-infra:nodesPerZone: "1"
+  wrilya-infra:nodeType: "n2-standard-4"

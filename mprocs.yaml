@@ -9,7 +9,7 @@ procs:
     autostart: true 
   relayer:
     cwd: packages/relayer
-    shell: pnpm start
+    shell: pnpm dev
     autostart: true 
   mud_client:
     cwd: packages/mud_client
@@ -17,7 +17,7 @@ procs:
     autostart: true
   contracts:
     cwd: packages/contracts
-    shell: pnpm mud dev-contracts --rpc http://127.0.0.1:8545
+    shell: pnpm run dev
     autostart: true
   environment:
     cwd: packages/environment

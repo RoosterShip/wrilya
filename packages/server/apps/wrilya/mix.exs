@@ -36,6 +36,10 @@ defmodule Wrilya.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      # Project Deps
+      {:utils, in_umbrella: true},
+
+      # Phoenix includes
       {:dns_cluster, "~> 0.1.3"},
       {:phoenix_pubsub, "~> 2.1"},
       {:ecto_sql, "~> 3.11"},
