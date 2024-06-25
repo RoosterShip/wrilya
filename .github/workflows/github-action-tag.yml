@@ -1,6 +1,6 @@
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "test"]
 
 env:
   PROJECT_ID: rooster-ship-framework
@@ -22,17 +22,44 @@ jobs:
       #------------------------------------------------------------------------
       # Update Tags
       
-      - name: Pull Wrilya Remote Image
-        run: docker pull ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:sha_${{github.event.pull_request.base.sha}}
+      - name: Pull Test Wrilya Remote Image
+        if: ${{ github.ref_name == 'main'}}
+        run: |
+          docker pull ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:test
+          docker pull ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/client:test
+          docker pull ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:test
+
+      - name: Pull Develop Wrilya Remote Image
+        if: ${{ github.ref_name == 'test'}}
+        run: |
+          docker pull ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:develop
+          docker pull ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/client:develop
+          docker pull ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:develop
       
-      - name: Tag Wrilya Local Image Sha
-        run: docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:sha_${{github.event.pull_request.base.sha}} ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:sha_${{github.sha}}
+      - name: Tag Test Wrilya Local Image as Main
+        if: ${{ github.ref_name == 'main'}}
+        run: |
+          docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:test ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:main
+          docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/client:test ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/client:main
+          docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:test ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:main
       
-      - name: Push Wrilya Remote Image Sha Tag
-        run: docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:sha_${{github.sha}}
+      - name: Tag Develop Wrilya Local Image as Test
+        if: ${{ github.ref_name == 'test'}}
+        run: |
+          docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:develop ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:test
+          docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/client:develop ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/client:test
+          docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:develop ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:test
       
-      - name: Tag Wrilya Remote Image Build
-        run: docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:sha_${{github.event.pull_request.base.sha}} ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:${{github.ref_name}}
-      
-      - name: Push Wrilya Remote Image Build Tag
-        run: docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:${{github.ref_name}}
+      - name: Push Main Wrilya Remote Image Build Tag
+        if: ${{ github.ref_name == 'main'}}
+        run: |
+          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:main
+          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/client:main
+          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:main
+
+      - name: Push Test Wrilya Remote Image Build Tag
+        if: ${{ github.ref_name == 'test'}}
+        run: |
+          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:test
+          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/client:test
+          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:test
