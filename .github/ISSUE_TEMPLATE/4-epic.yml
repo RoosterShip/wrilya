@@ -1,0 +1,97 @@
+name: Epic
+description: A collection of stories around a larger body of work
+title: "[EPIC]: "
+labels: ["epic"]
+projects: ["RoosterShip/3"]
+assignees:
+  - cjimison
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Epic Feature Request
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: A brief summary of the Epic
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A detailed description of the Epic
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: what is the goal of this epic.
+    validations:
+      required: true
+  - type: textarea
+    id: stakeholders
+    attributes:
+      label: stakeholders
+      description: list of relevant stackholders
+  - type: textarea
+    id: requirments
+    attributes:
+      label: Requirements
+      description: list of the high-level requirments that must be met for the epic to be considered complete
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Any dependencies or prerequisties required for the completion of Epic
+      value: |
+        - Dependency 1
+        - Dependency 2
+        - Dependency 3
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks
+      description: Any Potential risks or obstacles 
+      value: |
+        - Risk 1
+        - Risk 2
+        - Risk 3
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: List of Criteria that must be met for an Epic to be considered complete
+      value: |
+        - [ ] Item 1
+        - [ ] Item 2
+        - [ ] Item 3
+    validations:
+      required: true
+  - type: textarea
+    id: stories
+    attributes:
+      label: Stories
+      description: List Stories that must be completed for this to be don
+      value: |
+        - Task 1
+        - Task 2
+        - Task 3
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/RoosterShip/wrilya/blob/develop/CODE_OF_CONDUCT.md). 
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

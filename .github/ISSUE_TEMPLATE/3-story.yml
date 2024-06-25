@@ -1,0 +1,66 @@
+name: Story
+description: A small, self-contained unit of work that delivers a specific piece of functionality
+title: "[STORY]: "
+labels: ["story"]
+projects: ["RoosterShip/3"]
+assignees:
+  - cjimison
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Story Feature Request
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: A summary in the form of a customer of the feature
+      value: As a <Type of User>, I want <some goal> so that <some reason>
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A detailed description of the story, including any relevant context, requirements, and constraints.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance
+      description: List of criteria that must be met for the story to be considered complete.
+      value: |
+        - [ ] acceptance test 1
+        - [ ] acceptance test 2
+        - [ ] acceptance test 3
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Any dependencies or prerequisties required for the completion of Epic
+      value: |
+        - Dependency 1
+        - Dependency 2
+        - Dependency 3
+    validations:
+      required: true
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Task
+      description: A list of tasks required to complete the story
+      value: |
+        - [ ] Task 1
+        - [ ] Task 2
+        - [ ] Task 3
+  - type: input
+    id: epic
+    attributes:
+      label: Epic
+      description: The Epic linked to this story
+      placeholder: "Use Github Issue numbering"
+    validations:
+      required: true

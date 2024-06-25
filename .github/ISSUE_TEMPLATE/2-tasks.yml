@@ -1,0 +1,38 @@
+name: Task
+description: A specific piece of work that needs to be completed
+title: "[TASK]: "
+labels: ["task"]
+projects: ["RoosterShip/3"]
+assignees:
+  - cjimison
+body:
+  - type: markdown
+    attributes:
+      value: Tasks to be done
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A detailed description of the task, including any relevant context, requirements, and constraints.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Any dependencies or prerequisites required for the completion of the task.
+      value: |
+        - Dependency 1
+        - Dependency 2
+        - Dependency 3
+    validations:
+      required: true
+  - type: textarea
+    id: subtasks
+    attributes:
+      label: Subtask
+      description: A list of subtasks required to complete the tasks
+      value: |
+        - [ ] Subtask 1
+        - [ ] Subtask 2
+        - [ ] Subtask 3
