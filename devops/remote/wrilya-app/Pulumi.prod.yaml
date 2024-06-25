@@ -1,1 +1,13 @@
-# Setup for Prod
+config:
+  gcp:project: rooster-ship-framework
+  gcp:region: us-central1
+  wrilya-app:chain_id: "11155111"
+  wrilya-app:chain_rpc: "https://rpc.sepolia.org"
+  wrilya-app:namespace: "prod"
+  wrilya-app:image-tag: "main"
+  wrilya-app:discordToken:
+    secure: AAABAMHZjwURY4/fZVU+Fs0Ri6rqJZ7cgwjhidjc9pow/o2Au9MiUBq018RNhVMH8NjyGwY7+DBpwunTSidfRIa8ThFfJB1dfl7DFYL4rjdKmwF9/0EBfUkpW1nMVwf4Bh+HTz08znY=
+  wrilya-app:secretKeyBase:
+    secure: AAABAOEpwF8V5B1Wojr3AcF5GYeSN3xS01tce/aWpa+ulZT/8b+uQFYQgMH/I2b6b7ScywtV8UFgk3Iatjf7YfrrjmC1ekUocrDT7rRRUBpgge9JEJLUtDjxgU0hFpok
+  wrilya-app:world_address: "0xc03c639dcc0dec9c84fd6f390e4337807e1511a2"
+  wrilya-app:world_block: "6093604"

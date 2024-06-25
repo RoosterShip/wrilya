@@ -45,7 +45,7 @@ gcp_region = provider_cfg.get("region", "us-central1")
 org = pulumi.get_organization()
 config = pulumi.Config()
 namespace = config.get("namespace", "default")
-replicas = config.get_int("replicas", 1)
+image_tag = config.get("image-tag", "latest")
 chain_id = config.get("chain_id")
 chain_rpc = config.get("chain_rpc")
 
@@ -95,7 +95,7 @@ indexer_deployment = Deployment(
             spec=PodSpecArgs(
                 containers=[
                     ContainerArgs(
-                        image="us-central1-docker.pkg.dev/rooster-ship-framework/wrilya/store-indexer:latest",
+                        image=f"{gcp_region}-docker.pkg.dev/rooster-ship-framework/wrilya/store-indexer:latest",
                         image_pull_policy="Always",
                         name="indexer",
                         working_dir="/app/packages/store-indexer",
@@ -199,7 +199,7 @@ wrilya_deployment = Deployment(
             spec=PodSpecArgs(
                 containers=[
                     ContainerArgs(
-                        image="us-central1-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:latest",
+                        image=f"{gcp_region}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:{image_tag}",
                         #command=["sleep", "infinity"],
                         image_pull_policy="Always",
                         name="relayer",
@@ -350,7 +350,7 @@ relayer_deployment = Deployment(
             spec=PodSpecArgs(
                 containers=[
                     ContainerArgs(
-                        image="us-central1-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:latest",
+                        image=f"{gcp_region}-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:{image_tag}",
                         #command=["sleep", "infinity"],
                         image_pull_policy="Always",
                         name="relayer",
@@ -472,7 +472,7 @@ client_deployment = Deployment(
             spec=PodSpecArgs(
                 containers=[
                     ContainerArgs(
-                        image=f"{gcp_region}-docker.pkg.dev/rooster-ship-framework/wrilya/client:latest",
+                        image=f"{gcp_region}-docker.pkg.dev/rooster-ship-framework/wrilya/client:{image_tag}",
                         image_pull_policy="Always",
                         name="client",
                         liveness_probe=ProbeArgs(
