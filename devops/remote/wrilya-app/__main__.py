@@ -1,3 +1,22 @@
+# GNU General Public License
+# 
+# Wrilya: A Community Oriented Game
+# 
+# Copyright (C) 2024 Decentralized Consulting
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
 # -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
@@ -16,17 +35,9 @@ from pulumi_kubernetes.meta.v1 import ObjectMetaArgs #type: ignore
 from pulumi_kubernetes.core.v1 import Secret, SecretEnvSourceArgs #type: ignore
 from pulumi_kubernetes.core.v1 import EnvFromSourceArgs #type: ignore
 
-# from pulumi_kubernetes.apps.v1 import *
-# from pulumi_kubernetes.core.v1 import *
-# from pulumi_kubernetes.meta.v1 import *
-# from pulumi_kubernetes.networking.v1 import *
-# from pulumi_kubernetes.yaml import *
-
 # -----------------------------------------------------------------------------
 # Global Configuration Setup
 # -----------------------------------------------------------------------------
-
-# Get some values from the Pulumi stack configuration, or use defaults
 stack = pulumi.get_stack()
 provider_cfg = pulumi.Config("gcp")
 gcp_project = provider_cfg.require("project")
@@ -52,6 +63,7 @@ secret_key_base = config.require_secret("secretKeyBase")
 wrilya_env_ref = pulumi.StackReference(f"{org}/wrilya-env/{stack}")
 postgres_config = wrilya_env_ref.get_output("postgres::config::name")
 postgres_secret = wrilya_env_ref.get_output("postgres::secret::name")
+rabbitmq_secret = wrilya_env_ref.get_output('rabbitmq::secret::name')
 rabbitmq_config = wrilya_env_ref.get_output('rabbitmq::config::name')
 redis_config = wrilya_env_ref.get_output('redis::config::name')
 
@@ -65,7 +77,7 @@ indexer_labels = {
 }
 
 indexer_deployment = Deployment(
-    f"indexer-{stack}",
+    "indexer",
     kind="Deployment",
     metadata=ObjectMetaArgs(
         name="indexer",
@@ -137,7 +149,7 @@ indexer_deployment = Deployment(
 # indexer Service
 # -----------------------------------------------------------------------------
 indexer_service = Service(
-    resource_name=f"indexer-service-{stack}",
+    "indexer-service",
     opts=pulumi.ResourceOptions(depends_on=[indexer_deployment]),
     metadata=ObjectMetaArgs(
         name="indexer",
@@ -168,7 +180,7 @@ wrilya_labels = {
 }
 
 wrilya_deployment = Deployment(
-    f"wrilya-{stack}",
+    "wrilya",
     kind="Deployment",
     opts=pulumi.ResourceOptions(depends_on=[indexer_deployment, indexer_service]),
     metadata=ObjectMetaArgs(
@@ -262,6 +274,13 @@ wrilya_deployment = Deployment(
                                     optional=False
                                 )
                             ),
+                            # RabbitMQ Secret
+                            EnvFromSourceArgs(
+                                secret_ref=SecretEnvSourceArgs(
+                                    name=rabbitmq_secret,
+                                    optional=False
+                                )
+                            ),
                             # Redis Info
                             EnvFromSourceArgs(
                                 config_map_ref= ConfigMapEnvSourceArgs(
@@ -281,7 +300,7 @@ wrilya_deployment = Deployment(
 # Wrilya Service
 # -----------------------------------------------------------------------------
 wrilya_service = Service(
-    resource_name=f"wrilya-service-{stack}",
+    resource_name="wrilya-service",
     opts=pulumi.ResourceOptions(depends_on=[wrilya_deployment]),
     metadata=ObjectMetaArgs(
         name="wrilya",
@@ -312,7 +331,7 @@ relayer_labels = {
 }
 
 relayer_deployment = Deployment(
-    f"relayer-{stack}",
+    "relayer",
     kind="Deployment",
     opts=pulumi.ResourceOptions(depends_on=[wrilya_deployment, wrilya_service]),
     metadata=ObjectMetaArgs(
@@ -371,9 +390,17 @@ relayer_deployment = Deployment(
                           ),
                         ],
                         env_from=[
+                            # RabbitMQ info
                             EnvFromSourceArgs(
                                 config_map_ref= ConfigMapEnvSourceArgs(
                                     name=rabbitmq_config,
+                                    optional=False
+                                )
+                            ),
+                            # RabbitMQ Secret
+                            EnvFromSourceArgs(
+                                secret_ref=SecretEnvSourceArgs(
+                                    name=rabbitmq_secret,
                                     optional=False
                                 )
                             ),
@@ -395,7 +422,7 @@ relayer_deployment = Deployment(
 # relayer Service
 # -----------------------------------------------------------------------------
 relayer_service = Service(
-    resource_name=f"relayer-service-{stack}",
+    resource_name="relayer-service",
     opts=pulumi.ResourceOptions(depends_on=[relayer_deployment]),
     metadata=ObjectMetaArgs(
         name="relayer",
@@ -427,7 +454,7 @@ client_labels = {
 }
 
 client_deployment = Deployment(
-    f"client-{stack}",
+    "client",
     kind="Deployment",
     metadata=ObjectMetaArgs(
         name="client",
@@ -483,7 +510,7 @@ client_deployment = Deployment(
 # Client Service
 # -----------------------------------------------------------------------------
 client_service = Service(
-    resource_name=f"client-service-{stack}",
+    resource_name="client-service",
     metadata=ObjectMetaArgs(
         name="client",
         namespace=namespace,

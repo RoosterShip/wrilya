@@ -27,24 +27,21 @@ import pulumi_gcp as gcp  # type: ignore
 # Global Config Setup
 #------------------------------------------------------------------------------
 stack = pulumi.get_stack()
-
-# Get some provider-namespaced configuration values
 provider_cfg = pulumi.Config("gcp")
 gcp_project = provider_cfg.require("project")
 gcp_region = provider_cfg.get("region", "us-central1")
-
-# Get some additional configuration values
 config = pulumi.Config()
 nodes_per_zone = config.get_int("nodesPerZone", 1)
 node_type = config.get("nodeType", "ec2-small")
 
 #------------------------------------------------------------------------------
 # Network Setup
+#
+# Creates the VPN we will be deploying the cluster on
 #------------------------------------------------------------------------------
 
-# Create a new network
 wrilya_gke_network = gcp.compute.Network(
-    f"wrilya-gke-network-{stack}",
+    "wrilya-gke-network",
     auto_create_subnetworks=False,
     description=f"A virtual network for the Wrilya {stack} GKE cluster"
 )
@@ -56,14 +53,14 @@ pulumi.export("network::link", wrilya_gke_network.self_link)
 
 #------------------------------------------------------------------------------
 # Subnet Setup
+#
+# Create the subnet IP range to use for the deployed cluster
 #------------------------------------------------------------------------------
-
-# Create a subnet in the new network
 wrilya_gke_subnet = gcp.compute.Subnetwork(
-    f"wrilya-gke-subnet-{stack}",
+    "wrilya-gke-subnet",
     ip_cidr_range="10.128.0.0/12",
     network=wrilya_gke_network.id,
-    #private_ip_google_access=True,
+    private_ip_google_access=True,
     region=gcp_region,
 )
 
@@ -72,10 +69,12 @@ pulumi.export("network::subnet::id", wrilya_gke_subnet.id)
 
 # -----------------------------------------------------------------------------
 # Router and NAT
+#
+# Used to allow the cluster to talk to the internet.  NOTE:  This is for egress
+# requests from the cluster to some other service like Discord or a blockchain
 # -----------------------------------------------------------------------------
-
 wrilya_gke_router = gcp.compute.Router(
-    f"wrilya-gke-router-{stack}",
+    "wrilya-gke-router",
     network=wrilya_gke_network.id,
     region=wrilya_gke_subnet.region
 )
@@ -84,7 +83,7 @@ pulumi.export("network::router::name", wrilya_gke_router.name)
 pulumi.export("network::router::id", wrilya_gke_router.id)
 
 wrilya_gke_nat = gcp.compute.RouterNat(
-    f"wrilya-gke-nat-{stack}",
+    "wrilya-gke-nat",
     region=gcp_region,
     router=wrilya_gke_router.name,
     nat_ip_allocate_option="AUTO_ONLY",
@@ -99,11 +98,14 @@ pulumi.export("network::nat::name", wrilya_gke_nat.name)
 pulumi.export("network::nat::id", wrilya_gke_nat.id)
  
 # -----------------------------------------------------------------------------
-# Global Address Setup
+# Setup the IP Range for VPC Peering.
+#
+# Honestly I am not sure if this is needed or if it is hold over from some
+# generated scripts with trying to get the cluster to communicate with CloudSQL
 # -----------------------------------------------------------------------------
 
 wrilya_ip_range = gcp.compute.GlobalAddress(
-    f"wrilya-gke-ip-range-{stack}",
+    "wrilya-gke-ip-range",
     purpose="VPC_PEERING",
     address_type="INTERNAL",
     prefix_length=16,
@@ -115,10 +117,13 @@ pulumi.export("network::range::id", wrilya_ip_range.id)
 
 # -----------------------------------------------------------------------------
 # Network Connection
+#
+# Honestly I am not sure if this is needed or if it is hold over from some
+# generated scripts with trying to get the cluster to communicate with CloudSQL
 # -----------------------------------------------------------------------------
 
 wrilya_connection = gcp.servicenetworking.Connection(
-    f"wrilya-gke-connection-{stack}",
+    "wrilya-gke-connection",
     network=wrilya_gke_network.id,
     service="servicenetworking.googleapis.com",
     reserved_peering_ranges=[wrilya_ip_range.name])
@@ -127,11 +132,13 @@ pulumi.export("network::connection::id", wrilya_connection.id)
 
 # -----------------------------------------------------------------------------
 # GKE Cluster Setup
+#
+# Creates the actual GKE Cluster.  Most settings are coming from the pulumi
+# template and might not be correct but they work for now and when more resources
+# (time or people) are available this should be reviewed for correctness.
 # -----------------------------------------------------------------------------
-
-# Create a cluster in the new network and subnet
 wrilya_gke_cluster = gcp.container.Cluster(
-    f"wrilya-gke-cluster-{stack}",
+    "wrilya-gke-cluster",
     addons_config=gcp.container.ClusterAddonsConfigArgs(
         dns_cache_config=gcp.container.ClusterAddonsConfigDnsCacheConfigArgs(
             enabled=True
@@ -174,35 +181,46 @@ wrilya_gke_cluster = gcp.container.Cluster(
 pulumi.export("cluster::name", wrilya_gke_cluster.name)
 pulumi.export("cluster::id", wrilya_gke_cluster.id)
 
+# Write the name of the cluster so I can load it up via make file commands
+def write_cluster_name(name):
+    f = open(f"../{stack}.cluster", "w")
+    f.write(name)
+    f.close()
+
+wrilya_gke_cluster.name.apply(lambda name: write_cluster_name(name))
+
+
 # -----------------------------------------------------------------------------
 # Cluster NodePool Service Account
+#
+# A service account for the cluster.  At some point I would like to switch
+# to useing Workload Identity but that can wait until we have more resources.
 # -----------------------------------------------------------------------------
-
-# Create a GCP service account for the nodepool
 wrilya_gke_nodepool_sa = gcp.serviceaccount.Account(
-    f"wrilya-gke-nodepool-sa-{stack}",
-    #account_id=pulumi.Output.concat(wrilya_gke_cluster.name, f"-sa"),
+    "wrilya-gke-nodepool-sa",
     account_id=f"wrilya-gke-np-sa-{stack}",
     display_name="Nodepool Service Account"
 )
+
+# We need to explicily give it access to read from the artifact repository
 wrilya_gke_nodepool_sa_iam_binding = gcp.artifactregistry.RepositoryIamBinding(
-    f"wrilya-gke-nodepool-sa-iam-binding-{stack}",
+    "wrilya-gke-nodepool-sa-iam-binding",
     repository="wrilya",
     project=gcp_project,
     location=gcp_region,
     role="roles/artifactregistry.reader",
     members=[wrilya_gke_nodepool_sa.email.apply(lambda email: f"serviceAccount:{email}")])
 
-
 pulumi.export("cluster::sa", wrilya_gke_nodepool_sa)
 
 # -----------------------------------------------------------------------------
 # Cluster NodePool 
+#
+# The default node pool isn't that great so we want to manage this ourselves.
+# Again this is part of the kubenetes cluster
 # -----------------------------------------------------------------------------
-
-# Create a nodepool for the cluster
 wrilya_gke_nodepool = gcp.container.NodePool(
-    f"wrilya-gke-nodepool-{stack}",
+    "wrilya-gke-nodepool",
     cluster=wrilya_gke_cluster.id,
     node_count=nodes_per_zone,
     node_config=gcp.container.NodePoolNodeConfigArgs(

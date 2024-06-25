@@ -26,16 +26,13 @@ import pulumi_gcp as gcp  # type: ignore
 #------------------------------------------------------------------------------
 # Global Config Setup
 #------------------------------------------------------------------------------
-
-# Get some provider-namespaced configuration values
 provider_cfg = pulumi.Config("gcp")
 gcp_project = provider_cfg.require("project")
-gcp_region = provider_cfg.get("region", "us-central1")
+gcp_region = provider_cfg.get("region")
 
 # -----------------------------------------------------------------------------
 # Setup Artifact Repository
 # -----------------------------------------------------------------------------
-
 artifact_repository = gcp.artifactregistry.Repository("artifactRepository",
     format="DOCKER",
     project=gcp_project,
@@ -44,8 +41,25 @@ artifact_repository = gcp.artifactregistry.Repository("artifactRepository",
     description="Project Wrilya General Registry"  # Provide a description for your repository.
 )
 
-# Hard coded values
 pulumi.export(f'artifact_repository::id', artifact_repository.id)
 pulumi.export(f'artifact_repository::name', artifact_repository.name)
 pulumi.export(f'artifact_repository::repository_id', artifact_repository.repository_id)
 pulumi.export(f'artifact_repository::path', f"us-{gcp_region}-docker.pkg.dev/rooster-ship-framework/wrilya")
+
+# -----------------------------------------------------------------------------
+# Create Service Account for uploading images
+# -----------------------------------------------------------------------------
+wrilya_artifact_sa = gcp.serviceaccount.Account(
+    f"wrilya-artifact-sa",
+    account_id=f"wrilya-artifact-sa",
+    display_name="Artifact Registry Writer Service Account"
+)
+wrilya_artifact_sa_iam_binding = gcp.artifactregistry.RepositoryIamBinding(
+    f"wrilya_artifact_sa_iam_binding",
+    repository="wrilya",
+    project=gcp_project,
+    location=gcp_region,
+    role="roles/artifactregistry.writer",
+    members=[wrilya_artifact_sa.email.apply(lambda email: f"serviceAccount:{email}")])
+
+pulumi.export("artifact_repository::sa", wrilya_artifact_sa)

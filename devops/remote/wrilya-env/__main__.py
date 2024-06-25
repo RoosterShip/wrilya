@@ -1,3 +1,22 @@
+# GNU General Public License
+# 
+# Wrilya: A Community Oriented Game
+# 
+# Copyright (C) 2024 Decentralized Consulting
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
 # -----------------------------------------------------------------------------
 # Imports
 # -----------------------------------------------------------------------------
@@ -33,16 +52,17 @@ stack = pulumi.get_stack()
 org = pulumi.get_organization()
 provider_cfg = pulumi.Config("gcp")
 gcp_project = provider_cfg.require("project")
+gcp_region = provider_cfg.require("region")
 config = pulumi.Config()
 namespace = config.get("namespace")
 
 # -----------------------------------------------------------------------------
 # Namespace Setup
+#
+# Create the namespace used by this cluster
 # -----------------------------------------------------------------------------
-
-# Create a namespace
 wrilya_namespace = Namespace(
-    f"wrilya-namespace-{stack}",
+    "wrilya-namespace",
     metadata=ObjectMetaArgs(
         name=f"{namespace}",
     )
@@ -56,7 +76,7 @@ pulumi.export(f"namespace::name", namespace)
 # -----------------------------------------------------------------------------
 
 persistent_volume_claim = PersistentVolumeClaim(
-    f"wrilya-postgres-pvc-{stack}",
+    "wrilya-postgres-pvc",
     metadata=ObjectMetaArgs(
         name=f"postgres-pvc", # Name of the PersistentVolume
         namespace=namespace,
@@ -83,26 +103,26 @@ pulumi.export('postgres::persistent_volume_claim', persistent_volume_claim.metad
 # but for now it should be good enough while in fast development mode
 # -----------------------------------------------------------------------------
 postgres_password = random.RandomPassword(
-    f"wrilya-postgres-password-gen-{stack}",
+    "wrilya-postgres-password-gen",
     length=16,
     special=False)
 
 secret = gcp.secretmanager.Secret(
-    f"wrilya-postgres-password-sm-{stack}",
+    "wrilya-postgres-password-sm",
     secret_id=f"wrilya-postgres-password-{stack}",
     project=gcp_project,
     replication=gcp.secretmanager.SecretReplicationArgs(
         user_managed=gcp.secretmanager.SecretReplicationUserManagedArgs(
             replicas=[
                 gcp.secretmanager.SecretReplicationUserManagedReplicaArgs(
-                    location="us-central1",
+                    location=gcp_region,
                 ),
             ],
         ),
     )
 )
 secret_version = gcp.secretmanager.SecretVersion(
-    f"wrilya-secret-version-sm-{stack}",
+    "wrilya-secret-version-sm",
     secret=secret.id,
     secret_data=postgres_password.result)
 
@@ -110,9 +130,9 @@ secret_version = gcp.secretmanager.SecretVersion(
 # Postgres Secret Map
 # -----------------------------------------------------------------------------
 postgres_secret_map = Secret(
-    f"wrilya-postgres-secret-{stack}",
+    "wrilya-postgres-secret",
     metadata=ObjectMetaArgs(
-        name=f"postgres-secret-{stack}",
+        name=f"postgres-secret",
         namespace=namespace,
         labels={ "app": "postgres" }
     ),
@@ -130,7 +150,7 @@ pulumi.export('postgres::secret::name', postgres_secret_map.metadata["name"])
 # Postgres Config
 # -----------------------------------------------------------------------------
 postgres_config_map = ConfigMap(
-    f"wrilya-postgres-config-{stack}",
+    "wrilya-postgres-config",
     metadata=ObjectMetaArgs(
         name=f"postgres-config",
         namespace=namespace,
@@ -151,15 +171,15 @@ pulumi.export('postgres::config::name', postgres_config_map.metadata["name"])
 # Postgres Deployment
 # -----------------------------------------------------------------------------
 postgres_deployment = StatefulSet(
-    f"wrilya-postgres-db-{stack}",
+    "wrilya-postgres",
     kind="Deployment",
     metadata=ObjectMetaArgs(
-        name="postgres-db",
+        name="postgres",
         namespace=namespace,
         labels={ "app": "postgres" }
     ),
     spec=StatefulSetSpecArgs(
-        service_name="postgres-db",
+        service_name="postgres",
         selector=LabelSelectorArgs(
             match_labels={ "app": "postgres" },
         ),
@@ -188,7 +208,7 @@ postgres_deployment = StatefulSet(
                 containers=[
                     ContainerArgs(
                         image="postgres:16-alpine",
-                        name="postgres-db",
+                        name="postgres",
                         image_pull_policy="IfNotPresent",
                         env_from=[
                             EnvFromSourceArgs(
@@ -262,7 +282,7 @@ postgres_deployment = StatefulSet(
 # Postgres Service
 # -----------------------------------------------------------------------------
 postgres_service = Service(
-    f"wrilya-postgres-service-{stack}",
+    "wrilya-postgres-service",
     metadata=ObjectMetaArgs(
         name=f"postgres",
         namespace=namespace,
@@ -284,7 +304,7 @@ postgres_service = Service(
 # Redis Config
 # -----------------------------------------------------------------------------
 redis_config_map = ConfigMap(
-    f"wrilya-redis-config-{stack}",
+    "wrilya-redis-config",
     metadata=ObjectMetaArgs(
         name="redis-config",
         namespace=namespace,
@@ -303,7 +323,7 @@ pulumi.export('redis::config::name', redis_config_map.metadata["name"])
 # Redis Deployment
 # -----------------------------------------------------------------------------
 redis_deployment = StatefulSet(
-    f"wrilya-redis-{stack}",
+    "wrilya-redis",
     kind="Deployment",
     metadata=ObjectMetaArgs(
         name="redis",
@@ -373,7 +393,7 @@ redis_deployment = StatefulSet(
 # Redis Service
 # -----------------------------------------------------------------------------
 redis_service = Service(
-    f"wrilya-redis-service-{stack}",
+    "wrilya-redis-service",
     metadata=ObjectMetaArgs(
         name="redis",
         namespace=namespace,
@@ -392,10 +412,64 @@ redis_service = Service(
 )
 
 # -----------------------------------------------------------------------------
-# RabbitMQ
+# RabbitMQ Secret Generation
+#
+# If the secret doesn't already exist then we will create a new one.
+# otherwise reuse the current secret.  This might not be the best way to
+# manage/rotate secrets which will need to be revisited for production systems
+# but for now it should be good enough while in fast development mode
+# -----------------------------------------------------------------------------
+rabbitmq_password = random.RandomPassword(
+    "wrilya-rabbitmq-password-gen",
+    length=16,
+    special=False)
+
+rabbitmq_secret = gcp.secretmanager.Secret(
+    "wrilya-rabbitmq-password-sm",
+    secret_id=f"wrilya-rabbitmq-password-{stack}",
+    project=gcp_project,
+    replication=gcp.secretmanager.SecretReplicationArgs(
+        user_managed=gcp.secretmanager.SecretReplicationUserManagedArgs(
+            replicas=[
+                gcp.secretmanager.SecretReplicationUserManagedReplicaArgs(
+                    location=gcp_region,
+                ),
+            ],
+        ),
+    )
+)
+rabbitmq_secret_version = gcp.secretmanager.SecretVersion(
+    "wrilya-rabbitmq-secret-version-sm",
+    secret=secret.id,
+    secret_data=postgres_password.result)
+
+# -----------------------------------------------------------------------------
+# RabbitMQ Secret Map
+# -----------------------------------------------------------------------------
+rabbitmq_secret_map = Secret(
+    "wrilya-rabbitmq-secret",
+    metadata=ObjectMetaArgs(
+        name="rabbitmq-secret",
+        namespace=namespace,
+        labels={ "app": "rabbitmq" }
+    ),
+    string_data={
+        "RABBITMQ_PASS": postgres_password.result,
+        "RABBITMQ_DEFAULT_PASS": postgres_password.result,
+    }
+)
+
+pulumi.export('rabbitmq::secret::id', rabbitmq_secret_map.id)
+pulumi.export('rabbitmq::secret::name', rabbitmq_secret_map.metadata["name"])
+
+
+# -----------------------------------------------------------------------------
+# RabbitMQ Config Map
+#
+# Default environment args that are not sensitive
 # -----------------------------------------------------------------------------
 rabbitmq_config_map = ConfigMap(
-    f"wrilya-rabbitmq-config-{stack}",
+    "wrilya-rabbitmq-config",
     metadata=ObjectMetaArgs(
         name="rabbitmq-config",
         namespace=namespace,
@@ -405,9 +479,7 @@ rabbitmq_config_map = ConfigMap(
         "RABBITMQ_HOST": f"rabbitmq.{namespace}.svc.cluster.local",
         "RABBITMQ_PORT": "5672", 
         "RABBITMQ_USER": "guest",
-        "RABBITMQ_PASS": "guest",
         "RABBITMQ_DEFAULT_USER": "guest",
-        "RABBITMQ_DEFAULT_PASS": "guest",
     }
 )
 
@@ -418,7 +490,7 @@ pulumi.export('rabbitmq::config::name', rabbitmq_config_map.metadata["name"])
 # Rabbitmq Deployment
 # -----------------------------------------------------------------------------
 rabbitmq_deployment = StatefulSet(
-    f"wrilya-rabbitmq-{stack}",
+    "wrilya-rabbitmq",
     kind="Deployment",
     metadata=ObjectMetaArgs(
         name="rabbitmq",
@@ -456,6 +528,12 @@ rabbitmq_deployment = StatefulSet(
                                     optional=False
                                 )
                             ),
+                            EnvFromSourceArgs(
+                                secret_ref=SecretEnvSourceArgs(
+                                    name=rabbitmq_secret_map.metadata["name"],
+                                    optional=False
+                                )
+                            )
                         ],
                         liveness_probe=ProbeArgs(
                             exec_=ExecActionArgs(
@@ -491,7 +569,7 @@ rabbitmq_deployment = StatefulSet(
 # Rabbitmq Service
 # -----------------------------------------------------------------------------
 rabbitmq_service = Service(
-    f"wrilya-rabbitmq-service-{stack}",
+    "wrilya-rabbitmq-service",
     metadata=ObjectMetaArgs(
         name="rabbitmq",
         namespace=namespace,

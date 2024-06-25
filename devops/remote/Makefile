@@ -19,59 +19,49 @@ help:
 up.base:
 	@echo ======== Update - wrilya-base ========
 	@pulumi up --yes --config dev --cwd ./wrilya-base
-	@echo ======== Update - Complete ========
 
-#🏃 up.dev: @ Launch the service
-up.dev: up.base up.dev.infra up.dev.env up.dev.app up.dev.ingress
-	@echo ======== Dev Ready ========
+#🏃 dev.up.dev: @ Launch the service
+dev.up.setup: up.base dev.up.infra
+	@echo ======== dev.up.setup Complete ========
 
-up.dev.infra:
+dev.up.service: dev.up.env dev.up.app dev.up.ingress
+	@echo ======== dev.up.service Complete ========
+
+dev.up.infra:
 	@echo ======== Update - wrilya-infra ========
 	@pulumi up --yes --config dev --cwd ./wrilya-infra
-	@echo ======== Update - Complete ========
 
-up.dev.env:
+dev.up.env:
 	@echo ======== Update - wrilya-env ========
 	@pulumi up --yes --config dev --cwd ./wrilya-env
-	@echo ======== Update - Complete ========
 
-up.dev.app:
+dev.up.app:
 	@echo ======== Update - wrilya-app ========
 	@pulumi up --yes --config dev --cwd ./wrilya-app
-	@echo ======== Update - Complete ========
 
-up.dev.ingress:
+dev.up.ingress:
 	@echo ======== Update - wrilya-ingress ========
 	@pulumi up --yes --config dev --cwd ./wrilya-ingress
-	@echo ======== Update - Complete ========
 
 #🧹 down.dev: @ Delete the whole service
 dev.down: dev.down.ingress dev.down.app dev.down.env dev.down.infra
-	@echo ======== Releasing - Complete ========
+	@echo ======== Release - Complete ========
 
 #🧹 dev.down.infra: @ Delete the whole service
 dev.down.infra: 
 	@echo ======== Releasing - wrilya-infra ========
 	@pulumi down --yes --cwd ./wrilya-infra --config-file Pulumi.dev.yaml
-	@echo ======== Releasing - Complete ========
 
 #🧹 dev.down.infra: @ Delete the whole service
 dev.down.env: 
 	@echo ======== Releasing - wrilya-env ========
 	@pulumi down --yes --cwd ./wrilya-env --config-file Pulumi.dev.yaml
-	@echo ======== Releasing - Complete ========
 
 dev.down.app: 
 	@echo ======== Releasing - wrilya-app ========
 	@pulumi down --yes --cwd ./wrilya-app --config-file Pulumi.dev.yaml
-	@echo ======== Releasing - Complete ========
 
 dev.down.ingress: 
 	@echo ======== Releasing - wrilya-ingress ========
 	@pulumi down --yes --cwd ./wrilya-ingress --config-file Pulumi.dev.yaml
-	@echo ======== Releasing - Complete ========
 
-#🏗️  setup: @   Download any deps and run the setup for the environment
-setup:
-	@echo Setup started...
-	@echo Setup complete...

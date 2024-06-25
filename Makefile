@@ -5,7 +5,8 @@
 
 default: help
 
-GKE_CLUSTER := wrilya-gke-cluster-dev-1df3786
+GKE_CLUSTER_DEV := $(shell cat devops/remote/dev.cluster)
+GKE_CLUSTER_PROD := $(shell cat devops/remote/prod.cluster)
 GKE_REGION := us-central1
 
 SHELL := /bin/bash
@@ -23,6 +24,9 @@ RELAYER_VSN := 0.1.0
 #❓ help: @ Displays this message
 help:
 	@grep -E '[a-zA-Z\.\-]+:.*?@ .*$$' $(firstword $(MAKEFILE_LIST))| tr -d '#'  | awk 'BEGIN {FS = ":.*?@ "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
+
+blop:
+	@echo $(GKE_CLUSTER)
 
 # 🏃 run: @ Start up local client
 run: 
@@ -49,9 +53,14 @@ login:
 	@gcloud auth application-default login
 	@echo ---------- Remote Services Login Finished ----------
 
-auth:
+auth.dev:
 	@echo ---------- Authorizing started ----------
-	@gcloud container clusters get-credentials $(GKE_CLUSTER) --region $(GKE_REGION)
+	@gcloud container clusters get-credentials $(GKE_CLUSTER_DEV) --region $(GKE_REGION)
+	@echo ---------- Authorizing Finished ----------
+
+auth.prod:
+	@echo ---------- Authorizing started ----------
+	@gcloud container clusters get-credentials $(GKE_CLUSTER_PROD) --region $(GKE_REGION)
 	@echo ---------- Authorizing Finished ----------
 
 #------------------------------------------------------------------------------
