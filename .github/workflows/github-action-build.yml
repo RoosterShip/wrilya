@@ -33,4 +33,5 @@ jobs:
         uses: foundry-rs/foundry-toolchain@v1
       - name: Install PNPM files
         run: pnpm install
+      - run: cd packages/contracts && make build
       - run: make build.service

@@ -111,7 +111,11 @@ build.wrilya:
 	@docker build --build-arg="RELEASE_TYPE=wrilya" -t $(REGISTERY_PATH)/wrilya:v$(WRILYA_VSN) -t $(REGISTERY_PATH)/wrilya:latest -f ./builder/server/Dockerfile ./packages/server
 	@docker image push $(REGISTERY_PATH)/wrilya --all-tags
 
-build.client:
+build.contracts:
+	@echo ------------------- Wrilya ----------------
+	$(MAKE) -C packages/contracts build
+
+build.client: build.contracts
 	@echo ------------------- Client ----------------
 	@cd packages/client && pnpm run build
 	@docker build -t $(REGISTERY_PATH)/client:v$(CLIENT_VSN) -t $(REGISTERY_PATH)/client:latest -f ./builder/client/Dockerfile ./packages/client
