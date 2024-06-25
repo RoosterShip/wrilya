@@ -16,6 +16,14 @@ ELIXIR_VSN := 1.17.1
 WRILYA_VSN := 0.1.0
 CLIENT_VSN := 0.1.0
 RELAYER_VSN := 0.1.0
+ifndef SHA
+override SHA=0
+endif
+
+ifndef BUILD
+override BUILD=develop
+endif
+
 
 #------------------------------------------------------------------------------
 # General operations
@@ -108,7 +116,7 @@ build.service: build.wrilya build.client build.relayer
 build.wrilya:
 	@echo ------------------- Wrilya ----------------
 	@cd packages/server && mix deps.get
-	@docker build --build-arg="RELEASE_TYPE=wrilya" -t $(REGISTERY_PATH)/wrilya:v$(WRILYA_VSN) -t $(REGISTERY_PATH)/wrilya:latest -f ./builder/server/Dockerfile ./packages/server
+	@docker build --build-arg="RELEASE_TYPE=wrilya" -t $(REGISTERY_PATH)/wrilya:$(BUILD) -t $(REGISTERY_PATH)/wrilya:sha_$(SHA) -t $(REGISTERY_PATH)/wrilya:v$(WRILYA_VSN) -t $(REGISTERY_PATH)/wrilya:latest -f ./builder/server/Dockerfile ./packages/server
 	@docker image push $(REGISTERY_PATH)/wrilya --all-tags
 
 build.contracts:
@@ -118,12 +126,12 @@ build.contracts:
 build.client: build.contracts
 	@echo ------------------- Client ----------------
 	@cd packages/client && pnpm run build
-	@docker build -t $(REGISTERY_PATH)/client:v$(CLIENT_VSN) -t $(REGISTERY_PATH)/client:latest -f ./builder/client/Dockerfile ./packages/client
+	@docker build -t $(REGISTERY_PATH)/client:$(BUILD) -t $(REGISTERY_PATH)/client:sha_$(SHA) $(REGISTERY_PATH)/client:v$(CLIENT_VSN) -t $(REGISTERY_PATH)/client:latest -f ./builder/client/Dockerfile ./packages/client
 	@docker image push $(REGISTERY_PATH)/client --all-tags
 
 build.relayer:
 	@echo ------------------- Relayer ----------------
 	@rm -rf packages/relayer/dist
 	@cd packages/relayer && pnpm --filter=relayer deploy dist --prod
-	@docker build -t $(REGISTERY_PATH)/relayer:v$(RELAYER_VSN) -t $(REGISTERY_PATH)/relayer:latest -f ./builder/relayer/Dockerfile ./packages/relayer
+	@docker build -t $(REGISTERY_PATH)/relayer:$(BUILD) -t $(REGISTERY_PATH)/relayer:sha_$(SHA) $(REGISTERY_PATH)/relayer:v$(RELAYER_VSN) -t $(REGISTERY_PATH)/relayer:latest -f ./builder/relayer/Dockerfile ./packages/relayer
 	@docker image push $(REGISTERY_PATH)/relayer --all-tags
