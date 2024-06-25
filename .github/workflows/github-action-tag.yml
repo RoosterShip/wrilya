@@ -54,12 +54,12 @@ jobs:
         if: ${{ github.ref_name == 'main'}}
         run: |
           docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:main
-          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:main
-          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:main
+          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/client:main
+          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:main
 
       - name: Push Test Wrilya Remote Image Build Tag
         if: ${{ github.ref_name == 'test'}}
         run: |
           docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:test
-          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:test
-          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/wrilya:test
+          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/client:test
+          docker push ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya/relayer:test
