@@ -29,6 +29,8 @@ jobs:
           mix hex.repo add oban https://getoban.pro/repo \
             --fetch-public-key SHA256:4/OSKi0NRF91QVVXlGAhb/BIMLnK8NHcx/EWs+aIWPc \
             --auth-key ${{secrets.OBAN_LICENSE_KEY}}
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
       - name: Install PNPM files
         run: pnpm install
       - run: make build.service
