@@ -6,6 +6,7 @@
 import {
   createPublicClient,
   fallback,
+  Transport,
   webSocket,
   http,
   createWalletClient,
@@ -38,13 +39,23 @@ export type SetupNetworkResult = Awaited<ReturnType<typeof setupNetwork>>;
 export async function setupNetwork() {
   const networkConfig = await getNetworkConfig();
 
+  const fallbacks: Transport[] = [];
+
+  if (null != networkConfig.chain.rpcUrls.default.http) {
+    fallbacks.push(http());
+  }
+
+  if (null != networkConfig.chain.rpcUrls.default.webSocket) {
+    fallbacks.push(webSocket());
+  }
+
   /*
    * Create a viem public (read only) client
    * (https://viem.sh/docs/clients/public.html)
    */
   const clientOptions = {
     chain: networkConfig.chain,
-    transport: transportObserver(fallback([http(), webSocket()])),
+    transport: transportObserver(fallback(fallbacks)),
     pollingInterval: 1000,
   } as const satisfies ClientConfig;
 
