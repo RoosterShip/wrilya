@@ -126,12 +126,12 @@ build.contracts:
 build.client: build.contracts
 	@echo ------------------- Client ----------------
 	@cd packages/client && pnpm run build
-	@docker build -t $(REGISTERY_PATH)/client:$(BUILD) -t $(REGISTERY_PATH)/client:sha_$(SHA) $(REGISTERY_PATH)/client:v$(CLIENT_VSN) -t $(REGISTERY_PATH)/client:latest -f ./builder/client/Dockerfile ./packages/client
+	@docker build -t $(REGISTERY_PATH)/client:$(BUILD) -t $(REGISTERY_PATH)/client:sha_$(SHA) -t $(REGISTERY_PATH)/client:v$(CLIENT_VSN) -t $(REGISTERY_PATH)/client:latest -f ./builder/client/Dockerfile ./packages/client
 	@docker image push $(REGISTERY_PATH)/client --all-tags
 
 build.relayer:
 	@echo ------------------- Relayer ----------------
 	@rm -rf packages/relayer/dist
 	@cd packages/relayer && pnpm --filter=relayer deploy dist --prod
-	@docker build -t $(REGISTERY_PATH)/relayer:$(BUILD) -t $(REGISTERY_PATH)/relayer:sha_$(SHA) $(REGISTERY_PATH)/relayer:v$(RELAYER_VSN) -t $(REGISTERY_PATH)/relayer:latest -f ./builder/relayer/Dockerfile ./packages/relayer
+	@docker build -t $(REGISTERY_PATH)/relayer:$(BUILD) -t $(REGISTERY_PATH)/relayer:sha_$(SHA) -t $(REGISTERY_PATH)/relayer:v$(RELAYER_VSN) -t $(REGISTERY_PATH)/relayer:latest -f ./builder/relayer/Dockerfile ./packages/relayer
 	@docker image push $(REGISTERY_PATH)/relayer --all-tags
