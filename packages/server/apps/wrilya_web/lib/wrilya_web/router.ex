@@ -21,9 +21,14 @@ defmodule WrilyaWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", WrilyaWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", WrilyaWeb do
+    pipe_through :api
+
+    scope "/status" do
+      get "/healthy", StatusController, :healthy
+      get "/ready", StatusController, :ready
+    end
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:wrilya_web, :dev_routes) do

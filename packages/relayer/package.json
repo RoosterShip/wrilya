@@ -1,0 +1,39 @@
+{
+  "name": "relayer",
+  "version": "1.0.0",
+  "description": "",
+  "private": "true",
+  "type": "module",
+  "scripts": {
+    "dev": "wait-port localhost:4000 && pnpm tsx src/main.ts",
+    "start": "pnpm tsx src/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@latticexyz/common": "2.0.12",
+    "@latticexyz/dev-tools": "2.0.12",
+    "@latticexyz/recs": "2.0.12",
+    "@latticexyz/schema-type": "2.0.12",
+    "@latticexyz/store-sync": "2.0.12",
+    "@latticexyz/utils": "2.0.12",
+    "@latticexyz/world": "2.0.12",
+    "@types/amqplib": "^0.10.5",
+    "@types/express": "^4.17.21",
+    "@types/node": "^18.15.11",
+    "amqplib": "^0.10.4",
+    "client": "workspace:*",
+    "contracts": "workspace:*",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "rxjs": "7.5.5",
+    "tsx": "^4.11.2",
+    "typescript": "^5.4.5",
+    "viem": "2.9.20",
+    "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "wait-port": "^1.0.4"
+  }
+}

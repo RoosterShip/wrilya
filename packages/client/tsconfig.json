@@ -1,14 +1,30 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
+		// Options from Lattice.xyz
 		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"target": "es2021",
+    "lib": [
+      "ESNext",
+      // This is temporarily added until we can unbundle JS files and only include this when we import things that use DOM APIs
+      // TODO: fix me
+      "DOM"
+    ],
+		"skipLibCheck": true,
 		"strict": true,
-		"noEmit": false,
-		"importHelpers": true,
-		"moduleResolution": "node",
+		"declaration": false,
 		"esModuleInterop": true,
+		"noErrorTruncation": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+		"noImplicitAny": false,	
+		// Different then generic tsconfig.base.json from lattice	
+		"noEmit": false,
+
+		// Unique to Phaser
+		"importHelpers": true,
 		"allowSyntheticDefaultImports": true,
-		"sourceMap": true,
 		"baseUrl": "./src",
 		"paths": {
 		  "~/*": ["./*"]

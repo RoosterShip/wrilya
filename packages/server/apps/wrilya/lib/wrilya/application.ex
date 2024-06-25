@@ -9,12 +9,12 @@ defmodule Wrilya.Application do
   def start(_type, _args) do
     children = [
       Wrilya.Repo,
+      {Oban, Application.fetch_env!(:wrilya, Oban)},
       {DNSCluster, query: Application.get_env(:wrilya, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Wrilya.PubSub},
-      # Start the Finch HTTP client for sending emails
-      {Finch, name: Wrilya.Finch}
-      # Start a worker by calling: Wrilya.Worker.start_link(arg)
-      # {Wrilya.Worker, arg}
+      {Finch, name: Wrilya.Finch},
+      Wrilya.Discord.Supervisor,
+      Wrilya.Chain.Supervisor,
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: Wrilya.Supervisor)

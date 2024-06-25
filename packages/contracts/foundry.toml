@@ -22,5 +22,20 @@ extra_output_files = [
 ]
 fs_permissions = [{ access = "read", path = "./"}]
 
-[profile.lattice-testnet]
-eth_rpc_url = "https://follower.testnet-chain.linfra.xyz"
+[profile.local]
+eth_rpc_url = "http://localhost:8545"
+
+[profile.test]
+eth_rpc_url = "https://sepolia-rollup.arbitrum.io/rpc"
+
+[profile.main]
+eth_rpc_url = "https://sepolia-rollup.arbitrum.io/rpc"
+
+[profile.garnet]
+eth_rpc_url = "https://rpc.garnetchain.com"
+
+[profile.redstone]
+eth_rpc_url = "https://rpc.redstonechain.com"
+
+[rpc_endpoints]
+sepolia = "${GOVERNANCE_CHAIN_RPC}"

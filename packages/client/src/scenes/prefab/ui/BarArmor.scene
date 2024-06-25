@@ -1,0 +1,165 @@
+{
+    "id": "c8e43e98-08a2-4bff-b163-54a5e4cd030c",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "069a8639-c10b-4ad2-8fac-c2fbfeb471f1",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "882804c6-288b-46fc-a63d-961b619b882b",
+                    "label": "dot_Armor_Table",
+                    "texture": {
+                        "key": "Dot_Armor_Table"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "8e919b1c-fc5d-4dfe-b258-3a28aa2e0542",
+                    "label": "imgDot_0",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Dot_Blue"
+                    },
+                    "x": 6,
+                    "y": 6,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "bc468123-1306-4e7b-8aa3-f75487ab444c",
+                    "label": "imgDot_1",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Dot_Blue"
+                    },
+                    "x": 36,
+                    "y": 6,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "9265f80e-1194-49f6-b7db-5a5cabc8aeaf",
+                    "label": "imgDot_2",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Dot_Blue"
+                    },
+                    "x": 66,
+                    "y": 6,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "a5f09eb4-5f48-43fe-ad8d-3dbf8bf795fa",
+                    "label": "imgDot_3",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Dot_Blue"
+                    },
+                    "x": 96,
+                    "y": 6,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "599aa09c-cb4d-4d80-beee-59b219093131",
+                    "label": "imgDot_4",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Dot_Blue"
+                    },
+                    "x": 126,
+                    "y": 6,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "cfa2606c-d7d9-40a2-8841-9a2e1cdeefad",
+                    "label": "imgDot_5",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Dot_Blue"
+                    },
+                    "x": 156,
+                    "y": 6,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "246c9ebe-6021-40b6-a665-6917035c8272",
+                    "label": "imgDot_6",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Dot_Blue"
+                    },
+                    "x": 216,
+                    "y": 6,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "19fd6c4c-a565-4d44-b175-f92b7aa092bd",
+                    "label": "imgDot_7",
+                    "texture": {
+                        "key": "Dot_Blue"
+                    },
+                    "x": 186,
+                    "y": 6,
+                    "originX": 0,
+                    "originY": 0
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "value",
+            "label": "Current Value",
+            "tooltip": "",
+            "defValue": 0,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "max",
+            "label": "Max Value",
+            "tooltip": "",
+            "defValue": 0,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        }
+    ]
+}

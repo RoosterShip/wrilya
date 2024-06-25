@@ -1,0 +1,286 @@
+{
+    "id": "91ea6b66-2c42-4117-a976-41168058cd8f",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Wallet",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "prefabId": "0a31e1b7-f588-48a3-a11d-307728a09cb1",
+            "id": "d3bf4e31-b9b2-4446-a939-955e64efc852",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "bgStarField",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "prefabId": "080a0bd3-0ffe-479b-8b31-1d6781e51df7",
+            "id": "875913e4-e486-4fc3-a891-2064e513c616",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "btnSceneLoadBack",
+            "x": 0,
+            "y": 615
+        },
+        {
+            "type": "Image",
+            "id": "6313a634-f835-45ae-a82f-b2e1ff99997d",
+            "label": "bgWindow",
+            "texture": {
+                "key": "Window"
+            },
+            "x": 640,
+            "y": 360,
+            "scaleX": 0.9,
+            "scaleY": 0.9
+        },
+        {
+            "prefabId": "dbf2fe97-db46-4c62-938a-5cc6a4f57753",
+            "id": "ebcdceae-b559-482b-a4e6-fd8aae07f4d2",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "btnAddress",
+            "scope": "CLASS",
+            "x": 637,
+            "y": 77,
+            "nestedPrefabs": [
+                {
+                    "prefabId": "40fdd221-98d8-4013-a1c9-8d8ad3490c91",
+                    "id": "cd224a77-05ce-4da8-a5b4-9bc704e232c7",
+                    "unlock": [
+                        "fontSize",
+                        "text",
+                        "originX",
+                        "originY"
+                    ],
+                    "label": "text",
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "text": "0xFEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+                    "fontSize": "32px"
+                }
+            ]
+        },
+        {
+            "type": "Text",
+            "id": "8c1d1659-5d74-4291-88c3-7c3c93c57f82",
+            "label": "lblTokenBalance",
+            "x": 272,
+            "y": 205,
+            "text": "Token Balance",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Text",
+            "id": "a052310a-b59e-4278-b0d9-8bce4e4df671",
+            "label": "lblTokenBalanceValue",
+            "scope": "CLASS",
+            "x": 615,
+            "y": 205,
+            "text": "0",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Text",
+            "id": "b1449b19-df4d-44f8-a0cc-2dbb3960de8d",
+            "label": "lblStakeBalance",
+            "x": 273,
+            "y": 273,
+            "text": "Staked Balance",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Text",
+            "id": "fbc9c351-e4da-43d9-9f3a-237808d0b468",
+            "label": "lblStakeBalanceValue",
+            "scope": "CLASS",
+            "x": 615,
+            "y": 275,
+            "text": "0",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Text",
+            "id": "88c8dd38-8323-4869-8d41-44d581e71bb1",
+            "label": "lblCreditBalance",
+            "x": 273,
+            "y": 343,
+            "text": "Credit Balance",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Text",
+            "id": "d3626540-a38c-43dd-ae8b-7afd068cd790",
+            "label": "lblCreditBalanceValue",
+            "scope": "CLASS",
+            "x": 615,
+            "y": 344,
+            "text": "0",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Text",
+            "id": "052009d7-4f36-4958-aaf6-ade64eabde0a",
+            "label": "lblDebitBalance",
+            "x": 272,
+            "y": 411,
+            "text": "Debit Balance",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Text",
+            "id": "55245687-3f01-4436-a628-5aae797c68f2",
+            "label": "lblDebitBalanceValue",
+            "scope": "CLASS",
+            "x": 615,
+            "y": 415,
+            "text": "0",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Text",
+            "id": "c3e4dde6-f5fc-4f0a-9828-51ef8863d0be",
+            "label": "lblUnstakingBalance",
+            "x": 270,
+            "y": 479,
+            "text": "Unstaking",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Text",
+            "id": "ad7b1626-d3d4-4953-8b8d-9a746ec69c3d",
+            "label": "lblUnstakeBalanceValue",
+            "scope": "CLASS",
+            "x": 615,
+            "y": 475,
+            "text": "0",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Image",
+            "id": "1909258c-d038-4756-b925-f52acf54ec50",
+            "label": "btnMint",
+            "texture": {
+                "key": "Table_02"
+            },
+            "x": 950,
+            "y": 228,
+            "scaleX": 0.4,
+            "scaleY": 0.4
+        },
+        {
+            "type": "Text",
+            "id": "af6e12d6-cef9-432c-8463-0a02452941fe",
+            "label": "lblMint",
+            "x": 950,
+            "y": 225,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "Buy",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Rectangle",
+            "id": "74d4f7c6-9b52-4b78-b4c4-5ee6aa7ec42b",
+            "label": "hbMint",
+            "scope": "CLASS",
+            "x": 950,
+            "y": 226,
+            "scaleX": 0.4,
+            "scaleY": 0.4,
+            "width": 350,
+            "height": 101
+        },
+        {
+            "type": "Image",
+            "id": "04e20066-fdb9-4d00-ac52-5feffbf79188",
+            "label": "btnStake",
+            "texture": {
+                "key": "Table_02"
+            },
+            "x": 950,
+            "y": 297,
+            "scaleX": 0.4,
+            "scaleY": 0.4
+        },
+        {
+            "type": "Text",
+            "id": "cd396dc7-d394-40a7-8a47-c5908f559801",
+            "label": "lblStake",
+            "x": 950,
+            "y": 294,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "Stake",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Rectangle",
+            "id": "1e84e8b6-a1d3-4842-a5ba-63d6df56a1cd",
+            "label": "hbStake",
+            "scope": "CLASS",
+            "x": 950,
+            "y": 296,
+            "scaleX": 0.4,
+            "scaleY": 0.4,
+            "width": 350,
+            "height": 101
+        },
+        {
+            "type": "Image",
+            "id": "5721a6da-ccde-4682-97b2-2b09d11d1ccd",
+            "label": "btnPay",
+            "texture": {
+                "key": "Table_02"
+            },
+            "x": 950,
+            "y": 434,
+            "scaleX": 0.4,
+            "scaleY": 0.4
+        },
+        {
+            "type": "Text",
+            "id": "ddc96c53-099c-4297-aa17-73186277fdda",
+            "label": "lblPay",
+            "x": 950,
+            "y": 431,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "Pay",
+            "fontSize": "32px"
+        },
+        {
+            "type": "Rectangle",
+            "id": "aaf80bbb-0d6a-41c8-b042-fc406947b60d",
+            "label": "hbPay",
+            "scope": "CLASS",
+            "x": 950,
+            "y": 432,
+            "scaleX": 0.4,
+            "scaleY": 0.4,
+            "width": 350,
+            "height": 101
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

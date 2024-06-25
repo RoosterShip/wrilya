@@ -1,0 +1,10 @@
+name: wrilya-base
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: Setup common/cross deployment services
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: kubernetes-gcp-python

@@ -2,10 +2,19 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin")
+
+let globalVals = "./src/globalsProd.ts";
+
+// eslint-disable-next-line no-undef
+if (process.env.NODE_ENV === "development") {
+    globalVals = "./src/globalsDev.ts"
+}
 
 module.exports = {
     entry: {
+        globals: "./src/globals.ts",
+        values: globalVals,
         main: "./src/index.ts"
     },
     optimization: {
@@ -56,6 +65,12 @@ module.exports = {
         open: true,
         hot: true,
         port: 8080,
+    },
+    //watch: true,
+    watchOptions: {
+        poll: 1000, // Check for changes every second
+        ignored: /node_modules/,
+        followSymlinks: true,
     },
     plugins: [
         new HtmlWebpackPlugin({

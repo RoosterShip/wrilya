@@ -7,19 +7,42 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 if config_env() == :prod do
-  database_url =
-    System.get_env("DATABASE_URL") ||
+
+  username =
+    System.get_env("POSTGRES_USER") ||
       raise """
-      environment variable DATABASE_URL is missing.
-      For example: ecto://USER:PASS@HOST/DATABASE
+      environment variable POSTGRES_USER is missing.
+      Please review the Pulumi config files to find it.
       """
+  password =
+    System.get_env("POSTGRES_PASSWORD") ||
+      raise """
+      environment variable POSTGRES_PASSWORD is missing.
+      Please review the Pulumi config files to find it.
+      """
+  hostname =
+    System.get_env("POSTGRES_HOST") ||
+      raise """
+      environment variable POSTGRES_HOST is missing.
+      Please review the Pulumi config files to find it.
+      """
+  database =
+    System.get_env("WRILYA_DATABASE") ||
+      raise """
+      environment variable WRILYA_DATABASE is missing.
+      Please review the Pulumi config files to find it.
+      """
+
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
   config :wrilya, Wrilya.Repo,
     # ssl: true,
-    url: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+    username: username,
+    password: password,
+    hostname: hostname,
+    database: database,
+    pool_size: String.to_integer(System.get_env("POSTGRES_POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
 
   import Config
@@ -43,6 +66,7 @@ if config_env() == :prod do
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: String.to_integer(System.get_env("PORT") || "4000")
     ],
+    server: true,
     secret_key_base: secret_key_base
 
   # ## Using releases
@@ -105,5 +129,15 @@ if config_env() == :prod do
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
 
+
   config :wrilya, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
+
+  discord_token =
+    System.get_env("DISCORD_TOKEN") ||
+      raise """
+      environment variable "DISCORD_TOKEN" is missing.
+      Please fetch this info from discord and set it as an environment variable
+      """
+  config :nostrum,
+    token: discord_token
 end

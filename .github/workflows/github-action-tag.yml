@@ -1,0 +1,38 @@
+on:
+  push:
+    branches: ["main"]
+
+env:
+  PROJECT_ID: rooster-ship-framework
+  REGION: us-central1
+
+jobs:
+  build_packages:
+    runs-on: ubuntu-latest
+    steps:
+      #------------------------------------------------------------------------
+      # Login into Google Artifact Registry for down/up load of images
+      - name: Login to GAR
+        uses: docker/login-action@v3
+        with:
+          registry: us-central1-docker.pkg.dev
+          username: _json_key
+          password: ${{ secrets.ARTIFACT_SA }}
+
+      #------------------------------------------------------------------------
+      # Update Tags
+      
+      - name: Pull Wrilya Remote Image
+        run: docker pull ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:sha_${{github.event.pull_request.base.sha}}
+      
+      - name: Tag Wrilya Local Image Sha
+        run: docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:sha_${{github.event.pull_request.base.sha}} ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:sha_${{github.sha}}
+      
+      - name: Push Wrilya Remote Image Sha Tag
+        run: docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:sha_${{github.sha}}
+      
+      - name: Tag Wrilya Remote Image Build
+        run: docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:sha_${{github.event.pull_request.base.sha}} ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:${{github.ref_name}}
+      
+      - name: Push Wrilya Remote Image Build Tag
+        run: docker tag ${{env.REGION}}-docker.pkg.dev/rooster-ship-framework/wrilya:${{github.ref_name}}

@@ -1,11 +1,13 @@
 #------------------------------------------------------------------------------
 # Make setup
 #------------------------------------------------------------------------------
-.PHONY: help build clean insepct test
+.PHONY: help build clean insepct test deploy.governance
 
 default: help
 
 SHELL := /bin/bash
+
+#include .env
 
 #------------------------------------------------------------------------------
 # General operations
@@ -47,3 +49,16 @@ test:
 	@echo testing started...
 	@pnpm test
 	@echo testing complete.
+
+deploy.test.vote:
+	@forge create --legacy --optimize --optimizer-runs 5000 --via-ir --rpc-url $(GOVERNANCE_TEST_CHAIN_RPC) --chain-id $(GOVERNANCE_TEST_CHAIN_ID) --private-key $(GOVERNANCE_TEST_PRIVATE_KEY) src/governance/vote.sol:WrilyaVoteToken
+
+deploy.test.governor:
+	@forge create --legacy --optimize --optimizer-runs 4999 --via-ir  --rpc-url $(GOVERNANCE_TEST_CHAIN_RPC) --chain-id $(GOVERNANCE_TEST_CHAIN_ID) --private-key $(GOVERNANCE_TEST_PRIVATE_KEY) src/governance/governor.sol:WrilyaGovernor  --constructor-args $(GOVERNANCE_TEST_VOTE_ADDRESS)
+
+deploy.live.vote:
+	@forge create --legacy --optimize --optimizer-runs 5000 --via-ir --rpc-url $(GOVERNANCE_LIVE_CHAIN_RPC) --chain-id $(GOVERNANCE_LIVE_CHAIN_ID) --private-key $(GOVERNANCE_LIVE_PRIVATE_KEY) src/governance/vote.sol:WrilyaVoteToken
+
+deploy.live.governor:
+	@forge create --legacy --optimize --optimizer-runs 5000 --via-ir --rpc-url $(GOVERNANCE_LIVE_CHAIN_RPC) --chain-id $(GOVERNANCE_LIVE_CHAIN_ID) --private-key $(GOVERNANCE_LIVE_PRIVATE_KEY) src/governance/governor.sol:WrilyaGovernor  --constructor-args $(GOVERNANCE_LIVE_VOTE_ADDRESS) 
+

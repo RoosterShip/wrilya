@@ -1,0 +1,75 @@
+{
+    "id": "aa865e17-9413-47ad-a532-cad6166777b3",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "88ee5360-1169-4e44-ad45-addf07f0933c",
+            "label": "container_1",
+            "x": 1090,
+            "y": 365,
+            "list": [
+                {
+                    "type": "Triangle",
+                    "id": "a9f4ab79-67ad-44a2-8bf3-5bdd7a57b6cd",
+                    "label": "triangle",
+                    "scope": "CLASS",
+                    "x": -993,
+                    "y": 130,
+                    "angle": -180,
+                    "isFilled": true
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "3a230007-8bb0-4e7a-9288-0f02ab2e8628",
+                    "label": "rectangle",
+                    "scope": "CLASS",
+                    "x": -995,
+                    "y": -80,
+                    "isFilled": true,
+                    "width": 40,
+                    "height": 300
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "velocity",
+            "label": "Velocity",
+            "tooltip": "How fast the the bounce will cycle",
+            "defValue": 5,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        },
+        {
+            "name": "distance",
+            "label": "Distance",
+            "tooltip": "How Many Pixels to go up and down",
+            "defValue": 100,
+            "customDefinition": false,
+            "type": {
+                "id": "number"
+            }
+        }
+    ]
+}

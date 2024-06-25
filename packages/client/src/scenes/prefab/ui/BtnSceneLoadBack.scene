@@ -1,0 +1,84 @@
+{
+    "id": "080a0bd3-0ffe-479b-8b31-1d6781e51df7",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "54c2c21a-f332-4f29-b522-442a6fce3615",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "175a2c55-cc42-436b-a7d3-b2497c066fd5",
+                    "label": "btnBackA",
+                    "displayName": "btnBackA",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Backward_BTNA"
+                    },
+                    "scaleX": 0.5,
+                    "scaleY": 0.5,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "4a128502-7a45-468d-9f4f-f380fa96bf6c",
+                    "label": "btnBack",
+                    "displayName": "btnBack",
+                    "useGameObjectName": true,
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "Backward_BTN"
+                    },
+                    "scaleX": 0.5,
+                    "scaleY": 0.5,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "d2e71f88-e69d-41d7-910b-31aca68ac2da",
+                    "label": "recHitBox",
+                    "displayName": "recHitBox",
+                    "scope": "CLASS",
+                    "scaleX": 0.5,
+                    "scaleY": 0.5,
+                    "originX": 0,
+                    "originY": 0,
+                    "width": 210,
+                    "height": 210
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "nextScene",
+            "label": "Next Scene",
+            "tooltip": "The next scene to load up",
+            "defValue": "Main",
+            "customDefinition": false,
+            "type": {
+                "id": "scene-key"
+            }
+        }
+    ]
+}
