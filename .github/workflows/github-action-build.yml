@@ -26,6 +26,6 @@ jobs:
       - name: "Use gcloud CLI"
         run: "gcloud info"
       - name: Login to GAR
-        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet --access-token-file ${{env.GOOGLE_APPLICATION_CREDENTIALS}}
 
       - run: make build.service
