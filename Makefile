@@ -107,6 +107,7 @@ build.service: build.wrilya build.client build.relayer
 
 build.wrilya:
 	@echo ------------------- Wrilya ----------------
+	@cd packages/server && mix deps.get
 	@docker build --build-arg="RELEASE_TYPE=wrilya" -t $(REGISTERY_PATH)/wrilya:v$(WRILYA_VSN) -t $(REGISTERY_PATH)/wrilya:latest -f ./builder/server/Dockerfile ./packages/server
 	@docker image push $(REGISTERY_PATH)/wrilya --all-tags
 
