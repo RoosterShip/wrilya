@@ -15,7 +15,7 @@ jobs:
         with:
           otp-version: '27.0'
           elixir-version: '1.17.1'
-      - id: "auth"
+      - name: "auth"
           uses: "google-github-actions/auth@v1"
           with:
             credentials_json: "${{ secrets.ARTIFACT_SA }}"
