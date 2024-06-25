@@ -20,7 +20,7 @@ help:
 # 🏃 run: @ Start up local client
 run: setup
 	@echo Server starting...
-	iex -S mix phx.server
+	DISCORD_TOKEN=${DISCORD_TOKEN} iex -S mix phx.server
 	@echo Server shutting down...
 
 #🧹 clean: @ Delete all temp and downloaded files
@@ -32,6 +32,6 @@ clean:
 #🏗️  setup: @   Download any deps and run the setup for the environment
 setup:
 	@echo Server setup started...
-	mix deps.get
-	mix setup
+	DISCORD_TOKEN=${DISCORD_TOKEN} mix deps.get
+	DISCORD_TOKEN=${DISCORD_TOKEN} mix setup
 	@echo Server setup complete...

@@ -12,13 +12,13 @@
     ],
 		"skipLibCheck": true,
 		"strict": true,
-		"declaration": true,
+		"declaration": false,
 		"esModuleInterop": true,
 		"noErrorTruncation": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
-		
+		"noImplicitAny": false,	
 		// Different then generic tsconfig.base.json from lattice	
 		"noEmit": false,
 

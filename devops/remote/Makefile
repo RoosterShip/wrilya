@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 # Make setup
 #------------------------------------------------------------------------------
-.PHONY: help up.dev down.dev setup
+.PHONY: help up.dev dev.down setup
 
 default: help
 
@@ -46,24 +46,29 @@ up.dev.ingress:
 	@echo ======== Update - Complete ========
 
 #🧹 down.dev: @ Delete the whole service
-down.dev: down.dev.app down.dev.env down.dev.infra
+dev.down: dev.down.ingress dev.down.app dev.down.env dev.down.infra
 	@echo ======== Releasing - Complete ========
 
-#🧹 down.dev.infra: @ Delete the whole service
-down.dev.infra: 
+#🧹 dev.down.infra: @ Delete the whole service
+dev.down.infra: 
 	@echo ======== Releasing - wrilya-infra ========
 	@pulumi down --yes --cwd ./wrilya-infra --config-file Pulumi.dev.yaml
 	@echo ======== Releasing - Complete ========
 
-#🧹 down.dev.infra: @ Delete the whole service
-down.dev.env: 
+#🧹 dev.down.infra: @ Delete the whole service
+dev.down.env: 
 	@echo ======== Releasing - wrilya-env ========
 	@pulumi down --yes --cwd ./wrilya-env --config-file Pulumi.dev.yaml
 	@echo ======== Releasing - Complete ========
 
-down.dev.app: 
+dev.down.app: 
 	@echo ======== Releasing - wrilya-app ========
 	@pulumi down --yes --cwd ./wrilya-app --config-file Pulumi.dev.yaml
+	@echo ======== Releasing - Complete ========
+
+dev.down.ingress: 
+	@echo ======== Releasing - wrilya-ingress ========
+	@pulumi down --yes --cwd ./wrilya-ingress --config-file Pulumi.dev.yaml
 	@echo ======== Releasing - Complete ========
 
 #🏗️  setup: @   Download any deps and run the setup for the environment
