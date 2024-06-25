@@ -1,6 +1,6 @@
 on:
   push:
-    branches: ["develop"]
+    branches: ["develop", "15-cicd-builds"]
 
 env:
   PROJECT_ID: rooster-ship-framework
