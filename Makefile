@@ -102,21 +102,21 @@ build.base:
 	@docker image push $(REGISTERY_PATH)/store-indexer --all-tags
 
 #👷 build.image:@ Run the actual build
-build.image: build.image.wrilya build.image.client build.image.relayer
+build.service: build.wrilya build.client build.relayer
 	@echo ------------------- Build Complete ----------------
 
-build.image.wrilya:
+build.wrilya:
 	@echo ------------------- Wrilya ----------------
 	@docker build --build-arg="RELEASE_TYPE=wrilya" -t $(REGISTERY_PATH)/wrilya:v$(WRILYA_VSN) -t $(REGISTERY_PATH)/wrilya:latest -f ./builder/server/Dockerfile ./packages/server
 	@docker image push $(REGISTERY_PATH)/wrilya --all-tags
 
-build.image.client:
+build.client:
 	@echo ------------------- Client ----------------
 	@cd packages/client && pnpm run build
 	@docker build -t $(REGISTERY_PATH)/client:v$(CLIENT_VSN) -t $(REGISTERY_PATH)/client:latest -f ./builder/client/Dockerfile ./packages/client
 	@docker image push $(REGISTERY_PATH)/client --all-tags
 
-build.image.relayer:
+build.relayer:
 	@echo ------------------- Relayer ----------------
 	@rm -rf packages/relayer/dist
 	@cd packages/relayer && pnpm --filter=relayer deploy dist --prod

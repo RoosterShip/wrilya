@@ -54,11 +54,13 @@ wrilya_artifact_sa = gcp.serviceaccount.Account(
     account_id=f"wrilya-artifact-sa",
     display_name="Artifact Registry Writer Service Account"
 )
+
 wrilya_artifact_sa_iam_binding = gcp.artifactregistry.RepositoryIamBinding(
-    f"wrilya_artifact_sa_iam_binding",
+    f"wrilya_artifact_sa_iam_binding-reader",
     repository="wrilya",
     project=gcp_project,
     location=gcp_region,
+    # NOTE:  Writer has both read and write
     role="roles/artifactregistry.writer",
     members=[wrilya_artifact_sa.email.apply(lambda email: f"serviceAccount:{email}")])
 
