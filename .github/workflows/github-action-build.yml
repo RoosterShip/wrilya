@@ -1,0 +1,29 @@
+on:
+  push:
+    branches: ["develop"]
+
+env:
+  PROJECT_ID: rooster-ship-framework
+  REGION: us-central1
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-elixir@v1
+        with:
+          otp-version: '27.0'
+          elixir-version: '1.17.1'
+      - id: "auth"
+          uses: "google-github-actions/auth@v1"
+          with:
+            credentials_json: "${{ secrets.ARTIFACT_SA }}"
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+      - name: "Use gcloud CLI"
+        run: "gcloud info"
+      - name: "Docker auth"
+        run: |-
+          gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
+      - run: make build
