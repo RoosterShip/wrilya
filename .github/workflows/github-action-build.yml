@@ -50,7 +50,9 @@ jobs:
             --auth-key ${{secrets.OBAN_LICENSE_KEY}}
       
       # Build the Contracts Before the images so we have a local copy to package
-      - run: cd packages/contracts && make build
+      - name: Build Contracts 
+        run: cd packages/contracts && make build
 
       # Build all the Service Images.
-      - run: make build.service SHA=${{github.sha}} BUILD=${{github.ref_name}}
+      - name: Build Images 
+        run: make build.service SHA=${{github.sha}} BUILD=${{github.ref_name}}
