@@ -20,7 +20,6 @@ jobs:
         id: auth 
         uses: "google-github-actions/auth@v1"
         with:
-          token_format: access_token
           credentials_json: "${{ secrets.ARTIFACT_SA }}"
       - name: "Set up Cloud SDK"
         uses: "google-github-actions/setup-gcloud@v1"
