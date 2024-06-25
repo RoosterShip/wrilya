@@ -7,7 +7,7 @@ default: help
 
 SHELL := /bin/bash
 
-include .env
+#include .env
 
 #------------------------------------------------------------------------------
 # General operations
