@@ -1,6 +1,6 @@
 name: Story
 description: A small, self-contained unit of work that delivers a specific piece of functionality
-title: "[STORY]: "
+title: "[STORY] "
 labels: ["story"]
 projects: ["RoosterShip/3"]
 assignees:

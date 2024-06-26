@@ -1,6 +1,6 @@
 name: Epic
 description: A collection of stories around a larger body of work
-title: "[EPIC]: "
+title: "[EPIC] "
 labels: ["epic"]
 projects: ["RoosterShip/3"]
 assignees:
@@ -36,13 +36,6 @@ body:
     attributes:
       label: stakeholders
       description: list of relevant stackholders
-  - type: textarea
-    id: requirments
-    attributes:
-      label: Requirements
-      description: list of the high-level requirments that must be met for the epic to be considered complete
-    validations:
-      required: true
   - type: textarea
     id: dependencies
     attributes:
@@ -82,9 +75,9 @@ body:
       label: Stories
       description: List Stories that must be completed for this to be don
       value: |
-        - Task 1
-        - Task 2
-        - Task 3
+        - Story 1
+        - Story 2
+        - Story 3
     validations:
       required: true
   - type: checkboxes
