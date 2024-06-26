@@ -1,6 +1,6 @@
 name: Task
 description: A specific piece of work that needs to be completed
-title: "[TASK]: "
+title: "[TASK] "
 labels: ["task"]
 projects: ["RoosterShip/3"]
 assignees:
