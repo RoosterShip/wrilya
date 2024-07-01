@@ -27,6 +27,9 @@ import InputTextPlugin from 'phaser3-rex-plugins/plugins/inputtext-plugin';
 import preloadAssetPackUrl from "../static/assets/preload-asset-pack.json";
 import backgroundAssetPackUrl from "../static/assets/background-asset-pack.json";
 import uiAssetPackUrl from "../static/assets/ui-asset-pack.json";
+import uiButtonAssetPackUrl from "../static/assets/ui-button-asset-pack.json";
+import uiSupportAssetPackUrl from "../static/assets/ui-support-asset-pack.json";
+import uiIconAssetPackUrl from "../static/assets/ui-icon-asset-pack.json";
 import uiBarsAssetPackUrl from "../static/assets/ui-bars-asset-pack.json";
 import portraitAssetPackUrl from "../static/assets/portrait-asset-pack.json";
 import shipsAssetPackUrl from "../static/assets/ships-asset-pack.json";
@@ -95,6 +98,12 @@ class Boot extends Phaser.Scene {
     this.load.pack("ui", uiAssetPackUrl);
     // @ts-expect-error due to phaser spec for pack function
     this.load.pack("ui-bars", uiBarsAssetPackUrl);
+    // @ts-expect-error due to phaser spec for pack function
+    this.load.pack("ui-button", uiButtonAssetPackUrl);
+    // @ts-expect-error due to phaser spec for pack function
+    this.load.pack("ui-support", uiSupportAssetPackUrl);
+    // @ts-expect-error due to phaser spec for pack function
+    this.load.pack("ui-icon", uiIconAssetPackUrl);
     // @ts-expect-error due to phaser spec for pack function
     this.load.pack("portrait", portraitAssetPackUrl);
     // @ts-expect-error due to phaser spec for pack function

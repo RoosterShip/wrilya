@@ -1,0 +1,98 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/ui/button/bottom_texture.png",
+                "type": "image",
+                "key": "bottom_texture"
+            },
+            {
+                "url": "assets/ui/button/button_close_d.png",
+                "type": "image",
+                "key": "button_close_d"
+            },
+            {
+                "url": "assets/ui/button/button_close_h.png",
+                "type": "image",
+                "key": "button_close_h"
+            },
+            {
+                "url": "assets/ui/button/button_close_n.png",
+                "type": "image",
+                "key": "button_close_n"
+            },
+            {
+                "url": "assets/ui/button/button_close_p.png",
+                "type": "image",
+                "key": "button_close_p"
+            },
+            {
+                "url": "assets/ui/button/button_normal_d.png",
+                "type": "image",
+                "key": "button_normal_d"
+            },
+            {
+                "url": "assets/ui/button/button_normal_h.png",
+                "type": "image",
+                "key": "button_normal_h"
+            },
+            {
+                "url": "assets/ui/button/button_normal_n.png",
+                "type": "image",
+                "key": "button_normal_n"
+            },
+            {
+                "url": "assets/ui/button/button_normal_p.png",
+                "type": "image",
+                "key": "button_normal_p"
+            },
+            {
+                "url": "assets/ui/button/button_tab_d.png",
+                "type": "image",
+                "key": "button_tab_d"
+            },
+            {
+                "url": "assets/ui/button/button_tab_h.png",
+                "type": "image",
+                "key": "button_tab_h"
+            },
+            {
+                "url": "assets/ui/button/button_tab_n.png",
+                "type": "image",
+                "key": "button_tab_n"
+            },
+            {
+                "url": "assets/ui/button/button_tab_p.png",
+                "type": "image",
+                "key": "button_tab_p"
+            },
+            {
+                "url": "assets/ui/button/button_wide_d.png",
+                "type": "image",
+                "key": "button_wide_d"
+            },
+            {
+                "url": "assets/ui/button/button_wide_h.png",
+                "type": "image",
+                "key": "button_wide_h"
+            },
+            {
+                "url": "assets/ui/button/button_wide_n.png",
+                "type": "image",
+                "key": "button_wide_n"
+            },
+            {
+                "url": "assets/ui/button/button_wide_p.png",
+                "type": "image",
+                "key": "button_wide_p"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}

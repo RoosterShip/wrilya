@@ -7,7 +7,8 @@ default: help
 
 GKE_CLUSTER_DEV := $(shell cat devops/remote/dev.cluster)
 GKE_CLUSTER_PROD := $(shell cat devops/remote/prod.cluster)
-GKE_REGION := us-central1
+GKE_REGION_DEV := $(shell cat devops/remote/dev.region)
+GKE_REGION_PROD := $(shell cat devops/remote/prod.region)
 
 SHELL := /bin/bash
 REGISTERY_PATH := us-central1-docker.pkg.dev/rooster-ship-framework/wrilya
@@ -63,12 +64,12 @@ login:
 
 auth.dev:
 	@echo ---------- Authorizing started ----------
-	@gcloud container clusters get-credentials $(GKE_CLUSTER_DEV) --region $(GKE_REGION)
+	@gcloud container clusters get-credentials $(GKE_CLUSTER_DEV) --region $(GKE_REGION_DEV)
 	@echo ---------- Authorizing Finished ----------
 
 auth.prod:
 	@echo ---------- Authorizing started ----------
-	@gcloud container clusters get-credentials $(GKE_CLUSTER_PROD) --region $(GKE_REGION)
+	@gcloud container clusters get-credentials $(GKE_CLUSTER_PROD) --region $(GKE_REGION_PROD)
 	@echo ---------- Authorizing Finished ----------
 
 #------------------------------------------------------------------------------

@@ -1,0 +1,214 @@
+{
+    "id": "7f9b8ed7-e744-405a-9ac0-34afb71cf8e2",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderHeight": 658
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "1d5a07aa-09cd-4479-97ac-a83056abbdb0",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "79a23117-84e4-46e1-b903-b0a3f12d7357",
+                    "label": "iconSupport",
+                    "texture": {
+                        "key": "support_box_icon"
+                    },
+                    "x": 4,
+                    "y": 4,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "cc4fc5f1-6c54-4915-b2a7-301ac494eded",
+                    "label": "window",
+                    "texture": {
+                        "key": "support_box_1"
+                    },
+                    "y": 1,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "prefabId": "d3cc61da-1cb4-4762-a19d-075d2f22f565",
+                    "id": "5d0d9e86-557b-468a-a045-f91daa2f5d06",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "scaleX",
+                        "scaleY",
+                        "label"
+                    ],
+                    "label": "WEBSITE",
+                    "x": 69,
+                    "y": 580,
+                    "scaleX": 1,
+                    "scaleY": 1
+                },
+                {
+                    "prefabId": "d3cc61da-1cb4-4762-a19d-075d2f22f565",
+                    "id": "f0788136-c747-4803-965b-3124cc938bbe",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "scaleX",
+                        "scaleY",
+                        "label"
+                    ],
+                    "label": "EXIT",
+                    "x": 624,
+                    "y": 580,
+                    "scaleX": 1,
+                    "scaleY": 1
+                },
+                {
+                    "prefabId": "0e0fb7b5-4546-41e0-8231-c4fd375caa36",
+                    "id": "880ef395-30fb-4aed-9d63-d064719bf966",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "scaleX",
+                        "scaleY"
+                    ],
+                    "label": "buttonSmallClose",
+                    "x": 746,
+                    "y": 19,
+                    "scaleX": 1,
+                    "scaleY": 1
+                },
+                {
+                    "prefabId": "ea13019a-725d-4851-9c49-88b4838e1a8c",
+                    "id": "7852538e-ec82-4b52-a457-d5fec26ba95c",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "buttonBug",
+                    "x": 30,
+                    "y": 84
+                },
+                {
+                    "prefabId": "4735d553-11f9-4851-9a74-a45b8ba326e8",
+                    "id": "2017cb50-7f5f-4d52-a22a-04f9721938f0",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "buttonCommunityGuidelines",
+                    "x": 30,
+                    "y": 137
+                },
+                {
+                    "prefabId": "07dea64d-52a9-4752-b3cc-c7e42af0fee3",
+                    "id": "97c86ecb-2413-4835-9508-c00a38c2cdea",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "buttonKey",
+                    "x": 30,
+                    "y": 190
+                },
+                {
+                    "prefabId": "3ee7ff65-b6fa-4c12-868d-bbcc718d6fe6",
+                    "id": "3608ed88-d01b-48e7-8213-16f3778d44ee",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "buttonSecurity",
+                    "x": 30,
+                    "y": 243
+                },
+                {
+                    "prefabId": "cca7bc49-2fba-4f8a-bcb3-8aa4593f41eb",
+                    "id": "adfced71-4744-435c-af98-d943ba037919",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "buttonGuides",
+                    "x": 30,
+                    "y": 296
+                },
+                {
+                    "prefabId": "f9521eaf-61b6-417d-a232-596d75b42d1c",
+                    "id": "54552eaa-9455-4ff0-bd16-f80f0dfa4610",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "buttonPrivacy",
+                    "x": 30,
+                    "y": 349
+                },
+                {
+                    "prefabId": "94065942-01b2-4202-9525-2760e3ff6ac8",
+                    "id": "227f9071-6498-4f56-aa12-5e5537f8d990",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "buttonSuggestions",
+                    "x": 30,
+                    "y": 402
+                },
+                {
+                    "prefabId": "8c618239-f3c0-41af-b4a5-0f46544fa892",
+                    "id": "42ded4ed-36fb-41e9-9b26-fca53b69e26d",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "buttonHelp",
+                    "x": 30,
+                    "y": 455
+                },
+                {
+                    "prefabId": "beeb7c85-1115-4d5b-99a1-1fd608aa9782",
+                    "id": "5e16f15e-e1bd-4494-a25d-f528448488e0",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "buttonSupport",
+                    "x": 30,
+                    "y": 509
+                },
+                {
+                    "type": "Text",
+                    "id": "1798ce29-0fa3-4100-85c2-c1b4cf1e1f75",
+                    "label": "text_1",
+                    "x": 218,
+                    "y": 16,
+                    "text": "HELP AND SUPPORT",
+                    "align": "center",
+                    "fontFamily": "Eurostile Bold Extended",
+                    "fontSize": "38px",
+                    "color": "#bae4fe",
+                    "shadow.offsetY": 1,
+                    "shadow.fill": true,
+                    "shadow.blur": 1
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

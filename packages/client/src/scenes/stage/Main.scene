@@ -319,6 +319,17 @@
             "y": 500,
             "text": "Wallet",
             "fontSize": "64px"
+        },
+        {
+            "prefabId": "7f9b8ed7-e744-405a-9ac0-34afb71cf8e2",
+            "id": "4e4a3918-4691-4900-9c66-3eeb0c7afa58",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "support",
+            "x": 213,
+            "y": 30
         }
     ],
     "plainObjects": [],
