@@ -189,6 +189,13 @@ def write_cluster_name(name):
 
 wrilya_gke_cluster.name.apply(lambda name: write_cluster_name(name))
 
+def write_cluster_region(name):
+    f = open(f"../{stack}.region", "w")
+    f.write(name)
+    f.close()
+
+write_cluster_region(gcp_region)
+
 
 # -----------------------------------------------------------------------------
 # Cluster NodePool Service Account
