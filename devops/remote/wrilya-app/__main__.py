@@ -46,16 +46,16 @@ org = pulumi.get_organization()
 config = pulumi.Config()
 namespace = config.get("namespace", "default")
 image_tag = config.get("image-tag", "latest")
-chain_id = config.get("chain_id")
-chain_rpc = config.get("chain_rpc")
+chain_id = config.get("chain-id")
+chain_rpc = config.get("chain-rpc")
 
 # These should come from the world.json file in contracts but give then whole python
 # env thing I figured it might just easier read them from the config first and then
 # figure out a way to load in that json file later
-world_address = config.get("world_address")
-world_block = config.get("world_block")
-discord_token = config.require_secret("discordToken")
-secret_key_base = config.require_secret("secretKeyBase")
+world_address = config.get("world-address")
+world_block = config.get("world-block")
+discord_token = config.require_secret("discord-token")
+secret_key_base = config.require_secret("secret-key-base")
 
 # -----------------------------------------------------------------------------
 # Imported Stack
