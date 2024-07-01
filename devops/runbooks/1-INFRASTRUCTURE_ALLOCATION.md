@@ -4,18 +4,18 @@ Guide for setting up a GCP Cluster using the Pulumi Tools.
 
 ## Assumptions
 
-* `<config_name>` is the name of this new stack.  For example we use a cluster deployment for develop and one for production.
+* `<config_name>` is the name of this new stack.  For example we use a cluster for develop and one for production.
     * For develop `<config_name>` is `dev`
     * For production `<config_name>` is `prod`
-* A cluster is a kuberentes deployment and the hardware assigned to it.
-    * Because of this you can host multiple deployments per cluster
+* A cluster is a kuberentes environment and the hardware assigned to it.
+    * A single cluster can host multiple deployments
     * Example:
         * Develop Cluster:  Hosts both our `dev` and `test` deployments
         * Production Cluster:  Hosts our `staging` and `production` deployments
 
 ## Cloud Authorization
 
-To deploy a cluster you will need to authorized with GCP.  This can be done by:
+To allocate a cluster you will need to authorized with GCP.  This can be done by:
 
 1. Following the [Setup Guide](0-SETUP.md)
 2. Executing `make login` from the project root folder
@@ -26,7 +26,7 @@ Note:  You will have to do this once a day.  Seems like time-out for the tokens 
 
 ## Ensure Setup has happened
 
-The first time you deploy to a new cluster/region the `wrilya-base` setup needs to be run.  Please make sure you have gone throught the setps in the [Setup Guide](0-SETUP.md)
+The first time you allocate to a new cluster/region the `wrilya-base` setup needs to be run.  Please make sure you have gone throught the setps in the [Setup Guide](0-SETUP.md)
 
 ## Cluster Configuration
 
@@ -34,7 +34,7 @@ Before executing an infrastructure allocation, you will need to configure it fir
 
 1. Create a new Pulumi configuration file.  These are name like so `Pulumi.<config_name>.yaml`
 1. Modify the Make file to add a `<config_name>.up.infra` and `<config_name>.down.infra`
-    1. You can use `dev.up.infra` and `dev.down`infra` as a reference
+    1. You can use `dev.up.infra` and `dev.down.infra` as a reference
     1. When creating the command make sure you change the line `@pulumi up --yes --config dev --cwd ./wrilya-infra` to `@pulumi up --yes --config <config_name> --cwd ./wrilya-infra`
 1. Copy/Paste the context from one of the other pulumi configuration files
 
