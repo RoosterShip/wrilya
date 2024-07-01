@@ -6,6 +6,7 @@
 import Phaser from "phaser";
 import Starfield from "../prefab/background/Starfield";
 import BtnSceneLoadText from "../prefab/ui/BtnSceneLoadText";
+import Support from "../prefab/ui/window/Support";
 /* START-USER-IMPORTS */
 import Game from "../../game";
 /* END-USER-IMPORTS */
@@ -124,6 +125,10 @@ export default class Main extends Phaser.Scene {
 		btnWallet.text = "Wallet";
 		btnWallet.setStyle({ "fontSize": "64px" });
 
+		// support
+		const support = new Support(this, 213, 30);
+		this.add.existing(support);
+
 		// starfield (prefab fields)
 		starfield.velocity = 0.02;
 
@@ -174,6 +179,11 @@ export default class Main extends Phaser.Scene {
 
 	/* START-USER-CODE */
 
+
+	// Code to load the Support Prefab
+	//	const support = new Support(this, 213, 30);
+	//	this.add.existing(support);
+
 	create() {
 		this.editorCreate();
 		this.registerEvents();
@@ -199,11 +209,15 @@ export default class Main extends Phaser.Scene {
 		}, this);
 
 		this.input.on('gameobjectover', (pointer: Phaser.Input.Pointer, obj: Phaser.GameObjects.Text) => {
-			obj.setColor("#FFFF00");
+			if (obj instanceof BtnSceneLoadText) {
+				obj.setColor("#FFFF00");
+			}
 		}, this);
 
 		this.input.on('gameobjectout', (pointer: Phaser.Input.Pointer, obj: Phaser.GameObjects.Text) => {
-			obj.setColor("#FFFFFF");
+			if (obj instanceof BtnSceneLoadText) {
+				obj.setColor("#FFFFFF");
+			}
 		}, this);
 
 	}

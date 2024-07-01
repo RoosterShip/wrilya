@@ -1,0 +1,80 @@
+{
+    "id": "0e0fb7b5-4546-41e0-8231-c4fd375caa36",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "superClassName": "ButtonStd",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 27,
+        "borderHeight": 27
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "665c9b0b-0a8f-46b1-b986-9bf9c952eee7",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "f1c57dac-2554-4643-9ecf-de16fb198696",
+                    "label": "button_close_d",
+                    "texture": {
+                        "key": "button_close_d"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "f9490547-d42a-432c-be17-552c75a91de2",
+                    "label": "button_close_h",
+                    "texture": {
+                        "key": "button_close_h"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "ad9ddab7-cc6d-4b64-b23f-2b3219a0400f",
+                    "label": "button_close_p",
+                    "texture": {
+                        "key": "button_close_p"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "5622316a-413c-45d2-b15c-d31d8afb55f3",
+                    "label": "button_close_n",
+                    "texture": {
+                        "key": "button_close_n"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "173bc837-ff64-4713-b97d-8c6031874821",
+                    "label": "rec_hit_box",
+                    "originX": 0,
+                    "originY": 0,
+                    "width": 27,
+                    "height": 27
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}
