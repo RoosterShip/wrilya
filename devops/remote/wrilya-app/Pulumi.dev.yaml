@@ -1,8 +1,8 @@
 config:
   gcp:project: rooster-ship-framework
   gcp:region: us-central1
-  wrilya-app:chain_id: "11155111"
-  wrilya-app:chain_rpc: "https://rpc.sepolia.org"
+  wrilya-app:chain-id: "11155111"
+  wrilya-app:chain-rpc: "https://rpc.sepolia.org"
   wrilya-app:namespace: "dev"
   wrilya-app:image-tag: "develop"
   wrilya-app:discord-token:
