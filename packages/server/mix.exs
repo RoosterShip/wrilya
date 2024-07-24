@@ -66,6 +66,7 @@ defmodule Wrilya.Umbrella.MixProject do
           # Wrilya
           utils: :permanent,
           nostrum: :permanent,
+          mud: :permanent,
           wrilya: :permanent,
           wrilya_web: :permanent
         ]

@@ -10,6 +10,17 @@ config :wrilya, Wrilya.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
+  # Configure your database
+config :mud, MUD.Repo,
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  database: "postgres",
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10,
+  after_connect: {MUD.Repo, :set_search_path, ["app,public,0x8d8b6b8414e1e3dcfd4168561b9be6bd3bf6ec4b"]}
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #

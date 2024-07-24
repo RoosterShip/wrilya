@@ -38,6 +38,7 @@ defmodule Wrilya.MixProject do
     [
       # Project Deps
       {:utils, in_umbrella: true},
+      {:mud, in_umbrella: true},
 
       # Phoenix includes
       {:dns_cluster, "~> 0.1.3"},

@@ -9,6 +9,9 @@
 # move said applications out of the umbrella.
 import Config
 
+config :mud,
+  ecto_repos: [MUD.Repo]
+
 # Configure Mix tasks and generators
 config :wrilya,
   ecto_repos: [Wrilya.Repo]
