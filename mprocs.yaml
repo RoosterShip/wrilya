@@ -2,19 +2,19 @@ procs:
   client:
     cwd: packages/client
     shell: pnpm start
-    autostart: true
+    autostart: false
   server:
     cwd: packages/server
     shell: make run
-    autostart: true 
+    autostart: false
   relayer:
     cwd: packages/relayer
     shell: pnpm dev
-    autostart: true 
+    autostart: false
   mud_client:
     cwd: packages/mud_client
     shell: pnpm run dev
-    autostart: true
+    autostart: false
   contracts:
     cwd: packages/contracts
     shell: pnpm run dev
@@ -22,7 +22,7 @@ procs:
   environment:
     cwd: packages/environment
     shell: make up
-    autostart: true 
+    autostart: false 
   # ---------------------------------------------------------------------------
   # Anvil:
   #
@@ -35,4 +35,4 @@ procs:
   anvil:
     cwd: packages/contracts
     shell: anvil --base-fee 0 --block-time 10 
-    autostart: false
+    autostart: true 

@@ -9,13 +9,13 @@ pragma solidity >=0.8.24;
  * @dev This interface is automatically generated from the corresponding system contract. Do not edit manually.
  */
 interface ICurrencySystem {
-  function game__mint(uint256 amount) external;
+  function wrilya__currencyMint(uint256 amount_) external payable;
 
-  function game__stake(uint256 amount) external;
+  function wrilya__currencyXchgPause() external;
 
-  function game__release(uint256 amount) external;
+  function wrilya__currencyXchgRun() external;
 
-  function game__claim() external;
+  function wrilya__currencyXchgBuy() external payable returns (uint256);
 
-  function game__payment(uint256 amount) external;
+  function wrilya__currencyXchgSell(uint256 amount_) external returns (uint256);
 }

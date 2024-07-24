@@ -36,6 +36,7 @@ clean:
 	@rm -rf cache
 	@rm -rf deploys
 	@rm -rf out
+	@pnpm run clean
 	@echo Contract cleaning complete.
 
 #🔍 inspect:@ run the code linter and security tools
@@ -47,7 +48,7 @@ inspect:
 #🧪 test:@ Run the unit tests
 test:
 	@echo testing started...
-	@pnpm test
+	@pnpm run test
 	@echo testing complete.
 
 deploy.test.vote:

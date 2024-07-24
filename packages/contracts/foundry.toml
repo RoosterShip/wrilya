@@ -1,9 +1,10 @@
 [profile.default]
-solc = "0.8.24"
+solc = "0.8.26"
 ffi = false
 fuzz_runs = 256
-optimizer = true
-optimizer_runs = 3000
+# optimizer = true
+# optimizer_runs = 3000
+via_ir = true
 verbosity = 2
 src = "src"
 test = "test"
@@ -20,7 +21,19 @@ extra_output_files = [
   "abi",
   "evm.bytecode"
 ]
+
+gas_reports = ["*"]
+
 fs_permissions = [{ access = "read", path = "./"}]
+
+[fmt]
+single_line_statement_blocks = "preserve"
+multiline_func_header = "params_first"
+line_length = 80
+tab_width = 2
+number_underscore = "thousands"
+override_spacing = true
+wrap_comments = true
 
 [profile.local]
 eth_rpc_url = "http://localhost:8545"

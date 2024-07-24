@@ -14,125 +14,150 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
-pragma solidity >=0.8.24;
+pragma solidity >=0.8.26;
 
 // ----------------------------------------------------------------------------
 // Imports
 // ----------------------------------------------------------------------------
 
-import { System } from "@latticexyz/world/src/System.sol";
-import { CurrencyTable, CurrencyTableData, GameConfigTable } from "../codegen/index.sol";
-import { toBytes32, requireRunning, notify } from "../utils.sol";
-import { OperationEnum } from "../codegen/common.sol";
-import { InvalidState, InsufficientFunds } from "../errors.sol";
+import {System} from "@latticexyz/world/src/System.sol";
+import {WorldResourceIdLib} from "@latticexyz/world/src/WorldResourceId.sol";
+import {ResourceId} from "@latticexyz/store/src/ResourceId.sol";
+import "../codegen/index.sol";
+import "../codegen/common.sol";
+import "../codegen/world/IWorld.sol";
+import "../errors.sol";
+import "../utils.sol";
+import "../checks.sol";
+import "../ledger.sol";
+import "../constants.sol";
+import "../xchg.sol";
 
 // ----------------------------------------------------------------------------
-/// @title GameSystem
+/// @title CurrencySystem
 /// @author Chris Jimison
 /// @notice MUD.dev based smart for Game Voidsmen.
 contract CurrencySystem is System {
+  /**
+   * @dev Mint tokens into the Governor Contract for future distribution
+   *
+   * Requirements:
+   *
+   * - Only the governor can mint tokens
+   * - The amount to mint must be greater then zero
+   * - Value of mint must be greater then 1
+   *
+   * @param amount_ of tokens to mint
+   */
+  function currencyMint(uint256 amount_) public payable {
+    address gov = GameConfig.getGovernor();
+    uint256 value = _msgValue();
 
-  function mint(uint256 amount) public {
-    // Verification Phase
-    requireRunning();
-    bytes32 owner = toBytes32(_msgSender());
-    CurrencyTable.setTokens(owner, CurrencyTable.getTokens(owner) + amount);
-    notify(OperationEnum.CURRENCY_MINT, abi.encode(owner, amount));
-  }
+    //---------------------------------
+    // Verification Block
+    //---------------------------------
+    require(_msgSender() == gov, Unauthorized());
+    require(amount_ > 0, InvalidArgument());
+    require(value > 0, MissingPayment());
 
-  function stake(uint256 amount) public {
-    // Verification of 
-    requireRunning();
-
-    // Verify that user has enough funds
-    bytes32 owner = toBytes32(_msgSender());
-    uint256 tokens = CurrencyTable.getTokens(owner);
-    if(tokens < amount) revert InsufficientFunds();
-
-    // Set the state info
-    CurrencyTable.setTokens(owner, tokens - amount);
-    uint256 staked = CurrencyTable.getStaked(owner);
-    CurrencyTable.setStaked(owner, staked + amount);
-    
-    notify(OperationEnum.CURRENCY_STAKE, abi.encode(owner, amount));
-  }
-
-  function release(uint256 amount) public {
-    // Verification of 
-    requireRunning();
-
-    // Verify that user has enough funds
-    bytes32 owner = toBytes32(_msgSender());
-    CurrencyTableData memory acc = CurrencyTable.get(owner);
-    if(acc.staked < amount) revert InsufficientFunds();
-
-    // Claim any staked tokens
-    if(acc.uts <= block.timestamp && acc.unstaked > 0){
-      // Let's run a claim first
-      acc.tokens += acc.unstaked;
-      acc.unstaked = 0;
-    }
-    else if (acc.unstaked > 0){
-      revert InvalidState();
-    }
-
-    acc.unstaked = amount;
-    acc.staked -= amount;
-
-    acc.uts = block.timestamp + GameConfigTable.getCurrencyUnstakeTime();
-
-    CurrencyTable.set(owner, acc); 
-
-    notify(OperationEnum.CURRENCY_RELEASE, abi.encode(owner, amount));
-  }
-
-  function claim() public {
-    // Verification of 
-    requireRunning();
-
-    // Verify that user has enough funds
-    bytes32 owner = toBytes32(_msgSender());
-    CurrencyTableData memory acc = CurrencyTable.get(owner);
-
-    if(acc.uts <= block.timestamp && acc.unstaked > 0){
-      // Let's run a claim first
-      acc.tokens += acc.unstaked;
-      acc.unstaked = 0;
-    }
-    else {
-      revert InvalidState();
-    }
-
-    notify(OperationEnum.CURRENCY_CLAIM, abi.encode(owner));
+    //---------------------------------
+    // Logic Block
+    //---------------------------------
+    Xchg.mint(toBytes32(gov), amount_);
+    CurrencyConfig.setLiquidity(CurrencyConfig.getLiquidity() + value);
   }
 
   /**
-   * Make a payment to reduce debit.  This will come from the credits balance
-   * first and then from the tokens balance.
-   * 
-   * @param amount to pay off.
+   * @dev Pause The Currency Exchange
+   *
+   * Requirements:
+   *
+   * - Only the governor can pause
    */
-  function payment(uint256 amount) public {
-    // Verification Phase
-    requireRunning();
+  function currencyXchgPause() public {
+    //---------------------------------
+    // Verification Block
+    //---------------------------------
+    require(_msgSender() == GameConfig.getGovernor(), Unauthorized());
+    require(CurrencyConfig.getXchgActive(), SystemActiveState());
 
-    bytes32 owner = toBytes32(_msgSender());
-    CurrencyTableData memory acc = CurrencyTable.get(owner);
-    if(acc.debit < amount){
-      amount = acc.debit;
-    }
+    //---------------------------------
+    // Logic Block
+    //---------------------------------
+    CurrencyConfig.setXchgActive(false);
+  }
 
-    if(acc.credits > 0 && acc.credits >= amount){
-      CurrencyTable.setCredits(owner, acc.credits - amount);
-      CurrencyTable.setDebit(owner, 0);
-    }
-    else {
-      if( (acc.credits + acc.tokens) < amount) revert InsufficientFunds();
-      CurrencyTable.setCredits(owner, 0);
-      CurrencyTable.setTokens(owner, acc.tokens - (amount - acc.credits));
-      CurrencyTable.setDebit(owner, CurrencyTable.getDebit(owner) - amount);
-    }
+  /**
+   * @dev Run The currency exchange
+   *
+   * Requirements:
+   *
+   * - Only the governor can run the exchange
+   */
+  function currencyXchgRun() public {
+    //---------------------------------
+    // Verification Block
+    //---------------------------------
+    require(_msgSender() == GameConfig.getGovernor(), Unauthorized());
+    require(!CurrencyConfig.getXchgActive(), SystemActiveState());
 
-    notify(OperationEnum.CURRENCY_PAYMENT, abi.encode(owner, amount));
+    //---------------------------------
+    // Logic Block
+    //---------------------------------
+    CurrencyConfig.setXchgActive(true);
+  }
+
+  /**
+   * @dev Purchase game tokens for native game tokens.
+   *
+   * Requirements:
+   *
+   * - The exchange is active
+   * - Caller can not be on any banned list
+   *
+   */
+  function currencyXchgBuy() public payable returns (uint256) {
+    address caller = _msgSender();
+
+    //---------------------------------
+    // Verification Block
+    //---------------------------------
+    require(CurrencyConfig.getXchgActive(), SystemActiveState());
+    require(!isBanned(caller), BannedAddress());
+
+    //---------------------------------
+    // Logic Block
+    //---------------------------------
+    return Xchg.buy(toBytes32(caller), _msgValue());
+  }
+
+  /**
+   * @dev Sell/Burn a given amount of tokens and receive ETH for them.
+   *
+   * Requirements:
+   *
+   * - Caller can not be on any banned list
+   * - Caller must have the full amount of tokens in there account
+   *
+   * @param amount_ of tokens to be burned
+   */
+  function currencyXchgSell(uint256 amount_) public returns (uint256) {
+    address caller = _msgSender();
+    bytes32 entity = toBytes32(caller);
+
+    //---------------------------------
+    // Verification Block
+    //---------------------------------
+    require(CurrencyConfig.getXchgActive(), SystemActiveState());
+    require(!isBanned(caller), BannedAddress());
+
+    //---------------------------------
+    // Logic Block
+    //---------------------------------
+    uint256 retAmt = Xchg.sell(entity, amount_);
+    IWorld(_world()).transferBalanceToAddress(
+      WorldResourceIdLib.encodeNamespace(bytes14("wrilya")), caller, retAmt
+    );
+    return retAmt;
   }
 }

@@ -18,7 +18,7 @@ export default defineWorld({
   // --------------------------------------------------------------------------
   // World Configuration
   // --------------------------------------------------------------------------
-  namespace: "game",
+  namespace: "wrilya",
   userTypes: {
     EncodedLengths: { filePath: "@latticexyz/store/src/EncodedLengths.sol", type: "bytes32" },
     ResourceId: { filePath: "@latticexyz/store/src/ResourceId.sol", type: "bytes32" },
@@ -29,123 +29,65 @@ export default defineWorld({
   // --------------------------------------------------------------------------
   enums: {
     /**
-     * Enumeration of all the system operations that can take place.  This is
-     * used for notification off chain that a certain operation has happened
-     * and allow for listeners to react accordinly.
+     * Commands are operations that happen off chain but need some offchain
+     * operations to trigger.  In this case we are Commanding the game server
+     * to do something.
      * 
-     * Example:
-     * 
-     * If the event "GAME_PAUSE" triggers then the game clients might log people out 
+     * Example of this could be to say "Start an event" if a vote goes through. 
      */
-    OperationEnum: [
-      "UNKNOWN",                              // 0,
+    Command: [
+      "UNKNOWN",                            // 0,
+      "PAUSE",                              // 1,
+      "RESUME",                             // 2,
+    ],
 
-      // Game Config Ops
-
-      "GAME_PAUSE",                           // 1
-      "GAME_UNPAUSE",                         // 2
-      "GAME_SET_ADMIN",                       // 3
-      "GAME_SET_GM",                          // 4
-      "GAME_SET_CURRENCY_PROXY",              // 5
-      "GAME_SET_ITEM_PROXY",                  // 6
-      "GAME_SET_ENTITY_PROXY",                // 7
-      "GAME_SET_GOVERNOR",                    // 8
-      "GAME_SET_VOTE_TOKEN",                  // 9
-      "GAME_SET_VOIDSMAN_CREATE_COST",        // 10 
-      "GAME_SET_VOIDSMAN_UPGRADE_TIME_BASE",  // 11
-      "GAME_SET_VOIDSMAN_UPGRADE_TIME_POWER", // 12
-      "GAME_SET_VOIDSMAN_UPGRADE_COST_BASE",  // 13
-      "GAME_SET_VOIDSMAN_UPGRADE_COST_POWER", // 14
-      "GAME_SET_VOIDSMAN_MAX_STATS",          // 15
-      "GAME_SET_VOIDSMAN_MAX_COMPETENCY",     // 16
-      "GAME_SET_STD_MAX_DEBIT",               // 17
-      "GAME_SET_COLLATERAL_DEBIT_RATIO",      // 18
-      "GAME_SET_CURRENCY_UNSTAKE_TIME",       // 19
-
-      // Currency Ops
-      "CURRENCY_MINT",                        // 20
-      "CURRENCY_STAKE",                       // 21
-      "CURRENCY_RELEASE",                     // 22
-      "CURRENCY_CLAIM",                       // 23
-      "CURRENCY_PAYMENT",                     // 24
-
-
-      // Entity Ops
-      "ENTITY_CREATE",                        // 25
-      "ENTITY_DESTROY",                       // 26
-      "ENTITY_TRANSFER",                      // 27
-      "ENTITY_UPDATE",                        // 28
-
-      // Voidsman Ops
-      "VOIDSMAN_TRAIN",                       // 29
-      "VOIDSMAN_TRAIN_CANCEL",                // 30
-      "VOIDSMAN_CERTIFY",                     // 31
-      "VOIDSMAN_SET_TRAINING_REQUIREMENT",    // 32
+    Notice: [
+      "UNKNOWN",                            // 0,
     ],
 
     /**
-     * Enumeration of the basic entity types in the game.
+     * Enumeration of the basic actor types in the game.
      */
-    EntityEnum: [
+    Actor: [
       "UNKNOWN",                            // 0
       "VOIDSMAN",                           // 1
       "SHIP",                               // 2
       "STATION",                            // 3
       "PLANET",                             // 4
       "SOLARSYSTEM",                        // 5
+      "LOT"                                 // 6
     ],
 
-    /**
-     * Enumeration of the star systems people call home.
-     */
-    HomeEnum: [
-      "UNKNOWN",                // 0
-      "ICOIR",                  // 1
-      "VREL",                   // 2
-      "PRIME",                  // 3
-      "MILVEA",                 // 4
-      "SAREA",                  // 5
-      "GRAIK",                  // 6
-      "CHIVEN",                 // 7
-      "AIGEA"                   // 8
+    Knowledge: [
+      "UNKNOWN",                            // 0
+      "COMMAND",                            // 1
+      "PILOT",                              // 2
+      "WEAPONS",                            // 3
+      "SHIELDS",                            // 4
+      "SHIPCRAFT",                          // 5
+      "SENSORS",                            // 6
+      "MEDICAL",                            // 7
     ],
 
-    /**
-     * Fields of study that a voidsman can train in.
-     */
-    FieldEnum: [
-      "UNKNOWN",                // 0
-      "ARMOR",                  // 1
-      "ENGINES",                // 2
-      "LEADERSHIP",             // 3
-      "NAVIGATION",             // 4
-      "NEGOTIATION",            // 5
-      "SHIPCRAFT",              // 6
-      "SENSORS",                // 7
-      "SHIELDS",                // 8
-      "WEAPONS"                 // 9
+    Ability: [
+      "UNKNOWN",                            // 0
+      "FITNESS",                            // 1
+      "PSYCHE",                             // 2
+      "TECHNIQUE",                          // 3
+      "INTELLIGENCE",                       // 4
+      "FOCUS",                              // 5
+      "ENDURANCE",                          // 6
+      "REFLEX",                             // 7
     ],
 
-    /**
-     * The basic ability scores that a voidsman has
-     * based on their current level.  These can be
-     * used as gates.
-     * 
-     * Example:
-     * 
-     * To research engines level 5 you need technique level 2
-     * and Intelligence level 5, etc. 
-     */
-    AbilityEnum: [
-      "UNKNOWN",                // 0
-      "STRENGTH",               // 1
-      "PSYCHE",                 // 2
-      "TECHNIQUE",              // 3
-      "INTELLIGENCE",           // 4
-      "FOCUS",                  // 5
-      "ENDURANCE",              // 6
-      "RELEXES"                 // 7
-    ],
+    Auction: [
+      "UNKNOWN",                            // 0
+      "LIST",                               // 1
+      "ENGLISH",                            // 2
+      "DUTCH",                              // 3
+      "PENNY",                              // 4
+    ]
+
   },
 
   // --------------------------------------------------------------------------
@@ -159,78 +101,134 @@ export default defineWorld({
     //-------------------------------------------------------------------------
 
     /**
-     * Game Config Table
+     * Game Config
      * 
      * Used to store on chain configuration data.
      */
-    GameConfigTable: {
+    GameConfig: {
       key: [],
       schema: {
         /**
          * Is the game active at the moment.  If the result is false then any
-         * transaction will fail in the system.
+         * transaction will be rejected by the system.
          */
         active: "bool",
 
         /**
-         * The administrator address for this game.  
+         * Address of the governor contract.  The governor contract has access
+         * to certain game functions that are meant to be executed via a DAO
          */
-        admin: "address",
+        governor: "address",
 
         /**
-         * The game manager address.  This is the account which acts as a trusted
-         * source for data such as game play results, issuing rewards, etc.
+         * The game manager address.  An account which is operating the game.
          * 
-         * NOTE:  This is typically a game server doing operations that would
-         *        be to expensive to handle onchain.
+         * For the most part the gm account will post results of matchs or 
+         * other offchain simulated actions.  The GM does NOT have access to
+         * modify tuning data or user state info.  It is basically an arbiter
+         * of the game rules and validates the results of offchain actions
          */
         gm: "address",
 
         /**
-         * ERC-20 proxy contract  used to route requests to MUD for operations
-         * effecting the main game currency.
+         * Through the course of playing the game some operations will require
+         * payment of the game tokens.  In such a case the this is the address
+         * which will receive the payments.
+         * 
+         * The GM has the permission to set this address
+         */
+        payee: "address",
+
+        /**
+         * ERC-20 proxy contract.  Wrilya has a game token but this token is
+         * stored in the MUD.dev contracts, but to better support other systems
+         * that want to use a standard ERC-20 interface this proxy contract will
+         * route the calls to MUD.  Special permission is granted to the interface
+         * functions such as mint/transfer/burn in that they MUST come from the
+         * currency proxy address.
          */
         currencyProxy: "address",
 
-        governor: "address",
-
-        voteToken: "address",
-
         /**
-         * ERC-1155 proxy contract used to route requests to MUD 
+         * ERC-1155 proxy contract used to route requests to MUD for items.
+         * Items are "fungable" in that there is no difference between any two
+         * however we do not allow them to split
          */
         itemProxy: "address",
 
         /**
-         * ERC-721 proxy contract used to route requests to MUD 
+         * ERC-721 proxy contract for all entities in the game.  Entities can
+         * be plots of land, voidsman, ships, stations, etc, etc.
          */
         entityProxy: "address",
-
-        /**
-         * Tuning param for the Training time
-         */
-        voidsmanCreateCost: "uint256",
-        voidsmanUpgradeTimeBase: "uint256",
-        voidsmanUpgradeTimePower: "uint256",
-        voidsmanUpgradeCostBase: "uint256",
-        voidsmanUpgradeCostPower: "uint256",
-        voidsmanMaxStats: "uint8",
-        voidsmanMaxCompetency: "uint8",
-
-        /**
-         * Costs Values
-         */
-        stdMaxDebit: "uint256",
-        collateralDebitRatio: "uint256",
-        currencyUnstakeTime: "uint256",
       }
     },
 
     //-------------------------------------------------------------------------
-    // Offchain Notification Table
+    // Verified Operations
+    //
+    // There are times when the server needs to send down a verified operation
+    // that the blockchain code will want to make sure came from a specific account.
+    //
+    // This is to ensure replay attacks don't happen, etc.
+    VerifiedOps: {
+      key: ["id"],
+      schema: {
+        id: "bytes16",
+        processed: "bool",
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    //-------------------------------------------------------------------------
+    // Banning
+    //
+    // List of banned players from the game.
+    //
+    // Temporary Ban:  Set by the Game Master. Is only temporary and will expire
+    // Perminate Ban:  Set by the Goveranor and does not expire.
+
+    BanTuning: {
+      key: [],
+      schema: {
+        tempTime: "uint256"
+      }
+    },
+
+    BanTemp: {
+      key: ["account"],
+      schema: {
+        account: "address",
+        expires: "uint256"
+      }
+    },
+
+    BanPerm: {
+      key: ["account"],
+      schema: {
+        account: "address",
+        value: "bool"
+      }
+    },
+
+    //-------------------------------------------------------------------------
+    // Messaging
+    //
+    // Messaging falls into two types.  Commands and Notices.  You can think
+    // of a Command more like something that MUST be processed by the offchain
+    // services and a notice is more of a heads up that something happened.
+    //
+    // The difference between the two is commands are tracked and guarteed to be
+    // processed by the system IN ORDER.  Notice are a best attempt and may or
+    // maynot be processed at all.
     //-------------------------------------------------------------------------
 
-    NotificationIdTable: {
+    /**
+     * Command Nonce Counter
+     */
+    CommandNonce: {
       key: [],
       schema: {
         value: "uint256",
@@ -239,18 +237,161 @@ export default defineWorld({
         dataStruct: false
       }
     },
+
     /**
-     * Offchain table which will be updated by notifications that something
-     * happened on chain.  The data field is expected to be encoded arguments
-     * needed for the offchain system to parse.
+     * Commands are requests to the offchain game to trigger some set of actions.
+     * Each command request is saved on chain and is guaranteed to be processed.
      */
-    NotificationTable: {
+    Commands: {
+      key: ["id"],
+      schema: {
+        id: "bytes32",
+        cmd: "Command",
+        data: "bytes",
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    /**
+     * Notice table which will be updated by notifications that something
+     * happened on chain. Notifications are not fault tolerant in the case of
+     * a system down event.
+     */
+    Notices: {
       type: "offchainTable",
       key: [],
       schema: {
-        operation: "OperationEnum",
-        nid: "bytes32",
+        notice: "Notice",
         data: "bytes",
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    //-------------------------------------------------------------------------
+    // Entity
+    //
+    // All things in the system is an entity. 
+    //-------------------------------------------------------------------------
+    EntityNonce: {
+      key: [],
+      schema: {
+        value: "uint256"
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    EntityInfo: {
+      key: ["entity"],
+      schema: {
+        entity: "bytes32",
+        owner: "bytes32",
+        actorType: "Actor",
+        offchain: "bytes16"
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    EntityBalance: {
+      key: ["owner"],
+      schema: {
+        owner: "bytes32",
+        value: "uint256"
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    //-------------------------------------------------------------------------
+    // Voidsman (VM for short)
+    //-------------------------------------------------------------------------
+    VMGeneralTuning: {
+      key: [],
+      schema: {
+        // Minting based value
+        mintFee: "uint256",
+
+        // Level Tuning
+        xpMax: "uint256",
+        xpBase: "uint256",
+        xpPower: "uint256"
+
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    VMSkillsTuning: {
+      key: [],
+      schema: {
+        // Knowledge Based Values
+        trainingFieldMaxValue: "uint8",
+        trainingFieldsMaxTotal: "uint16",
+        trainingCostBase: "uint256",
+        trainingCostPower: "uint256",
+        trainingTimeBase: "uint256",
+        trainingTimePower: "uint256",
+
+        // Ability Based Fields
+        abilityFieldMaxValue: "uint8",
+        abilityPointsBase: "uint256",
+        abilityPointsPower: "uint256",
+        abilityRespecMax: "uint16",
+        abilityRespecCostBase: "uint256",
+        abilityRespecCostPower: "uint256",
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    VMInfo: {
+      key: ["entity"],
+      schema: {
+        entity: "bytes32",
+        skills: "bytes32",
+        xp: "uint256",
+        rs: "uint16",
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    VMLearning: {
+      key: ["entity"],
+      schema: {
+        // Key
+        entity: "bytes32",
+
+        // Values
+        time: "uint256",
+        field: "Knowledge"
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    VMLearnReq: {
+      key: ["level", "field"],
+      schema: {
+        // key
+        level: "uint8",
+        field: "Knowledge",
+
+        // Values
+        xp: "uint256",
+        skills: "bytes32",
       },
       codegen: {
         dataStruct: false
@@ -260,6 +401,62 @@ export default defineWorld({
     //-------------------------------------------------------------------------
     // Currency Table
     //-------------------------------------------------------------------------
+    CurrencyConfig: {
+      key: [],
+      schema: {
+        totalSupply: "uint256",
+        liquidity: "uint256",
+        xchgActive: "bool"
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    CurrencyTuning: {
+      key: [],
+      schema: {
+        maxSupply: "uint256",
+        xchgFeeBuy: "uint256",
+        xchgFeeSell: "uint256",
+        xchgSegment: "uint256",
+        xchgNonce: "uint256",
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    CurrencyXchgSegment: {
+      key: ["index"],
+      schema: {
+        index: "uint256",
+        balanceStart: "uint256",
+        balanceEnd: "uint256",
+        raise: "uint256",
+        normalized: "uint256"
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
+
+    //-------------------------------------------------------------------------
+    // Ledger Table
+    //-------------------------------------------------------------------------
+    LedgerTuning: {
+      key: [],
+      schema: {
+        baseDebit: "uint256",
+        maxDebit: "uint256",
+        maxStake: "uint256",
+        maxUnstake: "uint256",
+        timeToUnstake: "uint256"
+      },
+      codegen: {
+        dataStruct: false
+      }
+    },
 
     /**
      * The currency table defines how much in-game tokens you have.  Currently
@@ -269,7 +466,7 @@ export default defineWorld({
      * - credits: A balance that can be used for services but not traded, etc
      * - debit:   How much you own to the empire for services, etc.
      */
-    CurrencyTable: {
+    LedgerInfo: {
       key: ["owner"],
       schema: {
         // Key
@@ -278,187 +475,131 @@ export default defineWorld({
         // Value
         tokens: "uint256",
         credits: "uint256",
+        debit: "uint256",
+
+        // Stacking Values
         staked: "uint256",
         unstaked: "uint256",
-        uts: "uint256",
-        debit: "uint256"
+        uts: "uint256"
+      },
+      codegen: {
+        dataStruct: false
       }
     },
 
     //-------------------------------------------------------------------------
-    // Generic Entity Table
+    // Marketplace Tables
     //-------------------------------------------------------------------------
-
-    /**
-     * A counter for generating entity Ids.
-     */
-    EntityIdTable: {
+    MPConfig: {
       key: [],
       schema: {
-        value: "uint256",
+        active: "bool"
       },
       codegen: {
         dataStruct: false
       }
     },
 
-    EntityOwnerTable: {
-      key: ["entity"],
+    MPTuning: {
+      key: [],
       schema: {
-        entity: "bytes32",
-        value: "bytes32"
+        listFee: "uint256",
+        listRake: "uint256",
+
+        englishFee: "uint256",
+        englishRake: "uint256",
+        englishMinTime: "uint256",
+        englishMaxTime: "uint256",
+
+        dutchFee: "uint256",
+        dutchRake: "uint256",
+        dutchMinTime: "uint256",
+        dutchMaxTime: "uint256",
+
+        pennyFee: "uint256",
+        pennyRake: "uint256",
+        pennyMinTime: "uint256",
+        pennyMaxTime: "uint256",
       },
       codegen: {
         dataStruct: false
       }
     },
 
-    /**
-     * The type of entity this is
-     */
-    EntityTypeTable: {
-      key: ["entity"],
+    MPNonce: {
+      key: [],
       schema: {
-        entity: "bytes32",
-        value: "EntityEnum"
+        value: "uint256"
       },
       codegen: {
         dataStruct: false
       }
     },
 
-    /**
-     * To ensure that each entity name is unique this table keeps a record of
-     * all hashed named values in use.  If you have a match it will not
-     * create the name...
-     */
-    EntityNameRegistryTable: {
-      key: ["nameHash"],
+    MPInfo: {
+      key: ["auctionId"],
       schema: {
-        nameHash: "bytes32",
-        value: "bool"
-      }
-    },
-
-    /**
-     * When creating an entity that includes a description, we will keep that
-     * as a hashed value on chain.  The full description will be stored offchain
-     * but you can use this hash as a key to fetch it.
-     */
-    EntityDescriptionTable: {
-      key: ["entity"],
-      schema: {
-        entity: "bytes32",
-        value: "bytes32",
+        auctionId: "bytes32",
+        entityId: "bytes32",
+        seller: "bytes32",
+        auctionType: "Auction",
       },
       codegen: {
         dataStruct: false
       }
     },
 
-    //-------------------------------------------------------------------------
-    // Voidsman Tables
-    //-------------------------------------------------------------------------
-
-    /**
-     * Some generic info about this voidsman
-     */
-    VoidsmanPersonaTable: {
-      key: ["entity"],
+    MPListInfo: {
+      key: ["auctionId"],
       schema: {
-        // Key
-        entity: "bytes32",
-
-        // Values
-        home: "HomeEnum",
-        name: "string",
-        portrait: "string",
+        auctionId: "bytes32",
+        price: "uint256",
       },
       codegen: {
         dataStruct: false
       }
     },
 
-    /**
-     * The competency values of a voidman for set of fields.
-     */
-    VoidsmanInfoTable: {
-      key: ["entity"],
+    MPEnglishInfo: {
+      key: ["auctionId"],
       schema: {
-        // Key
-        entity: "bytes32",
-
-        // Values
-        xp: "uint32",
-        comps: "uint8[]",
-        stats: "uint8[]"
-      },
-    },
-
-    /**
-     * When training a voidsman it will take time and effort
-     */
-    VoidsmanTrainingTable: {
-      key: ["entity"],
-      schema: {
-        // Key
-        entity: "bytes32",
-
-        // Values
-        time: "uint256",
-        field: "FieldEnum"
+        auctionId: "bytes32",
+        endsAt: "uint256",
+        startingPrice: "uint256",
+        bidder: "bytes32",
+        currentPrice: "uint256",
       },
       codegen: {
         dataStruct: false
       }
     },
 
-    /**
-     * 
-     */
-    VoidsmanRequirementsTable: {
-      key: ["level", "field"],
+    MPDutchInfo: {
+      key: ["auctionId"],
       schema: {
-        // key
-        level: "uint8",
-        field: "FieldEnum",
-
-        // Values
-        xp: "uint256",
-        competencies: "uint8[]",
-        stats: "uint8[]",
-      }
-    },
-
-    //-------------------------------------------------------------------------
-    // Marketplace Voidsman
-    //-------------------------------------------------------------------------
-    MarketplaceVoidsman: {
-      key: ["entity"],
-      schema: {
-        // Key
-        entity: "bytes32",
-
-        // Values
-        cost: "uint256",
+        auctionId: "bytes32",
+        startsAt: "uint256",
+        endsAt: "uint256",
+        startingPrice: "uint256",
+        discountRate: "uint256"
       },
       codegen: {
         dataStruct: false
       }
     },
 
-    MarketplaceJobsBoard: {
-      key: ["entity"],
+    MPPennyInfo: {
+      key: ["auctionId"],
       schema: {
-        // Key
-        entity: "bytes32",
-
-        // Values
-        cost: "uint256",
+        auctionId: "bytes32",
+        endsAt: "uint256",
+        bidder: "bytes32",
+        currentPrice: "uint256",
+        total: "uint256"
       },
       codegen: {
         dataStruct: false
       }
-    }
-  },
+    },
+  }
 });

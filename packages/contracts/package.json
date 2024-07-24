@@ -7,21 +7,23 @@
     "build": "mud build",
     "clean": "forge clean && rimraf src/codegen",
     "deploy:local": ". ./.env && export PRIVATE_KEY=$LOCAL_PRIVATE_KEY && pnpm run build && mud deploy --profile local",
-    "deploy:test":  ". ./.env && export PRIVATE_KEY=$TEST_PRIVATE_KEY && pnpm run build && mud deploy --profile test",
-    "deploy:main":  ". ./.env && export PRIVATE_KEY=$MAIN_PRIVATE_KEY && pnpm run build && mud deploy --profile main",
-    "dev": ". ./.env && export PRIVATE_KEY=$LOCAL_PRIVATE_KEY && wait-port localhost:8545 && pnpm mud dev-contracts --rpc http://127.0.0.1:8545",
+    "deploy:test": ". ./.env && export PRIVATE_KEY=$TEST_PRIVATE_KEY && pnpm run build && mud deploy --profile test",
+    "deploy:main": ". ./.env && export PRIVATE_KEY=$MAIN_PRIVATE_KEY && pnpm run build && mud deploy --profile main",
+    "dev": ". ./.env && export IS_DEV=true && export PRIVATE_KEY=$LOCAL_PRIVATE_KEY && wait-port localhost:8545 && pnpm mud dev-contracts --rpc http://127.0.0.1:8545",
     "lint": "pnpm run prettier && pnpm run solhint",
     "prettier": "prettier --write 'src/**/*.sol'",
     "solhint": "solhint --config ./.solhint.json 'src/**/*.sol' --fix",
-    "test": "tsc --noEmit && mud test"
+    "test": ". ./.env && export IS_TEST=true && export PRIVATE_KEY=$LOCAL_PRIVATE_KEY && export GAS_REPORTER_ENABLED=true && tsc --noEmit && mud test"
   },
   "dependencies": {
     "@latticexyz/cli": "2.0.12",
+    "@latticexyz/gas-report": "^2.0.12",
     "@latticexyz/schema-type": "2.0.12",
     "@latticexyz/store": "2.0.12",
     "@latticexyz/world": "2.0.12",
     "@latticexyz/world-modules": "2.0.12",
     "@openzeppelin/contracts": "^5.0.2",
+    "@prb/math": "^4.0.3",
     "g": "^2.0.1",
     "wait-port": "^1.0.4"
   },

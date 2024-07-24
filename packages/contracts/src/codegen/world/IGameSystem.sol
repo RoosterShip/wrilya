@@ -9,41 +9,28 @@ pragma solidity >=0.8.24;
  * @dev This interface is automatically generated from the corresponding system contract. Do not edit manually.
  */
 interface IGameSystem {
-  function game__pause() external;
+  function wrilya__initialize(
+    address gm_,
+    address payee_,
+    address gov_,
+    address curProxy_,
+    address itemProxy_,
+    address entityProxy_
+  ) external;
 
-  function game__unpause() external;
+  function wrilya__transferGM(address gm_) external;
 
-  function game__setGM(address newGM) external;
+  function wrilya__transferGovernor(address gov_) external;
 
-  function game__setAdmin(address newAdmin) external;
+  function wrilya__transferPayee(address payee_) external;
 
-  function game__setCurrencyProxy(address proxy) external;
+  function wrilya__transferCurrencyProxy(address proxy_) external;
 
-  function game__setItemProxy(address proxy) external;
+  function wrilya__transferItemProxy(address proxy_) external;
 
-  function game__setGovernor(address gov) external;
+  function wrilya__transferEntityProxy(address proxy_) external;
 
-  function game__setVoteToken(address token) external;
+  function wrilya__pause() external;
 
-  function game__setEntityProxy(address proxy) external;
-
-  function game__setVoidsmanCreateCost(uint256 cost) external;
-
-  function game__setVoidsmanUpgradeTimeBase(uint256 base) external;
-
-  function game__setVoidsmanUpgradeTimePower(uint256 power) external;
-
-  function game__setVoidsmanUpgradeCostBase(uint256 base) external;
-
-  function game__setVoidsmanUpgradeCostPower(uint256 power) external;
-
-  function game__setVoidsmanMaxStats(uint8 max) external;
-
-  function game__setVoidsmanMaxCompetency(uint8 max) external;
-
-  function game__setStdMaxDebit(uint256 value) external;
-
-  function game__setCollateralDebitRatio(uint256 ratio) external;
-
-  function game__setCurrencyUnstakeTime(uint256 ratio) external;
+  function wrilya__run() external;
 }

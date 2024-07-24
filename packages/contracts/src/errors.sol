@@ -14,37 +14,119 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
-pragma solidity >=0.8.24;
+pragma solidity >=0.8.26;
 
-/// Error raised when the caller is not authorized to perform the action
-/// code: 82b42900
+// NOTE:
+//
+// To get the error codes generated you just need to abi encode the string
+// name of the error without the parenthesis
+//
+// Exmple:
+// - Goto https://abi.hashex.org/
+// - Select "Manual Parameters"
+// - Select "your function" on the Functions dropdown
+// - Enter the text "Unauthorized"
+// - Encoded data is the error code ("82b42900")
+
+/**
+ * @dev Transaction requested by an unauthrozied user
+ * code: 82b42900
+ */
 error Unauthorized();
 
-/// Error raised when the caller is not valid.  Typically a contract
-/// code: 48f5c3ed
+/**
+ * @dev Transaction requested by invalid caller type
+ * code: 48f5c3ed
+ */
 error InvalidCaller();
 
-/// The operation could not be completed because of an invalid state in the game
-/// Example would be training a crew member who is already training
-/// code: baf3f0f7
+/**
+ * @dev Transaction requested when system was not in the correct "state"
+ * code: baf3f0f7
+ */
 error InvalidState();
 
-/// One of the supply arguments was no good
-/// code: a9cb9e0d
+/**
+ * @dev Transaction requested with supplied argument which is invalid
+ * code: a9cb9e0d
+ */
 error InvalidArgument();
 
-/// The operation could not be done at this time.
-/// code: 9488aaa6
+/**
+ * @dev Transaction requested an operation that failed.  This could be due to
+ * the signature not matching OR the operation already having been executed
+ * code: 398d4d32
+ */
+error InvalidOperation();
+
+/**
+ * @dev The expected owner did not match what was given in
+ * code: 49e27cff
+ */
+error InvalidOwner();
+
+/**
+ * @dev Transaction requested a multisig check that failed
+ * code: 8baa579f
+ */
+error InvalidSignature();
+
+/**
+ * @dev Transaction requested when the system is not in a ready state
+ * code: 9488aaa6
+ */
 error NotReady();
 
-/// This name is already in use
-/// code: 023cabe9
-error NameInUse();
+/**
+ * @dev Transaction requested when game was in an active state not expected
+ * code: e76abfdd
+ */
+error GameActiveState();
 
-/// Error for when the game is not currently running but some operation was requested
-/// code: e76abfdd
-error GameInactive();
+/**
+ * @dev Transaction requested when system was in an active state not expected
+ * code: e452b4df
+ */
+error SystemActiveState();
 
-/// Error for when the user doesn't have enough funds
-/// code: 356680b7
+/**
+ * @dev Transaction requested with send who does not have enough funds
+ * code: 356680b7
+ */
 error InsufficientFunds();
+
+/**
+ * @dev Transaction requested by user who is on the perm ban list
+ * code: 8cbb6cb3
+ */
+error PerminateBan();
+
+/**
+ * @dev Transaction requested by address that is banned
+ * code: 3b64d0cf
+ */
+error BannedAddress();
+
+/**
+ * @dev Transaction requested error due to time expired check
+ * code: 2ddeb065
+ */
+error TimeExpired();
+
+/**
+ * @dev Transction request to a function not implemented yet
+ * code: d6234725
+ */
+error NotImplemented();
+
+/**
+ * @dev Transction that was expecting a payment did not include one
+ * code: 62128b04
+ */
+error MissingPayment();
+
+/**
+ * @dev The values given will create an out of bounds result
+ * code: b4120f14
+ */
+error OutOfBounds();

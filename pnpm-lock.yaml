@@ -129,6 +129,9 @@ importers:
       '@latticexyz/cli':
         specifier: 2.0.12
         version: 2.0.12
+      '@latticexyz/gas-report':
+        specifier: ^2.0.12
+        version: 2.0.12
       '@latticexyz/schema-type':
         specifier: 2.0.12
         version: 2.0.12(typescript@5.4.2)(zod@3.23.8)
@@ -144,6 +147,9 @@ importers:
       '@openzeppelin/contracts':
         specifier: ^5.0.2
         version: 5.0.2
+      '@prb/math':
+        specifier: ^4.0.3
+        version: 4.0.3
       g:
         specifier: ^2.0.1
         version: 2.0.1
@@ -1093,6 +1099,9 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@prb/math@4.0.3':
+    resolution: {integrity: sha512-/RSt3VU1k2m3ox6U6kUL1MrktnAHr8vhydXu4eDtqFAms1gm3XnGpoZIPaK1lm2zdJQmKBwJ4EXALPARsuOlaA==}
 
   '@remix-run/router@1.16.1':
     resolution: {integrity: sha512-es2g3dq6Nb07iFxGk5GuHN20RwBZOsuDQN7izWIisUcv9r+d2C5jQxqmgkdebXgReWfiyUabcki6Fg77mSNrig==}
@@ -5269,6 +5278,8 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@prb/math@4.0.3': {}
 
   '@remix-run/router@1.16.1': {}
 
