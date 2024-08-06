@@ -10,20 +10,20 @@ defmodule MUD.Application do
     children = [
       # Starts a worker by calling: MUD.Worker.start_link(arg)
       MUD.Repo,
-      {Phoenix.PubSub, name: MUD.PubSub},
+      {Phoenix.PubSub, name: MUD.PubSub}
       # EctoWatch doesn't seem to support prefixes yet which makes this a pain.
       # However I really like that I can use Ecto Query syntax now instead of
       # the way I was doing it before which is pretty cool.  I also posted a
       # question to the owners of the library to see if I get a response
-      {EctoWatch,
-        repo: MUD.Repo,
-        pub_sub: MUD.PubSub,
-        watchers: [
-          {MUD.Data.GameNotification, :inserted},
-          {MUD.Data.GameNotification, :updated},
-          {MUD.Data.GameNotification, :deleted}
-        ]},
-       MUD.Notification
+      # {EctoWatch,
+      #  repo: MUD.Repo,
+      #  pub_sub: MUD.PubSub,
+      #  watchers: [
+      #    {MUD.Data.GameNotification, :inserted},
+      #    {MUD.Data.GameNotification, :updated},
+      #    {MUD.Data.GameNotification, :deleted}
+      #  ]},
+      # MUD.Notification
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

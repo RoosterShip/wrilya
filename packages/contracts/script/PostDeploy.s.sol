@@ -23,6 +23,7 @@ import {Script} from "forge-std/Script.sol";
 import {console} from "forge-std/console.sol";
 import {StoreSwitch} from "@latticexyz/store/src/StoreSwitch.sol";
 import {IWorld} from "../src/codegen/world/IWorld.sol";
+import {Faucet} from "../src/faucet/Faucet.sol";
 import {WrilyaVoteToken} from "../src/governance/vote.sol";
 import {WrilyaGovernor} from "../src/governance/governor.sol";
 import {WrilyaCurrencyProxy} from "../src/proxy/WrilyaCurrencyProxy.sol";
@@ -61,6 +62,8 @@ contract PostDeploy is Script {
 
     address gmAddress = vm.envOr("GM_ADDRESS", deployerAddress);
     address payeeAddress = vm.envOr("PAYEE_ADDRESS", deployerAddress);
+    address faucetOwnerAddress =
+      vm.envOr("FAUCET_OWNER_ADDRESS", deployerAddress);
 
     if (vm.envOr("IS_TEST", false)) {
       gmAddress = vm.envAddress("TEST_GM_ADDRESS");
@@ -163,8 +166,13 @@ contract PostDeploy is Script {
     );
 
     // Give half to the game dev
-    IWorld(worldAddress).wrilya__ledgerTokenTransfer(gmAddress, 50_000_000e18);
+    IWorld(worldAddress).wrilya__ledgerTokenTransfer(gmAddress, tokens / 2);
+
     // ------------------ Proxy ContractsSetup ---------------------------------
+
+    // ------------------ Faucet ContractsSetup --------------------------------
+    Faucet faucet = new Faucet();
+    faucet.transferOwnership(faucetOwnerAddress);
 
     // ------------------ DAO Setup --------------------------------------------
     WrilyaVoteToken wvt = new WrilyaVoteToken(1_000_000);
@@ -190,6 +198,7 @@ contract PostDeploy is Script {
     console.log("Wrilya Currency Proxy Contract Deployed at: %s", wcpAddress);
     console.log("Wrilya Item Proxy Contract Deployed at: %s", wipAddress);
     console.log("Wrilya Entity Proxy Contract Deployed at: %s", wepAddress);
+    console.log("Faucet Contract is deployed at: %s", address(faucet));
     console.log("----------------------------------------------------");
 
     vm.stopBroadcast();

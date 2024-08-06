@@ -39,12 +39,12 @@ import { supportedChains } from "./supportedChains";
 export async function getNetworkConfig() {
   const params = new URLSearchParams(window.location.search);
 
-  console.log("Using chain id %n", global.chainId)
-
   /*
    * Find the chain (unless it isn't in the list of supported chains).
    */
-  const chainIndex = supportedChains.findIndex((c) => c.id === global.chainId);
+  const chainId = Number(__CHAIN_ID__);
+  console.log("*** CHAIN ID = " + chainId);
+  const chainIndex = supportedChains.findIndex((c) => c.id === chainId);
   const chain = supportedChains[chainIndex];
   if (!chain) {
     throw new Error(`Chain ${chainId} not found`);

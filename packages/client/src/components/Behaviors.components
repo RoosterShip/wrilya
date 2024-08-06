@@ -6,6 +6,8 @@
         "contentType": "phasereditor2d.core.scene.UserComponents"
     },
     "outputLang": "TYPE_SCRIPT",
+    "insertSpaces": true,
+    "tabSize": 2,
     "exportClass": true,
     "autoImport": true
 }

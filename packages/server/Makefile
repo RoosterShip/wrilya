@@ -1,13 +1,23 @@
 #------------------------------------------------------------------------------
 # Make setup
 #------------------------------------------------------------------------------
+include .env
+
 .PHONY: help run clean setup 
+.EXPORT_ALL_VARIABLES: 
+	DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
+	DISCORD_CLIENT_SECRET=${DISCORD_CLIENT_SECRET}
+	DISCORD_TOKEN=${DISCORD_TOKEN}
+	SECRET_KEY_BASE=${SECRET_KEY_BASE}
+	GUARDIAN_SECRET=${GUARDIAN_SECRET}
+	GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+	GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+	WRILYA_WEB_SIGNING_SALT=${WRILYA_WEB_SIGNING_SALT}
+	ACCOUNT_VAULT_KEY=${ACCOUNT_VAULT_KEY}
 
 default: help
 
 SHELL := /bin/bash
-
-include .env
 
 #------------------------------------------------------------------------------
 # General operations
@@ -20,7 +30,13 @@ help:
 # 🏃 run: @ Start up local client
 run: setup
 	@echo Server starting...
-	DISCORD_TOKEN=${DISCORD_TOKEN} iex -S mix phx.server
+	wait-port 3001
+	iex -S mix phx.server
+	@echo Server shutting down...
+
+launch: 
+	@echo Server starting...
+	iex -S mix phx.server
 	@echo Server shutting down...
 
 #🧹 clean: @ Delete all temp and downloaded files
@@ -32,6 +48,6 @@ clean:
 #🏗️  setup: @   Download any deps and run the setup for the environment
 setup:
 	@echo Server setup started...
-	DISCORD_TOKEN=${DISCORD_TOKEN} mix deps.get
-	DISCORD_TOKEN=${DISCORD_TOKEN} mix setup
+	mix deps.get
+	mix setup
 	@echo Server setup complete...

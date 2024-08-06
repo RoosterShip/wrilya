@@ -1,0 +1,82 @@
+{
+    "id": "1310270e-a05c-4258-a9aa-c1cffad609a1",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "superClassName": "UIButtonStandard",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "a50fb323-2ba1-40e8-ae07-1b5b16db6807",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "30d1139c-3509-44bf-be37-0477c9be4201",
+                    "label": "missions_h",
+                    "texture": {
+                        "key": "missions_h"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "e63c6b51-4ce5-4aad-969f-61f7e26f45a6",
+                    "label": "missions_n",
+                    "texture": {
+                        "key": "missions_n"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "38454b2d-42e4-458a-8353-6eaf0b56fe66",
+                    "label": "missions_p",
+                    "texture": {
+                        "key": "missions_p"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "dd649d60-a0a1-4ea0-9506-427c22c93f0c",
+                    "label": "missions_d",
+                    "texture": {
+                        "key": "missions_p"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "aa99039f-298e-4eed-8dbf-bbc132128e1f",
+                    "label": "hitbox",
+                    "originX": 0,
+                    "originY": 0,
+                    "width": 22,
+                    "height": 25
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

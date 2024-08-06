@@ -1,0 +1,175 @@
+{
+    "id": "24978dda-2848-4cdb-b86b-c05bf56d2a0b",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "generateAwakeHandler": true,
+        "superClassName": "UICellStandard",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "fb8a4f9e-04c9-478c-af0d-4d9d779fe5fc",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "54442c46-5b1a-4b2e-b505-ca3667354f51",
+                    "label": "h_f_001_t",
+                    "scope": "CLASS",
+                    "texture": {
+                        "key": "h_f_001_t"
+                    },
+                    "x": 39,
+                    "y": 42
+                },
+                {
+                    "type": "Image",
+                    "id": "70d533cc-ba72-442d-9945-147a9cb21bba",
+                    "label": "character_entry",
+                    "texture": {
+                        "key": "character_entry"
+                    },
+                    "x": 3,
+                    "y": 5,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "a09ed9c8-8db8-4f09-b9a8-3377b0b817da",
+                    "label": "entry_select_effect",
+                    "texture": {
+                        "key": "entry_select_effect"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "b75efed0-d00c-423d-acbc-32e6b55c04d6",
+                    "label": "entry_hover_effect",
+                    "texture": {
+                        "key": "entry_hover_effect"
+                    },
+                    "y": 1,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Text",
+                    "id": "e09e28e8-ca05-4ad9-945e-cce043b7064a",
+                    "label": "lblName",
+                    "scope": "CLASS",
+                    "x": 73,
+                    "y": 20,
+                    "text": "Voidsman Name",
+                    "fontFamily": "system-ui",
+                    "fontSize": "18px",
+                    "shadow.offsetX": 1,
+                    "shadow.offsetY": 1,
+                    "shadow.fill": true
+                },
+                {
+                    "type": "Text",
+                    "id": "fb2bb2e4-2148-42ee-8457-b7df43646e67",
+                    "label": "lblAssignment",
+                    "scope": "CLASS",
+                    "x": 73,
+                    "y": 52,
+                    "text": "asgmt: NONE",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "shadow.offsetX": 1,
+                    "shadow.offsetY": 1,
+                    "shadow.fill": true
+                },
+                {
+                    "type": "Text",
+                    "id": "9a039990-bc0b-4912-95be-7d4c4b30d7cb",
+                    "label": "lblLevel",
+                    "scope": "CLASS",
+                    "x": 276,
+                    "y": 52,
+                    "originX": 1,
+                    "text": "lvl: 0",
+                    "align": "right",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "shadow.offsetX": 1,
+                    "shadow.offsetY": 1,
+                    "shadow.fill": true
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "0e67fc19-ad9a-431d-b501-e4c62bdd6958",
+                    "label": "hitbox",
+                    "x": 6,
+                    "y": 6,
+                    "originX": 0,
+                    "originY": 0,
+                    "width": 280,
+                    "height": 70
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "level",
+            "label": "Level",
+            "tooltip": "",
+            "defValue": "0",
+            "customDefinition": false,
+            "type": {
+                "id": "string"
+            }
+        },
+        {
+            "name": "name",
+            "label": "Name",
+            "tooltip": "",
+            "defValue": "NOT SET",
+            "customDefinition": false,
+            "type": {
+                "id": "string"
+            }
+        },
+        {
+            "name": "assignment",
+            "label": "Assignment",
+            "tooltip": "",
+            "defValue": "NOT TEST",
+            "customDefinition": false,
+            "type": {
+                "id": "string"
+            }
+        },
+        {
+            "name": "thumbnail",
+            "label": "Thumbnail",
+            "tooltip": "",
+            "defValue": "h_f_001_t",
+            "customDefinition": false,
+            "type": {
+                "id": "asset-key"
+            }
+        }
+    ]
+}

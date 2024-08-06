@@ -17,4 +17,12 @@ import { sepolia, arbitrum, arbitrumNova, arbitrumSepolia } from "viem/chains";
  * See https://mud.dev/tutorials/minimal/deploy#run-the-user-interface
  * for instructions on how to add networks.
  */
-export const supportedChains: MUDChain[] = [mudFoundry, redstone, garnet, sepolia, arbitrum, arbitrumNova, arbitrumSepolia];
+export const supportedChains: MUDChain[] = [
+  mudFoundry,
+  redstone,
+  garnet,
+  sepolia,
+  arbitrum,
+  arbitrumNova,
+  arbitrumSepolia
+];

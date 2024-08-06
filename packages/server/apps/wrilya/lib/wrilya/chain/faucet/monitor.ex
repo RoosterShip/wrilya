@@ -1,4 +1,4 @@
-defmodule Wrilya.Chain.Facuet.Monitor do
+defmodule Wrilya.Chain.Faucet.Monitor do
   require Logger
   use Oban.Pro.Worker
   @impl Oban.Pro.Worker

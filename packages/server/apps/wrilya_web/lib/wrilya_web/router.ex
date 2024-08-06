@@ -1,26 +1,70 @@
 defmodule WrilyaWeb.Router do
+  @moduledoc """
+  Exposed Endpoints and mapping to controllers to handle the requests.
+
+  Check out Phoenix and Plug for more details if needed
+  """
+
+  # ----------------------------------------------------------------------------
+  # Module Uses
+  # ----------------------------------------------------------------------------
   use WrilyaWeb, :router
 
+  # ----------------------------------------------------------------------------
+  # Module Constants
+  # ----------------------------------------------------------------------------
+  @auth_plug Account.auth_plug()
+
+  # ----------------------------------------------------------------------------
+  # Module Pipelines
+  # ----------------------------------------------------------------------------
+
+  # Standard Browser page services
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, html: {WrilyaWeb.Layouts, :root}
-    plug :protect_from_forgery
+
+    plug :protect_from_forgery,
+      allow_hosts: [
+        "localhost",
+        "localhost:8080",
+        "localhost:4000",
+        "wrilya.com",
+        ".wrilya.com",
+        "google.com",
+        ".google.com",
+        "discord.com",
+        ".discord.com"
+      ]
+
     plug :put_secure_browser_headers
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug, origin: ["http://localhost:8080"]
   end
 
-  scope "/", WrilyaWeb do
-    pipe_through :browser
-
-    get "/", PageController, :home
+  # Standard Auth plug. Basically defines what to do in cases of errors, etc.
+  pipeline :auth do
+    plug @auth_plug
   end
 
-  # Other scopes may use custom stacks.
+  pipeline :session do
+    plug :fetch_session
+  end
+
+  # Pipeline that requires a user is logged in
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated, claims: %{"typ" => "access"}
+  end
+
+  # ----------------------------------------------------------------------------
+  # Module Scopes
+  # ----------------------------------------------------------------------------
+
   scope "/api", WrilyaWeb do
     pipe_through :api
 
@@ -28,6 +72,28 @@ defmodule WrilyaWeb.Router do
       get "/healthy", StatusController, :healthy
       get "/ready", StatusController, :ready
     end
+
+    scope "/session" do
+      pipe_through [:session, :auth, :ensure_auth]
+      get "/info", SessionController, :info
+      scope "/voidsman" do
+        get "/manifest", Session.VoidsmanController, :manifest
+        post "/premint", Session.VoidsmanController, :premint
+        options "/premint", Session.VoidsmanController, :premintOptions
+      end
+    end
+  end
+
+  scope "/auth", WrilyaWeb do
+    pipe_through [:browser, :auth, :session]
+    get "/", AuthController, :redirect_login
+
+    get "/login", AuthController, :login
+    get "/logout", AuthController, :logout
+
+    get "/:provider", AuthController, :provider
+    get "/:provider/callback", AuthController, :callback
+    post "/:provider/callback", AuthController, :callback
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
@@ -43,7 +109,7 @@ defmodule WrilyaWeb.Router do
       pipe_through :browser
 
       live_dashboard "/dashboard", metrics: WrilyaWeb.Telemetry
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
+      # forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
 end

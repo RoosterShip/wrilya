@@ -6,7 +6,7 @@
 import {
   createPublicClient,
   fallback,
-  Transport,
+  //Transport,
   webSocket,
   http,
   createWalletClient,
@@ -100,6 +100,7 @@ export async function setupNetwork() {
     address: networkConfig.worldAddress as Hex,
     publicClient,
     startBlock: BigInt(networkConfig.initialBlockNumber),
+    indexerUrl: "http://127.0.0.1:3001"
   });
 
   return {

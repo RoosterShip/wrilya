@@ -73,9 +73,9 @@ defmodule Wrilya.Chain.Consumer do
   defp consume(channel, tag, redelivered, payload) do
     # Move from RabbitMQ to Oban for processing.  Added a minor delay just in case
     # there is some traffic between when the event was captured to
-    Jason.decode!(payload)
-    |> Wrilya.Chain.Worker.new(schedule_in: 1)
-    |> Oban.insert!()
+    #Jason.decode!(payload)
+    #|> Wrilya.Chain.Worker.new(schedule_in: 1)
+    #|> Oban.insert!()
 
     # Tell RabbitMQ that I got this and it can move on
     :ok = Basic.ack channel, tag

@@ -12,6 +12,11 @@ defmodule Wrilya.Tally do
   require Logger
 
   # ----------------------------------------------------------------------------
+  # Module Uses
+  # ----------------------------------------------------------------------------
+  use Utils.Types
+
+  # ----------------------------------------------------------------------------
   # Module Public API
   # ----------------------------------------------------------------------------
 
@@ -31,7 +36,7 @@ defmodule Wrilya.Tally do
   """
   @spec fetch_proposals!(
           type :: String.t(),
-          chain_id :: UUID.t(),
+          chain_id :: uuid(),
           governors :: [String.t()]
         ) :: [map()]
   def fetch_proposals!(type, chain_id, governors) do
@@ -57,7 +62,12 @@ defmodule Wrilya.Tally do
         """,
         headers: [
           {"Content-Type", "application/json"},
-          {"Api-Key", Application.get_env(:wrilya, :tally_key, "064e8b8c8d33eb22382d76e2faaf470b2f107f3a3d904a2e6dd9dfde68eae67a")}
+          {"Api-Key",
+           Application.get_env(
+             :wrilya,
+             :tally_key,
+             "064e8b8c8d33eb22382d76e2faaf470b2f107f3a3d904a2e6dd9dfde68eae67a"
+           )}
         ],
         url: "https://api.tally.xyz/query",
         variables: [

@@ -1,0 +1,361 @@
+{
+    "id": "eb5da748-ffa3-465c-8413-fca21fcdcde0",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 190,
+        "borderHeight": 1000
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "12c7275d-14c2-4e5d-a7b1-5f124b064a04",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Text",
+                    "id": "1c140391-f23a-4711-95c3-99c37b77140e",
+                    "label": "text_1",
+                    "displayName": "Label Mission",
+                    "x": 2,
+                    "y": 2,
+                    "text": "Missions",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "455755cd-83ae-4b47-91b9-f5f7c6b7c835",
+                    "label": "text",
+                    "x": 184,
+                    "y": 2,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "72e31013-740c-4334-b6de-f344abef5805",
+                    "label": "text_2",
+                    "x": 2,
+                    "y": 32,
+                    "text": "Completed",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "332e4311-d406-4ccb-9bd2-00f075ca0782",
+                    "label": "text_3",
+                    "x": 184,
+                    "y": 32,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "ae3049e4-124d-4f9a-b3a2-11c9eaf0a614",
+                    "label": "text_4",
+                    "x": 2,
+                    "y": 62,
+                    "text": "Failed",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "e385aafb-3954-4bd7-b541-0944ec8dacc5",
+                    "label": "text_5",
+                    "x": 184,
+                    "y": 62,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui",
+                    "color": "#FF0000FF"
+                },
+                {
+                    "type": "Text",
+                    "id": "c71d12f9-6357-4d19-ad69-478013fd97ea",
+                    "label": "text_6",
+                    "x": 2,
+                    "y": 172,
+                    "text": "Respecs",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "f4dbed74-dc9e-4ec7-8c33-cdcbf0645877",
+                    "label": "text_7",
+                    "x": 184,
+                    "y": 172,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "e4ad3553-bc8d-4282-a47c-bda5abd0167a",
+                    "label": "text_8",
+                    "x": 2,
+                    "y": 202,
+                    "text": "Experience",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "a062b4b3-1ca6-4372-93cf-d8e65f971b51",
+                    "label": "text_9",
+                    "x": 184,
+                    "y": 202,
+                    "originX": 1,
+                    "text": "00000",
+                    "align": "right",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "7c30613f-c04b-4c1c-bcce-ecccf54223ed",
+                    "label": "text_10",
+                    "x": 2,
+                    "y": 232,
+                    "text": "Level",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "2b04286d-e4e7-46c5-9358-717e7e3bee11",
+                    "label": "text_11",
+                    "x": 184,
+                    "y": 232,
+                    "originX": 1,
+                    "text": "00000",
+                    "align": "right",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "04abb971-bb57-43fe-aa60-a61774b60e61",
+                    "label": "text_12",
+                    "x": 2,
+                    "y": 262,
+                    "text": "Next Level",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "ef461670-9aa6-43e6-81e0-ff4ee2f74089",
+                    "label": "text_13",
+                    "x": 184,
+                    "y": 262,
+                    "originX": 1,
+                    "text": "00000",
+                    "align": "right",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "cf9950a1-d729-446e-b451-05902c5ad4bd",
+                    "label": "text_14",
+                    "x": 2,
+                    "y": 92,
+                    "text": "Enemy Kills",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "08b8e56f-ce24-4df1-8cd6-0f1711369b97",
+                    "label": "text_15",
+                    "x": 184,
+                    "y": 92,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "b62595ab-46f0-437b-bda0-051b47a51d46",
+                    "label": "text_16",
+                    "x": 2,
+                    "y": 122,
+                    "text": "Cloned",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "f46f2eef-8964-4408-9b6c-b6980a277512",
+                    "label": "text_17",
+                    "x": 184,
+                    "y": 122,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui",
+                    "color": "#FF0000FF"
+                },
+                {
+                    "type": "Image",
+                    "id": "98845cc1-db44-4f00-b080-8e7fc9f021f6",
+                    "label": "rep_empty_frame",
+                    "texture": {
+                        "key": "rep_empty_frame"
+                    },
+                    "x": 2,
+                    "y": 152,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "92454501-d49c-44be-96aa-aa78f318670a",
+                    "label": "rep_empty_frame_1",
+                    "texture": {
+                        "key": "rep_empty_frame"
+                    },
+                    "x": 2,
+                    "y": 292,
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Text",
+                    "id": "46718e0e-07cc-4137-b8ef-d1ec7be90da1",
+                    "label": "text_18",
+                    "x": 2,
+                    "y": 312,
+                    "text": "Thing 1",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "88e96158-d3a6-4af9-b7ba-71c4508b5d45",
+                    "label": "text_19",
+                    "x": 2,
+                    "y": 342,
+                    "text": "Thing 2",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "d461d084-de55-40f3-9e84-ab71babb0d4f",
+                    "label": "text_20",
+                    "x": 2,
+                    "y": 372,
+                    "text": "Thing 3",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "b97789e3-2685-4e10-9e94-283bcf3274db",
+                    "label": "text_21",
+                    "x": 2,
+                    "y": 402,
+                    "text": "Thing 4",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "f99a94cf-4980-41f4-b0db-5d19cfd8d6e5",
+                    "label": "text_22",
+                    "x": 2,
+                    "y": 432,
+                    "text": "Thing 5",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "c04604b6-e600-4743-962b-659aefe5d943",
+                    "label": "text_23",
+                    "x": 2,
+                    "y": 462,
+                    "text": "Thing 6",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "a28a75c0-343a-43dd-af2f-d38fa300e25a",
+                    "label": "text_24",
+                    "x": 184,
+                    "y": 312,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "8451924e-7023-4d58-b515-e5dac2deb534",
+                    "label": "text_25",
+                    "x": 184,
+                    "y": 342,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "5e7f1720-a107-43d0-94e2-e1b40fc51ded",
+                    "label": "text_26",
+                    "x": 184,
+                    "y": 372,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "4a6e8eaf-4030-44cc-9a99-90b45c95c490",
+                    "label": "text_27",
+                    "x": 184,
+                    "y": 402,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "73ff629c-2809-4e0a-aca8-67ad762bedc0",
+                    "label": "text_28",
+                    "x": 184,
+                    "y": 432,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui"
+                },
+                {
+                    "type": "Text",
+                    "id": "e8a5efad-1ab0-41eb-8e74-d87ff0856c1c",
+                    "label": "text_29",
+                    "x": 183,
+                    "y": 462,
+                    "originX": 1,
+                    "text": "000",
+                    "align": "right",
+                    "fontFamily": "system-ui"
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

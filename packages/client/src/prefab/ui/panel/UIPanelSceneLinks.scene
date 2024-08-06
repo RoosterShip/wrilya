@@ -1,0 +1,119 @@
+{
+    "id": "5452fae8-627f-407f-af87-ad5c8f15c63b",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "7c078a99-6f1a-4ac8-bc6f-96d179f4d181",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "1953c6b6-fe7d-4d48-99c6-5c3f709d13c1",
+                    "label": "links_panel",
+                    "texture": {
+                        "key": "links_panel"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "prefabId": "289653f8-0295-409b-8c39-26bed1eb1a89",
+                    "id": "58b30d2e-5865-4fb0-8585-8b3ff163663c",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIButtonVoidsmanIcon",
+                    "x": 30,
+                    "y": 5
+                },
+                {
+                    "prefabId": "23f26fbe-7dfd-4f81-a8e8-a63251dca435",
+                    "id": "b3526dc9-022a-4c2f-96df-59ac9e03230c",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIButtonShipsIcon",
+                    "x": 70,
+                    "y": 5
+                },
+                {
+                    "prefabId": "1310270e-a05c-4258-a9aa-c1cffad609a1",
+                    "id": "a6de1f6c-0e45-4c3a-a4f7-2627cb0bfe97",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIButtonMissionIcon",
+                    "x": 115,
+                    "y": 5
+                },
+                {
+                    "prefabId": "6127579e-bec5-4987-84f7-fe690efe57fe",
+                    "id": "03f81771-f668-4125-bdfe-8d550f21ddd7",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIButtonYardIcon",
+                    "x": 160,
+                    "y": 5
+                },
+                {
+                    "prefabId": "0ab460f9-c975-45d2-930b-0bd3fbb73aaf",
+                    "id": "f4f2ca1d-02e6-4d77-932a-3084753af31b",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIButtonGalaxyIcon",
+                    "x": 205,
+                    "y": 5
+                },
+                {
+                    "prefabId": "cbc5425f-3726-42da-ae0f-b60770087630",
+                    "id": "2c9dc32b-c700-472f-a492-5e1fe16cd223",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIButtonLedgerIcon",
+                    "x": 255,
+                    "y": 5
+                },
+                {
+                    "prefabId": "bafd4ef3-ca2c-44d2-908d-a08a7b75398e",
+                    "id": "f0696c57-bb45-480b-9582-3e2834c103c1",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIButtonMainIcon",
+                    "x": 300,
+                    "y": 5
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

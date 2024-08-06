@@ -1,0 +1,110 @@
+{
+    "id": "59035513-6398-464e-8fd8-990008f18706",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "generateAwakeHandler": true,
+        "superClassName": "UIButtonStandard",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "62bcb2d1-3384-4990-9074-fa5772af5f76",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "06eec97c-d4b0-46a7-a211-3942304407c2",
+                    "label": "button_normal_d",
+                    "texture": {
+                        "key": "button_normal_d"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "b260f3b0-5276-4744-ae5e-51e150fed4b9",
+                    "label": "button_normal_h",
+                    "texture": {
+                        "key": "button_normal_h"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "b8f991e8-8d21-4c68-ad52-824e8bacc6a1",
+                    "label": "button_normal_n",
+                    "texture": {
+                        "key": "button_normal_n"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "27f956ac-0a3a-40b8-9f5e-3ddede0857df",
+                    "label": "button_normal_p",
+                    "texture": {
+                        "key": "button_normal_p"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "ba027385-8369-44f7-b43a-38ef9881486e",
+                    "label": "hitbox",
+                    "originX": 0,
+                    "originY": 0,
+                    "width": 106,
+                    "height": 28
+                },
+                {
+                    "type": "Text",
+                    "id": "ec16b806-0b1a-446c-b047-a99fb3315c38",
+                    "label": "lblText",
+                    "scope": "CLASS",
+                    "x": 53,
+                    "y": 14,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "align": "center",
+                    "fontFamily": "system-ui",
+                    "shadow.offsetY": 1,
+                    "shadow.fill": true,
+                    "shadow.blur": 1
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "text",
+            "label": "Text",
+            "tooltip": "",
+            "defValue": "",
+            "customDefinition": false,
+            "type": {
+                "id": "string"
+            }
+        }
+    ]
+}

@@ -1,0 +1,741 @@
+{
+    "id": "e0529b11-e161-46c4-b5e4-594b4b0d9efa",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "a2f2ff53-1577-4520-adcf-4773178a17af",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "acc59e34-997f-4015-a78a-2b943185256f",
+                    "label": "h_m_004",
+                    "texture": {
+                        "key": "h_m_004"
+                    },
+                    "x": 199,
+                    "y": 224,
+                    "scaleX": 0.25,
+                    "scaleY": 0.25
+                },
+                {
+                    "type": "Image",
+                    "id": "9717aa0a-e2a9-4abf-9280-973406f9b6f0",
+                    "label": "voidsman_box",
+                    "texture": {
+                        "key": "voidsman_box"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "0fb50dcf-39ae-49ab-800b-7f928b7d9110",
+                    "label": "stats_carving",
+                    "texture": {
+                        "key": "stats_carving"
+                    },
+                    "x": 114,
+                    "y": 526
+                },
+                {
+                    "type": "Image",
+                    "id": "4c388025-ab9e-4bdd-a333-b9c7bf2a99d9",
+                    "label": "stats_carving_1",
+                    "texture": {
+                        "key": "stats_carving"
+                    },
+                    "x": 284,
+                    "y": 526
+                },
+                {
+                    "type": "Image",
+                    "id": "64cee047-e838-4aac-9235-d81a53b55c34",
+                    "label": "dd_n",
+                    "texture": {
+                        "key": "dd_n"
+                    },
+                    "x": 114,
+                    "y": 463
+                },
+                {
+                    "type": "Image",
+                    "id": "efec3969-2477-4606-ae29-f8fb4a274f40",
+                    "label": "dd_n_1",
+                    "texture": {
+                        "key": "dd_n"
+                    },
+                    "x": 284,
+                    "y": 463
+                },
+                {
+                    "type": "Text",
+                    "id": "3236d535-668d-42cd-b613-a170131a8bcf",
+                    "label": "text_1",
+                    "x": 40,
+                    "y": 455,
+                    "text": "KNOWLEDGE",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "fontStyle": "bold"
+                },
+                {
+                    "type": "Text",
+                    "id": "add23d1d-8564-4c12-badb-736471bec3e2",
+                    "label": "text",
+                    "x": 211,
+                    "y": 455,
+                    "text": "ABILITIES",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "fontStyle": "bold"
+                },
+                {
+                    "type": "Text",
+                    "id": "24312e37-db7a-46f4-b0f9-7630b9da8312",
+                    "label": "text_2",
+                    "x": 40,
+                    "y": 480,
+                    "text": "Command",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "9560cf1d-d023-4c1a-bd02-a1c68f0f2cc6",
+                    "label": "text_3",
+                    "x": 40,
+                    "y": 499,
+                    "text": "Pilot",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "9451ceb2-bad0-4eed-bd58-cb94e760e0b2",
+                    "label": "text_4",
+                    "x": 40,
+                    "y": 517,
+                    "text": "Weapons",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "235ef25a-0403-4b54-991f-1243d52fb493",
+                    "label": "text_5",
+                    "x": 40,
+                    "y": 535,
+                    "text": "Shields",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "27ea63ba-01b7-4e4e-b4e9-253b7ddcc135",
+                    "label": "text_6",
+                    "x": 40,
+                    "y": 571,
+                    "text": "Sensors",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "2f5ded8c-1ec4-4d22-beb6-eaeb12aff829",
+                    "label": "text_7",
+                    "x": 40,
+                    "y": 589,
+                    "text": "Medical",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "3fa915bd-75bc-4309-b180-74575e2b8b26",
+                    "label": "text_8",
+                    "x": 40,
+                    "y": 553,
+                    "text": "Shipcraft",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "bd0dee20-8e01-4592-95a4-88c3aadf7b17",
+                    "label": "text_9",
+                    "x": 211,
+                    "y": 480,
+                    "text": "Fitness",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "f83e6ae5-8c2c-4aff-bb1d-d934d5b72981",
+                    "label": "text_10",
+                    "x": 211,
+                    "y": 499,
+                    "text": "Psyche",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "add03cc3-d2e1-43c6-b2c2-f1fc68a35399",
+                    "label": "text_11",
+                    "x": 211,
+                    "y": 517,
+                    "text": "Technique",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "6db19ce6-f121-4d77-859f-4b42e284d7b4",
+                    "label": "text_12",
+                    "x": 211,
+                    "y": 535,
+                    "text": "Intelligence",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "59acf238-33ea-466b-b5e2-2ca98024d832",
+                    "label": "text_13",
+                    "x": 211,
+                    "y": 571,
+                    "text": "Endurance",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "83714b1e-840c-4f51-86a3-0975cb7bbf08",
+                    "label": "text_14",
+                    "x": 211,
+                    "y": 589,
+                    "text": "Reflex",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "1aad1c1f-e56f-430f-b59b-b4800db7afaa",
+                    "label": "text_15",
+                    "x": 211,
+                    "y": 553,
+                    "text": "Focus",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#737373ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "3d1467db-bfab-4664-a280-334aeeeaef17",
+                    "label": "text_16",
+                    "x": 190,
+                    "y": 480,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "14c559ef-7334-4680-aff2-059b8b5ab747",
+                    "label": "text_17",
+                    "x": 190,
+                    "y": 499,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "02a96976-9695-42a2-8f66-c692b4827fdf",
+                    "label": "text_18",
+                    "x": 190,
+                    "y": 517,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "5d2abbff-a7e8-4e89-ab2c-97a704d0d7e1",
+                    "label": "text_19",
+                    "x": 190,
+                    "y": 535,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "54d8f103-8897-4ec9-857f-7bb461d9948d",
+                    "label": "text_20",
+                    "x": 190,
+                    "y": 553,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "e10b73b9-2e08-4754-a5e0-33502e28be72",
+                    "label": "text_21",
+                    "x": 190,
+                    "y": 571,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "71849124-4905-4f64-b80e-10d054f6fc79",
+                    "label": "text_22",
+                    "x": 190,
+                    "y": 589,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "169ba73b-ce67-49e3-a56c-c1a5c1e9b15a",
+                    "label": "text_23",
+                    "x": 360,
+                    "y": 480,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "9c2bd252-85c7-418b-8eaa-7a83d5e1dee4",
+                    "label": "text_24",
+                    "x": 360,
+                    "y": 499,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "62a4b1f8-e7dd-402c-b6fa-b9db3d89884b",
+                    "label": "text_25",
+                    "x": 360,
+                    "y": 517,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "7b22c35f-a573-4bd8-ab3c-cb2b9a0b89d7",
+                    "label": "text_26",
+                    "x": 360,
+                    "y": 535,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "085ec175-27ce-4d1c-ab70-2b3c2c3f3624",
+                    "label": "text_27",
+                    "x": 360,
+                    "y": 553,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "6e262806-2df0-48cf-b6b7-fb79000bec54",
+                    "label": "text_28",
+                    "x": 360,
+                    "y": 571,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "5355f456-023d-4115-bc0c-336d68d36541",
+                    "label": "text_29",
+                    "x": 360,
+                    "y": 589,
+                    "originX": 1,
+                    "text": "00",
+                    "fontFamily": "system-ui",
+                    "fontSize": "12px",
+                    "color": "#00ff00ff"
+                },
+                {
+                    "type": "Text",
+                    "id": "3f803f5c-5213-4f80-8bb7-bd443cdc22f9",
+                    "label": "text_30",
+                    "x": 307,
+                    "y": 25,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "text": "VOIDSMAN DATA SHEET",
+                    "fontFamily": "system-ui",
+                    "fontSize": "24px",
+                    "color": "#b1d1e3ff"
+                },
+                {
+                    "prefabId": "eb5da748-ffa3-465c-8413-fca21fcdcde0",
+                    "id": "5214924d-448f-484b-97f2-09e89a246ef8",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIPanelVoidsmanLog",
+                    "x": 376,
+                    "y": 110
+                },
+                {
+                    "type": "Text",
+                    "id": "bf2fa302-3d13-4ef8-8f55-982ae5552fbb",
+                    "label": "text_31",
+                    "x": 196,
+                    "y": 82,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "text": "VOIDSMAN NAME HERE",
+                    "align": "center",
+                    "fontFamily": "system-ui",
+                    "color": "#b1d1e3ff"
+                },
+                {
+                    "prefabId": "e42c02c1-1b5b-4f1d-a1a6-d79d35a91b62",
+                    "id": "e1d52e2f-2509-4cd5-a552-18cd6e7116cc",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIButtonTableTab_1",
+                    "x": 470,
+                    "y": 70
+                },
+                {
+                    "prefabId": "e42c02c1-1b5b-4f1d-a1a6-d79d35a91b62",
+                    "id": "7c6d6dfe-678b-4260-98a3-67dbcc1b93c8",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIButtonTableTab",
+                    "x": 371,
+                    "y": 70
+                },
+                {
+                    "type": "Image",
+                    "id": "a404e1c8-bf3e-4ea0-8b5b-9fa98f743782",
+                    "label": "eq_slot_helmet_mask",
+                    "texture": {
+                        "key": "box_portrait_mask"
+                    },
+                    "x": 54,
+                    "y": 126,
+                    "scaleX": 0.7,
+                    "scaleY": 0.7
+                },
+                {
+                    "type": "Image",
+                    "id": "5aeccae5-be6e-4a9a-96ad-63a5c560d7ba",
+                    "label": "eq_slot_helmet",
+                    "texture": {
+                        "key": "eq_slot_helmet"
+                    },
+                    "x": 54,
+                    "y": 126
+                },
+                {
+                    "type": "Image",
+                    "id": "3e21041c-f9bd-49c9-afd0-816f3131a071",
+                    "label": "eq_slot_insignia_mask",
+                    "texture": {
+                        "key": "box_portrait_mask"
+                    },
+                    "x": 343,
+                    "y": 126,
+                    "scaleX": 0.7,
+                    "scaleY": 0.7
+                },
+                {
+                    "type": "Image",
+                    "id": "367b568c-2a12-4e69-b095-65e840ebaf1d",
+                    "label": "eq_slot_insignia",
+                    "texture": {
+                        "key": "eq_slot_insignia"
+                    },
+                    "x": 343,
+                    "y": 126
+                },
+                {
+                    "type": "Image",
+                    "id": "c03ee2b0-88ad-4fb9-8a3d-8ff6cf5c30d1",
+                    "label": "eq_slot_dogtags_mask",
+                    "texture": {
+                        "key": "box_portrait_mask"
+                    },
+                    "x": 54,
+                    "y": 193,
+                    "scaleX": 0.7,
+                    "scaleY": 0.7
+                },
+                {
+                    "type": "Image",
+                    "id": "7f11a643-a63f-4a6f-a90f-2c93a2db8994",
+                    "label": "eq_slot_dogtags",
+                    "texture": {
+                        "key": "eq_slot_dogtags"
+                    },
+                    "x": 54,
+                    "y": 193
+                },
+                {
+                    "type": "Image",
+                    "id": "1fb67071-2505-4843-adb0-c6227b86e02f",
+                    "label": "box_portrait_mask_6",
+                    "texture": {
+                        "key": "box_portrait_mask"
+                    },
+                    "x": 343,
+                    "y": 193,
+                    "scaleX": 0.7,
+                    "scaleY": 0.7
+                },
+                {
+                    "type": "Image",
+                    "id": "d6c7f5e9-b8d5-45ac-996a-c6399c1b6074",
+                    "label": "eq_slot_implant",
+                    "texture": {
+                        "key": "eq_slot_implant"
+                    },
+                    "x": 343,
+                    "y": 195
+                },
+                {
+                    "type": "Image",
+                    "id": "d07cfc48-f8d9-4f8d-835c-63201738fd3e",
+                    "label": "box_portrait_mask_2",
+                    "texture": {
+                        "key": "box_portrait_mask"
+                    },
+                    "x": 54,
+                    "y": 260,
+                    "scaleX": 0.7,
+                    "scaleY": 0.7
+                },
+                {
+                    "type": "Image",
+                    "id": "2ea5168a-f4d3-4e3f-a338-975dcfcb85f3",
+                    "label": "eq_slot_gloves",
+                    "texture": {
+                        "key": "eq_slot_gloves"
+                    },
+                    "x": 54,
+                    "y": 255
+                },
+                {
+                    "type": "Image",
+                    "id": "5d0df11a-d1b6-420c-a69b-ec41fc65584a",
+                    "label": "box_portrait_mask_7",
+                    "texture": {
+                        "key": "box_portrait_mask"
+                    },
+                    "x": 343,
+                    "y": 260,
+                    "scaleX": 0.7,
+                    "scaleY": 0.7
+                },
+                {
+                    "type": "Image",
+                    "id": "7a984704-aa1c-497e-9a78-32ce2a6ebf48",
+                    "label": "eq_slot_bracers",
+                    "texture": {
+                        "key": "eq_slot_bracers"
+                    },
+                    "x": 344,
+                    "y": 260
+                },
+                {
+                    "type": "Image",
+                    "id": "3e478687-1803-4a36-99e7-046e5a84d867",
+                    "label": "box_portrait_mask_4",
+                    "texture": {
+                        "key": "box_portrait_mask"
+                    },
+                    "x": 54,
+                    "y": 326,
+                    "scaleX": 0.7,
+                    "scaleY": 0.7
+                },
+                {
+                    "type": "Image",
+                    "id": "711d9097-64d6-4b5b-82c5-405fd6d37267",
+                    "label": "eq_slot_chest",
+                    "texture": {
+                        "key": "eq_slot_chest"
+                    },
+                    "x": 56,
+                    "y": 327
+                },
+                {
+                    "type": "Image",
+                    "id": "95091f21-38aa-4e57-901c-e2bfadc6880c",
+                    "label": "box_portrait_mask_8",
+                    "texture": {
+                        "key": "box_portrait_mask"
+                    },
+                    "x": 343,
+                    "y": 326,
+                    "scaleX": 0.7,
+                    "scaleY": 0.7
+                },
+                {
+                    "type": "Image",
+                    "id": "d1fb5c30-fb03-4ad8-a4aa-c90d5fdf7c90",
+                    "label": "eq_slot_artifact",
+                    "texture": {
+                        "key": "eq_slot_artifact"
+                    },
+                    "x": 342,
+                    "y": 328
+                },
+                {
+                    "type": "Image",
+                    "id": "7cdbb799-540a-4469-8b73-864fe3cf10e6",
+                    "label": "box_portrait_mask_1",
+                    "texture": {
+                        "key": "box_portrait_mask"
+                    },
+                    "x": 54,
+                    "y": 392,
+                    "scaleX": 0.7,
+                    "scaleY": 0.7
+                },
+                {
+                    "type": "Image",
+                    "id": "4c6128be-779a-4097-9d58-3a9574e17e07",
+                    "label": "eq_slot_pants",
+                    "texture": {
+                        "key": "eq_slot_pants"
+                    },
+                    "x": 53,
+                    "y": 394
+                },
+                {
+                    "type": "Image",
+                    "id": "ea87cee9-747f-4427-ab0d-de2582f99b84",
+                    "label": "box_portrait_mask_9",
+                    "texture": {
+                        "key": "box_portrait_mask"
+                    },
+                    "x": 343,
+                    "y": 392,
+                    "scaleX": 0.7,
+                    "scaleY": 0.7
+                },
+                {
+                    "type": "Image",
+                    "id": "a8d7cc42-7dfb-4e7a-b892-a1c769188fc5",
+                    "label": "eq_slot_boots",
+                    "texture": {
+                        "key": "eq_slot_boots"
+                    },
+                    "x": 342,
+                    "y": 394
+                },
+                {
+                    "prefabId": "8f71da78-7410-464e-8d94-48e887b78c76",
+                    "id": "f328d60b-95df-43fa-b86a-f49703c72ed3",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIWindowClose",
+                    "x": 562,
+                    "y": 9
+                },
+                {
+                    "type": "Text",
+                    "id": "473b9e8f-dbad-49b9-9825-69726b95304d",
+                    "label": "text_32",
+                    "x": 200,
+                    "y": 373,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "text": "HOME WORLD",
+                    "align": "center",
+                    "fontFamily": "system-ui",
+                    "color": "#ffffffff"
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

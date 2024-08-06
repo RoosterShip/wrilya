@@ -1,0 +1,73 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/game/portraits/thumbnails/h_f_001_t.png",
+                "type": "image",
+                "key": "h_f_001_t"
+            },
+            {
+                "url": "assets/game/portraits/thumbnails/h_f_002_t.png",
+                "type": "image",
+                "key": "h_f_002_t"
+            },
+            {
+                "url": "assets/game/portraits/thumbnails/h_f_003_t.png",
+                "type": "image",
+                "key": "h_f_003_t"
+            },
+            {
+                "url": "assets/game/portraits/thumbnails/h_f_004_t.png",
+                "type": "image",
+                "key": "h_f_004_t"
+            },
+            {
+                "url": "assets/game/portraits/thumbnails/h_f_005_t.png",
+                "type": "image",
+                "key": "h_f_005_t"
+            },
+            {
+                "url": "assets/game/portraits/thumbnails/h_f_006_t.png",
+                "type": "image",
+                "key": "h_f_006_t"
+            },
+            {
+                "url": "assets/game/portraits/thumbnails/h_m_001_t.png",
+                "type": "image",
+                "key": "h_m_001_t"
+            },
+            {
+                "url": "assets/game/portraits/thumbnails/h_m_002_t.png",
+                "type": "image",
+                "key": "h_m_002_t"
+            },
+            {
+                "url": "assets/game/portraits/thumbnails/h_m_003_t.png",
+                "type": "image",
+                "key": "h_m_003_t"
+            },
+            {
+                "url": "assets/game/portraits/thumbnails/h_m_004_t.png",
+                "type": "image",
+                "key": "h_m_004_t"
+            },
+            {
+                "url": "assets/game/portraits/thumbnails/h_m_005_t.png",
+                "type": "image",
+                "key": "h_m_005_t"
+            },
+            {
+                "url": "assets/game/portraits/thumbnails/h_m_006_t.png",
+                "type": "image",
+                "key": "h_m_006_t"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}

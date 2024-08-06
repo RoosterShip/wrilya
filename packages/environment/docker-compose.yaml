@@ -81,51 +81,6 @@ services:
           - anvil
 
   # ---------------------------------------------------------------------------
-  # Setup the indexer
-  # ---------------------------------------------------------------------------
-  indexer:
-    image: ghcr.io/latticexyz/store-indexer:main
-    container_name: indexer
-    hostname: indexer
-    ports:
-      - "3001:3001"
-    environment:
-      RPC_HTTP_URL: http://host.docker.internal:8545
-      DATABASE_URL: postgres://postgres:postgres@host.docker.internal:5432/postgres
-      POLLING_INTERVAL: 500
-      FOLLOW_BLOCK_TAG: "latest"
-    working_dir: /app/packages/store-indexer
-    entrypoint:
-      - pnpm
-      - start:postgres-decoded
-    networks:
-      open:
-        aliases:
-          - indexer
-
-  # ---------------------------------------------------------------------------
-  # Setup the Faucet
-  # ---------------------------------------------------------------------------
-  faucet:
-    image: ghcr.io/latticexyz/faucet:main
-    container_name: faucet
-    hostname: faucet
-    ports:
-      - "3002:3002"
-    environment:
-      RPC_HTTP_URL: http://host.docker.internal:8545
-      FAUCET_PRIVATE_KEY: 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
-      DRIP_AMOUNT: 1
-    working_dir: /app/packages/faucet
-    entrypoint:
-      - pnpm
-      - start
-    networks:
-      open:
-        aliases:
-          - faucet
-
-  # ---------------------------------------------------------------------------
   # Setup the local rabbitmq.
   # ---------------------------------------------------------------------------
   rabbitmq:

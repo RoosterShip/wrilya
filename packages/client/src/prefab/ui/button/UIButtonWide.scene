@@ -1,0 +1,112 @@
+{
+    "id": "491d9f9d-23f5-4d4b-8978-99f377482780",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "generateAwakeHandler": true,
+        "superClassName": "UIButtonStandard",
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "9295a773-b9d2-41fe-b977-f782a5cd520d",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "dbd5e817-d455-4ef7-8f23-5a1d8552379b",
+                    "label": "wide_button_d",
+                    "texture": {
+                        "key": "wide_button_d"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "f67d82a7-31cd-4346-a12b-b8022b24f12b",
+                    "label": "wide_button_h",
+                    "texture": {
+                        "key": "wide_button_h"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "378ff9d1-55f5-4116-beec-309b1dc8f734",
+                    "label": "wide_button_p",
+                    "texture": {
+                        "key": "wide_button_p"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "5f74934e-ac02-4f41-9dc9-b7949b1576ea",
+                    "label": "wide_button_n",
+                    "texture": {
+                        "key": "wide_button_n"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "d16e0ddc-b9fa-4c72-85fc-760a2a519b60",
+                    "label": "hitbox",
+                    "originX": 0,
+                    "originY": 0,
+                    "width": 161,
+                    "height": 28
+                },
+                {
+                    "type": "Text",
+                    "id": "3a313681-37ec-44c5-ad8f-62f8c5542b19",
+                    "label": "text",
+                    "scope": "CLASS",
+                    "x": 81,
+                    "y": 15,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "align": "center",
+                    "fontFamily": "system-ui",
+                    "fontSize": "20px",
+                    "backgroundColor": "#0000000f",
+                    "shadow.offsetY": 1,
+                    "shadow.fill": true,
+                    "shadow.blur": 1
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    },
+    "prefabProperties": [
+        {
+            "name": "lblText",
+            "label": "lblText",
+            "tooltip": "",
+            "defValue": "Not Set",
+            "customDefinition": false,
+            "type": {
+                "id": "string"
+            }
+        }
+    ]
+}

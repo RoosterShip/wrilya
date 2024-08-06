@@ -1,0 +1,140 @@
+{
+    "id": "270bd9bb-05f0-4a3d-839a-c6fd34f7bc4e",
+    "sceneType": "SCENE",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Login",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "a50aeadb-b7ad-4cc2-b7eb-dfb48bea06a2",
+            "label": "login_screen",
+            "texture": {
+                "key": "login_screen"
+            },
+            "scaleX": 0.67,
+            "scaleY": 0.67,
+            "originX": 0,
+            "originY": 0
+        },
+        {
+            "prefabId": "f7ed0c81-7340-4a93-a0cc-e87a352a3f29",
+            "id": "7087a6b6-a4aa-48d8-97df-ec89b140a6dd",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "wndLogin",
+            "displayName": "Window Login",
+            "x": 490,
+            "y": 245
+        },
+        {
+            "prefabId": "491d9f9d-23f5-4d4b-8978-99f377482780",
+            "id": "29f5c022-f34a-49f7-95e5-1dc68e444e30",
+            "unlock": [
+                "x",
+                "y",
+                "lblText"
+            ],
+            "label": "btnDiscord",
+            "displayName": "Button Discord",
+            "lblText": "DISCORD",
+            "x": 50,
+            "y": 650
+        },
+        {
+            "prefabId": "491d9f9d-23f5-4d4b-8978-99f377482780",
+            "id": "ef485958-5941-4459-b0d4-bf7272fb02c5",
+            "unlock": [
+                "x",
+                "y",
+                "lblText"
+            ],
+            "label": "btnWebsite",
+            "displayName": "Button Website",
+            "lblText": "WEBSITE",
+            "x": 50,
+            "y": 600
+        },
+        {
+            "prefabId": "491d9f9d-23f5-4d4b-8978-99f377482780",
+            "id": "2357dfd9-057a-413f-97bd-53025ec589e9",
+            "unlock": [
+                "x",
+                "y",
+                "lblText"
+            ],
+            "label": "btnOptions",
+            "displayName": "Button Options",
+            "lblText": "OPTIONS",
+            "x": 1070,
+            "y": 600
+        },
+        {
+            "prefabId": "491d9f9d-23f5-4d4b-8978-99f377482780",
+            "id": "70765b21-c5c8-46d6-8f98-ce707d77f783",
+            "unlock": [
+                "x",
+                "y",
+                "lblText"
+            ],
+            "label": "btnCredits",
+            "displayName": "Button Credits",
+            "lblText": "CREDITS",
+            "x": 1070,
+            "y": 650
+        },
+        {
+            "type": "Rectangle",
+            "id": "bf7755a7-3917-41f6-88dc-3aee6308c299",
+            "label": "bgTitle",
+            "displayName": "Background Title",
+            "originX": 0,
+            "originY": 0,
+            "isFilled": true,
+            "fillColor": "#0c101f",
+            "fillAlpha": 0.4,
+            "width": 1280,
+            "height": 144
+        },
+        {
+            "type": "Text",
+            "id": "82d0a6eb-7931-43e8-8416-79795edd27ce",
+            "label": "lblTitle",
+            "displayName": "Label Title",
+            "x": 640,
+            "y": 80,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "WRILYA",
+            "fontFamily": "system-ui",
+            "fontSize": "128px",
+            "shadow.fill": true,
+            "list": [
+                {
+                    "type": "Bloom",
+                    "id": "6c93ae7f-30a6-4e97-b266-23fc5d5e9af9",
+                    "label": "bloomFx",
+                    "preFX": true
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

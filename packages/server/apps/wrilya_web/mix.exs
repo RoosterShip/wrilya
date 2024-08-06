@@ -58,9 +58,27 @@ defmodule WrilyaWeb.MixProject do
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.1"},
       {:gettext, "~> 0.24"},
-      {:wrilya, in_umbrella: true},
       {:jason, "~> 1.4"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:cors_plug, "~> 3.0"},
+      {:request_validator, "~> 0.8"},
+
+      # Auth Libs
+      {:ueberauth, "~> 0.10"},
+      {:ueberauth_google, "~> 0.12"},
+      {:ueberauth_discord, "~> 0.7"},
+
+      # Umbrella Apps
+      {:account, in_umbrella: true},
+      {:wrilya, in_umbrella: true},
+
+      # Software Quality
+      {:ex_doc, "~> 0.34", only: :dev, runtime: false},
+      {:makeup_html, ">= 0.0.0", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev], runtime: false},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false},
+      {:wallaby, "~> 0.30", runtime: false, only: :test}
     ]
   end
 

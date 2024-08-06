@@ -1,0 +1,678 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/ui/icons/blue_hide_h.png",
+                "type": "image",
+                "key": "blue_hide_h"
+            },
+            {
+                "url": "assets/ui/icons/blue_hide_n.png",
+                "type": "image",
+                "key": "blue_hide_n"
+            },
+            {
+                "url": "assets/ui/icons/blue_hide_p.png",
+                "type": "image",
+                "key": "blue_hide_p"
+            },
+            {
+                "url": "assets/ui/icons/blue_show_h.png",
+                "type": "image",
+                "key": "blue_show_h"
+            },
+            {
+                "url": "assets/ui/icons/blue_show_n.png",
+                "type": "image",
+                "key": "blue_show_n"
+            },
+            {
+                "url": "assets/ui/icons/blue_show_p.png",
+                "type": "image",
+                "key": "blue_show_p"
+            },
+            {
+                "url": "assets/ui/frame/box_portrait_frame.png",
+                "type": "image",
+                "key": "box_portrait_frame"
+            },
+            {
+                "url": "assets/ui/frame/box_portrait_mask.png",
+                "type": "image",
+                "key": "box_portrait_mask"
+            },
+            {
+                "url": "assets/ui/button/button_normal_d.png",
+                "type": "image",
+                "key": "button_normal_d"
+            },
+            {
+                "url": "assets/ui/button/button_normal_h.png",
+                "type": "image",
+                "key": "button_normal_h"
+            },
+            {
+                "url": "assets/ui/button/button_normal_n.png",
+                "type": "image",
+                "key": "button_normal_n"
+            },
+            {
+                "url": "assets/ui/button/button_normal_p.png",
+                "type": "image",
+                "key": "button_normal_p"
+            },
+            {
+                "url": "assets/ui/frame/character_entry.png",
+                "type": "image",
+                "key": "character_entry"
+            },
+            {
+                "url": "assets/ui/frame/character_entry_base.png",
+                "type": "image",
+                "key": "character_entry_base"
+            },
+            {
+                "url": "assets/ui/icons/character_h.png",
+                "type": "image",
+                "key": "character_h"
+            },
+            {
+                "url": "assets/ui/icons/character_n.png",
+                "type": "image",
+                "key": "character_n"
+            },
+            {
+                "url": "assets/ui/icons/character_p.png",
+                "type": "image",
+                "key": "character_p"
+            },
+            {
+                "url": "assets/ui/window/character_select_box_merge1.png",
+                "type": "image",
+                "key": "character_select_box_merge1"
+            },
+            {
+                "url": "assets/ui/window/character_select_box_merge2.png",
+                "type": "image",
+                "key": "character_select_box_merge2"
+            },
+            {
+                "url": "assets/ui/window/character_select_box_merge3.png",
+                "type": "image",
+                "key": "character_select_box_merge3"
+            },
+            {
+                "url": "assets/ui/button/check_ch.png",
+                "type": "image",
+                "key": "check_ch"
+            },
+            {
+                "url": "assets/ui/button/check_h.png",
+                "type": "image",
+                "key": "check_h"
+            },
+            {
+                "url": "assets/ui/button/check_n.png",
+                "type": "image",
+                "key": "check_n"
+            },
+            {
+                "url": "assets/ui/frame/close_box_frame.png",
+                "type": "image",
+                "key": "close_box_frame"
+            },
+            {
+                "url": "assets/ui/button/close_d.png",
+                "type": "image",
+                "key": "close_d"
+            },
+            {
+                "url": "assets/ui/button/close_h.png",
+                "type": "image",
+                "key": "close_h"
+            },
+            {
+                "url": "assets/ui/button/close_n.png",
+                "type": "image",
+                "key": "close_n"
+            },
+            {
+                "url": "assets/ui/button/close_p.png",
+                "type": "image",
+                "key": "close_p"
+            },
+            {
+                "url": "assets/ui/window/confirmation_box.png",
+                "type": "image",
+                "key": "confirmation_box"
+            },
+            {
+                "url": "assets/ui/window/cosmetics_box_merge1.png",
+                "type": "image",
+                "key": "cosmetics_box_merge1"
+            },
+            {
+                "url": "assets/ui/window/cosmetics_box_merge2.png",
+                "type": "image",
+                "key": "cosmetics_box_merge2"
+            },
+            {
+                "url": "assets/ui/button/dd_h.png",
+                "type": "image",
+                "key": "dd_h"
+            },
+            {
+                "url": "assets/ui/button/dd_n.png",
+                "type": "image",
+                "key": "dd_n"
+            },
+            {
+                "url": "assets/ui/button/dd_p.png",
+                "type": "image",
+                "key": "dd_p"
+            },
+            {
+                "url": "assets/ui/icons/discord-logo-blue.png",
+                "type": "image",
+                "key": "discord-logo-blue"
+            },
+            {
+                "url": "assets/ui/icons/discord-mark-blue.png",
+                "type": "image",
+                "key": "discord-mark-blue"
+            },
+            {
+                "url": "assets/ui/button/down_h.png",
+                "type": "image",
+                "key": "down_h"
+            },
+            {
+                "url": "assets/ui/button/down_n.png",
+                "type": "image",
+                "key": "down_n"
+            },
+            {
+                "url": "assets/ui/button/down_p.png",
+                "type": "image",
+                "key": "down_p"
+            },
+            {
+                "url": "assets/ui/form/drop_background.png",
+                "type": "image",
+                "key": "drop_background"
+            },
+            {
+                "url": "assets/ui/form/drop_entry_highlight.png",
+                "type": "image",
+                "key": "drop_entry_highlight"
+            },
+            {
+                "url": "assets/ui/fills/entry_hover_effect.png",
+                "type": "image",
+                "key": "entry_hover_effect"
+            },
+            {
+                "url": "assets/ui/fills/entry_select_effect.png",
+                "type": "image",
+                "key": "entry_select_effect"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_ammo.png",
+                "type": "image",
+                "key": "eq_slot_ammo"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_artifact.png",
+                "type": "image",
+                "key": "eq_slot_artifact"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_belt.png",
+                "type": "image",
+                "key": "eq_slot_belt"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_boots.png",
+                "type": "image",
+                "key": "eq_slot_boots"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_bracers.png",
+                "type": "image",
+                "key": "eq_slot_bracers"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_chest.png",
+                "type": "image",
+                "key": "eq_slot_chest"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_dogtags.png",
+                "type": "image",
+                "key": "eq_slot_dogtags"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_gloves.png",
+                "type": "image",
+                "key": "eq_slot_gloves"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_helmet.png",
+                "type": "image",
+                "key": "eq_slot_helmet"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_implant.png",
+                "type": "image",
+                "key": "eq_slot_implant"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_insignia.png",
+                "type": "image",
+                "key": "eq_slot_insignia"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_pants.png",
+                "type": "image",
+                "key": "eq_slot_pants"
+            },
+            {
+                "url": "assets/ui/icons/eq_slot_weapon.png",
+                "type": "image",
+                "key": "eq_slot_weapon"
+            },
+            {
+                "url": "assets/ui/form/input_text_black.png",
+                "type": "image",
+                "key": "input_text_black"
+            },
+            {
+                "url": "assets/ui/form/input_text_black_2.png",
+                "type": "image",
+                "key": "input_text_black_2"
+            },
+            {
+                "url": "assets/ui/icons/inventory_h.png",
+                "type": "image",
+                "key": "inventory_h"
+            },
+            {
+                "url": "assets/ui/icons/inventory_n.png",
+                "type": "image",
+                "key": "inventory_n"
+            },
+            {
+                "url": "assets/ui/icons/inventory_p.png",
+                "type": "image",
+                "key": "inventory_p"
+            },
+            {
+                "url": "assets/ui/button/left_arrow_h.png",
+                "type": "image",
+                "key": "left_arrow_h"
+            },
+            {
+                "url": "assets/ui/button/left_arrow_n.png",
+                "type": "image",
+                "key": "left_arrow_n"
+            },
+            {
+                "url": "assets/ui/button/left_arrow_p.png",
+                "type": "image",
+                "key": "left_arrow_p"
+            },
+            {
+                "url": "assets/ui/panel/links_panel.png",
+                "type": "image",
+                "key": "links_panel"
+            },
+            {
+                "url": "assets/ui/window/login_box.png",
+                "type": "image",
+                "key": "login_box"
+            },
+            {
+                "url": "assets/game/backgrounds/login_screen.png",
+                "type": "image",
+                "key": "login_screen"
+            },
+            {
+                "url": "assets/ui/icons/mail_icon.png",
+                "type": "image",
+                "key": "mail_icon"
+            },
+            {
+                "url": "assets/ui/icons/mainmenu_h.png",
+                "type": "image",
+                "key": "mainmenu_h"
+            },
+            {
+                "url": "assets/ui/icons/mainmenu_n.png",
+                "type": "image",
+                "key": "mainmenu_n"
+            },
+            {
+                "url": "assets/ui/icons/mainmenu_p.png",
+                "type": "image",
+                "key": "mainmenu_p"
+            },
+            {
+                "url": "assets/ui/icons/missions_h.png",
+                "type": "image",
+                "key": "missions_h"
+            },
+            {
+                "url": "assets/ui/icons/missions_n.png",
+                "type": "image",
+                "key": "missions_n"
+            },
+            {
+                "url": "assets/ui/icons/missions_p.png",
+                "type": "image",
+                "key": "missions_p"
+            },
+            {
+                "url": "assets/ui/window/mm_box.png",
+                "type": "image",
+                "key": "mm_box"
+            },
+            {
+                "url": "assets/ui/frame/portrait_frame.png",
+                "type": "image",
+                "key": "portrait_frame"
+            },
+            {
+                "url": "assets/ui/scroll/rail.png",
+                "type": "image",
+                "key": "rail"
+            },
+            {
+                "url": "assets/ui/fills/rep_empty_frame.png",
+                "type": "image",
+                "key": "rep_empty_frame"
+            },
+            {
+                "url": "assets/ui/fills/rep_fill_green.png",
+                "type": "image",
+                "key": "rep_fill_green"
+            },
+            {
+                "url": "assets/ui/fills/rep_fill_red.png",
+                "type": "image",
+                "key": "rep_fill_red"
+            },
+            {
+                "url": "assets/ui/fills/rep_fill_yellow.png",
+                "type": "image",
+                "key": "rep_fill_yellow"
+            },
+            {
+                "url": "assets/ui/backgrounds/reputation_bg.png",
+                "type": "image",
+                "key": "reputation_bg"
+            },
+            {
+                "url": "assets/ui/button/right_arrow_h.png",
+                "type": "image",
+                "key": "right_arrow_h"
+            },
+            {
+                "url": "assets/ui/button/right_arrow_n.png",
+                "type": "image",
+                "key": "right_arrow_n"
+            },
+            {
+                "url": "assets/ui/button/right_arrow_p.png",
+                "type": "image",
+                "key": "right_arrow_p"
+            },
+            {
+                "url": "assets/ui/fills/select_box_bottom_texture.png",
+                "type": "image",
+                "key": "select_box_bottom_texture"
+            },
+            {
+                "url": "assets/ui/fills/select_box_top_texture.png",
+                "type": "image",
+                "key": "select_box_top_texture"
+            },
+            {
+                "url": "assets/ui/icons/skills_h.png",
+                "type": "image",
+                "key": "skills_h"
+            },
+            {
+                "url": "assets/ui/icons/skills_n.png",
+                "type": "image",
+                "key": "skills_n"
+            },
+            {
+                "url": "assets/ui/icons/skills_p.png",
+                "type": "image",
+                "key": "skills_p"
+            },
+            {
+                "url": "assets/ui/scroll/slider_h_d.png",
+                "type": "image",
+                "key": "slider_h_d"
+            },
+            {
+                "url": "assets/ui/scroll/slider_n.png",
+                "type": "image",
+                "key": "slider_n"
+            },
+            {
+                "url": "assets/ui/icons/social_h.png",
+                "type": "image",
+                "key": "social_h"
+            },
+            {
+                "url": "assets/ui/icons/social_n.png",
+                "type": "image",
+                "key": "social_n"
+            },
+            {
+                "url": "assets/ui/icons/social_p.png",
+                "type": "image",
+                "key": "social_p"
+            },
+            {
+                "url": "assets/ui/panel/sp_base.png",
+                "type": "image",
+                "key": "sp_base"
+            },
+            {
+                "url": "assets/ui/panel/sp_button_holder.png",
+                "type": "image",
+                "key": "sp_button_holder"
+            },
+            {
+                "url": "assets/ui/icons/sp_hide_h.png",
+                "type": "image",
+                "key": "sp_hide_h"
+            },
+            {
+                "url": "assets/ui/icons/sp_hide_n.png",
+                "type": "image",
+                "key": "sp_hide_n"
+            },
+            {
+                "url": "assets/ui/icons/sp_hide_p.png",
+                "type": "image",
+                "key": "sp_hide_p"
+            },
+            {
+                "url": "assets/ui/panel/sp_panel_merge.png",
+                "type": "image",
+                "key": "sp_panel_merge"
+            },
+            {
+                "url": "assets/ui/icons/sp_show_h.png",
+                "type": "image",
+                "key": "sp_show_h"
+            },
+            {
+                "url": "assets/ui/icons/sp_show_n.png",
+                "type": "image",
+                "key": "sp_show_n"
+            },
+            {
+                "url": "assets/ui/icons/sp_show_p.png",
+                "type": "image",
+                "key": "sp_show_p"
+            },
+            {
+                "url": "assets/ui/backgrounds/stats_carving.png",
+                "type": "image",
+                "key": "stats_carving"
+            },
+            {
+                "url": "assets/ui/icons/support_h.png",
+                "type": "image",
+                "key": "support_h"
+            },
+            {
+                "url": "assets/ui/icons/support_n.png",
+                "type": "image",
+                "key": "support_n"
+            },
+            {
+                "url": "assets/ui/icons/support_p.png",
+                "type": "image",
+                "key": "support_p"
+            },
+            {
+                "url": "assets/ui/tabs/tab_hovered.png",
+                "type": "image",
+                "key": "tab_hovered"
+            },
+            {
+                "url": "assets/ui/tabs/tab_not_selected.png",
+                "type": "image",
+                "key": "tab_not_selected"
+            },
+            {
+                "url": "assets/ui/tabs/tab_pressed.png",
+                "type": "image",
+                "key": "tab_pressed"
+            },
+            {
+                "url": "assets/ui/tabs/tab_selected.png",
+                "type": "image",
+                "key": "tab_selected"
+            },
+            {
+                "url": "assets/ui/icons/talents_h.png",
+                "type": "image",
+                "key": "talents_h"
+            },
+            {
+                "url": "assets/ui/icons/talents_n.png",
+                "type": "image",
+                "key": "talents_n"
+            },
+            {
+                "url": "assets/ui/icons/talents_p.png",
+                "type": "image",
+                "key": "talents_p"
+            },
+            {
+                "url": "assets/ui/icons/token_battalion.png",
+                "type": "image",
+                "key": "token_battalion"
+            },
+            {
+                "url": "assets/ui/backgrounds/token_bg.png",
+                "type": "image",
+                "key": "token_bg"
+            },
+            {
+                "url": "assets/ui/icons/token_skirmish.png",
+                "type": "image",
+                "key": "token_skirmish"
+            },
+            {
+                "url": "assets/ui/icons/token_squad.png",
+                "type": "image",
+                "key": "token_squad"
+            },
+            {
+                "url": "assets/ui/icons/token_war.png",
+                "type": "image",
+                "key": "token_war"
+            },
+            {
+                "url": "assets/ui/button/up_h.png",
+                "type": "image",
+                "key": "up_h"
+            },
+            {
+                "url": "assets/ui/button/up_n.png",
+                "type": "image",
+                "key": "up_n"
+            },
+            {
+                "url": "assets/ui/button/up_p.png",
+                "type": "image",
+                "key": "up_p"
+            },
+            {
+                "url": "assets/ui/boarder/vertical_border.png",
+                "type": "image",
+                "key": "vertical_border"
+            },
+            {
+                "url": "assets/ui/window/voidsman_box.png",
+                "type": "image",
+                "key": "voidsman_box"
+            },
+            {
+                "url": "assets/game/backgrounds/voidsman_screen.png",
+                "type": "image",
+                "key": "voidsman_screen"
+            },
+            {
+                "url": "assets/ui/button/wide_button_d.png",
+                "type": "image",
+                "key": "wide_button_d"
+            },
+            {
+                "url": "assets/ui/button/wide_button_h.png",
+                "type": "image",
+                "key": "wide_button_h"
+            },
+            {
+                "url": "assets/ui/button/wide_button_n.png",
+                "type": "image",
+                "key": "wide_button_n"
+            },
+            {
+                "url": "assets/ui/button/wide_button_p.png",
+                "type": "image",
+                "key": "wide_button_p"
+            },
+            {
+                "url": "assets/ui/icons/worldmap_h.png",
+                "type": "image",
+                "key": "worldmap_h"
+            },
+            {
+                "url": "assets/ui/icons/worldmap_n.png",
+                "type": "image",
+                "key": "worldmap_n"
+            },
+            {
+                "url": "assets/ui/icons/worldmap_p.png",
+                "type": "image",
+                "key": "worldmap_p"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}

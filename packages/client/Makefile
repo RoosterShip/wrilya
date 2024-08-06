@@ -16,9 +16,14 @@ help:
 	@grep -E '[a-zA-Z\.\-]+:.*?@ .*$$' $(firstword $(MAKEFILE_LIST))| tr -d '#'  | awk 'BEGIN {FS = ":.*?@ "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
 #👷 build:@ Builds Contracts
-build: 
+build.prod: 
 	@echo Contract building started...
-	@pnpm build
+	@pnpm build.prod
+	@echo Contract building complete
+
+build.test: 
+	@echo Contract building started...
+	@pnpm build.test
 	@echo Contract building complete
 
 #🏃 run: @ Start up local client

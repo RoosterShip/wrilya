@@ -1,94 +1,66 @@
-# Webpack + TypeScript project template for Phaser Editor v4
+# Phaser Editor Vite TypeScript Template
 
-A project template for Phaser 3, Webpack 5, TypeScript, and Phaser Editor 2D v3.
-It also includes a workflow for deploying the game to GitHub Pages.
+This is a Phaser Editor v4 project template that uses Vite TypeScript for bundling. It supports hot-reloading for quick development workflow and includes scripts to generate production-ready builds.
 
-## First steps
+## What is Phaser Editor?
 
-This project requires [Node.js](https://nodejs.org) and [NPM.js](https://www.npmjs.com). It is recommended that you learn the basics of [Webpack.js](https://webpack.js.org).
+Phaser Editor enables you to visually create Phaser games. Instead of entering numbers in your code to position Game Objects, you can drag and drop them into place, tweak their animations, adjust their physics bodies, enable special effects, and more. It's quicker and faster for both artists and developers alike and publishes pure Phaser code.
 
-* Install dependencies:
+See more at [phaser.io](https://phaser.io/editor)
 
-    ```
-    npm install
-    npm update
-    ```
+## Requirements
 
-* Run the development server:
+[Node.js](https://nodejs.org) is required to install dependencies and run scripts via `npm`.
 
-    ```
-    npm start
-    ```
+An active subscription to Phaser Editor is required to load and use this template within it.
 
-    Open the browser at `http://127.0.0.1:8080`.
+## Available Commands
 
-* Make a production build:
+| Command | Description |
+|---------|-------------|
+| `npm install`   | Install project dependencies |
+| `npm start`     | Launch a development web server |
+| `npm run build` | Create a production build in the `dist` folder |
 
-    ```
-    npm run build
-    ```
+## Writing Code
 
-    It is generated in the `/dist` folder.
+After cloning the repo, run `npm install` from your project directory.
 
-## Hosting your game on GitHub Pages
+To start the local development server use `npm run dev`.
 
-If you are looking for a hosting for you game, GitHub Pages is a very nice and free option.
-This repository includes a workflow for publishing the game into GitHub Pages automatically.
+## Deploying to Production
 
-Just follow these steps:
+To create a production build use the command `npm run build`.
 
-* Create a GitHub repository with the project (something that probably you already did).
-* In GitHub, open the repository and go to **Settings** > **GitHub Pages**.
-* In the **Build and deployment** section, set the **GitHub Actions** option in the **Source** parameter.
-* Run the **Build game with webpack** workflow in the **Actions** section on the repository.
-* When the workflow completes, return to the **Settings** > **GitHub Pages** section and check the address for the deployed game. It should show a message like **Your site is live at https://\<USERNAME>.github.io/<REPOSITORY_NAME>/**.
-* Next time you push changes to the `main` branch it will run the workflow and deploy the game automatically.
+This will take your game code and build it into a single bundle, ready for deployment. This bundle is saved to the `dist` folder. The deployment script will also copy any assets your project imported, or stored in the public assets folder.
 
-If you don't want to deploy your game to GitHub Pages, then you can remove the `.github/workflows/main.yml` file.
+To deploy your game, upload *all* of the contents of the `dist` folder to a public-facing web server.
 
-In this video I explain many of these concepts: [Start making a game in the cloud. GitHub + VS Code + Phaser Editor 2D [Tutorial]](https://www.youtube.com/watch?v=lndU7UAjzgo&t=183s)
-
-## Phaser Editor 2D considerations
+## Phaser Editor considerations
 
 ### Excluding files from the project
 
-There are a lot of files present in the project that are not relevant to Phaser Editor 2D. For example, the whole `node_modules` folder should be excluded from the editor's project.
+You don't want to add every file in this template to your Phaser Editor project. For example, the whole of `node_modules` can be excluded.
 
-The `/.skip` file lists the folders and files to exclude from the editor's project. 
+The `skip` section in the `phasereditor2d.config.json` file contains the folder and files to exclude from the project.
 
-[Learn more about resource filtering in Phaser Editor 2D](https://help.phasereditor2d.com/v3/misc/resources-filtering.html)
+[Learn more about resource filtering in Phaser Editor](https://phaser.io/editor/docs/misc/resources-filtering)
 
-### Setting the root folder for the game's assets
+### Asset Pack
 
-The `/static` folder contains the assets (images, audio, atlases) used by the game. Webpack copies it to the distribution folder and makes it available as a root path. For example, `http://127.0.0.1:8080/assets` points to the `/static/assets` folder.
+Phaser has the ability to load what are known as 'asset packs'. These are JSON files that describe all of the content that your game needs to load, such as images, audio, and fonts. Phaser Editor will generate and use asset packs intensively and tools such as the Scene Editor depend upon the information stored in the asset pack files.
 
-By default, Phaser Editor 2D uses the project's root as the start path for the assets. You can change it by creating an empty `publicroot` file. That is the case of the `/static/publicroot` file, which allows adding files to the Asset Pack file (`/static/assets/asset-pack.json`) using correct URLs.
+You can have multiple asset packs per project, which is the recommended practice for larger games, allowing you to load only the pack of assets the game requires at that specific point.
 
-### Asset Pack content hash
+In this template, we have pre-configured two types of asset packs: `boot-asset-pack.json` and `preload-asset-pack.json`.
 
-Webpack is configured to include the content hash of a file defined in an asset pack editor:
+The `boot-asset-pack.json` file is used to load assets when the game first boots. Typically, you would store a small selection of initial assets in here, such as a loading screen image and progress bar.
 
-* For loading a pack file in code, import it as a resource:
-    ```javascript
-    import assetPackUrl from "../static/assets/asset-pack.json";
-    ...
-    this.load.pack("pack1", assetPackUrl);
-    ```
-    Webpack will add the `asset-pack.json` file into the distribution files, in the folder `dist/asset-packs/`.
+The `preload-asset-pack.json` in this template contains the rest of the assets the game needs. You are free to create additional packs as required, but for the sake of simplicity, this template has been configured with just these two packs.
 
-* Because Webpack automatically imports the pack files, those are excluded in the **CopyPlugin** configuration. By convention, name the pack files like this `[any name]-pack.json`.
+[Learn more about Asset Pack loading in Phaser](https://newdocs.phaser.io/docs/3.80.0/Phaser.Loader.LoaderPlugin#pack)
 
-* The NPM `build` script calls the `phaser-asset-pack-hashing` tool. It parses all pack files in the `dist/` folder and transform the internal URL, adding the content-hash to the query string. It also parses files referenced by the pack. For example, a multi-atlas file is parsed and the name of the image's file will be changed to use a content-hash.
-
-Learn more about the [phaser-asset-pack-hashing](https://www.npmjs.com/package/phaser-asset-pack-hashing) tool.
-
-### Coding
-
-The `/src` folder contains all the TypeScript code, including the scene and user component files, in addition to the Phaser Editor 2D compilers output.
-
-We recommend using Visual Studio Code for editing the code files.
-
-In many tutorials about Phaser Editor 2D, the JavaScript files are loaded using the Asset Pack editor. When using Webpack this is not needed. Just use the Asset Pack editor for loading the art assets.
+The command `npm run build` also includes the execution of the `phaser-asset-pack-hashing` tool. It implements a "cache-busting" strategy and modifies the URLs in the asset packs and other assets in the `public` folder.
 
 ### Scene, User Components, and ScriptNode configuration
 
@@ -103,6 +75,19 @@ The project requires the following script libraries:
 
 You can add your script nodes to the `src/script-nodes` folder.
 
-## About
+## Join the Phaser Community!
 
-This project template was created by the Phaser Editor 2D team.
+We love to see what developers like you create with Phaser! It really motivates us to keep improving. So please join our community and show off your work 😄
+
+**Visit:** The [Phaser website](https://phaser.io) and follow on [Phaser Twitter](https://twitter.com/phaser_)<br />
+**Play:** Some of the amazing games [#madewithphaser](https://twitter.com/search?q=%23madewithphaser&src=typed_query&f=live)<br />
+**Learn:** [API Docs](https://newdocs.phaser.io), [Support Forum](https://phaser.discourse.group/) and [StackOverflow](https://stackoverflow.com/questions/tagged/phaser-framework)<br />
+**Discord:** Join us on [Discord](https://discord.gg/phaser)<br />
+**Code:** 2000+ [Examples](https://labs.phaser.io)<br />
+**Read:** The [Phaser World](https://phaser.io/community/newsletter) Newsletter<br />
+
+Created by [Phaser Studio](mailto:support@phaser.io). Powered by coffee, anime, pixels and love.
+
+The Phaser logo and characters are &copy; 2011 - 2024 Phaser Studio Inc.
+
+All rights reserved.

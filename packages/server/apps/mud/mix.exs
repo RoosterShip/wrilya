@@ -31,7 +31,10 @@ defmodule MUD.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_pubsub, "~> 2.1"},
       #{:ecto_watch, "~> 0.5.1"},
-      {:ecto_watch, git: "https://github.com/cjimison/ecto_watch.git", branch: "main"}
+      {:ecto_watch, git: "https://github.com/cjimison/ecto_watch.git", branch: "main"},
+
+      # Project Deps
+      {:utils, in_umbrella: true},
     ]
   end
 

@@ -27,11 +27,11 @@
     "contracts": "workspace:*",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "rxjs": "7.5.5",
-    "tsx": "^4.11.2",
-    "typescript": "^5.4.5",
-    "viem": "2.9.20",
-    "zod": "^3.22.2"
+    "rxjs": "7.8.1",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4",
+    "viem": "2.18.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "wait-port": "^1.0.4"

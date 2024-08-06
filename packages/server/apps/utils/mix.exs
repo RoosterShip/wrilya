@@ -26,9 +26,14 @@ defmodule Utils.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
-      # {:sibling_app_in_umbrella, in_umbrella: true}
+      # For Ecto Tools
+      {:ecto, "~> 3.11"},
+
+      # Crypto Libs
+      {:ex_keccak, "~> 0.7"},
+      {:ex_secp256k1, "~> 0.7"},
+      {:ex_base58, "~> 0.6"},
+      {:ed25519, "~> 1.4"}
     ]
   end
 

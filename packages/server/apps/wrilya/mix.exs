@@ -47,6 +47,7 @@ defmodule Wrilya.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.4"},
       {:swoosh, "~> 1.16"},
+
       # RabbitMQ integration
       {:amqp, "~> 3.3"},
       {:rabbit_common, "~> 3.13", override: true},
@@ -62,7 +63,7 @@ defmodule Wrilya.MixProject do
       {:gql, "~> 0.6.2"},
 
       # Oban
-      {:oban_pro, "~> 1.4.9", repo: "oban"},
+      {:oban_pro, "~> 1.5.0-rc.0", repo: "oban"},
 
       # Ethereum
       {:rustler, ">= 0.0.0"},

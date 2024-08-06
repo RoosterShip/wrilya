@@ -8,50 +8,90 @@ import Config
 # The block below contains prod specific runtime configuration.
 if config_env() == :prod do
 
-  username =
-    System.get_env("POSTGRES_USER") ||
+  faucet_postgres_username =
+    System.get_env("FAUCET_POSTGRES_USER") ||
       raise """
-      environment variable POSTGRES_USER is missing.
-      Please review the Pulumi config files to find it.
-      """
-  password =
-    System.get_env("POSTGRES_PASSWORD") ||
-      raise """
-      environment variable POSTGRES_PASSWORD is missing.
-      Please review the Pulumi config files to find it.
-      """
-  hostname =
-    System.get_env("POSTGRES_HOST") ||
-      raise """
-      environment variable POSTGRES_HOST is missing.
-      Please review the Pulumi config files to find it.
-      """
-  database =
-    System.get_env("WRILYA_DATABASE") ||
-      raise """
-      environment variable WRILYA_DATABASE is missing.
+      environment variable FAUCET_POSTGRES_USER is missing.
       Please review the Pulumi config files to find it.
       """
 
+  faucet_postgres_password =
+    System.get_env("FAUCET_POSTGRES_PASSWORD") ||
+      raise """
+      environment variable FAUCET_POSTGRES_PASSWORD is missing.
+      Please review the Pulumi config files to find it.
+      """
 
-  maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
+  faucet_postgres_hostname =
+    System.get_env("FAUCET_POSTGRES_HOSTNAME") ||
+      raise """
+      environment variable FAUCET_POSTGRES_HOSTNAME is missing.
+      Please review the Pulumi config files to find it.
+      """
 
-  config :wrilya, Wrilya.Repo,
-    # ssl: true,
-    username: username,
-    password: password,
-    hostname: hostname,
-    database: database,
-    pool_size: String.to_integer(System.get_env("POSTGRES_POOL_SIZE") || "10"),
-    socket_options: maybe_ipv6
+  faucet_postgres_database =
+    System.get_env("FAUCET_POSTGRES_DATABASE") ||
+      raise """
+      environment variable FAUCET_POSTGRES_DATABASE is missing.
+      Please review the Pulumi config files to find it.
+      """
 
-  import Config
+  wrilya_postgres_username =
+    System.get_env("WRILYA_POSTGRES_USER") ||
+      raise """
+      environment variable WRILYA_POSTGRES_USER is missing.
+      Please review the Pulumi config files to find it.
+      """
 
-  # The secret key base is used to sign/encrypt cookies and other secrets.
-  # A default value is used in config/dev.exs and config/test.exs but you
-  # want to use a different value for prod and you most likely don't want
-  # to check this value into version control, so we use an environment
-  # variable instead.
+  wrilya_postgres_password =
+    System.get_env("WRILYA_POSTGRES_PASSWORD") ||
+      raise """
+      environment variable WRILYA_POSTGRES_PASSWORD is missing.
+      Please review the Pulumi config files to find it.
+      """
+
+  wrilya_postgres_hostname =
+    System.get_env("WRILYA_POSTGRES_HOST") ||
+      raise """
+      environment variable WRILYA_POSTGRES_HOST is missing.
+      Please review the Pulumi config files to find it.
+      """
+
+  wrilya_postgres_database =
+    System.get_env("WRILYA_POSTGRES_DATABASE") ||
+      raise """
+      environment variable WRILYA_POSTGRES_DATABASE is missing.
+      Please review the Pulumi config files to find it.
+      """
+
+  account_postgres_username =
+    System.get_env("ACCOUNT_POSTGRES_USER") ||
+      raise """
+      environment variable ACCOUNT_POSTGRES_USER is missing.
+      Please review the Pulumi config files to find it.
+      """
+
+  account_postgres_password =
+    System.get_env("ACCOUNT_POSTGRES_PASSWORD") ||
+      raise """
+      environment variable ACCOUNT_POSTGRES_PASSWORD is missing.
+      Please review the Pulumi config files to find it.
+      """
+
+  account_postgres_hostname =
+    System.get_env("ACCOUNT_POSTGRES_HOST") ||
+      raise """
+      environment variable ACCOUNT_POSTGRES_HOST is missing.
+      Please review the Pulumi config files to find it.
+      """
+
+  account_postgres_database =
+    System.get_env("ACCOUNT_POSTGRES_DATABASE") ||
+      raise """
+      environment variable ACCOUNT_POSTGRES_DATABASE is missing.
+      Please review the Pulumi config files to find it.
+      """
+
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||
       raise """
@@ -59,78 +99,17 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  config :wrilya_web, WrilyaWeb.Endpoint,
-    http: [
-      # Enable IPv6 and bind on all interfaces.
-      # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
-      ip: {0, 0, 0, 0, 0, 0, 0, 0},
-      port: String.to_integer(System.get_env("PORT") || "4000")
-    ],
-    server: true,
-    secret_key_base: secret_key_base
+  wrilya_port =
+    System.get_env("WRILYA_PORT") ||
+      raise """
+      environment variable WRILYA_PORT is missing.
+      """
 
-  # ## Using releases
-  #
-  # If you are doing OTP releases, you need to instruct Phoenix
-  # to start each relevant endpoint:
-  #
-  #     config :wrilya_web, WrilyaWeb.Endpoint, server: true
-  #
-  # Then you can assemble a release by calling `mix release`.
-  # See `mix help release` for more information.
-
-  # ## SSL Support
-  #
-  # To get SSL working, you will need to add the `https` key
-  # to your endpoint configuration:
-  #
-  #     config :wrilya_web, WrilyaWeb.Endpoint,
-  #       https: [
-  #         ...,
-  #         port: 443,
-  #         cipher_suite: :strong,
-  #         keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
-  #         certfile: System.get_env("SOME_APP_SSL_CERT_PATH")
-  #       ]
-  #
-  # The `cipher_suite` is set to `:strong` to support only the
-  # latest and more secure SSL ciphers. This means old browsers
-  # and clients may not be supported. You can set it to
-  # `:compatible` for wider support.
-  #
-  # `:keyfile` and `:certfile` expect an absolute path to the key
-  # and cert in disk or a relative path inside priv, for example
-  # "priv/ssl/server.key". For all supported SSL configuration
-  # options, see https://hexdocs.pm/plug/Plug.SSL.html#configure/1
-  #
-  # We also recommend setting `force_ssl` in your config/prod.exs,
-  # ensuring no data is ever sent via http, always redirecting to https:
-  #
-  #     config :wrilya_web, WrilyaWeb.Endpoint,
-  #       force_ssl: [hsts: true]
-  #
-  # Check `Plug.SSL` for all available options in `force_ssl`.
-
-  # ## Configuring the mailer
-  #
-  # In production you need to configure the mailer to use a different adapter.
-  # Also, you may need to configure the Swoosh API client of your choice if you
-  # are not using SMTP. Here is an example of the configuration:
-  #
-  #     config :wrilya, Wrilya.Mailer,
-  #       adapter: Swoosh.Adapters.Mailgun,
-  #       api_key: System.get_env("MAILGUN_API_KEY"),
-  #       domain: System.get_env("MAILGUN_DOMAIN")
-  #
-  # For this example you need include a HTTP client required by Swoosh API client.
-  # Swoosh supports Hackney and Finch out of the box:
-  #
-  #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
-  #
-  # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
-
-
-  config :wrilya, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
+  # nodule_port =
+  #  System.get_env("NODULE_PORT") ||
+  #    raise """
+  #    environment variable NODULE_PORT is missing.
+  #    """
 
   discord_token =
     System.get_env("DISCORD_TOKEN") ||
@@ -138,6 +117,116 @@ if config_env() == :prod do
       environment variable "DISCORD_TOKEN" is missing.
       Please fetch this info from discord and set it as an environment variable
       """
+
+  account_redis_host =
+    System.get_env("ACCOUNT_REDIS_HOST") ||
+      raise """
+      environment variable "ACCOUNT_REDIS_HOST" is missing.
+      """
+
+  discord_client_id =
+    System.get_env("DISCORD_CLIENT_ID") ||
+      raise """
+      environment variable "DISCORD_CLIENT_ID" is missing.
+      """
+
+  discord_client_secret =
+    System.get_env("DISCORD_CLIENT_SECRET") ||
+      raise """
+      environment variable "DISCORD_CLIENT_SECRET" is missing.
+      """
+
+  google_client_id =
+    System.get_env("GOOGLE_CLIENT_ID") ||
+      raise """
+      environment variable "GOOGLE_CLIENT_ID" is missing.
+      """
+
+  google_client_secret =
+    System.get_env("GOOGLE_CLIENT_SECRET") ||
+      raise """
+      environment variable "GOOGLE_CLIENT_SECRET" is missing.
+      """
+
+  account_vault_key =
+    System.get_env("ACCOUNT_VAULT_KEY") ||
+      raise """
+      environment variable "ACCOUNT_VAULT_KEY" is missing.
+      """
+
+  maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
+
+  # ----------------------------------------------------------------------------
+  # Wrilya Runtime Configuration
+  # ----------------------------------------------------------------------------
+
+  config :wrilya, Wrilya.Repo,
+    # ssl: true,
+    username: wrilya_postgres_username,
+    password: wrilya_postgres_password,
+    hostname: wrilya_postgres_hostname,
+    database: wrilya_postgres_database,
+    pool_size: String.to_integer(System.get_env("POSTGRES_POOL_SIZE") || "10"),
+    socket_options: maybe_ipv6
+
+  config :wrilya_web, WrilyaWeb.Endpoint,
+    http: [
+      ip: {0, 0, 0, 0, 0, 0, 0, 0},
+      port: String.to_integer(wrilya_port)
+    ],
+    server: true,
+    secret_key_base: secret_key_base
+
+  config :wrilya, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
+
+  # ----------------------------------------------------------------------------
+  # Nostrum Runtime Configuration
+  # ----------------------------------------------------------------------------
   config :nostrum,
     token: discord_token
+
+  # ----------------------------------------------------------------------------
+  # Guardian and Account Runtime Configuration
+  # ----------------------------------------------------------------------------
+  config :guardian_redis, :redis,
+    host: account_redis_host,
+    port: System.get_env("ACCOUNT_REDIS_PORT", "6379") |> String.to_integer(),
+    pool_size: String.to_integer(System.get_env("ACCOUNT_REDIS_POOL") || "10")
+
+  config :account, Account.Repo,
+    # ssl: true,
+    username: account_postgres_username,
+    password: account_postgres_password,
+    hostname: account_postgres_hostname,
+    database: account_postgres_database,
+    pool_size: String.to_integer(System.get_env("POSTGRES_POOL_SIZE") || "10"),
+    socket_options: maybe_ipv6
+
+  config :account, Account.Vault,
+    ciphers: [
+      default: {Cloak.Ciphers.AES.GCM, tag: "AES.GCM.V1", key: Base.decode64!(account_vault_key)}
+    ]
+
+  # ------------------------------------------------------------------------------
+  #  Runtime Configuration
+  # ------------------------------------------------------------------------------
+  config :faucet, Faucet.Repo,
+    # ssl: true,
+    username: faucet_postgres_username,
+    password: faucet_postgres_password,
+    hostname: faucet_postgres_hostname,
+    database: faucet_postgres_database,
+    pool_size: String.to_integer(System.get_env("POSTGRES_POOL_SIZE") || "10"),
+    socket_options: maybe_ipv6
+
+  # ------------------------------------------------------------------------------
+  # Ueberauth Runtime Configuration
+  # ------------------------------------------------------------------------------
+  config :ueberauth, Ueberauth.Strategy.Discord.OAuth,
+    client_id: discord_client_id,
+    client_secret: discord_client_secret
+
+  config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+    client_id: google_client_id,
+    client_secret: google_client_secret
 end

@@ -1,0 +1,82 @@
+{
+    "id": "f7ed0c81-7340-4a93-a0cc-e87a352a3f29",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "d4690643-42f9-4364-8fb2-af65be71f0c6",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "55038c92-6db0-42c2-aabe-6e0221f30eb8",
+                    "label": "boxLogin",
+                    "displayName": "Box Login",
+                    "texture": {
+                        "key": "login_box"
+                    },
+                    "originX": 0,
+                    "originY": 0
+                },
+                {
+                    "prefabId": "491d9f9d-23f5-4d4b-8978-99f377482780",
+                    "id": "1af7079c-c8b2-4e1c-8915-4c80e6f88c4c",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "lblText"
+                    ],
+                    "label": "btnConnect",
+                    "displayName": "Button Connect",
+                    "lblText": "CONNECT",
+                    "x": 74,
+                    "y": 270
+                },
+                {
+                    "type": "Text",
+                    "id": "2270225a-c65d-4460-994d-eba0de9af80f",
+                    "label": "lblTitle",
+                    "displayName": "Label Title",
+                    "x": 153,
+                    "y": 39,
+                    "originX": 0.5,
+                    "originY": 0.5,
+                    "text": "LOGIN PANEL",
+                    "fontFamily": "system-ui",
+                    "fontSize": "24px"
+                },
+                {
+                    "type": "Image",
+                    "id": "01691df7-fee5-40c1-bc20-6a87d2f56c53",
+                    "label": "iconDiscord",
+                    "displayName": "Icon Discord",
+                    "texture": {
+                        "key": "discord-logo-blue"
+                    },
+                    "x": 149,
+                    "y": 174,
+                    "scaleX": 0.1,
+                    "scaleY": 0.1
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

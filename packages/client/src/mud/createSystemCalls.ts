@@ -4,13 +4,9 @@
  */
 
 import { SetupNetworkResult } from "./setupNetwork";
-import { HomeEnum, FieldEnum } from "./index";
+//import { HomeEnum, FieldEnum } from "./index";
 import { Entity, getComponentValueStrict } from "@latticexyz/recs";
 import { ClientComponents } from "./createClientComponents";
-
-//import { Entity, Voidsmen } from "../entity"
-//
-//import { runQuery, Has, HasValue, getComponentValueStrict } from "@latticexyz/recs";
 
 export type SystemCalls = ReturnType<typeof createSystemCalls>;
 
@@ -35,50 +31,55 @@ export function createSystemCalls(
    *   (https://github.com/latticexyz/mud/blob/main/templates/vanilla/packages/client/src/mud/setupNetwork.ts#L77-L83).
    */
   { worldContract, waitForTransaction }: SetupNetworkResult,
-  { EntityOwnedBy }: ClientComponents,
+  { EntityInfo }: ClientComponents,
 ) {
-
-  const voidsmanOwner = async (entity: Entity) => {
-    return getComponentValueStrict(EntityOwnedBy, entity);
+  
+  const entityOwner = async (entity: Entity) => {
+    return getComponentValueStrict(EntityInfo, entity);
   }
 
-  const voidsmanCreate = async (name: string, portrait: string, home: HomeEnum) => {
-    const tx = await worldContract.write.game__voidsmanCreate([name, portrait, home]);
+  const voidsmanBurn = async (entity: Entity) => {
+    const tx = await worldContract.write.wrilya_voidsmanBurn([entity as `0x${string}`]);
     await waitForTransaction(tx);
-  };
+  }
 
-  const voidsmanDestroy = async (entity: Entity) => {
-    const tx = await worldContract.write.game__voidsmanDestroy([entity as `0x${string}`]);
-    await waitForTransaction(tx);
-  };
+  // const voidsmanCreate = async (name: string, portrait: string, home: HomeEnum) => {
+  //   const tx = await worldContract.write.game__voidsmanCreate([name, portrait, home]);
+  //   await waitForTransaction(tx);
+  // };
 
-  const voidsmanTrain = async (entity: Entity, field: FieldEnum) => {
-    const tx = await worldContract.write.game__voidsmanTrain([entity as `0x${string}`, field]);
-    await waitForTransaction(tx);
-  };
+  // const voidsmanDestroy = async (entity: Entity) => {
+  //   const tx = await worldContract.write.game__voidsmanDestroy([entity as `0x${string}`]);
+  //   await waitForTransaction(tx);
+  // };
 
-  const voidsmanCertify = async (entity: Entity) => {
-    const tx = await worldContract.write.game__voidsmanCertify([entity as `0x${string}`]);
-    await waitForTransaction(tx);
-  };
+  // const voidsmanTrain = async (entity: Entity, field: FieldEnum) => {
+  //   const tx = await worldContract.write.game__voidsmanTrain([entity as `0x${string}`, field]);
+  //   await waitForTransaction(tx);
+  // };
 
-  const currencyMint = async (amount: number) => {
-    const amt = BigInt(amount);
-    const tx = await worldContract.write.game__mint([amt]);
-    await waitForTransaction(tx);
-  };
+  // const voidsmanCertify = async (entity: Entity) => {
+  //   const tx = await worldContract.write.game__voidsmanCertify([entity as `0x${string}`]);
+  //   await waitForTransaction(tx);
+  // };
 
-  const currencyStake = async (amount: number) => {
-    const amt = BigInt(amount);
-    const tx = await worldContract.write.game__stake([amt]);
-    await waitForTransaction(tx);
-  };
+  // const currencyMint = async (amount: number) => {
+  //   const amt = BigInt(amount);
+  //   const tx = await worldContract.write.game__mint([amt]);
+  //   await waitForTransaction(tx);
+  // };
 
-  const currencyPayment = async (amount: number) => {
-    const amt = BigInt(amount);
-    const tx = await worldContract.write.game__payment([amt]);
-    await waitForTransaction(tx);
-  };
+  // const currencyStake = async (amount: number) => {
+  //   const amt = BigInt(amount);
+  //   const tx = await worldContract.write.game__stake([amt]);
+  //   await waitForTransaction(tx);
+  // };
+
+  // const currencyPayment = async (amount: number) => {
+  //   const amt = BigInt(amount);
+  //   const tx = await worldContract.write.game__payment([amt]);
+  //   await waitForTransaction(tx);
+  // };
 
   //const increment = async () => {
   //  /*
@@ -134,13 +135,15 @@ export function createSystemCalls(
   //}
 
   return {
-    voidsmanOwner,
-    voidsmanCreate,
-    voidsmanDestroy,
-    voidsmanTrain,
-    voidsmanCertify,
-    currencyMint,
-    currencyStake,
-    currencyPayment
+    entityOwner,
+    voidsmanBurn
+    //voidsmanOwner,
+    //voidsmanCreate,
+    //voidsmanDestroy,
+    //voidsmanTrain,
+    //voidsmanCertify,
+    //currencyMint,
+    //currencyStake,
+    //currencyPayment
   };
 }

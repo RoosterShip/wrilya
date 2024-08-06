@@ -1,6 +1,88 @@
 import Config
 
-# Configure your database
+# ------------------------------------------------------------------------------
+# Guardian Redis Setup Configurations
+# ------------------------------------------------------------------------------
+config :guardian_redis, :redis,
+  host: "127.0.0.1",
+  port: 6379,
+  pool_size: 10
+
+# Configure Faucet database
+config :faucet, Faucet.Repo,
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  database: "faucet_dev",
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
+config :faucet,
+  contract: "0xad523115cd35a8d4e60b3c0953e0e0ac10418309",
+  sources: %{
+    # NOTE:   These faucets are for testing/debugging ONLY
+    #         Never use in production as this are well known
+    #         values generated from Anvil
+    "0b7efe15-93fe-40fb-8533-dca5f0fe83ed" => %{
+      type: :faucet,
+      window_size: 24 * 60 * 60,
+      drip_amount: 1_000_000_000,
+      drips_per_window: 1_000_000,
+      receiver_max_balance: 1_500_000_000,
+      receiver_drips_per_window: 10,
+      reservoir_id: "f79ea88b-f651-408b-aae7-e05b49dd54e9",
+      keys: [
+        %{
+          # Address: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+          key: "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
+          type: :secp256k1
+        },
+        %{
+          # Address: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+          key: "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a",
+          type: :secp256k1
+        },
+        %{
+          # Address: 0x90F79bf6EB2c4f870365E785982E1f101E93b906
+          key: "0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6",
+          type: :secp256k1
+        }
+      ]
+    },
+    # This is our Faucet for Faucet account
+    "f79ea88b-f651-408b-aae7-e05b49dd54e9" => %{
+      type: :reservoir,
+      window_size: 24 * 60 * 60,
+      drip_amount: 1_000_000_000_000_000_000,
+      drips_per_window: 1,
+      receiver_max_balance: 500_000_000_000_000_000,
+      receiver_drips_per_window: 1,
+      reservoir: nil,
+      keys: [
+        %{
+          # Address: 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65
+          key: "0x47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a",
+          type: :secp256k1
+        }
+      ]
+    }
+  }
+
+config :wrilya,
+  faucet: "0b7efe15-93fe-40fb-8533-dca5f0fe83ed"
+
+# Configure Account database
+config :account, Account.Repo,
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  database: "account_dev",
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
+# Configure Wrilya database
 config :wrilya, Wrilya.Repo,
   username: "postgres",
   password: "postgres",
@@ -10,7 +92,7 @@ config :wrilya, Wrilya.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
-  # Configure your database
+# Configure MUD database
 config :mud, MUD.Repo,
   username: "postgres",
   password: "postgres",
@@ -19,7 +101,8 @@ config :mud, MUD.Repo,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10,
-  after_connect: {MUD.Repo, :set_search_path, ["app,public,0x8d8b6b8414e1e3dcfd4168561b9be6bd3bf6ec4b"]}
+  after_connect:
+    {MUD.Repo, :set_search_path, ["app,public,0x8d8b6b8414e1e3dcfd4168561b9be6bd3bf6ec4b"]}
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -97,3 +180,17 @@ config :phoenix, :stacktrace_depth, 20
 
 config :nostrum,
   token: System.get_env("DISCORD_TOKEN")
+
+config :account, Account.Vault,
+  ciphers: [
+    default:
+      {Cloak.Ciphers.AES.GCM,
+       tag: "AES.GCM.V1", key: Base.decode64!("HXCdm5z61eNgUpnXObJRv94k3JnKSrnfwppyb60nz6w=")}
+  ]
+
+config :faucet, Faucet.Vault,
+  ciphers: [
+    default:
+      {Cloak.Ciphers.AES.GCM,
+       tag: "AES.GCM.V1", key: Base.decode64!("unIX0buZf2L4KucnEIQ2Az/o4yVZpn/2O42re3VSAGc=")}
+  ]

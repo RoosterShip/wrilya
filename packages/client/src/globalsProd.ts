@@ -1,1 +1,0 @@
-global.chainId = 11155111;

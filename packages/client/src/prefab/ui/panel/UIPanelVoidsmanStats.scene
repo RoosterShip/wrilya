@@ -1,0 +1,34 @@
+{
+    "id": "d0320113-d76d-4f36-9cbc-c9b26de8b89d",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 190,
+        "borderHeight": 1000
+    },
+    "displayList": [
+        {
+            "type": "Text",
+            "id": "66ff3246-41d0-4a0f-946e-420261237204",
+            "label": "text_1",
+            "x": 2,
+            "y": 2,
+            "text": "New text",
+            "fontFamily": "System-ui"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

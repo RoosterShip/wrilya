@@ -41,6 +41,7 @@ blop:
 run: 
 	@echo Client starting...
 	pnpm dev
+	$(MAKE) env.down
 	@echo Client shutting down...
 
 #🧹 clean: @ Delete all temp and downloaded files
