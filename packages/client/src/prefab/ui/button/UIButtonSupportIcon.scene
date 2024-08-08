@@ -1,5 +1,5 @@
 {
-    "id": "1310270e-a05c-4258-a9aa-c1cffad609a1",
+    "id": "54716492-644c-4ae6-a2b3-25bdd9b26359",
     "sceneType": "PREFAB",
     "settings": {
         "compilerInsertSpaces": true,
@@ -11,72 +11,72 @@
         "preloadPackFiles": [],
         "createMethodName": "",
         "compilerOutputLanguage": "TYPE_SCRIPT",
-        "borderWidth": 1280,
-        "borderHeight": 720
+        "borderWidth": 710,
+        "borderHeight": 1000
     },
     "displayList": [
         {
             "type": "Container",
-            "id": "a50fb323-2ba1-40e8-ae07-1b5b16db6807",
+            "id": "03dd8dda-1587-4f40-be2a-8cf399e6b8d5",
             "label": "container_1",
             "list": [
                 {
                     "type": "Image",
-                    "id": "30d1139c-3509-44bf-be37-0477c9be4201",
-                    "label": "missions_h",
+                    "id": "ae48ad6b-819e-4d2d-bdd2-1b98171190ff",
+                    "label": "support_h",
                     "texture": {
-                        "key": "missions_h"
+                        "key": "support_h"
                     },
                     "originX": 0,
                     "originY": 0
                 },
                 {
                     "type": "Image",
-                    "id": "e63c6b51-4ce5-4aad-969f-61f7e26f45a6",
-                    "label": "missions_n",
+                    "id": "82201f9c-79e2-4e7e-aa67-bfcd80c3f624",
+                    "label": "support_n",
                     "texture": {
-                        "key": "missions_n"
+                        "key": "support_n"
                     },
                     "originX": 0,
                     "originY": 0
                 },
                 {
                     "type": "Image",
-                    "id": "38454b2d-42e4-458a-8353-6eaf0b56fe66",
-                    "label": "missions_p",
+                    "id": "422a70ab-1179-4456-90b2-51799fd909bd",
+                    "label": "support_p",
                     "texture": {
-                        "key": "missions_p"
-                    },
-                    "originX": 0,
-                    "originY": 0
-                },
-                {
-                    "type": "Image",
-                    "id": "dd649d60-a0a1-4ea0-9506-427c22c93f0c",
-                    "label": "missions_d",
-                    "texture": {
-                        "key": "missions_p"
+                        "key": "support_p"
                     },
                     "originX": 0,
                     "originY": 0
                 },
                 {
                     "type": "Rectangle",
-                    "id": "aa99039f-298e-4eed-8dbf-bbc132128e1f",
+                    "id": "445c1995-5fe5-4234-96d5-78e3a887692c",
                     "label": "hitbox",
                     "originX": 0,
                     "originY": 0,
-                    "width": 22,
-                    "height": 25
+                    "width": 25,
+                    "height": 24
+                },
+                {
+                    "type": "Image",
+                    "id": "2004b55f-6333-4065-b1f0-9a0d44a690b2",
+                    "label": "support_d",
+                    "texture": {
+                        "key": "support_p"
+                    },
+                    "originX": 0,
+                    "originY": 0
                 },
                 {
                     "type": "Text",
-                    "id": "182fdd18-9a01-4920-854f-0982c4e71259",
+                    "id": "b483aa20-95b1-40d5-b47e-fdd2dcf2e672",
                     "label": "tooltip",
-                    "x": -19,
-                    "y": 25,
+                    "x": -14,
+                    "y": 24,
                     "visible": false,
-                    "text": "Missions",
+                    "text": "Support",
                     "fontFamily": "system-ui",
                     "backgroundColor": "#000000c8"
                 }

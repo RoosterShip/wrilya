@@ -68,6 +68,17 @@
                     "originY": 0,
                     "width": 21,
                     "height": 25
+                },
+                {
+                    "type": "Text",
+                    "id": "98ec86bb-dc35-450c-81b0-f90c571c1339",
+                    "label": "tooltip",
+                    "x": -21,
+                    "y": 26,
+                    "visible": false,
+                    "text": "Voidsman",
+                    "fontFamily": "system-ui",
+                    "backgroundColor": "#000000c8"
                 }
             ]
         }

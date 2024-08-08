@@ -68,6 +68,17 @@
                     "originY": 0,
                     "width": 20,
                     "height": 25
+                },
+                {
+                    "type": "Text",
+                    "id": "a6c05e3c-6303-42fd-82fa-58b3adfc7986",
+                    "label": "tooltip",
+                    "x": -12,
+                    "y": 26,
+                    "visible": false,
+                    "text": "Wallet",
+                    "fontFamily": "system-ui",
+                    "backgroundColor": "#000000c8"
                 }
             ]
         }

@@ -68,6 +68,17 @@
                     "originY": 0,
                     "width": 25,
                     "height": 24
+                },
+                {
+                    "type": "Text",
+                    "id": "7d64be74-075e-423e-bc37-6180aa4466bb",
+                    "label": "tooltip",
+                    "x": -27,
+                    "y": 24,
+                    "visible": false,
+                    "text": "Main Menu",
+                    "fontFamily": "system-ui",
+                    "backgroundColor": "#000000c8"
                 }
             ]
         }

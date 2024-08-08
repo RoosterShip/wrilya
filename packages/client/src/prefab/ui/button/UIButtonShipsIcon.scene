@@ -68,6 +68,17 @@
                     "originY": 0,
                     "width": 25,
                     "height": 25
+                },
+                {
+                    "type": "Text",
+                    "id": "4953cb25-067a-4ee1-b644-57b4b154a72a",
+                    "label": "tooltip",
+                    "x": -8,
+                    "y": 26,
+                    "visible": false,
+                    "text": "Ships",
+                    "fontFamily": "system-ui",
+                    "backgroundColor": "#000000c8"
                 }
             ]
         }

@@ -11,6 +11,8 @@ import UIButtonYardIcon from "../button/UIButtonYardIcon";
 import UIButtonGalaxyIcon from "../button/UIButtonGalaxyIcon";
 import UIButtonLedgerIcon from "../button/UIButtonLedgerIcon";
 import UIButtonMainIcon from "../button/UIButtonMainIcon";
+import UIButtonSupportIcon from "../button/UIButtonSupportIcon";
+import UIButtonMarketIcon from "../button/UIButtonMarketIcon";
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
@@ -29,28 +31,36 @@ export default class UIPanelSceneLinks extends Phaser.GameObjects.Container {
     this.add(uIButtonVoidsmanIcon);
 
     // uIButtonShipsIcon
-    const uIButtonShipsIcon = new UIButtonShipsIcon(scene, 70, 5);
+    const uIButtonShipsIcon = new UIButtonShipsIcon(scene, 73, 5);
     this.add(uIButtonShipsIcon);
 
     // uIButtonMissionIcon
-    const uIButtonMissionIcon = new UIButtonMissionIcon(scene, 115, 5);
+    const uIButtonMissionIcon = new UIButtonMissionIcon(scene, 116, 5);
     this.add(uIButtonMissionIcon);
 
     // uIButtonYardIcon
-    const uIButtonYardIcon = new UIButtonYardIcon(scene, 160, 5);
+    const uIButtonYardIcon = new UIButtonYardIcon(scene, 159, 5);
     this.add(uIButtonYardIcon);
 
     // uIButtonGalaxyIcon
-    const uIButtonGalaxyIcon = new UIButtonGalaxyIcon(scene, 205, 5);
+    const uIButtonGalaxyIcon = new UIButtonGalaxyIcon(scene, 202, 5);
     this.add(uIButtonGalaxyIcon);
 
     // uIButtonLedgerIcon
-    const uIButtonLedgerIcon = new UIButtonLedgerIcon(scene, 255, 5);
+    const uIButtonLedgerIcon = new UIButtonLedgerIcon(scene, 245, 5);
     this.add(uIButtonLedgerIcon);
 
     // uIButtonMainIcon
-    const uIButtonMainIcon = new UIButtonMainIcon(scene, 300, 5);
+    const uIButtonMainIcon = new UIButtonMainIcon(scene, 375, 5);
     this.add(uIButtonMainIcon);
+
+    // uIButtonSupportIcon
+    const uIButtonSupportIcon = new UIButtonSupportIcon(scene, 331, 5);
+    this.add(uIButtonSupportIcon);
+
+    // uIButtonMarketIcon
+    const uIButtonMarketIcon = new UIButtonMarketIcon(scene, 288, 5);
+    this.add(uIButtonMarketIcon);
 
     /* START-USER-CTR-CODE */
     // Write your code here.

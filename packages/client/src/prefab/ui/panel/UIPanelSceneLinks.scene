@@ -48,7 +48,7 @@
                         "y"
                     ],
                     "label": "uIButtonShipsIcon",
-                    "x": 70,
+                    "x": 73,
                     "y": 5
                 },
                 {
@@ -59,7 +59,7 @@
                         "y"
                     ],
                     "label": "uIButtonMissionIcon",
-                    "x": 115,
+                    "x": 116,
                     "y": 5
                 },
                 {
@@ -70,7 +70,7 @@
                         "y"
                     ],
                     "label": "uIButtonYardIcon",
-                    "x": 160,
+                    "x": 159,
                     "y": 5
                 },
                 {
@@ -81,7 +81,7 @@
                         "y"
                     ],
                     "label": "uIButtonGalaxyIcon",
-                    "x": 205,
+                    "x": 202,
                     "y": 5
                 },
                 {
@@ -92,7 +92,7 @@
                         "y"
                     ],
                     "label": "uIButtonLedgerIcon",
-                    "x": 255,
+                    "x": 245,
                     "y": 5
                 },
                 {
@@ -103,7 +103,29 @@
                         "y"
                     ],
                     "label": "uIButtonMainIcon",
-                    "x": 300,
+                    "x": 375,
+                    "y": 5
+                },
+                {
+                    "prefabId": "54716492-644c-4ae6-a2b3-25bdd9b26359",
+                    "id": "98be4e82-a2d8-4c8d-8f20-1b30922e31a8",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIButtonSupportIcon",
+                    "x": 331,
+                    "y": 5
+                },
+                {
+                    "prefabId": "a5caf52c-ab97-4454-b17d-ca2664857d4a",
+                    "id": "0a991803-d5ab-40a5-8f0a-931105de9ee9",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "uIButtonMarketIcon",
+                    "x": 288,
                     "y": 5
                 }
             ]

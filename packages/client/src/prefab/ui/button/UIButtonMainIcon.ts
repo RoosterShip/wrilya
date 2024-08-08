@@ -37,6 +37,13 @@ export default class UIButtonMainIcon extends UIButtonStandard {
     hitbox.setOrigin(0, 0);
     this.add(hitbox);
 
+    // tooltip
+    const tooltip = scene.add.text(-27, 24, "", {});
+    tooltip.visible = false;
+    tooltip.text = "Main Menu";
+    tooltip.setStyle({ "backgroundColor": "#000000c8", "fontFamily": "system-ui" });
+    this.add(tooltip);
+
     /* START-USER-CTR-CODE */
     this.setup(
       hitbox,
@@ -47,6 +54,12 @@ export default class UIButtonMainIcon extends UIButtonStandard {
     )
     this.onClick = () => {
       scene.scene.start("Main");
+    }
+    this.onOver = () => {
+      tooltip.visible = true;
+    }
+    this.onOut = () => {
+      tooltip.visible = false;
     }
     /* END-USER-CTR-CODE */
   }

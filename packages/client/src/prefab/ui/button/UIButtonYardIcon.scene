@@ -68,6 +68,17 @@
                     "originY": 0,
                     "width": 23,
                     "height": 25
+                },
+                {
+                    "type": "Text",
+                    "id": "86fbf43b-e6f3-4d06-a15d-774e74fb4945",
+                    "label": "tooltip",
+                    "x": -34,
+                    "y": 25,
+                    "visible": false,
+                    "text": "Workstation",
+                    "fontFamily": "system-ui",
+                    "backgroundColor": "#000000c8"
                 }
             ]
         }

@@ -28,17 +28,6 @@
             "originY": 0
         },
         {
-            "prefabId": "5452fae8-627f-407f-af87-ad5c8f15c63b",
-            "id": "68d537b1-ac11-4b18-8bda-b47439d3fcbe",
-            "unlock": [
-                "x",
-                "y"
-            ],
-            "label": "uIPanelSceneLinks",
-            "x": 423,
-            "y": 0
-        },
-        {
             "type": "Image",
             "id": "203b92b5-ba34-484a-a090-6e7a5a92d7db",
             "label": "large_1_box",
@@ -388,6 +377,17 @@
             "fontFamily": "system-ui",
             "fontSize": "24px",
             "color": "#f43512ff"
+        },
+        {
+            "prefabId": "5452fae8-627f-407f-af87-ad5c8f15c63b",
+            "id": "68d537b1-ac11-4b18-8bda-b47439d3fcbe",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "uIPanelSceneLinks",
+            "x": 423,
+            "y": 0
         }
     ],
     "plainObjects": [],

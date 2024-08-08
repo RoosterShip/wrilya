@@ -17,8 +17,6 @@ import ButtonPlugin from 'phaser3-rex-plugins/plugins/button-plugin';
 import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin';
 import InputTextPlugin from 'phaser3-rex-plugins/plugins/inputtext-plugin';
 
-
-
 // MUD.dev
 import { setup } from "./mud/setup";
 

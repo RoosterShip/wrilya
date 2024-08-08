@@ -68,6 +68,17 @@
                     "originY": 0,
                     "width": 25,
                     "height": 25
+                },
+                {
+                    "type": "Text",
+                    "id": "f65fd9c7-c9ec-4f37-b5a4-2ab3a175a840",
+                    "label": "tooltip",
+                    "x": -12,
+                    "y": 24,
+                    "visible": false,
+                    "text": "Galaxy",
+                    "fontFamily": "system-ui",
+                    "backgroundColor": "#000000c8"
                 }
             ]
         }

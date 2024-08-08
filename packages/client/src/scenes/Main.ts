@@ -4,8 +4,8 @@
 /* START OF COMPILED CODE */
 
 import Phaser from "phaser";
-import UIPanelSceneLinks from "../prefab/ui/panel/UIPanelSceneLinks";
 import UIButtonSideBarSelect1 from "../prefab/ui/button/UIButtonSideBarSelect1";
+import UIPanelSceneLinks from "../prefab/ui/panel/UIPanelSceneLinks";
 /* START-USER-IMPORTS */
 import { createScrollablePanel } from "../utils";
 import UIPanelMainSceneVerseNewsNetwork from "../prefab/ui/panel/UIPanelMainSceneVerseNewsNetwork";
@@ -30,10 +30,6 @@ export default class Main extends Phaser.Scene {
     login_screen.scaleX = 0.67;
     login_screen.scaleY = 0.67;
     login_screen.setOrigin(0, 0);
-
-    // uIPanelSceneLinks
-    const uIPanelSceneLinks = new UIPanelSceneLinks(this, 423, 0);
-    this.add.existing(uIPanelSceneLinks);
 
     // large_1_box
     this.add.image(640, 381, "large_1_box");
@@ -186,6 +182,10 @@ export default class Main extends Phaser.Scene {
     text_5.text = "Latinum  -1.8";
     text_5.setStyle({ "color": "#f43512ff", "fontFamily": "system-ui", "fontSize": "24px" });
 
+    // uIPanelSceneLinks
+    const uIPanelSceneLinks = new UIPanelSceneLinks(this, 423, 0);
+    this.add.existing(uIPanelSceneLinks);
+
     this.btnVerseNewsNetwork = btnVerseNewsNetwork;
     this.btnCommunityUpdates = btnCommunityUpdates;
     this.btnTutorials = btnTutorials;
@@ -262,7 +262,7 @@ export default class Main extends Phaser.Scene {
     this.btnCommunityUpdates.onUnselected = () => {
       cuPanel.visible = false;
     }
-    
+
     // btnTutorial
     const tut = new UIPanelMainSceneTutorial(this, 0, 0);
     this.add.existing(tut);
@@ -284,7 +284,7 @@ export default class Main extends Phaser.Scene {
     this.btnTutorials.onUnselected = () => {
       tutPanel.visible = false;
     }
-    
+
     // btnFAQ
     const faq = new UIPanelMainSceneTutorial(this, 0, 0);
     this.add.existing(faq);
@@ -306,7 +306,7 @@ export default class Main extends Phaser.Scene {
     this.btnFAQ.onUnselected = () => {
       faqPanel.visible = false;
     }
-    
+
     // btnEvents
     const evt = new UIPanelMainSceneTutorial(this, 0, 0);
     this.add.existing(evt);
@@ -328,7 +328,7 @@ export default class Main extends Phaser.Scene {
     this.btnEvents.onUnselected = () => {
       evtPanel.visible = false;
     }
-    
+
     // btnGovernance
     const gov = new UIPanelMainSceneTutorial(this, 0, 0);
     this.add.existing(gov);
@@ -350,7 +350,7 @@ export default class Main extends Phaser.Scene {
     this.btnGovernance.onUnselected = () => {
       govPanel.visible = false;
     }
-    
+
     // btnGameUpdates
     const gu = new UIPanelMainSceneTutorial(this, 0, 0);
     this.add.existing(gu);
@@ -372,7 +372,7 @@ export default class Main extends Phaser.Scene {
     this.btnGameUpdates.onUnselected = () => {
       guPanel.visible = false;
     }
-    
+
     // btnCredits
     const credits = new UIPanelMainSceneTutorial(this, 0, 0);
     this.add.existing(credits);
@@ -400,7 +400,7 @@ export default class Main extends Phaser.Scene {
       const win = window.open("https://wrilya.com", '_blank')!;
       win.focus();
     }
-    
+
     // btnDiscord
     this.btnDiscord.onSelected = () => {
       const win = window.open("https://discord.gg/v4rGcsS8", '_blank')!;

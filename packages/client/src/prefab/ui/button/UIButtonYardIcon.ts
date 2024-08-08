@@ -37,6 +37,13 @@ export default class UIButtonYardIcon extends UIButtonStandard {
     hitbox.setOrigin(0, 0);
     this.add(hitbox);
 
+    // tooltip
+    const tooltip = scene.add.text(-34, 25, "", {});
+    tooltip.visible = false;
+    tooltip.text = "Workstation";
+    tooltip.setStyle({ "backgroundColor": "#000000c8", "fontFamily": "system-ui" });
+    this.add(tooltip);
+
     /* START-USER-CTR-CODE */
     this.setup(
       hitbox,
@@ -47,6 +54,12 @@ export default class UIButtonYardIcon extends UIButtonStandard {
     )
     this.onClick = () => {
       scene.scene.start("Yard");
+    }
+    this.onOver = () => {
+      tooltip.visible = true;
+    }
+    this.onOut = () => {
+      tooltip.visible = false;
     }
     /* END-USER-CTR-CODE */
   }
