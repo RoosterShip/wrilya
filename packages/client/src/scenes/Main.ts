@@ -401,13 +401,11 @@ export default class Main extends Phaser.Scene {
       win.focus();
     }
     
+    // btnDiscord
     this.btnDiscord.onSelected = () => {
-      const win = window.open("https://discord.com", '_blank')!;
+      const win = window.open("https://discord.gg/v4rGcsS8", '_blank')!;
       win.focus();
     }
-
-
-
   }
   /* END-USER-CODE */
 }
