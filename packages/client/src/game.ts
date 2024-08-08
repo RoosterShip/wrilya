@@ -23,6 +23,7 @@ import { SystemCalls } from "./mud/createSystemCalls";
 
 import { getComponentValue } from "@latticexyz/recs";
 import { singletonEntity } from "@latticexyz/store-sync/recs";
+import { SyncStep } from "@latticexyz/store-sync";
 
 // ----------------------------------------------------------------------------
 /**
@@ -38,6 +39,8 @@ export default class Game {
   private mMUDComponents?: ClientComponents;
   private mMUDSystemCalls?: SystemCalls;
   private mSessionData?: object;
+  private mMUDSyncState?: SyncStep;
+  private mMUDLiveShots: {(): void}[] = [];
 
   //private mPortraits: string[] = [];
   //private mCrew: Map<Entity, Voidsman> = new Map<Entity, Voidsman>();
@@ -93,11 +96,29 @@ export default class Game {
     Game.Instance().mMUDNetwork = network;
     Game.Instance().mMUDComponents = components;
     Game.Instance().mMUDSystemCalls = systemCalls;
+   
+    // Setup the MUD state sync component
+    const { SyncProgress }  = components;
+    SyncProgress.update$.subscribe(() => {
+      const loadingState = getComponentValue(SyncProgress, singletonEntity);
+      if (!loadingState) return;
+      Game.Instance().mMUDSyncState = (<SyncStep>loadingState.step);
+      if(loadingState.step === SyncStep.LIVE) {
+        while(Game.Instance().mMUDLiveShots.length > 0){
+          const cb: {(): void} = Game.Instance().mMUDLiveShots.pop()!;
+          cb();
+        }
+      }
+    });
+  }
 
-    // Load the crew up;
-    //console.log("[Game.SetMUD] Starting Monitor");
-    //Game.Instance().monitor();
-    //console.log("[Game.SetMUD] Complete");
+  public static MUDAddLiveShot(shot: {(): void}) {
+    if(Game.Instance().mMUDSyncState === SyncStep.LIVE){
+      shot();
+    }
+    else {
+      Game.Instance().mMUDLiveShots.push(shot);
+    }
   }
 
   public static MUDComponents(): ClientComponents {
@@ -110,6 +131,10 @@ export default class Game {
 
   public static MUDSystemCalls(): SystemCalls {
     return Game.Instance().mMUDSystemCalls!;
+  }
+
+  public static MUDReady(): boolean {
+    return Game.Instance().mMUDSyncState == SyncStep.LIVE;
   }
   
   public static SessionData(): object {
@@ -132,9 +157,9 @@ export default class Game {
   //  return Game.Instance().owner();
   //}
 
-  //public static Address(): string {
-  //  return Game.Instance().address();
-  //}
+  public static Address(): string {
+    return Game.Instance().address();
+  }
 
   //public static Tokens(): number {
   //  return Game.Instance().mTokens;
@@ -182,8 +207,8 @@ export default class Game {
     return getComponentValue(GameConfig, singletonEntity)!;
   }
 
-  private getActive() {
-    return Number(this.getConfig().active);
+  private getActive() : boolean {
+    return this.getConfig().active;
   }
 
   // private loadCurrency() {
@@ -389,8 +414,8 @@ export default class Game {
   //  return Actor.toID(this.address());
   //}
 
-  //private address(): string {
-  //  const { walletClient } = this.mMUDNetwork!;
-  //  return walletClient.account.address;
-  //}
+  private address(): string {
+    const { walletClient } = this.mMUDNetwork!;
+    return walletClient.account.address;
+  }
 }

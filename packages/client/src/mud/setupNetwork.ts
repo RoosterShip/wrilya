@@ -6,7 +6,7 @@
 import {
   createPublicClient,
   fallback,
-  //Transport,
+  Transport,
   webSocket,
   http,
   createWalletClient,

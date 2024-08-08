@@ -7,7 +7,6 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 if config_env() == :prod do
-
   faucet_postgres_username =
     System.get_env("FAUCET_POSTGRES_USER") ||
       raise """
@@ -153,6 +152,18 @@ if config_env() == :prod do
       raise """
       environment variable "ACCOUNT_VAULT_KEY" is missing.
       """
+
+  # faucet_contract_address =
+  #  System.get_env("FAUCET_CONTRACT_ADDRESS") ||
+  #    raise """
+  #    environment variable "ACCOUNT_VAULT_KEY" is missing.
+  #    """
+
+  # faucet_id =
+  #  System.get_env("FAUCET_ID") ||
+  #    raise """
+  #    environment variable "ACCOUNT_VAULT_KEY" is missing.
+  #    """
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 

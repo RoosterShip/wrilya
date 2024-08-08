@@ -37,17 +37,17 @@ defmodule Faucet do
     end
   end
 
-  # @doc """
-  # Adds the default drip amount to the given address if they pass all checks using
-  # a `Task`.
-  #
-  # NOTE:
-  #
-  # The return of the task does NOT mean the drip has completed, just that all primary
-  # checks have been completed and the drip request is not QUEUED for execution
-  # """
-  # @spec drip_async(to :: String.t(), from :: uuid()) :: Task.t()
-  # def drip_async(to, from), do: Task.async(fn -> drip(to, from) end)
+  @doc """
+  Adds the default drip amount to the given address if they pass all checks using
+  a `Task`.
+
+  NOTE:
+
+  The return of the task does NOT mean the drip has completed, just that all primary
+  checks have been completed and the drip request is not QUEUED for execution
+  """
+  @spec drip_async(to :: String.t(), from :: uuid()) :: Task.t()
+  def drip_async(to, from), do: Task.async(fn -> drip(to, from) end)
 
   @doc """
   Add an address or a list of addresses the banned accounts

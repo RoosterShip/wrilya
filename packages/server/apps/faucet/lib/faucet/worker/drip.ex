@@ -71,8 +71,11 @@ defmodule Faucet.Worker.Drip do
       Faucet.Storage.Drip.record(source, addresses)
       wait_txn(txn)
     else
+      false ->
+        Logger.info("[Faucet.Worker.Drip] System state marked drip as ineligible")
+
       e ->
-        Logger.error("[Faucet.Worker.Drip] Drip Exception er: #{inspect(e)}")
+        Logger.error("[Faucet.Worker.Drip] Drip Exception: #{inspect(e)}")
     end
 
     :ok

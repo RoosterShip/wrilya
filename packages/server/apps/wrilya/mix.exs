@@ -38,6 +38,7 @@ defmodule Wrilya.MixProject do
     [
       # Project Deps
       {:utils, in_umbrella: true},
+      {:faucet, in_umbrella: true},
       {:mud, in_umbrella: true},
 
       # Phoenix includes
@@ -68,8 +69,7 @@ defmodule Wrilya.MixProject do
       # Ethereum
       {:rustler, ">= 0.0.0"},
       {:ex_secp256k1, "~> 0.7.3"},
-      {:ethers, "~> 0.5.0"},
-
+      {:ethers, "~> 0.5.0"}
     ]
   end
 

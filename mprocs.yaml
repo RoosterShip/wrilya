@@ -2,7 +2,7 @@ procs:
   client:
     cwd: packages/client
     shell: pnpm run dev
-    autostart: false
+    autostart: true
   mud_client:
     cwd: packages/mud_client
     shell: pnpm run dev
@@ -10,7 +10,7 @@ procs:
   server:
     cwd: packages/server
     shell: make run
-    autostart: false
+    autostart: true
   relayer:
     cwd: packages/relayer
     shell: pnpm run dev

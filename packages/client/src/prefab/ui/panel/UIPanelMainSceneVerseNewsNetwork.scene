@@ -1,0 +1,166 @@
+{
+    "id": "1d1876aa-63ba-4ae5-96ff-eecdcfbb19d2",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 710,
+        "borderHeight": 1000
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "578251fc-eed3-4ebc-bbe0-212b779fcb0f",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Rectangle",
+                    "id": "007dd1fa-dcaa-4e53-8a98-4b2eb109177f",
+                    "label": "sizeBox",
+                    "originX": 0,
+                    "originY": 0,
+                    "width": 680,
+                    "height": 2300
+                },
+                {
+                    "type": "Image",
+                    "id": "6dde930b-1365-4848-8935-ce2040ac0735",
+                    "label": "gnn",
+                    "texture": {
+                        "key": "gnn"
+                    },
+                    "x": 331,
+                    "y": 128,
+                    "scaleX": 0.8,
+                    "scaleY": 0.8
+                },
+                {
+                    "type": "Text",
+                    "id": "f73efeaf-a60d-41d1-a09c-f37137718dba",
+                    "label": "lblStarDate5342-21",
+                    "x": 26,
+                    "y": 253,
+                    "text": "Star Date: 5342.21",
+                    "fontFamily": "system-ui",
+                    "fontSize": "24px"
+                },
+                {
+                    "type": "Image",
+                    "id": "14bb2f72-d2e7-4b9e-a5a4-8f6b9b7d0a3c",
+                    "label": "colonize",
+                    "texture": {
+                        "key": "Colonize"
+                    },
+                    "x": 323,
+                    "y": 451
+                },
+                {
+                    "type": "Text",
+                    "id": "d1f1726c-c405-4ff9-a3b4-cff680229745",
+                    "label": "text",
+                    "x": 25,
+                    "y": 610,
+                    "text": "Today colonization began on the newly discovered world of Tinope.\n\nRecently discovered deposits of Apatite will allow for high crop yields of much needed soy foods in the region.\n\nAs quoted from the newly appointed magistrate \"We are aiming for 100 tons of sellable crops by the end of next year. ",
+                    "fontFamily": "system-ui",
+                    "fontSize": "24px",
+                    "wordWrapWidth": 600
+                },
+                {
+                    "type": "Image",
+                    "id": "cf4fe810-7558-4251-a21a-39955ac72248",
+                    "label": "rep_empty_frame",
+                    "texture": {
+                        "key": "rep_empty_frame"
+                    },
+                    "x": 323,
+                    "y": 939
+                },
+                {
+                    "type": "Text",
+                    "id": "66ef1570-2d0e-4fe8-ba59-77f07905bce9",
+                    "label": "lblStarDate5341-13",
+                    "x": 26,
+                    "y": 1000,
+                    "text": "Star Date: 5342.21",
+                    "fontFamily": "system-ui",
+                    "fontSize": "24px"
+                },
+                {
+                    "type": "Image",
+                    "id": "b4d027a8-494f-4b37-85cd-358a2616a96c",
+                    "label": "planetP",
+                    "texture": {
+                        "key": "PlanetP"
+                    },
+                    "x": 323,
+                    "y": 1160
+                },
+                {
+                    "type": "Text",
+                    "id": "777bdd62-1369-4684-9ff3-3a1b7d630ada",
+                    "label": "text_1",
+                    "x": 36,
+                    "y": 1281,
+                    "text": "Planet P is no more!\n\nThe long awaited astroid Helana impacted with the planet destroying all life.\n\nKnowing that this impact would happen well in advance, everyone was safely evacuated months ago.  However the economic impact is wide spread as Planet P was a major source of multiple resources needed throughout the empire.",
+                    "fontFamily": "system-ui",
+                    "fontSize": "24px",
+                    "wordWrapWidth": 600
+                },
+                {
+                    "type": "Image",
+                    "id": "59064f6f-7538-42bc-abc3-73366cb7c087",
+                    "label": "rep_empty_frame_1",
+                    "texture": {
+                        "key": "rep_empty_frame"
+                    },
+                    "x": 284,
+                    "y": 1645
+                },
+                {
+                    "type": "Text",
+                    "id": "7316f204-972f-4ac9-8edf-f9371044b11b",
+                    "label": "lblStarDate",
+                    "x": 26,
+                    "y": 1677,
+                    "text": "Star Date: 5341.74",
+                    "fontFamily": "system-ui",
+                    "fontSize": "24px"
+                },
+                {
+                    "type": "Image",
+                    "id": "73655804-c4a7-485b-8cca-577b04c50f2a",
+                    "label": "invision",
+                    "texture": {
+                        "key": "Invision"
+                    },
+                    "x": 320,
+                    "y": 1839
+                },
+                {
+                    "type": "Text",
+                    "id": "bb3d9f50-5c54-47aa-b0cd-6af8fd494bc3",
+                    "label": "text_2",
+                    "x": 26,
+                    "y": 1984,
+                    "text": "The war on planet Netera has escalated dramatically with the annihilation of the rebel stronghold of Lophion.\n\nAs quoted by one millitary leader \"This operation will server multiple purposes",
+                    "fontFamily": "system-ui",
+                    "fontSize": "24px",
+                    "wordWrapWidth": 600
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

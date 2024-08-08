@@ -75,7 +75,8 @@ defmodule WrilyaWeb.Router do
 
     scope "/session" do
       pipe_through [:session, :auth, :ensure_auth]
-      get "/info", SessionController, :info
+      get "/initialize/:address", SessionController, :initialize
+
       scope "/voidsman" do
         get "/manifest", Session.VoidsmanController, :manifest
         post "/premint", Session.VoidsmanController, :premint

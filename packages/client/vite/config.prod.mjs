@@ -19,6 +19,11 @@ const phasermsg = () => {
 export default defineConfig({
     base: './',
     logLevel: 'warning',
+    esbuild: {
+        supported: {
+        'top-level-await': true
+        },
+    },
     build: {
         rollupOptions: {
             output: {

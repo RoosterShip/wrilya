@@ -142,6 +142,11 @@
                 "key": "close_p"
             },
             {
+                "url": "assets/images/Colonize.png",
+                "type": "image",
+                "key": "Colonize"
+            },
+            {
                 "url": "assets/ui/window/confirmation_box.png",
                 "type": "image",
                 "key": "confirmation_box"
@@ -282,6 +287,11 @@
                 "key": "eq_slot_weapon"
             },
             {
+                "url": "assets/images/gnn.png",
+                "type": "image",
+                "key": "gnn"
+            },
+            {
                 "url": "assets/ui/form/input_text_black.png",
                 "type": "image",
                 "key": "input_text_black"
@@ -305,6 +315,26 @@
                 "url": "assets/ui/icons/inventory_p.png",
                 "type": "image",
                 "key": "inventory_p"
+            },
+            {
+                "url": "assets/images/Invision.png",
+                "type": "image",
+                "key": "Invision"
+            },
+            {
+                "url": "assets/ui/window/large_0_box.png",
+                "type": "image",
+                "key": "large_0_box"
+            },
+            {
+                "url": "assets/ui/window/large_1_box.png",
+                "type": "image",
+                "key": "large_1_box"
+            },
+            {
+                "url": "assets/ui/window/large_2_box.png",
+                "type": "image",
+                "key": "large_2_box"
             },
             {
                 "url": "assets/ui/button/left_arrow_h.png",
@@ -375,6 +405,11 @@
                 "url": "assets/ui/window/mm_box.png",
                 "type": "image",
                 "key": "mm_box"
+            },
+            {
+                "url": "assets/images/PlanetP.png",
+                "type": "image",
+                "key": "PlanetP"
             },
             {
                 "url": "assets/ui/frame/portrait_frame.png",

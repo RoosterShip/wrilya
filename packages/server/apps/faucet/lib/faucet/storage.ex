@@ -65,7 +65,7 @@ defmodule Faucet.Storage do
   def drip_eligible?(to, source) do
     q =
       from(s in Faucet.Storage.Source.Record,
-        where: s.id == ^source and s.active == true and s.type == 0,
+        where: s.id == ^source and s.active == true and s.type == :faucet,
         select: "s"
       )
 

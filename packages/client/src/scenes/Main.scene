@@ -37,6 +37,357 @@
             "label": "uIPanelSceneLinks",
             "x": 423,
             "y": 0
+        },
+        {
+            "type": "Image",
+            "id": "203b92b5-ba34-484a-a090-6e7a5a92d7db",
+            "label": "large_1_box",
+            "texture": {
+                "key": "large_1_box"
+            },
+            "x": 640,
+            "y": 381
+        },
+        {
+            "type": "Image",
+            "id": "95f23c0f-b474-40f3-a28b-ba024fc9abeb",
+            "label": "mainmenu_p_1",
+            "texture": {
+                "key": "mainmenu_p"
+            },
+            "x": 1097,
+            "y": 65
+        },
+        {
+            "prefabId": "1c7bb852-37d0-4f3f-b1f1-56847d5a2950",
+            "id": "f7cd7939-c4dc-44cd-a67a-a47063640c36",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnVerseNewsNetwork",
+            "scope": "CLASS",
+            "x": 178,
+            "y": 174,
+            "scaleX": 0.6,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "593b70ca-c596-4e9b-a844-4fc7d7583c5a",
+            "label": "lblVerseNewNetwork",
+            "x": 198,
+            "y": 184,
+            "text": "Galactic New Network",
+            "fontFamily": "system-ui"
+        },
+        {
+            "prefabId": "1c7bb852-37d0-4f3f-b1f1-56847d5a2950",
+            "id": "d7e449ca-66e5-461a-9b9f-29a38c37e671",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnCommunityUpdates",
+            "scope": "CLASS",
+            "x": 178,
+            "y": 224,
+            "scaleX": 0.6,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "f41cd89c-102a-427e-8f0f-332fce0523a9",
+            "label": "lblCommunityUpdates",
+            "x": 198,
+            "y": 233,
+            "text": "Community Updates",
+            "fontFamily": "system-ui"
+        },
+        {
+            "prefabId": "1c7bb852-37d0-4f3f-b1f1-56847d5a2950",
+            "id": "2c4c0271-175c-4e49-9441-bbc9208f0e93",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnTutorials",
+            "scope": "CLASS",
+            "x": 178,
+            "y": 274,
+            "scaleX": 0.6,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "8b09139b-4aef-40d5-9b50-65dd8256646e",
+            "label": "lblTutorials",
+            "x": 198,
+            "y": 283,
+            "text": "Tutorial",
+            "fontFamily": "system-ui"
+        },
+        {
+            "prefabId": "1c7bb852-37d0-4f3f-b1f1-56847d5a2950",
+            "id": "6131ad1c-ddf2-4249-9988-90134e2b014c",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnFAQ",
+            "scope": "CLASS",
+            "x": 178,
+            "y": 324,
+            "scaleX": 0.6,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "e803244d-4241-479e-a273-74865413bf59",
+            "label": "lblFAQ",
+            "x": 198,
+            "y": 333,
+            "text": "FAQ",
+            "fontFamily": "system-ui"
+        },
+        {
+            "prefabId": "1c7bb852-37d0-4f3f-b1f1-56847d5a2950",
+            "id": "e4f5cb6c-40ea-4263-974c-031892584606",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnEvents",
+            "scope": "CLASS",
+            "x": 178,
+            "y": 374,
+            "scaleX": 0.6,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "2c220d88-dd66-4def-82e2-96ba0d98d681",
+            "label": "lblEvents",
+            "x": 198,
+            "y": 383,
+            "text": "Events",
+            "fontFamily": "system-ui"
+        },
+        {
+            "prefabId": "1c7bb852-37d0-4f3f-b1f1-56847d5a2950",
+            "id": "ffa889b1-3831-46f6-a717-58e23eecc185",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnGovernance",
+            "scope": "CLASS",
+            "x": 178,
+            "y": 424,
+            "scaleX": 0.6,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "d5c1b33f-f26c-4d4b-8763-14be96253b9c",
+            "label": "lblGovernance",
+            "x": 198,
+            "y": 433,
+            "text": "Governance",
+            "fontFamily": "system-ui"
+        },
+        {
+            "prefabId": "1c7bb852-37d0-4f3f-b1f1-56847d5a2950",
+            "id": "e86e0c2a-496c-4ecc-932b-c41b1038c773",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnGameUpdates",
+            "scope": "CLASS",
+            "x": 178,
+            "y": 474,
+            "scaleX": 0.6,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "8901d4d2-6482-4140-8275-6b5f98e50494",
+            "label": "lblGameUpdates",
+            "x": 198,
+            "y": 483,
+            "text": "Game Updates",
+            "fontFamily": "system-ui"
+        },
+        {
+            "prefabId": "1c7bb852-37d0-4f3f-b1f1-56847d5a2950",
+            "id": "85cd0d8d-d44c-4cb2-8371-070fdb6ca00b",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnCredits",
+            "scope": "CLASS",
+            "x": 178,
+            "y": 524,
+            "scaleX": 0.6,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "7ccba678-5afb-43b8-a9c2-bffb31b14887",
+            "label": "lblCredits",
+            "x": 198,
+            "y": 532,
+            "text": "Credits",
+            "fontFamily": "system-ui"
+        },
+        {
+            "prefabId": "1c7bb852-37d0-4f3f-b1f1-56847d5a2950",
+            "id": "cab6d9ba-39eb-4823-bf4e-a61ca4aa64e2",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnWebsite",
+            "scope": "CLASS",
+            "x": 178,
+            "y": 574,
+            "scaleX": 0.6,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "2afe8078-c4ea-4e22-9e47-fb54aca4e918",
+            "label": "lblWebsite",
+            "x": 198,
+            "y": 583,
+            "text": "Website",
+            "fontFamily": "system-ui"
+        },
+        {
+            "prefabId": "1c7bb852-37d0-4f3f-b1f1-56847d5a2950",
+            "id": "6e0da522-f586-4d9e-9766-75f25a0843d4",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "btnDiscord",
+            "scope": "CLASS",
+            "x": 178,
+            "y": 624,
+            "scaleX": 0.6,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "f020c386-44f6-47f5-9a49-1c774adfebb8",
+            "label": "lblDiscord",
+            "x": 198,
+            "y": 632,
+            "text": "Discord",
+            "fontFamily": "system-ui"
+        },
+        {
+            "type": "Rectangle",
+            "id": "26ca7986-4664-41f8-aea2-38edcdd45b13",
+            "label": "panelMain",
+            "displayName": "panelMain",
+            "scope": "CLASS",
+            "x": 394,
+            "y": 163,
+            "originX": 0,
+            "originY": 0,
+            "width": 710,
+            "height": 518
+        },
+        {
+            "type": "Text",
+            "id": "c19969e7-9607-44f8-afc7-7573566051dc",
+            "label": "text_1",
+            "x": 649,
+            "y": 69,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "MAIN MENU",
+            "align": "center",
+            "fontFamily": "system-ui",
+            "fontSize": "24px",
+            "color": "#b1d1e3ff"
+        },
+        {
+            "type": "Text",
+            "id": "2bff7e87-c2e5-4f39-9e68-fd3c49d89253",
+            "label": "text_2",
+            "x": 185,
+            "y": 121,
+            "text": "Market Movements:",
+            "fontFamily": "system-ui",
+            "fontSize": "24px"
+        },
+        {
+            "type": "Text",
+            "id": "7276fae2-51bc-4107-92bc-7e6c3904c9dc",
+            "label": "text_3",
+            "x": 431,
+            "y": 121,
+            "text": "GOLD +2.45",
+            "fontFamily": "system-ui",
+            "fontSize": "24px",
+            "color": "#12f419ff"
+        },
+        {
+            "type": "Text",
+            "id": "2699ebcc-51fc-4130-865a-2d4a10d42976",
+            "label": "text",
+            "x": 595,
+            "y": 120,
+            "text": "Soy -1.2",
+            "fontFamily": "system-ui",
+            "fontSize": "24px",
+            "color": "#f42a12ff"
+        },
+        {
+            "type": "Text",
+            "id": "050def44-85c3-4118-a394-7330ea82b007",
+            "label": "text_4",
+            "x": 712,
+            "y": 120,
+            "text": "Dilithium  +0.2",
+            "fontFamily": "system-ui",
+            "fontSize": "24px",
+            "color": "#22f412ff"
+        },
+        {
+            "type": "Text",
+            "id": "94248456-00cf-4a27-a788-2497f7238aa6",
+            "label": "text_5",
+            "x": 918,
+            "y": 121,
+            "text": "Latinum  -1.8",
+            "fontFamily": "system-ui",
+            "fontSize": "24px",
+            "color": "#f43512ff"
         }
     ],
     "plainObjects": [],

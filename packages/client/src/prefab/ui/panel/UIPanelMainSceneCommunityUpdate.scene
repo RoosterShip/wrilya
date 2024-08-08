@@ -1,0 +1,63 @@
+{
+    "id": "81147d20-de06-4ca1-9a1f-a1d2220316dd",
+    "sceneType": "PREFAB",
+    "settings": {
+        "compilerInsertSpaces": true,
+        "compilerTabSize": 2,
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 710,
+        "borderHeight": 1000
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "e64ed3ba-2d50-4a86-bb85-fc54d19d75ff",
+            "label": "container_1",
+            "list": [
+                {
+                    "type": "Rectangle",
+                    "id": "42b76a43-4188-44cb-b1aa-63345843c963",
+                    "label": "sizebox",
+                    "originX": 0,
+                    "originY": 0,
+                    "width": 680,
+                    "height": 1000
+                },
+                {
+                    "type": "Text",
+                    "id": "0e22d000-31a0-4170-a3d0-a6c3309c190b",
+                    "label": "text_1",
+                    "x": 26,
+                    "y": 16,
+                    "text": "Community Updates!",
+                    "fontFamily": "system-ui",
+                    "fontSize": "32px"
+                },
+                {
+                    "type": "Text",
+                    "id": "8a757fc2-917f-48e4-ae91-4531ef8356ce",
+                    "label": "text_2",
+                    "x": 26,
+                    "y": 104,
+                    "text": "Community engagement is an important component of a thriving game. Weekly updates provide information about planned work and opportunities to provide feedback and get involved. \n\nThe Community Update newsletter includes information about upcoming events and game improvements, collaborations with partner and community organizations, goverance meetings, openings on boards and commissions, and many other items of interest.\n\n\n8/7/2024 - Live Stream with Devs\n\nOur first live stream with the devs is planned to for 8/24/2024 at 7pm EST, 4pm PST.  Please come and chat with us.\n\n\n7/30/2024 - User Created Content\n\nWe got a new plan or UCC and we want to hear what you think.  Come see a live demo of this new feature and see how you can engage for both fun and profit!\n\n\n",
+                    "fontFamily": "system-ui",
+                    "fontSize": "24px",
+                    "wordWrapWidth": 650,
+                    "wordWrapUseAdvanced": true
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}
